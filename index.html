@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shein - Tienda Online</title>
+    <title>Shein - Centro Comercial</title>
     <style>
-        /* ---------- RESET Y ESTILOS BASE ---------- */
+        /* ========== RESET Y ESTILOS BASE ========== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -24,7 +24,7 @@
 
         .container {
             background-color: #fff;
-            padding: 30px 40px;
+            padding: 25px 30px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             max-width: 550px;
@@ -32,29 +32,32 @@
             transition: all 0.3s ease;
         }
 
-        h1 {
+        /* ========== HEADER ========== */
+        .app-header {
             text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .app-header h1 {
             color: #ff6b6b;
-            font-size: 2.8rem;
-            margin-bottom: 0px;
+            font-size: 2.5rem;
             letter-spacing: 2px;
         }
 
-        .sub-title {
-            text-align: center;
+        .app-header p {
             color: #888;
-            margin-bottom: 25px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
+        /* ========== FORMULARIOS ========== */
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
         label {
             display: block;
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             color: #333;
             font-size: 0.9rem;
         }
@@ -87,7 +90,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         .btn:hover {
@@ -97,18 +100,129 @@
         }
 
         .btn-outline {
-            background-color: transparent;
+            background: transparent;
             border: 2px solid #ff6b6b;
             color: #ff6b6b;
         }
 
         .btn-outline:hover {
-            background-color: #ff6b6b;
+            background: #ff6b6b;
             color: white;
+        }
+
+        .btn-success {
+            background: #00b894;
+        }
+
+        .btn-success:hover {
+            background: #00a381;
+        }
+
+        .btn-warning {
+            background: #fdcb6e;
+            color: #2d3436;
+        }
+
+        .btn-warning:hover {
+            background: #f9ca24;
         }
 
         .hidden {
             display: none !important;
+        }
+
+        .switch-link {
+            text-align: center;
+            margin-top: 15px;
+            color: #0984e3;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .switch-link:hover {
+            text-decoration: underline;
+        }
+
+        .error-msg {
+            color: #d63031;
+            font-size: 0.85rem;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: #ffeaa7;
+            display: none;
+            margin-top: 5px;
+        }
+
+        .success-msg {
+            color: #00b894;
+            font-size: 0.95rem;
+            text-align: center;
+            padding: 10px;
+            background: #e0f7f1;
+            border-radius: 12px;
+            margin: 10px 0;
+        }
+
+        /* ========== DASHBOARD ========== */
+        .user-greeting {
+            font-size: 1.2rem;
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .user-greeting span {
+            color: #ff6b6b;
+            font-weight: 700;
+        }
+
+        /* Balance Cards */
+        .balance-cards {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .balance-card {
+            flex: 1;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+
+        .balance-card .label {
+            font-size: 0.8rem;
+            color: #888;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .balance-card .amount {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #2d3436;
+        }
+
+        .balance-card .amount.green {
+            color: #00b894;
+        }
+
+        .balance-card .amount.orange {
+            color: #fdcb6e;
+        }
+
+        /* Botones acción */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .action-buttons .btn {
+            flex: 1;
+            margin-top: 0;
         }
 
         /* VIP Section */
@@ -116,14 +230,14 @@
             background: #fafafa;
             border-radius: 15px;
             padding: 15px 20px;
-            margin-top: 20px;
+            margin-top: 15px;
             border: 1px solid #eee;
         }
 
         .vip-item {
             display: flex;
             justify-content: space-between;
-            padding: 10px 5px;
+            padding: 8px 5px;
             border-bottom: 1px solid #f0f0f0;
         }
 
@@ -136,10 +250,6 @@
             color: #2d3436;
         }
 
-        .vip-status {
-            font-weight: 500;
-        }
-
         .vip-status.activo {
             color: #00b894;
         }
@@ -148,72 +258,124 @@
             color: #b2bec3;
         }
 
-        .balance-box {
-            background: linear-gradient(135deg, #dfe6e9, #b2bec3);
-            padding: 18px;
-            border-radius: 15px;
+        /* Info Registros */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
             margin: 15px 0;
-            text-align: center;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
         }
 
-        .balance-box span {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #00b894;
-        }
-
-        .switch-link {
-            text-align: center;
-            margin-top: 20px;
-            color: #0984e3;
-            cursor: pointer;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-
-        .switch-link:hover {
-            text-decoration: underline;
-            color: #0652DD;
-        }
-
-        .error-msg {
-            color: #d63031;
-            font-size: 0.85rem;
-            margin-top: 5px;
-            display: none;
-            background: #ffeaa7;
-            padding: 8px 12px;
-            border-radius: 10px;
-        }
-
-        .success-msg {
-            color: #00b894;
-            font-size: 0.95rem;
-            text-align: center;
-            margin: 10px 0;
-            padding: 10px;
-            background: #e0f7f1;
+        .info-item {
+            background: #f8f9fa;
             border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #eee;
         }
 
-        .user-greeting {
-            font-size: 1.2rem;
+        .info-item .number {
+            font-size: 1.5rem;
+            font-weight: 700;
             color: #2d3436;
         }
 
-        .user-greeting span {
-            color: #ff6b6b;
+        .info-item .label {
+            font-size: 0.7rem;
+            color: #888;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Servicios */
+        .servicios-list {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .servicios-list:last-child {
+            border-bottom: none;
+        }
+
+        .servicios-list .badge {
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 10px;
+            font-size: 0.8rem;
             font-weight: 700;
+        }
+
+        /* Configuración */
+        .config-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .config-item:last-child {
+            border-bottom: none;
+        }
+
+        .config-item .value {
+            color: #0984e3;
+            font-weight: 600;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .bottom-nav .nav-item {
+            text-align: center;
+            cursor: pointer;
+            color: #888;
+            transition: 0.3s;
+            font-size: 0.8rem;
+        }
+
+        .bottom-nav .nav-item:hover {
+            color: #ff6b6b;
+        }
+
+        .bottom-nav .nav-item .icon {
+            font-size: 1.5rem;
+            display: block;
+        }
+
+        .bottom-nav .nav-item.active {
+            color: #ff6b6b;
+            font-weight: 600;
         }
 
         /* Responsive */
         @media (max-width: 500px) {
             .container {
-                padding: 20px;
+                padding: 18px;
             }
-            h1 {
-                font-size: 2.2rem;
+            .balance-cards {
+                flex-direction: column;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+            .info-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+            .info-item .number {
+                font-size: 1.2rem;
+            }
+            .app-header h1 {
+                font-size: 2rem;
             }
         }
     </style>
@@ -221,11 +383,14 @@
 <body>
 
 <div class="container" id="appContainer">
-    <!-- HEADER -->
-    <h1>Shein</h1>
-    <p class="sub-title">✨ Tu tienda online favorita ✨</p>
+    
+    <!-- ===== HEADER ===== -->
+    <div class="app-header">
+        <h1>Shein</h1>
+        <p>✨ Tu centro comercial online ✨</p>
+    </div>
 
-    <!-- ========== FORMULARIO DE REGISTRO ========== -->
+    <!-- ===== REGISTER FORM ===== -->
     <div id="registerForm">
         <h2 style="margin-bottom: 15px; color:#2d3436;">📝 Crear cuenta</h2>
         
@@ -248,7 +413,7 @@
 
         <div class="form-group">
             <label>👤 Nombre de usuario</label>
-            <input type="text" id="regUsername" placeholder="Ej: shein_user_2026">
+            <input type="text" id="regUsername" placeholder="Ej: shein_user">
         </div>
 
         <div class="form-group">
@@ -263,7 +428,7 @@
         <div class="switch-link" onclick="showLogin()">¿Ya tienes cuenta? <strong>Iniciar sesión</strong></div>
     </div>
 
-    <!-- ========== FORMULARIO DE LOGIN ========== -->
+    <!-- ===== LOGIN FORM ===== -->
     <div id="loginForm" class="hidden">
         <h2 style="margin-bottom: 15px; color:#2d3436;">🔐 Iniciar sesión</h2>
 
@@ -284,39 +449,118 @@
         <div class="switch-link" onclick="showRegister()">¿No tienes cuenta? <strong>Regístrate aquí</strong></div>
     </div>
 
-    <!-- ========== PANEL PRINCIPAL (Dashboard) ========== -->
+    <!-- ===== DASHBOARD (Centro Comercial) ===== -->
     <div id="dashboard" class="hidden">
-        <h2 class="user-greeting">👋 Hola, <span id="displayUsername">Usuario</span>!</h2>
         
-        <div class="balance-box">
-            💰 <strong>Saldo disponible</strong> <br>
-            <span id="displayBalance">S/ 10.00</span>
+        <!-- Saludo -->
+        <div class="user-greeting">
+            👋 Hola, <span id="displayUsername">Usuario</span>
         </div>
 
-        <div class="vip-section">
-            <h3 style="margin-bottom: 12px; color:#2d3436;">🌟 Niveles VIP</h3>
-            <div id="vipList">
-                <!-- Los VIP se generan con JavaScript -->
+        <!-- Balance Cards -->
+        <div class="balance-cards">
+            <div class="balance-card">
+                <div class="label">💰 Saldo</div>
+                <div class="amount green" id="displayBalance">S/ 10.00</div>
+            </div>
+            <div class="balance-card">
+                <div class="label">📈 Ingresos totales</div>
+                <div class="amount orange" id="totalIncome">S/ 0</div>
             </div>
         </div>
 
-        <button class="btn btn-outline" onclick="handleLogout()" style="margin-top: 20px;">🚪 Cerrar sesión</button>
+        <!-- Botones COMENZAR, RECARGAR, RETIRAR -->
+        <button class="btn btn-success" onclick="handleComenzar()" style="margin-bottom:10px;">
+            🚀 COMENZAR
+        </button>
+
+        <div class="action-buttons">
+            <button class="btn btn-warning" onclick="handleRecargar()">📥 RECARGAR</button>
+            <button class="btn btn-outline" onclick="handleRetirar()">📤 RETIRAR</button>
+        </div>
+
+        <!-- Información de registros -->
+        <h3 style="color:#2d3436; margin-top:15px;">📋 Información de registros</h3>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="number" id="recargaCount">0</div>
+                <div class="label">Recargas</div>
+            </div>
+            <div class="info-item">
+                <div class="number" id="retiroCount">0</div>
+                <div class="label">Retiros</div>
+            </div>
+            <div class="info-item">
+                <div class="number" id="trabajoCount">0</div>
+                <div class="label">Trabajos</div>
+            </div>
+        </div>
+
+        <!-- VIP Section -->
+        <div class="vip-section">
+            <h3 style="margin-bottom: 10px; color:#2d3436;">🌟 Niveles VIP</h3>
+            <div id="vipList"></div>
+        </div>
+
+        <!-- Servicios -->
+        <h3 style="color:#2d3436; margin-top:15px;">🔧 Servicios</h3>
+        <div class="servicios-list">
+            <span>🔔 Notificaciones de mensajes</span>
+            <span class="badge" id="notificacionCount">1</span>
+        </div>
+
+        <!-- Configuración -->
+        <h3 style="color:#2d3436; margin-top:15px;">⚙️ Configuración</h3>
+        <div class="config-item">
+            <span>🔗 Información de enlace</span>
+            <span class="value" id="linkInfo">shein.com/user</span>
+        </div>
+        <div class="config-item">
+            <span>🌐 Idioma</span>
+            <span class="value">es</span>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="navClick('inicio')">
+                <span class="icon">🏠</span> Inicio
+            </div>
+            <div class="nav-item" onclick="navClick('contrato')">
+                <span class="icon">📄</span> Contrato
+            </div>
+            <div class="nav-item" onclick="navClick('trabajo')">
+                <span class="icon">💼</span> Trabajo
+            </div>
+            <div class="nav-item" onclick="navClick('mi')">
+                <span class="icon">👤</span> Mi
+            </div>
+        </div>
+
+        <!-- Logout -->
+        <button class="btn btn-outline" onclick="handleLogout()" style="margin-top:15px;">
+            🚪 Cerrar sesión
+        </button>
     </div>
 
-    <!-- Mensajes de información -->
+    <!-- Mensajes -->
     <div id="infoMessage" class="success-msg hidden"></div>
 </div>
 
 <script>
     // ============================================================
-    //  ESTADO GLOBAL (donde se guardan los datos del usuario)
+    //  ESTADO GLOBAL
     // ============================================================
     let userData = {
         username: '',
         phone: '',
         password: '',
-        balance: 10.00,   // S/ 10.00 soles (Perú)
+        balance: 10.00,
+        totalIncome: 0,
         isLoggedIn: false,
+        recargaCount: 0,
+        retiroCount: 0,
+        trabajoCount: 0,
+        notificacionCount: 1,
         vipLevels: {
             vip1: { name: 'VIP 1', active: true },
             vip2: { name: 'VIP 2', active: false },
@@ -341,7 +585,6 @@
         }, 4000);
     }
 
-    // Renderizar la lista de VIP en el Dashboard
     function renderVIPs() {
         const container = document.getElementById('vipList');
         container.innerHTML = '';
@@ -361,34 +604,45 @@
         });
     }
 
-    // Actualizar el Dashboard después de login/registro
     function updateDashboard() {
         document.getElementById('displayUsername').textContent = userData.username;
         document.getElementById('displayBalance').textContent = `S/ ${userData.balance.toFixed(2)}`;
+        document.getElementById('totalIncome').textContent = `S/ ${userData.totalIncome.toFixed(2)}`;
+        document.getElementById('recargaCount').textContent = userData.recargaCount;
+        document.getElementById('retiroCount').textContent = userData.retiroCount;
+        document.getElementById('trabajoCount').textContent = userData.trabajoCount;
+        document.getElementById('notificacionCount').textContent = userData.notificacionCount;
         renderVIPs();
     }
 
     // ============================================================
-    //  CAMBIAR ENTRE FORMULARIOS
+    //  NAVEGACIÓN
     // ============================================================
     function showLogin() {
-        document.getElementById('registerForm').classList.add('hidden');
-        document.getElementById('loginForm').classList.remove('hidden');
+        document.getElementById('registerForm').classList.remove('hidden');
+        document.getElementById('loginForm').classList.add('hidden');
         document.getElementById('dashboard').classList.add('hidden');
         document.getElementById('loginError').style.display = 'none';
         document.getElementById('regError').style.display = 'none';
     }
 
     function showRegister() {
-        document.getElementById('registerForm').classList.remove('hidden');
-        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('registerForm').classList.add('hidden');
+        document.getElementById('loginForm').classList.remove('hidden');
         document.getElementById('dashboard').classList.add('hidden');
         document.getElementById('regError').style.display = 'none';
         document.getElementById('loginError').style.display = 'none';
     }
 
+    function navClick(section) {
+        const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+        navItems.forEach(item => item.classList.remove('active'));
+        event.target.closest('.nav-item').classList.add('active');
+        showMessage(`📌 Navegando a: ${section}`, true);
+    }
+
     // ============================================================
-    //  REGISTRO
+    //  ACCIONES
     // ============================================================
     function handleRegister() {
         const phone = document.getElementById('regPhone').value.trim();
@@ -396,7 +650,6 @@
         const username = document.getElementById('regUsername').value.trim();
         const password = document.getElementById('regPassword').value.trim();
 
-        // Validación
         if (!phone || !username || !password) {
             document.getElementById('regError').style.display = 'block';
             return;
@@ -404,14 +657,17 @@
             document.getElementById('regError').style.display = 'none';
         }
 
-        // Guardar datos
         userData.username = username;
         userData.phone = phone;
         userData.password = password;
-        userData.balance = 10.00;   // S/ 10 soles de bienvenida
+        userData.balance = 10.00;
+        userData.totalIncome = 0;
         userData.isLoggedIn = true;
+        userData.recargaCount = 0;
+        userData.retiroCount = 0;
+        userData.trabajoCount = 0;
+        userData.notificacionCount = 1;
 
-        // Activar solo VIP 1 por defecto (los demás permanecen inactivos)
         userData.vipLevels.vip1.active = true;
         userData.vipLevels.vip2.active = false;
         userData.vipLevels.vip3.active = false;
@@ -419,23 +675,18 @@
         userData.vipLevels.vip5.active = false;
         userData.vipLevels.vip6.active = false;
 
-        // Mostrar Dashboard
         document.getElementById('registerForm').classList.add('hidden');
         document.getElementById('loginForm').classList.add('hidden');
         document.getElementById('dashboard').classList.remove('hidden');
 
         updateDashboard();
-        showMessage(`✅ ¡Cuenta "${username}" creada con éxito! Has recibido S/ 10.00 de bienvenida.`, true);
+        showMessage(`✅ ¡Cuenta "${username}" creada con éxito! S/ 10.00 de bienvenida.`, true);
     }
 
-    // ============================================================
-    //  LOGIN
-    // ============================================================
     function handleLogin() {
         const identifier = document.getElementById('loginIdentifier').value.trim();
         const password = document.getElementById('loginPassword').value.trim();
 
-        // Verificar contra los datos guardados
         if ((identifier === userData.username || identifier === userData.phone) && password === userData.password) {
             document.getElementById('loginError').style.display = 'none';
             userData.isLoggedIn = true;
@@ -452,9 +703,6 @@
         }
     }
 
-    // ============================================================
-    //  LOGOUT
-    // ============================================================
     function handleLogout() {
         userData.isLoggedIn = false;
         document.getElementById('dashboard').classList.add('hidden');
@@ -464,14 +712,41 @@
     }
 
     // ============================================================
+    //  BOTONES DEL DASHBOARD
+    // ============================================================
+    function handleComenzar() {
+        userData.balance += 5;
+        userData.totalIncome += 5;
+        userData.trabajoCount += 1;
+        updateDashboard();
+        showMessage('🚀 ¡Has comenzado un nuevo trabajo! +S/ 5.00', true);
+    }
+
+    function handleRecargar() {
+        userData.balance += 10;
+        userData.recargaCount += 1;
+        updateDashboard();
+        showMessage('📥 ¡Recarga exitosa! +S/ 10.00', true);
+    }
+
+    function handleRetirar() {
+        if (userData.balance >= 5) {
+            userData.balance -= 5;
+            userData.retiroCount += 1;
+            updateDashboard();
+            showMessage('📤 ¡Retiro exitoso! -S/ 5.00', true);
+        } else {
+            showMessage('❌ Saldo insuficiente para retirar.', false);
+        }
+    }
+
+    // ============================================================
     //  INICIALIZAR
     // ============================================================
     window.onload = function() {
-        // Mostrar formulario de registro al cargar
         document.getElementById('registerForm').classList.remove('hidden');
         document.getElementById('loginForm').classList.add('hidden');
         document.getElementById('dashboard').classList.add('hidden');
-        // Ocultar mensajes de error
         document.getElementById('regError').style.display = 'none';
         document.getElementById('loginError').style.display = 'none';
     };
