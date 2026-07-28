@@ -393,6 +393,136 @@
             flex: 1;
         }
 
+        /* ========== INICIO PAGE (ANIMACIONES) ========== */
+        .inicio-page {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .inicio-page .hero-icon {
+            font-size: 4rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .inicio-page .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .inicio-page .stat-box {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-radius: 15px;
+            padding: 15px 10px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .inicio-page .stat-box:nth-child(2) {
+            animation-delay: 0.3s;
+            background: linear-gradient(135deg, #00b894, #00a381);
+        }
+
+        .inicio-page .stat-box:nth-child(3) {
+            animation-delay: 0.6s;
+            background: linear-gradient(135deg, #fdcb6e, #f9ca24);
+            color: #2d3436;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .inicio-page .stat-box .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .inicio-page .stat-box .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .inicio-page .trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .inicio-page .trust-badge {
+            background: #f0f2f5;
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #2d3436;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .inicio-page .trust-badge:nth-child(1) { animation-delay: 0.1s; }
+        .inicio-page .trust-badge:nth-child(2) { animation-delay: 0.3s; }
+        .inicio-page .trust-badge:nth-child(3) { animation-delay: 0.5s; }
+        .inicio-page .trust-badge:nth-child(4) { animation-delay: 0.7s; }
+        .inicio-page .trust-badge:nth-child(5) { animation-delay: 0.9s; }
+        .inicio-page .trust-badge:nth-child(6) { animation-delay: 1.1s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .inicio-page .trust-badge .icon {
+            margin-right: 5px;
+        }
+
+        .inicio-page .testimonial {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #ff6b6b;
+            text-align: left;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .inicio-page .testimonial .quote {
+            font-style: italic;
+            color: #555;
+        }
+
+        .inicio-page .testimonial .author {
+            font-weight: 600;
+            color: #2d3436;
+            margin-top: 5px;
+        }
+
+        .inicio-page .testimonial .stars {
+            color: #fdcb6e;
+            font-size: 1.1rem;
+        }
+
         /* Bottom Navigation */
         .bottom-nav {
             display: flex;
@@ -424,6 +554,15 @@
             font-weight: 600;
         }
 
+        /* Page sections */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
         /* Responsive */
         @media (max-width: 500px) {
             .container {
@@ -448,6 +587,13 @@
             .bank-form .form-row {
                 flex-direction: column;
                 gap: 0;
+            }
+            .inicio-page .stat-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+            .inicio-page .stat-box .stat-number {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -551,111 +697,188 @@
             <button class="btn btn-outline" onclick="handleRetirar()">📤 RETIRAR</button>
         </div>
 
-        <!-- Información de registros -->
-        <h3 style="color:#2d3436; margin-top:15px;">📋 Información de registros</h3>
-        <div class="info-grid">
-            <div class="info-item">
-                <div class="number" id="recargaCount">0</div>
-                <div class="label">Recargas</div>
-            </div>
-            <div class="info-item">
-                <div class="number" id="retiroCount">0</div>
-                <div class="label">Retiros</div>
-            </div>
-            <div class="info-item">
-                <div class="number" id="trabajoCount">0</div>
-                <div class="label">Trabajos</div>
-            </div>
-        </div>
+        <!-- ===== INICIO PAGE (ANIMACIONES) ===== -->
+        <div id="inicioPage" class="page-section active">
+            <div class="inicio-page">
+                <div class="hero-icon">🌍</div>
+                <h3 style="color:#2d3436; margin:10px 0;">¡Bienvenido a Shein!</h3>
+                <p style="color:#888; font-size:0.9rem;">Miles de personas confían en nosotros en todo el mundo.</p>
 
-        <!-- VIP Section -->
-        <div class="vip-section">
-            <h3 style="margin-bottom: 10px; color:#2d3436;">🌟 Niveles VIP</h3>
-            <div id="vipList"></div>
-        </div>
+                <!-- Estadísticas globales -->
+                <div class="stat-grid">
+                    <div class="stat-box">
+                        <div class="stat-number" id="globalUsers">2.5M</div>
+                        <div class="stat-label">Usuarios activos</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="globalTransactions">1.2M</div>
+                        <div class="stat-label">Transacciones</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="globalCountries">150+</div>
+                        <div class="stat-label">Países</div>
+                    </div>
+                </div>
 
-        <!-- Servicios -->
-        <h3 style="color:#2d3436; margin-top:15px;">🔧 Servicios</h3>
-        <div class="servicios-list">
-            <span>🔔 Notificaciones de mensajes</span>
-            <span class="badge" id="notificacionCount">1</span>
+                <!-- Trust Badges -->
+                <div class="trust-badges">
+                    <span class="trust-badge">🔒 100% Seguro</span>
+                    <span class="trust-badge">✅ Verificado</span>
+                    <span class="trust-badge">⭐ 4.9/5 Estrellas</span>
+                    <span class="trust-badge">🛡️ Protegido</span>
+                    <span class="trust-badge">🏆 Líder del mercado</span>
+                    <span class="trust-badge">💳 Pagos rápidos</span>
+                </div>
+
+                <!-- Testimonios -->
+                <div class="testimonial">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="quote">"Shein es la mejor plataforma para comprar y vender. ¡100% confiable!"</div>
+                    <div class="author">— María G. (Lima, Perú)</div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="quote">"He recibido mis pagos a tiempo. Excelente servicio."</div>
+                    <div class="author">— Carlos R. (Bogotá, Colombia)</div>
+                </div>
+
+                <!-- Garantías -->
+                <div style="background:#f0f2f5; border-radius:12px; padding:15px; margin:10px 0;">
+                    <h4 style="color:#2d3436;">🛡️ Nuestras Garantías</h4>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px; font-size:0.85rem; text-align:left;">
+                        <div>✅ 100% de transparencia</div>
+                        <div>✅ Soporte 24/7</div>
+                        <div>✅ Retiros en 24 horas</div>
+                        <div>✅ Datos protegidos</div>
+                        <div>✅ Sin comisiones ocultas</div>
+                        <div>✅ Seguridad bancaria</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- ===== CONFIGURACIÓN CON BANCOS ===== -->
-        <h3 style="color:#2d3436; margin-top:15px;">⚙️ Configuración</h3>
-        
-        <!-- Mostrar bancos guardados -->
-        <div id="bankListContainer">
-            <div id="bankList"></div>
-        </div>
-
-        <!-- Botón para agregar banco -->
-        <button class="btn btn-primary" onclick="toggleBankForm()" style="margin-top:5px; font-size:0.9rem; padding:8px;">
-            ➕ Agregar cuenta bancaria
-        </button>
-
-        <!-- Formulario para agregar banco (oculto por defecto) -->
-        <div id="bankFormContainer" class="bank-form hidden">
-            <h4 style="color:#2d3436; margin-bottom:10px;">🏦 Agregar cuenta bancaria</h4>
+        <div id="configPage" class="page-section">
+            <h3 style="color:#2d3436; margin-top:15px;">⚙️ Configuración</h3>
             
-            <div class="form-group">
-                <label>🏛️ Nombre del banco</label>
-                <select id="bankName">
-                    <option value="">Selecciona un banco...</option>
-                    <option value="Banco de Crédito (BCP)">Banco de Crédito (BCP)</option>
-                    <option value="Banco BBVA">Banco BBVA</option>
-                    <option value="Banco Interbank">Banco Interbank</option>
-                    <option value="Banco Scotiabank">Banco Scotiabank</option>
-                    <option value="Banco Pichincha">Banco Pichincha</option>
-                    <option value="Banco Falabella">Banco Falabella</option>
-                    <option value="Banco Ripley">Banco Ripley</option>
-                    <option value="Banco GNB">Banco GNB</option>
-                    <option value="Banco Azteca">Banco Azteca</option>
-                    <option value="Banco Cencosud">Banco Cencosud</option>
-                    <option value="Banco Comercio">Banco Comercio</option>
-                    <option value="Banco Santander">Banco Santander</option>
-                </select>
+            <!-- Mostrar bancos guardados -->
+            <div id="bankListContainer">
+                <div id="bankList"></div>
             </div>
 
-            <div class="form-group">
-                <label>🔢 Número de cuenta</label>
-                <input type="text" id="bankAccountNumber" placeholder="Ej: 123-456-7890">
+            <!-- Botón para agregar banco -->
+            <button class="btn btn-primary" onclick="toggleBankForm()" style="margin-top:5px; font-size:0.9rem; padding:8px;">
+                ➕ Agregar cuenta bancaria
+            </button>
+
+            <!-- Formulario para agregar banco (oculto por defecto) -->
+            <div id="bankFormContainer" class="bank-form hidden">
+                <h4 style="color:#2d3436; margin-bottom:10px;">🏦 Agregar cuenta bancaria</h4>
+                
+                <div class="form-group">
+                    <label>🏛️ Nombre del banco</label>
+                    <select id="bankName">
+                        <option value="">Selecciona un banco...</option>
+                        <option value="Banco de Crédito (BCP)">Banco de Crédito (BCP)</option>
+                        <option value="Banco BBVA">Banco BBVA</option>
+                        <option value="Banco Interbank">Banco Interbank</option>
+                        <option value="Banco Scotiabank">Banco Scotiabank</option>
+                        <option value="Banco Pichincha">Banco Pichincha</option>
+                        <option value="Banco Falabella">Banco Falabella</option>
+                        <option value="Banco Ripley">Banco Ripley</option>
+                        <option value="Banco GNB">Banco GNB</option>
+                        <option value="Banco Azteca">Banco Azteca</option>
+                        <option value="Banco Cencosud">Banco Cencosud</option>
+                        <option value="Banco Comercio">Banco Comercio</option>
+                        <option value="Banco Santander">Banco Santander</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>🔢 Número de cuenta</label>
+                    <input type="text" id="bankAccountNumber" placeholder="Ej: 123-456-7890">
+                </div>
+
+                <div class="form-group">
+                    <label>👤 Titular de la cuenta</label>
+                    <input type="text" id="bankAccountHolder" placeholder="Nombre completo del titular">
+                </div>
+
+                <div class="form-group">
+                    <label>🔢 CCI (Código de Cuenta Interbancaria)</label>
+                    <input type="text" id="bankCCI" placeholder="Ej: 12345678901234567890">
+                </div>
+
+                <div style="display:flex; gap:10px; margin-top:5px;">
+                    <button class="btn btn-success" onclick="saveBankAccount()" style="flex:1;">✅ Confirmar</button>
+                    <button class="btn btn-outline" onclick="toggleBankForm()" style="flex:1;">❌ Cancelar</button>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label>👤 Titular de la cuenta</label>
-                <input type="text" id="bankAccountHolder" placeholder="Nombre completo del titular">
-            </div>
-
-            <div class="form-group">
-                <label>🔢 CCI (Código de Cuenta Interbancaria)</label>
-                <input type="text" id="bankCCI" placeholder="Ej: 12345678901234567890">
-            </div>
-
-            <div style="display:flex; gap:10px; margin-top:5px;">
-                <button class="btn btn-success" onclick="saveBankAccount()" style="flex:1;">✅ Confirmar</button>
-                <button class="btn btn-outline" onclick="toggleBankForm()" style="flex:1;">❌ Cancelar</button>
+            <!-- Configuración fija -->
+            <div class="config-item">
+                <span>🌐 Idioma</span>
+                <span class="value">es</span>
             </div>
         </div>
 
-        <!-- Configuración fija -->
-        <div class="config-item">
-            <span>🌐 Idioma</span>
-            <span class="value">es</span>
+        <!-- ===== OTRAS PÁGINAS (Contrato, Trabajo, Mi) ===== -->
+        <div id="contratoPage" class="page-section">
+            <h3 style="color:#2d3436; margin-top:15px;">📄 Contrato</h3>
+            <p style="color:#888; padding:20px; text-align:center;">Términos y condiciones de Shein.<br>Lee atentamente antes de aceptar.</p>
+            <div style="background:#f8f9fa; border-radius:12px; padding:15px; font-size:0.85rem; color:#555;">
+                <p>📌 Shein se compromete a proporcionar un servicio seguro y transparente.</p>
+                <p>📌 Los retiros se procesan en un plazo de 24 horas.</p>
+                <p>📌 Los datos personales están protegidos bajo nuestra política de privacidad.</p>
+            </div>
+        </div>
+
+        <div id="trabajoPage" class="page-section">
+            <h3 style="color:#2d3436; margin-top:15px;">💼 Trabajo</h3>
+            <p style="color:#888; padding:20px; text-align:center;">Encuentra oportunidades de trabajo en Shein.</p>
+            <div style="display:grid; grid-template-columns:1fr; gap:10px;">
+                <div style="background:#f8f9fa; border-radius:12px; padding:15px; border-left:4px solid #00b894;">
+                    <h4 style="color:#2d3436;">📱 Marketing Digital</h4>
+                    <p style="color:#888; font-size:0.85rem;">Gana dinero promocionando productos.</p>
+                </div>
+                <div style="background:#f8f9fa; border-radius:12px; padding:15px; border-left:4px solid #fdcb6e;">
+                    <h4 style="color:#2d3436;">💻 Atención al Cliente</h4>
+                    <p style="color:#888; font-size:0.85rem;">Ayuda a nuestros usuarios con sus consultas.</p>
+                </div>
+                <div style="background:#f8f9fa; border-radius:12px; padding:15px; border-left:4px solid #ff6b6b;">
+                    <h4 style="color:#2d3436;">📊 Analista de Datos</h4>
+                    <p style="color:#888; font-size:0.85rem;">Analiza el comportamiento de los usuarios.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="miPage" class="page-section">
+            <h3 style="color:#2d3436; margin-top:15px;">👤 Mi Perfil</h3>
+            <div style="text-align:center; padding:15px;">
+                <div style="font-size:4rem;">👤</div>
+                <h4 id="profileUsername" style="color:#2d3436;">Usuario</h4>
+                <p style="color:#888;" id="profilePhone">+51 987654321</p>
+                <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin-top:10px; text-align:left;">
+                    <p><strong>📅 Miembro desde:</strong> 2026</p>
+                    <p><strong>💰 Saldo:</strong> S/ 10.00</p>
+                    <p><strong>⭐ Nivel VIP:</strong> VIP 1</p>
+                </div>
+            </div>
         </div>
 
         <!-- Bottom Navigation -->
         <div class="bottom-nav">
-            <div class="nav-item active" onclick="navClick('inicio')">
+            <div class="nav-item active" onclick="switchPage('inicioPage', this)">
                 <span class="icon">🏠</span> Inicio
             </div>
-            <div class="nav-item" onclick="navClick('contrato')">
+            <div class="nav-item" onclick="switchPage('contratoPage', this)">
                 <span class="icon">📄</span> Contrato
             </div>
-            <div class="nav-item" onclick="navClick('trabajo')">
+            <div class="nav-item" onclick="switchPage('trabajoPage', this)">
                 <span class="icon">💼</span> Trabajo
             </div>
-            <div class="nav-item" onclick="navClick('mi')">
+            <div class="nav-item" onclick="switchPage('miPage', this)">
                 <span class="icon">👤</span> Mi
             </div>
         </div>
@@ -685,7 +908,7 @@
         retiroCount: 0,
         trabajoCount: 0,
         notificacionCount: 1,
-        bankAccounts: [],  // Array de cuentas bancarias
+        bankAccounts: [],
         vipLevels: {
             vip1: { name: 'VIP 1', active: true },
             vip2: { name: 'VIP 2', active: false },
@@ -712,6 +935,7 @@
 
     function renderVIPs() {
         const container = document.getElementById('vipList');
+        if (!container) return;
         container.innerHTML = '';
         const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
         
@@ -731,6 +955,7 @@
 
     function renderBankAccounts() {
         const container = document.getElementById('bankList');
+        if (!container) return;
         container.innerHTML = '';
         
         if (userData.bankAccounts.length === 0) {
@@ -742,221 +967,4 @@
             return;
         }
 
-        userData.bankAccounts.forEach((account, index) => {
-            const div = document.createElement('div');
-            div.className = 'bank-account-card';
-            div.innerHTML = `
-                <div class="bank-info">
-                    <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
-                    <div><strong>Cuenta:</strong> ${account.accountNumber}</div>
-                    <div><strong>Titular:</strong> ${account.accountHolder}</div>
-                    <div><strong>CCI:</strong> ${account.cci}</div>
-                </div>
-                <button class="delete-btn" onclick="deleteBankAccount(${index})" title="Eliminar">✕</button>
-            `;
-            container.appendChild(div);
-        });
-    }
-
-    function updateDashboard() {
-        document.getElementById('displayUsername').textContent = userData.username;
-        document.getElementById('displayBalance').textContent = `S/ ${userData.balance.toFixed(2)}`;
-        document.getElementById('totalIncome').textContent = `S/ ${userData.totalIncome.toFixed(2)}`;
-        document.getElementById('recargaCount').textContent = userData.recargaCount;
-        document.getElementById('retiroCount').textContent = userData.retiroCount;
-        document.getElementById('trabajoCount').textContent = userData.trabajoCount;
-        document.getElementById('notificacionCount').textContent = userData.notificacionCount;
-        renderVIPs();
-        renderBankAccounts();
-    }
-
-    // ============================================================
-    //  NAVEGACIÓN
-    // ============================================================
-    function showLogin() {
-        document.getElementById('registerForm').classList.remove('hidden');
-        document.getElementById('loginForm').classList.add('hidden');
-        document.getElementById('dashboard').classList.add('hidden');
-        document.getElementById('loginError').style.display = 'none';
-        document.getElementById('regError').style.display = 'none';
-    }
-
-    function showRegister() {
-        document.getElementById('registerForm').classList.add('hidden');
-        document.getElementById('loginForm').classList.remove('hidden');
-        document.getElementById('dashboard').classList.add('hidden');
-        document.getElementById('regError').style.display = 'none';
-        document.getElementById('loginError').style.display = 'none';
-    }
-
-    function navClick(section) {
-        const navItems = document.querySelectorAll('.bottom-nav .nav-item');
-        navItems.forEach(item => item.classList.remove('active'));
-        event.target.closest('.nav-item').classList.add('active');
-        showMessage(`📌 Navegando a: ${section}`, true);
-    }
-
-    // ============================================================
-    //  BANK ACCOUNT FUNCTIONS
-    // ============================================================
-    function toggleBankForm() {
-        const form = document.getElementById('bankFormContainer');
-        form.classList.toggle('hidden');
-        if (!form.classList.contains('hidden')) {
-            // Resetear formulario
-            document.getElementById('bankName').value = '';
-            document.getElementById('bankAccountNumber').value = '';
-            document.getElementById('bankAccountHolder').value = '';
-            document.getElementById('bankCCI').value = '';
-        }
-    }
-
-    function saveBankAccount() {
-        const bankName = document.getElementById('bankName').value;
-        const accountNumber = document.getElementById('bankAccountNumber').value.trim();
-        const accountHolder = document.getElementById('bankAccountHolder').value.trim();
-        const cci = document.getElementById('bankCCI').value.trim();
-
-        // Validación
-        if (!bankName || !accountNumber || !accountHolder || !cci) {
-            showMessage('⚠️ Por favor, completa todos los campos del banco.', false);
-            return;
-        }
-
-        // Guardar cuenta
-        userData.bankAccounts.push({
-            bankName: bankName,
-            accountNumber: accountNumber,
-            accountHolder: accountHolder,
-            cci: cci
-        });
-
-        // Actualizar UI
-        renderBankAccounts();
-        toggleBankForm(); // Ocultar formulario
-        showMessage(`✅ Cuenta bancaria "${bankName}" agregada con éxito.`, true);
-    }
-
-    function deleteBankAccount(index) {
-        if (confirm('¿Estás seguro de eliminar esta cuenta bancaria?')) {
-            const deleted = userData.bankAccounts[index];
-            userData.bankAccounts.splice(index, 1);
-            renderBankAccounts();
-            showMessage(`🗑️ Cuenta "${deleted.bankName}" eliminada.`, true);
-        }
-    }
-
-    // ============================================================
-    //  REGISTER / LOGIN / LOGOUT
-    // ============================================================
-    function handleRegister() {
-        const phone = document.getElementById('regPhone').value.trim();
-        const countryCode = document.getElementById('regCountryCode').value;
-        const username = document.getElementById('regUsername').value.trim();
-        const password = document.getElementById('regPassword').value.trim();
-
-        if (!phone || !username || !password) {
-            document.getElementById('regError').style.display = 'block';
-            return;
-        } else {
-            document.getElementById('regError').style.display = 'none';
-        }
-
-        userData.username = username;
-        userData.phone = phone;
-        userData.password = password;
-        userData.balance = 10.00;
-        userData.totalIncome = 0;
-        userData.isLoggedIn = true;
-        userData.recargaCount = 0;
-        userData.retiroCount = 0;
-        userData.trabajoCount = 0;
-        userData.notificacionCount = 1;
-        userData.bankAccounts = [];
-
-        userData.vipLevels.vip1.active = true;
-        userData.vipLevels.vip2.active = false;
-        userData.vipLevels.vip3.active = false;
-        userData.vipLevels.vip4.active = false;
-        userData.vipLevels.vip5.active = false;
-        userData.vipLevels.vip6.active = false;
-
-        document.getElementById('registerForm').classList.add('hidden');
-        document.getElementById('loginForm').classList.add('hidden');
-        document.getElementById('dashboard').classList.remove('hidden');
-
-        updateDashboard();
-        showMessage(`✅ ¡Cuenta "${username}" creada con éxito! S/ 10.00 de bienvenida.`, true);
-    }
-
-    function handleLogin() {
-        const identifier = document.getElementById('loginIdentifier').value.trim();
-        const password = document.getElementById('loginPassword').value.trim();
-
-        if ((identifier === userData.username || identifier === userData.phone) && password === userData.password) {
-            document.getElementById('loginError').style.display = 'none';
-            userData.isLoggedIn = true;
-
-            document.getElementById('registerForm').classList.add('hidden');
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
-
-            updateDashboard();
-            showMessage(`🔓 ¡Bienvenido de nuevo, ${userData.username}!`, true);
-        } else {
-            document.getElementById('loginError').style.display = 'block';
-            showMessage('❌ Usuario/teléfono o contraseña incorrectos.', false);
-        }
-    }
-
-    function handleLogout() {
-        userData.isLoggedIn = false;
-        document.getElementById('dashboard').classList.add('hidden');
-        document.getElementById('registerForm').classList.remove('hidden');
-        document.getElementById('loginForm').classList.add('hidden');
-        showMessage('👋 Has cerrado sesión correctamente.', true);
-    }
-
-    // ============================================================
-    //  BOTONES DEL DASHBOARD
-    // ============================================================
-    function handleComenzar() {
-        userData.balance += 5;
-        userData.totalIncome += 5;
-        userData.trabajoCount += 1;
-        updateDashboard();
-        showMessage('🚀 ¡Has comenzado un nuevo trabajo! +S/ 5.00', true);
-    }
-
-    function handleRecargar() {
-        userData.balance += 10;
-        userData.recargaCount += 1;
-        updateDashboard();
-        showMessage('📥 ¡Recarga exitosa! +S/ 10.00', true);
-    }
-
-    function handleRetirar() {
-        if (userData.balance >= 5) {
-            userData.balance -= 5;
-            userData.retiroCount += 1;
-            updateDashboard();
-            showMessage('📤 ¡Retiro exitoso! -S/ 5.00', true);
-        } else {
-            showMessage('❌ Saldo insuficiente para retirar.', false);
-        }
-    }
-
-    // ============================================================
-    //  INICIALIZAR
-    // ============================================================
-    window.onload = function() {
-        document.getElementById('registerForm').classList.remove('hidden');
-        document.getElementById('loginForm').classList.add('hidden');
-        document.getElementById('dashboard').classList.add('hidden');
-        document.getElementById('regError').style.display = 'none';
-        document.getElementById('loginError').style.display = 'none';
-    };
-</script>
-
-</body>
-</html>
+        userData.bankAccounts.forEach((
