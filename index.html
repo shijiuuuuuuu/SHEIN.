@@ -331,64 +331,7 @@
             font-weight: 600;
         }
 
-        /* ========== VIP DETAIL MODAL ========== */
-        .vip-detail-modal {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 10px 0;
-            border: 2px solid #6c5ce7;
-            box-shadow: 0 5px 20px rgba(108, 92, 231, 0.2);
-        }
-
-        .vip-detail-modal .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .vip-detail-modal .modal-header h4 {
-            color: #6c5ce7;
-        }
-
-        .vip-detail-modal .modal-header .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #888;
-        }
-
-        .vip-detail-modal .modal-body .detail-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .vip-detail-modal .modal-body .detail-row:last-child {
-            border-bottom: none;
-        }
-
-        .vip-detail-modal .modal-body .detail-row .label {
-            color: #888;
-        }
-
-        .vip-detail-modal .modal-body .detail-row .value {
-            font-weight: 600;
-            color: #2d3436;
-        }
-
-        .vip-detail-modal .modal-body .detail-row .value.green {
-            color: #00b894;
-        }
-
-        .vip-detail-modal .modal-body .detail-row .value.purple {
-            color: #6c5ce7;
-        }
-
-        /* ========== VIP SECTION (original) ========== */
+        /* ========== VIP SECTION ========== */
         .vip-section {
             background: #fafafa;
             border-radius: 15px;
@@ -1061,25 +1004,23 @@
             <div id="vipOrdersContainer">
                 <!-- Generado por JavaScript -->
             </div>
-
-            <!-- Detalle del VIP seleccionado -->
-            <div id="vipDetailContainer" class="hidden">
-                <!-- Generado por JavaScript -->
-            </div>
         </div>
 
-        <!-- ===== CONFIGURACIÓN ===== -->
+        <!-- ===== CONFIGURACIÓN CON BANCOS ===== -->
         <div id="configPage" class="page-section">
-            <h3 style="color:#2d3436; margin-top:15px;">⚙️ Configuración</h3>
+            <h3 style="color:#2d3436; margin-top:10px;">⚙️ Configuración</h3>
             
+            <!-- Mostrar bancos guardados -->
             <div id="bankListContainer">
                 <div id="bankList"></div>
             </div>
 
-            <button class="btn btn-primary" onclick="toggleBankForm()" style="margin-top:5px; font-size:0.9rem; padding:8px;">
+            <!-- Botón para agregar banco -->
+            <button class="btn btn-primary" onclick="toggleBankForm()" style="margin-top:5px; font-size:0.9rem; padding:10px;">
                 ➕ Agregar cuenta bancaria
             </button>
 
+            <!-- Formulario para agregar banco -->
             <div id="bankFormContainer" class="bank-form hidden">
                 <h4 style="color:#2d3436; margin-bottom:10px;">🏦 Agregar cuenta bancaria</h4>
                 
@@ -1265,16 +1206,15 @@
         notificacionCount: 1,
         bankAccounts: [],
         withdrawalHistory: [],
-        // VIP Orders System
         vipOrders: {
             vip1: {
                 level: 'VIP 1',
                 totalOrders: 12,
                 completedOrders: 0,
-                commissionRate: 0.30, // 30% = 3/10
+                commissionRate: 0.30,
                 isUnlocked: true,
                 isCompleted: false,
-                baseInvestment: 10.00 // Investment amount
+                baseInvestment: 10.00
             },
             vip2: {
                 level: 'VIP 2',
@@ -1379,7 +1319,7 @@
         
         if (userData.bankAccounts.length === 0) {
             container.innerHTML = `
-                <div style="text-align:center; padding:10px; color:#888; font-size:0.9rem;">
+                <div style="text-align:center; padding:15px; color:#888; font-size:0.95rem; background:#f8f9fa; border-radius:12px;">
                     No hay cuentas bancarias registradas.
                 </div>
             `;
@@ -1477,7 +1417,6 @@
             const progress = (order.completedOrders / order.totalOrders) * 100;
             const isComplete = order.completedOrders >= order.totalOrders;
             
-            // Verificar si está desbloqueado
             let isUnlocked = order.isUnlocked;
             let lockReason = '';
             
@@ -1492,7 +1431,6 @@
                 }
             }
 
-            // Actualizar estado VIP
             if (isUnlocked && !userData.vipLevels[key].active) {
                 userData.vipLevels[key].active = true;
             }
@@ -1513,7 +1451,6 @@
                 `;
             }
 
-            // Calcular comisión
             const commission = order.baseInvestment * order.commissionRate;
 
             div.innerHTML = `
@@ -1551,22 +1488,16 @@
             return;
         }
 
-        // Calcular comisión
         const commission = order.baseInvestment * order.commissionRate;
         
-        // Actualizar órdenes completadas
         order.completedOrders += 1;
-        
-        // Agregar comisión al saldo
         userData.balance += commission;
         userData.totalIncome += commission;
 
-        // Verificar si se completó el nivel
         if (order.completedOrders >= order.totalOrders) {
             order.isCompleted = true;
             showMessage(`🎉 ¡Felicidades! Has completado ${order.level} y ganado S/ ${commission.toFixed(2)}!`, true);
             
-            // Desbloquear siguiente nivel
             const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
             const currentIndex = vipKeys.indexOf(vipKey);
             if (currentIndex < vipKeys.length - 1) {
@@ -1620,12 +1551,15 @@
             element.classList.add('active');
         }
         
-        // Actualizar datos según la página
         if (pageId === 'vipOrdersPage') {
             renderVIPOrders();
         }
         if (pageId === 'miPage') {
             updateDashboard();
+        }
+        if (pageId === 'configPage') {
+            renderBankAccounts();
+            updateWithdrawBankSelect();
         }
     }
 
@@ -1757,7 +1691,6 @@
         userData.bankAccounts = [];
         userData.withdrawalHistory = [];
 
-        // Resetear VIP Orders
         const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
         vipKeys.forEach((key, index) => {
             userData.vipOrders[key].completedOrders = 0;
@@ -1853,8 +1786,7 @@
 
     function handleRetirar() {
         const navItems = document.querySelectorAll('.bottom-nav .nav-item');
-        const miPage = document.getElementById('miPage');
-        if (miPage) {
+        if (navItems.length > 4) {
             switchPage('miPage', navItems[4]);
         }
         showMessage('📤 Ve a la sección "Mi" para realizar tu retiro.', true);
@@ -1872,6 +1804,7 @@
         
         updateWithdrawBankSelect();
         renderVIPOrders();
+        renderBankAccounts();
     };
 </script>
 
