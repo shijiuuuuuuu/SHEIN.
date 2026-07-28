@@ -135,6 +135,14 @@
             background: #0652DD;
         }
 
+        .btn-danger {
+            background: #d63031;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
         .hidden {
             display: none !important;
         }
@@ -393,6 +401,92 @@
             flex: 1;
         }
 
+        /* ========== WITHDRAWAL SECTION ========== */
+        .withdrawal-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #eee;
+        }
+
+        .withdrawal-section h4 {
+            color: #2d3436;
+            margin-bottom: 10px;
+        }
+
+        .withdrawal-section .selected-bank {
+            background: white;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+        }
+
+        .withdrawal-section .selected-bank .bank-label {
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        .withdrawal-section .selected-bank .bank-value {
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .withdrawal-section .amount-input {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .withdrawal-section .amount-input input {
+            flex: 1;
+        }
+
+        .withdrawal-section .amount-input .btn {
+            flex: 0 0 auto;
+            width: auto;
+            padding: 12px 25px;
+            margin-top: 0;
+        }
+
+        /* Withdrawal History */
+        .withdrawal-history {
+            margin-top: 15px;
+        }
+
+        .withdrawal-history .history-item {
+            background: white;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .withdrawal-history .history-item .amount-info {
+            font-weight: 700;
+            color: #d63031;
+        }
+
+        .withdrawal-history .history-item .bank-info {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .withdrawal-history .history-item .date-info {
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        .withdrawal-history .history-item .status-success {
+            color: #00b894;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
         /* ========== INICIO PAGE (ANIMACIONES) ========== */
         .inicio-page {
             text-align: center;
@@ -563,6 +657,54 @@
             display: block;
         }
 
+        /* Profile */
+        .profile-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .profile-card .avatar {
+            font-size: 4rem;
+        }
+
+        .profile-card .name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d3436;
+        }
+
+        .profile-card .phone {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .profile-card .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .profile-card .detail-grid .detail-item {
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .profile-card .detail-grid .detail-item .detail-label {
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .profile-card .detail-grid .detail-item .detail-value {
+            font-weight: 700;
+            color: #2d3436;
+        }
+
         /* Responsive */
         @media (max-width: 500px) {
             .container {
@@ -594,6 +736,15 @@
             }
             .inicio-page .stat-box .stat-number {
                 font-size: 1.2rem;
+            }
+            .withdrawal-section .amount-input {
+                flex-direction: column;
+            }
+            .withdrawal-section .amount-input .btn {
+                width: 100%;
+            }
+            .profile-card .detail-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -697,14 +848,13 @@
             <button class="btn btn-outline" onclick="handleRetirar()">📤 RETIRAR</button>
         </div>
 
-        <!-- ===== INICIO PAGE (ANIMACIONES) ===== -->
+        <!-- ===== INICIO PAGE ===== -->
         <div id="inicioPage" class="page-section active">
             <div class="inicio-page">
                 <div class="hero-icon">🌍</div>
                 <h3 style="color:#2d3436; margin:10px 0;">¡Bienvenido a Shein!</h3>
                 <p style="color:#888; font-size:0.9rem;">Miles de personas confían en nosotros en todo el mundo.</p>
 
-                <!-- Estadísticas globales -->
                 <div class="stat-grid">
                     <div class="stat-box">
                         <div class="stat-number" id="globalUsers">2.5M</div>
@@ -720,7 +870,6 @@
                     </div>
                 </div>
 
-                <!-- Trust Badges -->
                 <div class="trust-badges">
                     <span class="trust-badge">🔒 100% Seguro</span>
                     <span class="trust-badge">✅ Verificado</span>
@@ -730,7 +879,6 @@
                     <span class="trust-badge">💳 Pagos rápidos</span>
                 </div>
 
-                <!-- Testimonios -->
                 <div class="testimonial">
                     <div class="stars">⭐⭐⭐⭐⭐</div>
                     <div class="quote">"Shein es la mejor plataforma para comprar y vender. ¡100% confiable!"</div>
@@ -743,7 +891,6 @@
                     <div class="author">— Carlos R. (Bogotá, Colombia)</div>
                 </div>
 
-                <!-- Garantías -->
                 <div style="background:#f0f2f5; border-radius:12px; padding:15px; margin:10px 0;">
                     <h4 style="color:#2d3436;">🛡️ Nuestras Garantías</h4>
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px; font-size:0.85rem; text-align:left;">
@@ -758,21 +905,18 @@
             </div>
         </div>
 
-        <!-- ===== CONFIGURACIÓN CON BANCOS ===== -->
+        <!-- ===== CONFIGURACIÓN ===== -->
         <div id="configPage" class="page-section">
             <h3 style="color:#2d3436; margin-top:15px;">⚙️ Configuración</h3>
             
-            <!-- Mostrar bancos guardados -->
             <div id="bankListContainer">
                 <div id="bankList"></div>
             </div>
 
-            <!-- Botón para agregar banco -->
             <button class="btn btn-primary" onclick="toggleBankForm()" style="margin-top:5px; font-size:0.9rem; padding:8px;">
                 ➕ Agregar cuenta bancaria
             </button>
 
-            <!-- Formulario para agregar banco (oculto por defecto) -->
             <div id="bankFormContainer" class="bank-form hidden">
                 <h4 style="color:#2d3436; margin-bottom:10px;">🏦 Agregar cuenta bancaria</h4>
                 
@@ -816,14 +960,13 @@
                 </div>
             </div>
 
-            <!-- Configuración fija -->
             <div class="config-item">
                 <span>🌐 Idioma</span>
                 <span class="value">es</span>
             </div>
         </div>
 
-        <!-- ===== OTRAS PÁGINAS (Contrato, Trabajo, Mi) ===== -->
+        <!-- ===== CONTRATO PAGE ===== -->
         <div id="contratoPage" class="page-section">
             <h3 style="color:#2d3436; margin-top:15px;">📄 Contrato</h3>
             <p style="color:#888; padding:20px; text-align:center;">Términos y condiciones de Shein.<br>Lee atentamente antes de aceptar.</p>
@@ -834,6 +977,7 @@
             </div>
         </div>
 
+        <!-- ===== TRABAJO PAGE ===== -->
         <div id="trabajoPage" class="page-section">
             <h3 style="color:#2d3436; margin-top:15px;">💼 Trabajo</h3>
             <p style="color:#888; padding:20px; text-align:center;">Encuentra oportunidades de trabajo en Shein.</p>
@@ -853,16 +997,70 @@
             </div>
         </div>
 
+        <!-- ===== MI PAGE (PERFIL + RETIRO) ===== -->
         <div id="miPage" class="page-section">
             <h3 style="color:#2d3436; margin-top:15px;">👤 Mi Perfil</h3>
-            <div style="text-align:center; padding:15px;">
-                <div style="font-size:4rem;">👤</div>
-                <h4 id="profileUsername" style="color:#2d3436;">Usuario</h4>
-                <p style="color:#888;" id="profilePhone">+51 987654321</p>
-                <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin-top:10px; text-align:left;">
-                    <p><strong>📅 Miembro desde:</strong> 2026</p>
-                    <p><strong>💰 Saldo:</strong> S/ 10.00</p>
-                    <p><strong>⭐ Nivel VIP:</strong> VIP 1</p>
+            
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <div class="avatar">👤</div>
+                <div class="name" id="profileUsername">Usuario</div>
+                <div class="phone" id="profilePhone">+51 987654321</div>
+                
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">📅 Miembro desde</div>
+                        <div class="detail-value">2026</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">💰 Saldo</div>
+                        <div class="detail-value" id="profileBalance">S/ 10.00</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">⭐ Nivel VIP</div>
+                        <div class="detail-value" id="profileVip">VIP 1</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== WITHDRAWAL SECTION ===== -->
+            <div class="withdrawal-section">
+                <h4>📤 Realizar Retiro</h4>
+                
+                <!-- Seleccionar banco -->
+                <div class="form-group">
+                    <label>🏛️ Selecciona tu cuenta bancaria</label>
+                    <select id="withdrawBankSelect">
+                        <option value="">-- Ninguna cuenta registrada --</option>
+                    </select>
+                </div>
+
+                <!-- Banco seleccionado (mostrar detalles) -->
+                <div id="selectedBankDisplay" class="selected-bank hidden">
+                    <div class="bank-label">🏦 Banco seleccionado</div>
+                    <div class="bank-value" id="selectedBankName">-</div>
+                    <div style="font-size:0.85rem; color:#888;" id="selectedBankDetails">-</div>
+                </div>
+
+                <!-- Monto a retirar -->
+                <div class="form-group">
+                    <label>💰 Monto a retirar (S/)</label>
+                    <input type="number" id="withdrawAmount" placeholder="Ej: 10.00" min="1" step="0.01">
+                </div>
+
+                <!-- Botón Confirmar -->
+                <button class="btn btn-success" onclick="processWithdrawal()" style="margin-top:5px;">
+                    ✅ Confirmar Retiro
+                </button>
+            </div>
+
+            <!-- ===== WITHDRAWAL HISTORY ===== -->
+            <div class="withdrawal-history">
+                <h4 style="color:#2d3436; margin-top:10px;">📋 Historial de Retiros</h4>
+                <div id="withdrawalHistoryList">
+                    <div style="text-align:center; padding:15px; color:#888; font-size:0.9rem;">
+                        No hay retiros realizados.
+                    </div>
                 </div>
             </div>
         </div>
@@ -909,6 +1107,7 @@
         trabajoCount: 0,
         notificacionCount: 1,
         bankAccounts: [],
+        withdrawalHistory: [],  // { bankName, amount, date, status }
         vipLevels: {
             vip1: { name: 'VIP 1', active: true },
             vip2: { name: 'VIP 2', active: false },
@@ -983,6 +1182,68 @@
         });
     }
 
+    function updateWithdrawBankSelect() {
+        const select = document.getElementById('withdrawBankSelect');
+        if (!select) return;
+        
+        select.innerHTML = '<option value="">-- Selecciona un banco --</option>';
+        
+        userData.bankAccounts.forEach((account, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = `${account.bankName} - ${account.accountNumber}`;
+            select.appendChild(option);
+        });
+
+        // Event listener para mostrar detalles del banco seleccionado
+        select.onchange = function() {
+            const idx = parseInt(this.value);
+            const display = document.getElementById('selectedBankDisplay');
+            if (isNaN(idx) || idx < 0 || idx >= userData.bankAccounts.length) {
+                display.classList.add('hidden');
+                return;
+            }
+            const bank = userData.bankAccounts[idx];
+            document.getElementById('selectedBankName').textContent = bank.bankName;
+            document.getElementById('selectedBankDetails').textContent = 
+                `Cuenta: ${bank.accountNumber} | Titular: ${bank.accountHolder}`;
+            display.classList.remove('hidden');
+        };
+    }
+
+    function renderWithdrawalHistory() {
+        const container = document.getElementById('withdrawalHistoryList');
+        if (!container) return;
+        container.innerHTML = '';
+
+        if (userData.withdrawalHistory.length === 0) {
+            container.innerHTML = `
+                <div style="text-align:center; padding:15px; color:#888; font-size:0.9rem;">
+                    No hay retiros realizados.
+                </div>
+            `;
+            return;
+        }
+
+        // Mostrar desde el más reciente
+        const history = [...userData.withdrawalHistory].reverse();
+        history.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'history-item';
+            div.innerHTML = `
+                <div>
+                    <div class="bank-info">🏛️ ${item.bankName}</div>
+                    <div class="date-info">📅 ${item.date}</div>
+                </div>
+                <div style="text-align:right;">
+                    <div class="amount-info">-S/ ${item.amount.toFixed(2)}</div>
+                    <div class="status-success">✅ ${item.status}</div>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
     function updateDashboard() {
         document.getElementById('displayUsername').textContent = userData.username;
         document.getElementById('displayBalance').textContent = `S/ ${userData.balance.toFixed(2)}`;
@@ -997,14 +1258,20 @@
         if (trabajoEl) trabajoEl.textContent = userData.trabajoCount;
         if (notifEl) notifEl.textContent = userData.notificacionCount;
         
-        renderVIPs();
-        renderBankAccounts();
-        
-        // Update profile
+        // Profile
         const profileUsername = document.getElementById('profileUsername');
         const profilePhone = document.getElementById('profilePhone');
+        const profileBalance = document.getElementById('profileBalance');
+        const profileVip = document.getElementById('profileVip');
         if (profileUsername) profileUsername.textContent = userData.username;
         if (profilePhone) profilePhone.textContent = userData.phone || '+51 987654321';
+        if (profileBalance) profileBalance.textContent = `S/ ${userData.balance.toFixed(2)}`;
+        if (profileVip) profileVip.textContent = 'VIP 1';
+        
+        renderVIPs();
+        renderBankAccounts();
+        updateWithdrawBankSelect();
+        renderWithdrawalHistory();
     }
 
     // ============================================================
@@ -1027,18 +1294,19 @@
     }
 
     function switchPage(pageId, element) {
-        // Ocultar todas las páginas
         const pages = document.querySelectorAll('.page-section');
         pages.forEach(p => p.classList.remove('active'));
-        
-        // Mostrar la página seleccionada
         document.getElementById(pageId).classList.add('active');
         
-        // Actualizar navegación
         const navItems = document.querySelectorAll('.bottom-nav .nav-item');
         navItems.forEach(item => item.classList.remove('active'));
         if (element) {
             element.classList.add('active');
+        }
+        
+        // Actualizar datos cuando se cambia a la página Mi
+        if (pageId === 'miPage') {
+            updateDashboard();
         }
     }
 
@@ -1076,6 +1344,7 @@
         });
 
         renderBankAccounts();
+        updateWithdrawBankSelect();
         toggleBankForm();
         showMessage(`✅ Cuenta bancaria "${bankName}" agregada con éxito.`, true);
     }
@@ -1085,8 +1354,64 @@
             const deleted = userData.bankAccounts[index];
             userData.bankAccounts.splice(index, 1);
             renderBankAccounts();
+            updateWithdrawBankSelect();
             showMessage(`🗑️ Cuenta "${deleted.bankName}" eliminada.`, true);
         }
+    }
+
+    // ============================================================
+    //  WITHDRAWAL FUNCTION
+    // ============================================================
+    function processWithdrawal() {
+        const select = document.getElementById('withdrawBankSelect');
+        const amountInput = document.getElementById('withdrawAmount');
+        const amount = parseFloat(amountInput.value);
+
+        // Validar banco seleccionado
+        const bankIndex = parseInt(select.value);
+        if (isNaN(bankIndex) || bankIndex < 0 || bankIndex >= userData.bankAccounts.length) {
+            showMessage('⚠️ Por favor, selecciona una cuenta bancaria.', false);
+            return;
+        }
+
+        // Validar monto
+        if (isNaN(amount) || amount <= 0) {
+            showMessage('⚠️ Por favor, ingresa un monto válido mayor a 0.', false);
+            return;
+        }
+
+        // Verificar saldo suficiente
+        if (amount > userData.balance) {
+            showMessage(`❌ Saldo insuficiente. Tu saldo es S/ ${userData.balance.toFixed(2)}`, false);
+            return;
+        }
+
+        // Procesar retiro
+        const selectedBank = userData.bankAccounts[bankIndex];
+        userData.balance -= amount;
+        userData.retiroCount += 1;
+
+        // Guardar en historial
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('es-ES', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+
+        userData.withdrawalHistory.push({
+            bankName: selectedBank.bankName,
+            amount: amount,
+            date: dateStr,
+            status: 'Completado'
+        });
+
+        // Actualizar UI
+        updateDashboard();
+        amountInput.value = '';
+        showMessage(`✅ Retiro de S/ ${amount.toFixed(2)} a ${selectedBank.bankName} completado con éxito.`, true);
     }
 
     // ============================================================
@@ -1116,6 +1441,7 @@
         userData.trabajoCount = 0;
         userData.notificacionCount = 1;
         userData.bankAccounts = [];
+        userData.withdrawalHistory = [];
 
         userData.vipLevels.vip1.active = true;
         userData.vipLevels.vip2.active = false;
@@ -1179,14 +1505,13 @@
     }
 
     function handleRetirar() {
-        if (userData.balance >= 5) {
-            userData.balance -= 5;
-            userData.retiroCount += 1;
-            updateDashboard();
-            showMessage('📤 ¡Retiro exitoso! -S/ 5.00', true);
-        } else {
-            showMessage('❌ Saldo insuficiente para retirar.', false);
+        // Redirigir a la página Mi para hacer retiro
+        const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+        const miPage = document.getElementById('miPage');
+        if (miPage) {
+            switchPage('miPage', navItems[3]);
         }
+        showMessage('📤 Ve a la sección "Mi" para realizar tu retiro.', true);
     }
 
     // ============================================================
@@ -1198,6 +1523,9 @@
         document.getElementById('dashboard').classList.add('hidden');
         document.getElementById('regError').style.display = 'none';
         document.getElementById('loginError').style.display = 'none';
+        
+        // Inicializar select de bancos
+        updateWithdrawBankSelect();
     };
 </script>
 
