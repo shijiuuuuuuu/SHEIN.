@@ -27,7 +27,7 @@
             padding: 25px 30px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            max-width: 550px;
+            max-width: 580px;
             width: 100%;
             transition: all 0.3s ease;
         }
@@ -125,6 +125,14 @@
 
         .btn-warning:hover {
             background: #f9ca24;
+        }
+
+        .btn-primary {
+            background: #0984e3;
+        }
+
+        .btn-primary:hover {
+            background: #0652DD;
         }
 
         .hidden {
@@ -325,6 +333,66 @@
             font-weight: 600;
         }
 
+        /* ========== BANK ACCOUNT CARD ========== */
+        .bank-account-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bank-account-card .bank-info {
+            font-size: 0.9rem;
+        }
+
+        .bank-account-card .bank-info strong {
+            color: #2d3436;
+        }
+
+        .bank-account-card .bank-info .bank-name {
+            color: #ff6b6b;
+            font-weight: 700;
+        }
+
+        .bank-account-card .delete-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .bank-account-card .delete-btn:hover {
+            background: #e55a5a;
+            transform: scale(1.1);
+        }
+
+        /* Bank Form */
+        .bank-form {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #eee;
+        }
+
+        .bank-form .form-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .bank-form .form-row .form-group {
+            flex: 1;
+        }
+
         /* Bottom Navigation */
         .bottom-nav {
             display: flex;
@@ -376,6 +444,10 @@
             }
             .app-header h1 {
                 font-size: 2rem;
+            }
+            .bank-form .form-row {
+                flex-direction: column;
+                gap: 0;
             }
         }
     </style>
@@ -509,12 +581,64 @@
             <span class="badge" id="notificacionCount">1</span>
         </div>
 
-        <!-- Configuración -->
+        <!-- ===== CONFIGURACIÓN CON BANCOS ===== -->
         <h3 style="color:#2d3436; margin-top:15px;">⚙️ Configuración</h3>
-        <div class="config-item">
-            <span>🔗 Información de enlace</span>
-            <span class="value" id="linkInfo">shein.com/user</span>
+        
+        <!-- Mostrar bancos guardados -->
+        <div id="bankListContainer">
+            <div id="bankList"></div>
         </div>
+
+        <!-- Botón para agregar banco -->
+        <button class="btn btn-primary" onclick="toggleBankForm()" style="margin-top:5px; font-size:0.9rem; padding:8px;">
+            ➕ Agregar cuenta bancaria
+        </button>
+
+        <!-- Formulario para agregar banco (oculto por defecto) -->
+        <div id="bankFormContainer" class="bank-form hidden">
+            <h4 style="color:#2d3436; margin-bottom:10px;">🏦 Agregar cuenta bancaria</h4>
+            
+            <div class="form-group">
+                <label>🏛️ Nombre del banco</label>
+                <select id="bankName">
+                    <option value="">Selecciona un banco...</option>
+                    <option value="Banco de Crédito (BCP)">Banco de Crédito (BCP)</option>
+                    <option value="Banco BBVA">Banco BBVA</option>
+                    <option value="Banco Interbank">Banco Interbank</option>
+                    <option value="Banco Scotiabank">Banco Scotiabank</option>
+                    <option value="Banco Pichincha">Banco Pichincha</option>
+                    <option value="Banco Falabella">Banco Falabella</option>
+                    <option value="Banco Ripley">Banco Ripley</option>
+                    <option value="Banco GNB">Banco GNB</option>
+                    <option value="Banco Azteca">Banco Azteca</option>
+                    <option value="Banco Cencosud">Banco Cencosud</option>
+                    <option value="Banco Comercio">Banco Comercio</option>
+                    <option value="Banco Santander">Banco Santander</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>🔢 Número de cuenta</label>
+                <input type="text" id="bankAccountNumber" placeholder="Ej: 123-456-7890">
+            </div>
+
+            <div class="form-group">
+                <label>👤 Titular de la cuenta</label>
+                <input type="text" id="bankAccountHolder" placeholder="Nombre completo del titular">
+            </div>
+
+            <div class="form-group">
+                <label>🔢 CCI (Código de Cuenta Interbancaria)</label>
+                <input type="text" id="bankCCI" placeholder="Ej: 12345678901234567890">
+            </div>
+
+            <div style="display:flex; gap:10px; margin-top:5px;">
+                <button class="btn btn-success" onclick="saveBankAccount()" style="flex:1;">✅ Confirmar</button>
+                <button class="btn btn-outline" onclick="toggleBankForm()" style="flex:1;">❌ Cancelar</button>
+            </div>
+        </div>
+
+        <!-- Configuración fija -->
         <div class="config-item">
             <span>🌐 Idioma</span>
             <span class="value">es</span>
@@ -561,6 +685,7 @@
         retiroCount: 0,
         trabajoCount: 0,
         notificacionCount: 1,
+        bankAccounts: [],  // Array de cuentas bancarias
         vipLevels: {
             vip1: { name: 'VIP 1', active: true },
             vip2: { name: 'VIP 2', active: false },
@@ -604,6 +729,35 @@
         });
     }
 
+    function renderBankAccounts() {
+        const container = document.getElementById('bankList');
+        container.innerHTML = '';
+        
+        if (userData.bankAccounts.length === 0) {
+            container.innerHTML = `
+                <div style="text-align:center; padding:10px; color:#888; font-size:0.9rem;">
+                    No hay cuentas bancarias registradas.
+                </div>
+            `;
+            return;
+        }
+
+        userData.bankAccounts.forEach((account, index) => {
+            const div = document.createElement('div');
+            div.className = 'bank-account-card';
+            div.innerHTML = `
+                <div class="bank-info">
+                    <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
+                    <div><strong>Cuenta:</strong> ${account.accountNumber}</div>
+                    <div><strong>Titular:</strong> ${account.accountHolder}</div>
+                    <div><strong>CCI:</strong> ${account.cci}</div>
+                </div>
+                <button class="delete-btn" onclick="deleteBankAccount(${index})" title="Eliminar">✕</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
     function updateDashboard() {
         document.getElementById('displayUsername').textContent = userData.username;
         document.getElementById('displayBalance').textContent = `S/ ${userData.balance.toFixed(2)}`;
@@ -613,6 +767,7 @@
         document.getElementById('trabajoCount').textContent = userData.trabajoCount;
         document.getElementById('notificacionCount').textContent = userData.notificacionCount;
         renderVIPs();
+        renderBankAccounts();
     }
 
     // ============================================================
@@ -642,7 +797,57 @@
     }
 
     // ============================================================
-    //  ACCIONES
+    //  BANK ACCOUNT FUNCTIONS
+    // ============================================================
+    function toggleBankForm() {
+        const form = document.getElementById('bankFormContainer');
+        form.classList.toggle('hidden');
+        if (!form.classList.contains('hidden')) {
+            // Resetear formulario
+            document.getElementById('bankName').value = '';
+            document.getElementById('bankAccountNumber').value = '';
+            document.getElementById('bankAccountHolder').value = '';
+            document.getElementById('bankCCI').value = '';
+        }
+    }
+
+    function saveBankAccount() {
+        const bankName = document.getElementById('bankName').value;
+        const accountNumber = document.getElementById('bankAccountNumber').value.trim();
+        const accountHolder = document.getElementById('bankAccountHolder').value.trim();
+        const cci = document.getElementById('bankCCI').value.trim();
+
+        // Validación
+        if (!bankName || !accountNumber || !accountHolder || !cci) {
+            showMessage('⚠️ Por favor, completa todos los campos del banco.', false);
+            return;
+        }
+
+        // Guardar cuenta
+        userData.bankAccounts.push({
+            bankName: bankName,
+            accountNumber: accountNumber,
+            accountHolder: accountHolder,
+            cci: cci
+        });
+
+        // Actualizar UI
+        renderBankAccounts();
+        toggleBankForm(); // Ocultar formulario
+        showMessage(`✅ Cuenta bancaria "${bankName}" agregada con éxito.`, true);
+    }
+
+    function deleteBankAccount(index) {
+        if (confirm('¿Estás seguro de eliminar esta cuenta bancaria?')) {
+            const deleted = userData.bankAccounts[index];
+            userData.bankAccounts.splice(index, 1);
+            renderBankAccounts();
+            showMessage(`🗑️ Cuenta "${deleted.bankName}" eliminada.`, true);
+        }
+    }
+
+    // ============================================================
+    //  REGISTER / LOGIN / LOGOUT
     // ============================================================
     function handleRegister() {
         const phone = document.getElementById('regPhone').value.trim();
@@ -667,6 +872,7 @@
         userData.retiroCount = 0;
         userData.trabajoCount = 0;
         userData.notificacionCount = 1;
+        userData.bankAccounts = [];
 
         userData.vipLevels.vip1.active = true;
         userData.vipLevels.vip2.active = false;
