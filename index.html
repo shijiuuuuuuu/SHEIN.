@@ -967,4 +967,239 @@
             return;
         }
 
-        userData.bankAccounts.forEach((
+        userData.bankAccounts.forEach((account, index) => {
+            const div = document.createElement('div');
+            div.className = 'bank-account-card';
+            div.innerHTML = `
+                <div class="bank-info">
+                    <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
+                    <div><strong>Cuenta:</strong> ${account.accountNumber}</div>
+                    <div><strong>Titular:</strong> ${account.accountHolder}</div>
+                    <div><strong>CCI:</strong> ${account.cci}</div>
+                </div>
+                <button class="delete-btn" onclick="deleteBankAccount(${index})" title="Eliminar">✕</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function updateDashboard() {
+        document.getElementById('displayUsername').textContent = userData.username;
+        document.getElementById('displayBalance').textContent = `S/ ${userData.balance.toFixed(2)}`;
+        document.getElementById('totalIncome').textContent = `S/ ${userData.totalIncome.toFixed(2)}`;
+        
+        const recargaEl = document.getElementById('recargaCount');
+        const retiroEl = document.getElementById('retiroCount');
+        const trabajoEl = document.getElementById('trabajoCount');
+        const notifEl = document.getElementById('notificacionCount');
+        if (recargaEl) recargaEl.textContent = userData.recargaCount;
+        if (retiroEl) retiroEl.textContent = userData.retiroCount;
+        if (trabajoEl) trabajoEl.textContent = userData.trabajoCount;
+        if (notifEl) notifEl.textContent = userData.notificacionCount;
+        
+        renderVIPs();
+        renderBankAccounts();
+        
+        // Update profile
+        const profileUsername = document.getElementById('profileUsername');
+        const profilePhone = document.getElementById('profilePhone');
+        if (profileUsername) profileUsername.textContent = userData.username;
+        if (profilePhone) profilePhone.textContent = userData.phone || '+51 987654321';
+    }
+
+    // ============================================================
+    //  NAVEGACIÓN
+    // ============================================================
+    function showLogin() {
+        document.getElementById('registerForm').classList.remove('hidden');
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('dashboard').classList.add('hidden');
+        document.getElementById('loginError').style.display = 'none';
+        document.getElementById('regError').style.display = 'none';
+    }
+
+    function showRegister() {
+        document.getElementById('registerForm').classList.add('hidden');
+        document.getElementById('loginForm').classList.remove('hidden');
+        document.getElementById('dashboard').classList.add('hidden');
+        document.getElementById('regError').style.display = 'none';
+        document.getElementById('loginError').style.display = 'none';
+    }
+
+    function switchPage(pageId, element) {
+        // Ocultar todas las páginas
+        const pages = document.querySelectorAll('.page-section');
+        pages.forEach(p => p.classList.remove('active'));
+        
+        // Mostrar la página seleccionada
+        document.getElementById(pageId).classList.add('active');
+        
+        // Actualizar navegación
+        const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+        navItems.forEach(item => item.classList.remove('active'));
+        if (element) {
+            element.classList.add('active');
+        }
+    }
+
+    // ============================================================
+    //  BANK ACCOUNT FUNCTIONS
+    // ============================================================
+    function toggleBankForm() {
+        const form = document.getElementById('bankFormContainer');
+        if (!form) return;
+        form.classList.toggle('hidden');
+        if (!form.classList.contains('hidden')) {
+            document.getElementById('bankName').value = '';
+            document.getElementById('bankAccountNumber').value = '';
+            document.getElementById('bankAccountHolder').value = '';
+            document.getElementById('bankCCI').value = '';
+        }
+    }
+
+    function saveBankAccount() {
+        const bankName = document.getElementById('bankName').value;
+        const accountNumber = document.getElementById('bankAccountNumber').value.trim();
+        const accountHolder = document.getElementById('bankAccountHolder').value.trim();
+        const cci = document.getElementById('bankCCI').value.trim();
+
+        if (!bankName || !accountNumber || !accountHolder || !cci) {
+            showMessage('⚠️ Por favor, completa todos los campos del banco.', false);
+            return;
+        }
+
+        userData.bankAccounts.push({
+            bankName: bankName,
+            accountNumber: accountNumber,
+            accountHolder: accountHolder,
+            cci: cci
+        });
+
+        renderBankAccounts();
+        toggleBankForm();
+        showMessage(`✅ Cuenta bancaria "${bankName}" agregada con éxito.`, true);
+    }
+
+    function deleteBankAccount(index) {
+        if (confirm('¿Estás seguro de eliminar esta cuenta bancaria?')) {
+            const deleted = userData.bankAccounts[index];
+            userData.bankAccounts.splice(index, 1);
+            renderBankAccounts();
+            showMessage(`🗑️ Cuenta "${deleted.bankName}" eliminada.`, true);
+        }
+    }
+
+    // ============================================================
+    //  REGISTER / LOGIN / LOGOUT
+    // ============================================================
+    function handleRegister() {
+        const phone = document.getElementById('regPhone').value.trim();
+        const countryCode = document.getElementById('regCountryCode').value;
+        const username = document.getElementById('regUsername').value.trim();
+        const password = document.getElementById('regPassword').value.trim();
+
+        if (!phone || !username || !password) {
+            document.getElementById('regError').style.display = 'block';
+            return;
+        } else {
+            document.getElementById('regError').style.display = 'none';
+        }
+
+        userData.username = username;
+        userData.phone = phone;
+        userData.password = password;
+        userData.balance = 10.00;
+        userData.totalIncome = 0;
+        userData.isLoggedIn = true;
+        userData.recargaCount = 0;
+        userData.retiroCount = 0;
+        userData.trabajoCount = 0;
+        userData.notificacionCount = 1;
+        userData.bankAccounts = [];
+
+        userData.vipLevels.vip1.active = true;
+        userData.vipLevels.vip2.active = false;
+        userData.vipLevels.vip3.active = false;
+        userData.vipLevels.vip4.active = false;
+        userData.vipLevels.vip5.active = false;
+        userData.vipLevels.vip6.active = false;
+
+        document.getElementById('registerForm').classList.add('hidden');
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('dashboard').classList.remove('hidden');
+
+        updateDashboard();
+        showMessage(`✅ ¡Cuenta "${username}" creada con éxito! S/ 10.00 de bienvenida.`, true);
+    }
+
+    function handleLogin() {
+        const identifier = document.getElementById('loginIdentifier').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
+
+        if ((identifier === userData.username || identifier === userData.phone) && password === userData.password) {
+            document.getElementById('loginError').style.display = 'none';
+            userData.isLoggedIn = true;
+
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+
+            updateDashboard();
+            showMessage(`🔓 ¡Bienvenido de nuevo, ${userData.username}!`, true);
+        } else {
+            document.getElementById('loginError').style.display = 'block';
+            showMessage('❌ Usuario/teléfono o contraseña incorrectos.', false);
+        }
+    }
+
+    function handleLogout() {
+        userData.isLoggedIn = false;
+        document.getElementById('dashboard').classList.add('hidden');
+        document.getElementById('registerForm').classList.remove('hidden');
+        document.getElementById('loginForm').classList.add('hidden');
+        showMessage('👋 Has cerrado sesión correctamente.', true);
+    }
+
+    // ============================================================
+    //  BOTONES DEL DASHBOARD
+    // ============================================================
+    function handleComenzar() {
+        userData.balance += 5;
+        userData.totalIncome += 5;
+        userData.trabajoCount += 1;
+        updateDashboard();
+        showMessage('🚀 ¡Has comenzado un nuevo trabajo! +S/ 5.00', true);
+    }
+
+    function handleRecargar() {
+        userData.balance += 10;
+        userData.recargaCount += 1;
+        updateDashboard();
+        showMessage('📥 ¡Recarga exitosa! +S/ 10.00', true);
+    }
+
+    function handleRetirar() {
+        if (userData.balance >= 5) {
+            userData.balance -= 5;
+            userData.retiroCount += 1;
+            updateDashboard();
+            showMessage('📤 ¡Retiro exitoso! -S/ 5.00', true);
+        } else {
+            showMessage('❌ Saldo insuficiente para retirar.', false);
+        }
+    }
+
+    // ============================================================
+    //  INICIALIZAR
+    // ============================================================
+    window.onload = function() {
+        document.getElementById('registerForm').classList.remove('hidden');
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('dashboard').classList.add('hidden');
+        document.getElementById('regError').style.display = 'none';
+        document.getElementById('loginError').style.display = 'none';
+    };
+</script>
+
+</body>
+</html>
