@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shein - Tienda Online</title>
+    <style>
+        /* ---------- RESET Y ESTILOS BASE ---------- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 550px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6b6b;
+            font-size: 2.8rem;
+            margin-bottom: 0px;
+            letter-spacing: 2px;
+        }
+
+        .sub-title {
+            text-align: center;
+            color: #888;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+            background: #fafafa;
+        }
+
+        input:focus, select:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+            background: white;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #e55a5a;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        .btn-outline:hover {
+            background-color: #ff6b6b;
+            color: white;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* VIP Section */
+        .vip-section {
+            background: #fafafa;
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-top: 20px;
+            border: 1px solid #eee;
+        }
+
+        .vip-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 5px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .vip-item:last-child {
+            border-bottom: none;
+        }
+
+        .vip-name {
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .vip-status {
+            font-weight: 500;
+        }
+
+        .vip-status.activo {
+            color: #00b894;
+        }
+
+        .vip-status.inactivo {
+            color: #b2bec3;
+        }
+
+        .balance-box {
+            background: linear-gradient(135deg, #dfe6e9, #b2bec3);
+            padding: 18px;
+            border-radius: 15px;
+            margin: 15px 0;
+            text-align: center;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .balance-box span {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00b894;
+        }
+
+        .switch-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #0984e3;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .switch-link:hover {
+            text-decoration: underline;
+            color: #0652DD;
+        }
+
+        .error-msg {
+            color: #d63031;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+            background: #ffeaa7;
+            padding: 8px 12px;
+            border-radius: 10px;
+        }
+
+        .success-msg {
+            color: #00b894;
+            font-size: 0.95rem;
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: #e0f7f1;
+            border-radius: 12px;
+        }
+
+        .user-greeting {
+            font-size: 1.2rem;
+            color: #2d3436;
+        }
+
+        .user-greeting span {
+            color: #ff6b6b;
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="appContainer">
+    <!-- HEADER -->
+    <h1>Shein</h1>
+    <p class="sub-title">✨ Tu tienda online favorita ✨</p>
+
+    <!-- ========== FORMULARIO DE REGISTRO ========== -->
+    <div id="registerForm">
+        <h2 style="margin-bottom: 15px; color:#2d3436;">📝 Crear cuenta</h2>
+        
+        <div class="form-group">
+            <label>📱 Número de teléfono</label>
+            <input type="tel" id="regPhone" placeholder="Ej: 987654321">
+        </div>
+
+        <div class="form-group">
+            <label>🌍 Código de país</label>
+            <select id="regCountryCode">
+                <option value="+51">+51 (Perú)</option>
+                <option value="+95">+95 (Myanmar)</option>
+                <option value="+1">+1 (USA)</option>
+                <option value="+44">+44 (UK)</option>
+                <option value="+86">+86 (China)</option>
+                <option value="+34">+34 (España)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>👤 Nombre de usuario</label>
+            <input type="text" id="regUsername" placeholder="Ej: shein_user_2026">
+        </div>
+
+        <div class="form-group">
+            <label>🔒 Contraseña</label>
+            <input type="password" id="regPassword" placeholder="Mínimo 6 caracteres">
+        </div>
+
+        <div id="regError" class="error-msg">⚠️ Por favor, completa todos los campos.</div>
+        
+        <button class="btn" onclick="handleRegister()">✅ Registrarse</button>
+        
+        <div class="switch-link" onclick="showLogin()">¿Ya tienes cuenta? <strong>Iniciar sesión</strong></div>
+    </div>
+
+    <!-- ========== FORMULARIO DE LOGIN ========== -->
+    <div id="loginForm" class="hidden">
+        <h2 style="margin-bottom: 15px; color:#2d3436;">🔐 Iniciar sesión</h2>
+
+        <div class="form-group">
+            <label>👤 Usuario o teléfono</label>
+            <input type="text" id="loginIdentifier" placeholder="Usuario o número de teléfono">
+        </div>
+
+        <div class="form-group">
+            <label>🔒 Contraseña</label>
+            <input type="password" id="loginPassword" placeholder="Tu contraseña">
+        </div>
+
+        <div id="loginError" class="error-msg">❌ Usuario o contraseña incorrectos.</div>
+        
+        <button class="btn" onclick="handleLogin()">🚪 Iniciar sesión</button>
+
+        <div class="switch-link" onclick="showRegister()">¿No tienes cuenta? <strong>Regístrate aquí</strong></div>
+    </div>
+
+    <!-- ========== PANEL PRINCIPAL (Dashboard) ========== -->
+    <div id="dashboard" class="hidden">
+        <h2 class="user-greeting">👋 Hola, <span id="displayUsername">Usuario</span>!</h2>
+        
+        <div class="balance-box">
+            💰 <strong>Saldo disponible</strong> <br>
+            <span id="displayBalance">S/ 10.00</span>
+        </div>
+
+        <div class="vip-section">
+            <h3 style="margin-bottom: 12px; color:#2d3436;">🌟 Niveles VIP</h3>
+            <div id="vipList">
+                <!-- Los VIP se generan con JavaScript -->
+            </div>
+        </div>
+
+        <button class="btn btn-outline" onclick="handleLogout()" style="margin-top: 20px;">🚪 Cerrar sesión</button>
+    </div>
+
+    <!-- Mensajes de información -->
+    <div id="infoMessage" class="success-msg hidden"></div>
+</div>
+
+<script>
+    // ============================================================
+    //  ESTADO GLOBAL (donde se guardan los datos del usuario)
+    // ============================================================
+    let userData = {
+        username: '',
+        phone: '',
+        password: '',
+        balance: 10.00,   // S/ 10.00 soles (Perú)
+        isLoggedIn: false,
+        vipLevels: {
+            vip1: { name: 'VIP 1', active: true },
+            vip2: { name: 'VIP 2', active: false },
+            vip3: { name: 'VIP 3', active: false },
+            vip4: { name: 'VIP 4', active: false },
+            vip5: { name: 'VIP 5', active: false },
+            vip6: { name: 'VIP 6', active: false }
+        }
+    };
+
+    // ============================================================
+    //  FUNCIONES AUXILIARES
+    // ============================================================
+    function showMessage(text, isSuccess = true) {
+        const msg = document.getElementById('infoMessage');
+        msg.textContent = text;
+        msg.style.color = isSuccess ? '#00b894' : '#d63031';
+        msg.style.background = isSuccess ? '#e0f7f1' : '#ffeaa7';
+        msg.classList.remove('hidden');
+        setTimeout(() => {
+            msg.classList.add('hidden');
+        }, 4000);
+    }
+
+    // Renderizar la lista de VIP en el Dashboard
+    function renderVIPs() {
+        const container = document.getElementById('vipList');
+        container.innerHTML = '';
+        const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
+        
+        vipKeys.forEach(key => {
+            const vip = userData.vipLevels[key];
+            const div = document.createElement('div');
+            div.className = 'vip-item';
+            const statusClass = vip.active ? 'activo' : 'inactivo';
+            const statusText = vip.active ? '✅ Activo' : '⏳ No disponible';
+            div.innerHTML = `
+                <span class="vip-name">${vip.name}</span>
+                <span class="vip-status ${statusClass}">${statusText}</span>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    // Actualizar el Dashboard después de login/registro
+    function updateDashboard() {
+        document.getElementById('displayUsername').textContent = userData.username;
+        document.getElementById('displayBalance').textContent = `S/ ${userData.balance.toFixed(2)}`;
+        renderVIPs();
+    }
+
+    // ============================================================
+    //  CAMBIAR ENTRE FORMULARIOS
+    // ============================================================
+    function showLogin() {
+        document.getElementById('registerForm').classList.add('hidden');
+        document.getElementById('loginForm').classList.remove('hidden');
+        document.getElementById('dashboard').classList.add('hidden');
+        document.getElementById('loginError').style.display = 'none';
+        document.getElementById('regError').style.display = 'none';
+    }
+
+    function showRegister() {
+        document.getElementById('registerForm').classList.remove('hidden');
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('dashboard').classList.add('hidden');
+        document.getElementById('regError').style.display = 'none';
+        document.getElementById('loginError').style.display = 'none';
+    }
+
+    // ============================================================
+    //  REGISTRO
+    // ============================================================
+    function handleRegister() {
+        const phone = document.getElementById('regPhone').value.trim();
+        const countryCode = document.getElementById('regCountryCode').value;
+        const username = document.getElementById('regUsername').value.trim();
+        const password = document.getElementById('regPassword').value.trim();
+
+        // Validación
+        if (!phone || !username || !password) {
+            document.getElementById('regError').style.display = 'block';
+            return;
+        } else {
+            document.getElementById('regError').style.display = 'none';
+        }
+
+        // Guardar datos
+        userData.username = username;
+        userData.phone = phone;
+        userData.password = password;
+        userData.balance = 10.00;   // S/ 10 soles de bienvenida
+        userData.isLoggedIn = true;
+
+        // Activar solo VIP 1 por defecto (los demás permanecen inactivos)
+        userData.vipLevels.vip1.active = true;
+        userData.vipLevels.vip2.active = false;
+        userData.vipLevels.vip3.active = false;
+        userData.vipLevels.vip4.active = false;
+        userData.vipLevels.vip5.active = false;
+        userData.vipLevels.vip6.active = false;
+
+        // Mostrar Dashboard
+        document.getElementById('registerForm').classList.add('hidden');
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('dashboard').classList.remove('hidden');
+
+        updateDashboard();
+        showMessage(`✅ ¡Cuenta "${username}" creada con éxito! Has recibido S/ 10.00 de bienvenida.`, true);
+    }
+
+    // ============================================================
+    //  LOGIN
+    // ============================================================
+    function handleLogin() {
+        const identifier = document.getElementById('loginIdentifier').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
+
+        // Verificar contra los datos guardados
+        if ((identifier === userData.username || identifier === userData.phone) && password === userData.password) {
+            document.getElementById('loginError').style.display = 'none';
+            userData.isLoggedIn = true;
+
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+
+            updateDashboard();
+            showMessage(`🔓 ¡Bienvenido de nuevo, ${userData.username}!`, true);
+        } else {
+            document.getElementById('loginError').style.display = 'block';
+            showMessage('❌ Usuario/teléfono o contraseña incorrectos.', false);
+        }
+    }
+
+    // ============================================================
+    //  LOGOUT
+    // ============================================================
+    function handleLogout() {
+        userData.isLoggedIn = false;
+        document.getElementById('dashboard').classList.add('hidden');
+        document.getElementById('registerForm').classList.remove('hidden');
+        document.getElementById('loginForm').classList.add('hidden');
+        showMessage('👋 Has cerrado sesión correctamente.', true);
+    }
+
+    // ============================================================
+    //  INICIALIZAR
+    // ============================================================
+    window.onload = function() {
+        // Mostrar formulario de registro al cargar
+        document.getElementById('registerForm').classList.remove('hidden');
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('dashboard').classList.add('hidden');
+        // Ocultar mensajes de error
+        document.getElementById('regError').style.display = 'none';
+        document.getElementById('loginError').style.display = 'none';
+    };
+</script>
+
+</body>
+</html>
