@@ -91,6 +91,37 @@
             font-size: 0.9rem;
         }
 
+        /* ========== AUTH SECTION ========== */
+        .auth-section {
+            position: relative;
+        }
+
+        .auth-form {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-form h2 {
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
         .form-group {
             margin-bottom: 16px;
         }
@@ -178,52 +209,8 @@
             background: #0652DD;
         }
 
-        .btn-vip {
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            color: white;
-        }
-
-        .btn-vip:hover {
-            background: linear-gradient(135deg, #5a4bd1, #8c7fe6);
-        }
-
-        .btn-vip.completed {
-            background: linear-gradient(135deg, #00b894, #55efc4);
-            color: white;
-        }
-
-        .btn-vip.locked {
-            background: linear-gradient(135deg, #636e72, #b2bec3);
-            color: white;
-            cursor: not-allowed;
-        }
-
-        .btn-vip.locked:hover {
-            transform: none;
-            box-shadow: none;
-        }
-
-        .btn-sm {
-            padding: 8px 15px;
-            font-size: 0.85rem;
-            width: auto;
-            margin-top: 0;
-        }
-
         .hidden {
             display: none !important;
-        }
-
-        .switch-link {
-            text-align: center;
-            margin-top: 15px;
-            color: #0984e3;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .switch-link:hover {
-            text-decoration: underline;
         }
 
         .error-msg {
@@ -244,6 +231,25 @@
             background: #e0f7f1;
             border-radius: 12px;
             margin: 10px 0;
+        }
+
+        /* ========== SWITCH LINK ========== */
+        .switch-link {
+            text-align: center;
+            margin-top: 15px;
+            color: #0984e3;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .switch-link:hover {
+            text-decoration: underline;
+            color: #0652DD;
+        }
+
+        .switch-link strong {
+            color: #ff6b6b;
         }
 
         /* ========== DASHBOARD ========== */
@@ -429,40 +435,44 @@
             text-transform: uppercase;
         }
 
-        .servicios-list {
+        /* ========== ID DISPLAY ========== */
+        .user-id-display {
+            background: linear-gradient(135deg, #2d3436, #636e72);
+            border-radius: 12px;
+            padding: 12px 18px;
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
+            align-items: center;
+            margin: 10px 0;
         }
 
-        .servicios-list:last-child {
-            border-bottom: none;
-        }
-
-        .servicios-list .badge {
-            background: #ff6b6b;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 10px;
+        .user-id-display .id-label {
+            color: #b2bec3;
             font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        .config-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .config-item:last-child {
-            border-bottom: none;
-        }
-
-        .config-item .value {
-            color: #0984e3;
             font-weight: 600;
+        }
+
+        .user-id-display .id-value {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .user-id-display .id-copy {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .user-id-display .id-copy:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         /* ========== BANK ACCOUNT CARD ========== */
@@ -488,11 +498,6 @@
         .bank-account-card .bank-info .bank-name {
             color: #ff6b6b;
             font-weight: 700;
-        }
-
-        .bank-account-card .bank-info .bank-country {
-            color: #0984e3;
-            font-size: 0.8rem;
         }
 
         .bank-account-card .delete-btn {
@@ -881,46 +886,6 @@
             color: white;
         }
 
-        /* ========== ID DISPLAY ========== */
-        .user-id-display {
-            background: linear-gradient(135deg, #2d3436, #636e72);
-            border-radius: 12px;
-            padding: 12px 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 10px 0;
-        }
-
-        .user-id-display .id-label {
-            color: #b2bec3;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .user-id-display .id-value {
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            font-family: 'Courier New', monospace;
-        }
-
-        .user-id-display .id-copy {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .user-id-display .id-copy:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
         /* ========== BOTTOM NAV ========== */
         .bottom-nav {
             display: flex;
@@ -1028,12 +993,6 @@
             padding: 2px 10px;
             font-size: 0.8rem;
             font-weight: 700;
-        }
-
-        /* ========== COUNTRY FLAG ========== */
-        .country-flag {
-            font-size: 1.2rem;
-            margin-right: 5px;
         }
 
         /* ========== RESPONSIVE ========== */
@@ -1147,8 +1106,8 @@
         </div>
 
         <!-- ===== REGISTER FORM ===== -->
-        <div id="registerForm">
-            <h2 class="register-title" style="margin-bottom: 15px; color:#2d3436;">📝 Crear cuenta</h2>
+        <div id="registerForm" class="auth-form active">
+            <h2 class="register-title">📝 Crear cuenta</h2>
 
             <div class="form-group">
                 <label class="label-phone">📱 Número de teléfono</label>
@@ -1187,16 +1146,19 @@
 
             <button class="btn btn-register" onclick="handleRegister()">✅ Registrarse</button>
 
-            <div class="switch-link switch-to-login" onclick="showLogin()">¿Ya tienes cuenta? <strong>Iniciar sesión</strong></div>
+            <div class="switch-link switch-to-login" onclick="showLogin()">
+                ¿Ya tienes cuenta? <strong>Iniciar sesión</strong>
+            </div>
         </div>
 
         <!-- ===== LOGIN FORM ===== -->
-        <div id="loginForm" class="hidden">
-            <h2 class="login-title" style="margin-bottom: 15px; color:#2d3436;">🔐 Iniciar sesión</h2>
+        <div id="loginForm" class="auth-form hidden">
+            <h2 class="login-title">🔐 Iniciar sesión</h2>
 
             <div class="form-group">
                 <label class="label-login-identifier">👤 Usuario o teléfono</label>
                 <input type="text" id="loginIdentifier" placeholder="Usuario o número de teléfono">
+                <small style="color:#888; font-size:0.7rem;">Ingresa tu nombre de usuario o número de teléfono</small>
             </div>
 
             <div class="form-group">
@@ -1208,7 +1170,9 @@
 
             <button class="btn btn-login" onclick="handleLogin()">🚪 Iniciar sesión</button>
 
-            <div class="switch-link switch-to-register" onclick="showRegister()">¿No tienes cuenta? <strong>Regístrate aquí</strong></div>
+            <div class="switch-link switch-to-register" onclick="showRegister()">
+                ¿No tienes cuenta? <strong>Regístrate aquí</strong>
+            </div>
         </div>
 
         <!-- ===== DASHBOARD ===== -->
@@ -1405,7 +1369,7 @@
                 </div>
             </div>
 
-            <!-- ===== CONFIGURACIÓN (Bancos MEJORADO) ===== -->
+            <!-- ===== CONFIGURACIÓN (Bancos) ===== -->
             <div id="configPage" class="page-section">
                 <div class="section-header">
                     <h3 class="config-title">⚙️ Configuración</h3>
@@ -1423,7 +1387,6 @@
                 <div id="bankFormContainer" class="bank-form hidden">
                     <h4 class="add-bank-title" style="color:#2d3436; margin-bottom:10px;">🏦 Agregar cuenta bancaria</h4>
 
-                    <!-- Selección de País -->
                     <div class="form-group">
                         <label>🌍 País / Moneda</label>
                         <select id="bankCountrySelect" onchange="updateBankOptions()">
@@ -1877,7 +1840,7 @@
         };
 
         // ============================================================
-        //  LANGUAGE DATA (Simplified for space)
+        //  LANGUAGE DATA
         // ============================================================
         const translations = {
             es: {
@@ -1894,6 +1857,7 @@
                 switchToRegister: '¿No tienes cuenta?',
                 loginIdentifierLabel: '👤 Usuario o teléfono',
                 loginPasswordLabel: '🔒 Contraseña',
+                loginIdentifierHelp: 'Ingresa tu nombre de usuario o número de teléfono',
                 greeting: 'Hola',
                 balanceLabel: '💰 Saldo',
                 incomeLabel: '📈 Ingresos totales',
@@ -2012,10 +1976,25 @@
                 beneficio6: 'VIP 6: Comisiones del 55% + beneficios exclusivos',
                 userIdLabel: '🆔 ID de usuario',
                 copyBtn: '📋 Copiar',
-                copied: '✅ ID copiado al portapapeles'
+                copied: '✅ ID copiado al portapapeles',
+                fillAllFields: 'Por favor, completa todos los campos.',
+                bankAccount: 'Cuenta bancaria',
+                addedSuccess: 'agregada con éxito.',
+                confirmDelete: '¿Estás seguro de eliminar esta cuenta bancaria?',
+                account: 'Cuenta',
+                deleted: 'eliminada.',
+                status: 'Completado',
+                requiresCompleting: 'Requiere completar',
+                orders: 'órdenes',
+                completed: 'Completado',
+                locked: 'Bloqueado',
+                completeOrder: 'Completar Orden',
+                investment: 'Inversión',
+                commission: 'Comisión',
+                perOrder: 'por orden',
+                countryCurrency: 'País / Moneda'
             },
             en: {
-                // English translations (simplified for space)
                 appTitle: '✨ Your online shopping center ✨',
                 registerTitle: '📝 Create account',
                 loginTitle: '🔐 Login',
@@ -2029,6 +2008,7 @@
                 switchToRegister: "Don't have an account?",
                 loginIdentifierLabel: '👤 Username or phone',
                 loginPasswordLabel: '🔒 Password',
+                loginIdentifierHelp: 'Enter your username or phone number',
                 greeting: 'Hello',
                 balanceLabel: '💰 Balance',
                 incomeLabel: '📈 Total income',
@@ -2147,7 +2127,23 @@
                 beneficio6: 'VIP 6: 55% commission + exclusive benefits',
                 userIdLabel: '🆔 User ID',
                 copyBtn: '📋 Copy',
-                copied: '✅ ID copied to clipboard'
+                copied: '✅ ID copied to clipboard',
+                fillAllFields: 'Please fill in all fields.',
+                bankAccount: 'Bank account',
+                addedSuccess: 'added successfully.',
+                confirmDelete: 'Are you sure you want to delete this bank account?',
+                account: 'Account',
+                deleted: 'deleted.',
+                status: 'Completed',
+                requiresCompleting: 'Requires completing',
+                orders: 'orders',
+                completed: 'Completed',
+                locked: 'Locked',
+                completeOrder: 'Complete Order',
+                investment: 'Investment',
+                commission: 'Commission',
+                perOrder: 'per order',
+                countryCurrency: 'Country / Currency'
             },
             my: {
                 appTitle: '✨ သင့်အွန်လိုင်းစျေးဝယ်စင်တာ ✨',
@@ -2163,6 +2159,7 @@
                 switchToRegister: 'အကောင့်မရှိသေးဘူးလား?',
                 loginIdentifierLabel: '👤 အသုံးပြုသူအမည် သို့မဟုတ် ဖုန်းနံပါတ်',
                 loginPasswordLabel: '🔒 စကားဝှက်',
+                loginIdentifierHelp: 'သင့်အသုံးပြုသူအမည် သို့မဟုတ် ဖုန်းနံပါတ်ကို ရိုက်ထည့်ပါ',
                 greeting: 'မင်္ဂလာပါ',
                 balanceLabel: '💰 လက်ကျန်ငွေ',
                 incomeLabel: '📈 စုစုပေါင်းဝင်ငွေ',
@@ -2281,16 +2278,29 @@
                 beneficio6: 'VIP 6: ၅၅% ကော်မရှင် + သီးသန့်အကျိုးခံစားခွင့်များ',
                 userIdLabel: '🆔 အသုံးပြုသူ ID',
                 copyBtn: '📋 ကူးယူရန်',
-                copied: '✅ ID ကို ကလစ်ဘုတ်သို့ ကူးယူပြီးပါပြီ'
+                copied: '✅ ID ကို ကလစ်ဘုတ်သို့ ကူးယူပြီးပါပြီ',
+                fillAllFields: 'ကျေးဇူးပြု၍ အကွက်အားလုံးကို ဖြည့်ပါ။',
+                bankAccount: 'ဘဏ်အကောင့်',
+                addedSuccess: 'အောင်မြင်စွာ ထည့်သွင်းပြီးပါပြီ။',
+                confirmDelete: 'ဤဘဏ်အကောင့်ကို ဖျက်ရန် သေချာပါသလား။',
+                account: 'အကောင့်',
+                deleted: 'ဖျက်ပြီးပါပြီ။',
+                status: 'ပြီးဆုံးပြီ',
+                requiresCompleting: 'ပြီးဆုံးရန် လိုအပ်သည်',
+                orders: 'အမှာစာ',
+                completed: 'ပြီးဆုံးပြီ',
+                locked: 'ပိတ်ထားသည်',
+                completeOrder: 'အမှာစာပြီးအောင်လုပ်ရန်',
+                investment: 'ရင်းနှီးငွေ',
+                commission: 'ကော်မရှင်',
+                perOrder: 'တစ်ခုလျှင်',
+                countryCurrency: 'နိုင်ငံ / ငွေကြေး'
             }
         };
 
-        // Add other languages (zh, ja, ko, fr, de, pt, ru) with same pattern
-        // For space, we'll use a fallback to Spanish for other languages
+        // Add other languages (zh, ja, ko, fr, de, pt, ru) with similar pattern
+        // For space, we'll use Spanish as fallback
 
-        // ============================================================
-        //  CURRENCY SYMBOLS
-        // ============================================================
         const currencySymbols = {
             'PEN': 'S/',
             'USD': '$',
@@ -2308,117 +2318,120 @@
         let currentCurrency = 'PEN';
 
         // ============================================================
-        //  LANGUAGE FUNCTIONS (Simplified)
+        //  LANGUAGE FUNCTIONS
         // ============================================================
         function changeLanguage(lang) {
             currentLang = lang;
             const t = translations[lang] || translations.es;
-            // Apply translations (simplified for space)
-            document.querySelector('.header-subtitle').textContent = t.appTitle || '✨ Tu centro comercial online ✨';
-            document.querySelector('.register-title').textContent = t.registerTitle || '📝 Crear cuenta';
-            document.querySelector('.login-title').textContent = t.loginTitle || '🔐 Iniciar sesión';
-            document.querySelector('.label-phone').textContent = t.phoneLabel || '📱 Número de teléfono';
-            document.querySelector('.label-country').textContent = t.countryLabel || '🌍 Código de país';
-            document.querySelector('.label-username').textContent = t.usernameLabel || '👤 Nombre de usuario';
-            document.querySelector('.label-password').textContent = t.passwordLabel || '🔒 Contraseña';
-            document.querySelector('.btn-register').textContent = t.registerBtn || '✅ Registrarse';
-            document.querySelector('.btn-login').textContent = t.loginBtn || '🚪 Iniciar sesión';
-            document.querySelector('.label-login-identifier').textContent = t.loginIdentifierLabel || '👤 Usuario o teléfono';
-            document.querySelector('.label-login-password').textContent = t.loginPasswordLabel || '🔒 Contraseña';
-            document.querySelector('.greeting-text').textContent = t.greeting || 'Hola';
-            document.querySelector('.label-balance').textContent = t.balanceLabel || '💰 Saldo';
-            document.querySelector('.label-income').textContent = t.incomeLabel || '📈 Ingresos totales';
-            document.querySelector('.btn-comenzar').textContent = t.comenzarBtn || '🚀 COMENZAR';
-            document.querySelector('.btn-recargar').textContent = t.recargarBtn || '📥 RECARGAR';
-            document.querySelector('.btn-retirar').textContent = t.retirarBtn || '📤 RETIRAR';
-            document.querySelector('.welcome-title').textContent = t.welcomeTitle || '¡Bienvenido a Shein!';
-            document.querySelector('.welcome-subtitle').textContent = t.welcomeSubtitle || 'Miles de personas confían en nosotros en todo el mundo.';
-            document.querySelector('.stat-users').textContent = t.statUsers || 'Usuarios activos';
-            document.querySelector('.stat-transactions').textContent = t.statTransactions || 'Transacciones';
-            document.querySelector('.stat-countries').textContent = t.statCountries || 'Países';
-            document.querySelector('.badge-seguro').textContent = t.badgeSeguro || '100% Seguro';
-            document.querySelector('.badge-verificado').textContent = t.badgeVerificado || 'Verificado';
-            document.querySelector('.badge-estrellas').textContent = t.badgeEstrellas || '4.9/5 Estrellas';
-            document.querySelector('.badge-protegido').textContent = t.badgeProtegido || 'Protegido';
-            document.querySelector('.badge-lider').textContent = t.badgeLider || 'Líder del mercado';
-            document.querySelector('.badge-pagos').textContent = t.badgePagos || 'Pagos rápidos';
-            document.querySelector('.quote1').textContent = t.quote1 || '"Shein es la mejor plataforma para comprar y vender. ¡100% confiable!"';
-            document.querySelector('.quote2').textContent = t.quote2 || '"He recibido mis pagos a tiempo. Excelente servicio."';
-            document.querySelector('.garantias-title').textContent = t.garantiasTitle || '🛡️ Nuestras Garantías';
-            document.querySelector('.garantia-item1').textContent = t.garantia1 || '✅ 100% de transparencia';
-            document.querySelector('.garantia-item2').textContent = t.garantia2 || '✅ Soporte 24/7';
-            document.querySelector('.garantia-item3').textContent = t.garantia3 || '✅ Retiros en 24 horas';
-            document.querySelector('.garantia-item4').textContent = t.garantia4 || '✅ Datos protegidos';
-            document.querySelector('.garantia-item5').textContent = t.garantia5 || '✅ Sin comisiones ocultas';
-            document.querySelector('.garantia-item6').textContent = t.garantia6 || '✅ Seguridad bancaria';
-            document.querySelector('.vip-orders-title').textContent = t.vipOrdersTitle || '📦 Órdenes VIP';
-            document.querySelector('.vip-orders-subtitle').textContent = t.vipOrdersSubtitle || 'Completa órdenes para ganar comisiones. ¡Cada orden te acerca a tu próximo nivel VIP!';
-            document.querySelector('.config-title').textContent = t.configTitle || '⚙️ Configuración';
-            document.querySelector('.btn-add-bank').textContent = t.addBankBtn || '➕ Agregar cuenta bancaria';
-            document.querySelector('.add-bank-title').textContent = t.addBankTitle || '🏦 Agregar cuenta bancaria';
-            document.querySelector('.label-bank-name').textContent = t.bankNameLabel || '🏛️ Nombre del banco';
-            document.querySelector('.label-account-number').textContent = t.accountNumberLabel || '🔢 Número de cuenta';
-            document.querySelector('.label-account-holder').textContent = t.accountHolderLabel || '👤 Titular de la cuenta';
-            document.querySelector('.label-cci').textContent = t.cciLabel || '🔢 CCI / IBAN';
-            document.querySelector('.btn-confirm-bank').textContent = t.confirmBtn || '✅ Confirmar';
-            document.querySelector('.btn-cancel-bank').textContent = t.cancelBtn || '❌ Cancelar';
-            document.querySelector('.config-lang-label').textContent = t.langLabel || '🌐 Idioma';
-            document.querySelector('.config-currency-label').textContent = t.currencyLabel || '💰 Moneda';
-            document.querySelector('.trabajo-title').textContent = t.trabajoTitle || '💼 Trabajo';
-            document.querySelector('.trabajo-subtitle').textContent = t.trabajoSubtitle || 'Encuentra oportunidades de trabajo en Shein.';
-            document.querySelector('.trabajo-item1-title').textContent = t.trabajoItem1 || '📱 Marketing Digital';
-            document.querySelector('.trabajo-item1-desc').textContent = t.trabajoItem1Desc || 'Gana dinero promocionando productos.';
-            document.querySelector('.trabajo-item2-title').textContent = t.trabajoItem2 || '💻 Atención al Cliente';
-            document.querySelector('.trabajo-item2-desc').textContent = t.trabajoItem2Desc || 'Ayuda a nuestros usuarios con sus consultas.';
-            document.querySelector('.trabajo-item3-title').textContent = t.trabajoItem3 || '📊 Analista de Datos';
-            document.querySelector('.trabajo-item3-desc').textContent = t.trabajoItem3Desc || 'Analiza el comportamiento de los usuarios.';
-            document.querySelector('.mi-title').textContent = t.miTitle || '👤 Mi Perfil';
-            document.querySelector('.label-member-since').textContent = t.memberSince || '📅 Miembro desde';
-            document.querySelector('.label-profile-balance').textContent = t.profileBalance || '💰 Saldo';
-            document.querySelector('.label-profile-vip').textContent = t.profileVip || '⭐ Nivel VIP';
-            document.querySelector('.mis-bancos-title').textContent = t.misBancos || '🏦 Mis Cuentas Bancarias';
-            document.querySelector('.btn-add-bank-mi').textContent = t.addBankMi || '➕ Agregar cuenta bancaria';
-            document.querySelector('.add-bank-mi-title').textContent = t.addBankTitle || '🏦 Agregar cuenta bancaria';
-            document.querySelector('.label-bank-name-mi').textContent = t.bankNameLabel || '🏛️ Nombre del banco';
-            document.querySelector('.label-account-number-mi').textContent = t.accountNumberLabel || '🔢 Número de cuenta';
-            document.querySelector('.label-account-holder-mi').textContent = t.accountHolderLabel || '👤 Titular de la cuenta';
-            document.querySelector('.label-cci-mi').textContent = t.cciLabel || '🔢 CCI / IBAN';
-            document.querySelector('.btn-confirm-bank-mi').textContent = t.confirmBtn || '✅ Confirmar';
-            document.querySelector('.btn-cancel-bank-mi').textContent = t.cancelBtn || '❌ Cancelar';
-            document.querySelector('.withdrawal-title').textContent = t.withdrawalTitle || '📤 Realizar Retiro';
-            document.querySelector('.label-withdraw-bank').textContent = t.withdrawBankLabel || '🏛️ Selecciona tu cuenta bancaria';
-            document.querySelector('.label-withdraw-amount').textContent = t.withdrawAmountLabel || '💰 Monto a retirar';
-            document.querySelector('.btn-confirm-withdrawal').textContent = t.confirmWithdrawal || '✅ Confirmar Retiro';
-            document.querySelector('.history-title').textContent = t.historyTitle || '📋 Historial de Retiros';
-            document.querySelector('.nav-inicio').textContent = t.navInicio || 'Inicio';
-            document.querySelector('.nav-ordenes').textContent = t.navOrdenes || 'Órdenes';
-            document.querySelector('.nav-contrato').textContent = t.navContrato || 'Contrato';
-            document.querySelector('.nav-trabajo').textContent = t.navTrabajo || 'Trabajo';
-            document.querySelector('.nav-mi').textContent = t.navMi || 'Mi';
-            document.querySelector('.logout-text').textContent = t.logout || 'Cerrar sesión';
-            document.getElementById('regError').textContent = t.regError || '⚠️ Por favor, completa todos los campos.';
-            document.getElementById('loginError').textContent = t.loginError || '❌ Usuario o contraseña incorrectos.';
+            // Apply translations (simplified - only essential elements)
+            document.querySelector('.header-subtitle').textContent = t.appTitle;
+            document.querySelector('.register-title').textContent = t.registerTitle;
+            document.querySelector('.login-title').textContent = t.loginTitle;
+            document.querySelector('.label-phone').textContent = t.phoneLabel;
+            document.querySelector('.label-country').textContent = t.countryLabel;
+            document.querySelector('.label-username').textContent = t.usernameLabel;
+            document.querySelector('.label-password').textContent = t.passwordLabel;
+            document.querySelector('.btn-register').textContent = t.registerBtn;
+            document.querySelector('.btn-login').textContent = t.loginBtn;
+            document.querySelector('.label-login-identifier').textContent = t.loginIdentifierLabel;
+            document.querySelector('.label-login-password').textContent = t.loginPasswordLabel;
+            document.querySelector('.label-login-identifier + small').textContent = t.loginIdentifierHelp || '';
+            document.querySelector('.switch-to-login').innerHTML = t.switchToLogin + ' <strong>Iniciar sesión</strong>';
+            document.querySelector('.switch-to-register').innerHTML = t.switchToRegister + ' <strong>Regístrate aquí</strong>';
+            document.querySelector('.greeting-text').textContent = t.greeting;
+            document.querySelector('.label-balance').textContent = t.balanceLabel;
+            document.querySelector('.label-income').textContent = t.incomeLabel;
+            document.querySelector('.btn-comenzar').textContent = t.comenzarBtn;
+            document.querySelector('.btn-recargar').textContent = t.recargarBtn;
+            document.querySelector('.btn-retirar').textContent = t.retirarBtn;
+            document.querySelector('.welcome-title').textContent = t.welcomeTitle;
+            document.querySelector('.welcome-subtitle').textContent = t.welcomeSubtitle;
+            document.querySelector('.stat-users').textContent = t.statUsers;
+            document.querySelector('.stat-transactions').textContent = t.statTransactions;
+            document.querySelector('.stat-countries').textContent = t.statCountries;
+            document.querySelector('.badge-seguro').textContent = t.badgeSeguro;
+            document.querySelector('.badge-verificado').textContent = t.badgeVerificado;
+            document.querySelector('.badge-estrellas').textContent = t.badgeEstrellas;
+            document.querySelector('.badge-protegido').textContent = t.badgeProtegido;
+            document.querySelector('.badge-lider').textContent = t.badgeLider;
+            document.querySelector('.badge-pagos').textContent = t.badgePagos;
+            document.querySelector('.quote1').textContent = t.quote1;
+            document.querySelector('.quote2').textContent = t.quote2;
+            document.querySelector('.garantias-title').textContent = t.garantiasTitle;
+            document.querySelector('.garantia-item1').textContent = t.garantia1;
+            document.querySelector('.garantia-item2').textContent = t.garantia2;
+            document.querySelector('.garantia-item3').textContent = t.garantia3;
+            document.querySelector('.garantia-item4').textContent = t.garantia4;
+            document.querySelector('.garantia-item5').textContent = t.garantia5;
+            document.querySelector('.garantia-item6').textContent = t.garantia6;
+            document.querySelector('.vip-orders-title').textContent = t.vipOrdersTitle;
+            document.querySelector('.vip-orders-subtitle').textContent = t.vipOrdersSubtitle;
+            document.querySelector('.config-title').textContent = t.configTitle;
+            document.querySelector('.btn-add-bank').textContent = t.addBankBtn;
+            document.querySelector('.add-bank-title').textContent = t.addBankTitle;
+            document.querySelector('.label-bank-name').textContent = t.bankNameLabel;
+            document.querySelector('.label-account-number').textContent = t.accountNumberLabel;
+            document.querySelector('.label-account-holder').textContent = t.accountHolderLabel;
+            document.querySelector('.label-cci').textContent = t.cciLabel;
+            document.querySelector('.btn-confirm-bank').textContent = t.confirmBtn;
+            document.querySelector('.btn-cancel-bank').textContent = t.cancelBtn;
+            document.querySelector('.config-lang-label').textContent = t.langLabel;
+            document.querySelector('.config-currency-label').textContent = t.currencyLabel;
+            document.querySelector('.trabajo-title').textContent = t.trabajoTitle;
+            document.querySelector('.trabajo-subtitle').textContent = t.trabajoSubtitle;
+            document.querySelector('.trabajo-item1-title').textContent = t.trabajoItem1;
+            document.querySelector('.trabajo-item1-desc').textContent = t.trabajoItem1Desc;
+            document.querySelector('.trabajo-item2-title').textContent = t.trabajoItem2;
+            document.querySelector('.trabajo-item2-desc').textContent = t.trabajoItem2Desc;
+            document.querySelector('.trabajo-item3-title').textContent = t.trabajoItem3;
+            document.querySelector('.trabajo-item3-desc').textContent = t.trabajoItem3Desc;
+            document.querySelector('.mi-title').textContent = t.miTitle;
+            document.querySelector('.label-member-since').textContent = t.memberSince;
+            document.querySelector('.label-profile-balance').textContent = t.profileBalance;
+            document.querySelector('.label-profile-vip').textContent = t.profileVip;
+            document.querySelector('.mis-bancos-title').textContent = t.misBancos;
+            document.querySelector('.btn-add-bank-mi').textContent = t.addBankMi;
+            document.querySelector('.add-bank-mi-title').textContent = t.addBankTitle;
+            document.querySelector('.label-bank-name-mi').textContent = t.bankNameLabel;
+            document.querySelector('.label-account-number-mi').textContent = t.accountNumberLabel;
+            document.querySelector('.label-account-holder-mi').textContent = t.accountHolderLabel;
+            document.querySelector('.label-cci-mi').textContent = t.cciLabel;
+            document.querySelector('.btn-confirm-bank-mi').textContent = t.confirmBtn;
+            document.querySelector('.btn-cancel-bank-mi').textContent = t.cancelBtn;
+            document.querySelector('.withdrawal-title').textContent = t.withdrawalTitle;
+            document.querySelector('.label-withdraw-bank').textContent = t.withdrawBankLabel;
+            document.querySelector('.label-withdraw-amount').textContent = t.withdrawAmountLabel;
+            document.querySelector('.btn-confirm-withdrawal').textContent = t.confirmWithdrawal;
+            document.querySelector('.history-title').textContent = t.historyTitle;
+            document.querySelector('.nav-inicio').textContent = t.navInicio;
+            document.querySelector('.nav-ordenes').textContent = t.navOrdenes;
+            document.querySelector('.nav-contrato').textContent = t.navContrato;
+            document.querySelector('.nav-trabajo').textContent = t.navTrabajo;
+            document.querySelector('.nav-mi').textContent = t.navMi;
+            document.querySelector('.logout-text').textContent = t.logout;
+            document.getElementById('regError').textContent = t.regError;
+            document.getElementById('loginError').textContent = t.loginError;
             document.getElementById('currentLangDisplay').textContent = lang.toUpperCase();
 
             // Contrato translations
-            document.querySelector('.contrato-hero-title').textContent = t.contratoHeroTitle || 'Contrato de Confianza';
-            document.querySelector('.contrato-hero-sub').textContent = t.contratoHeroSub || 'Tu seguridad es nuestra prioridad número uno';
+            document.querySelector('.contrato-hero-title').textContent = t.contratoHeroTitle;
+            document.querySelector('.contrato-hero-sub').textContent = t.contratoHeroSub;
             const gridItems = document.querySelectorAll('.contrato-grid .grid-item');
             if (gridItems.length >= 4) {
-                gridItems[0].querySelector('.title').textContent = t.contratoGrid1 || 'Seguridad 100%';
-                gridItems[0].querySelector('.desc').textContent = t.contratoGrid1Desc || 'Datos encriptados';
-                gridItems[1].querySelector('.title').textContent = t.contratoGrid2 || 'Retiros Rápidos';
-                gridItems[1].querySelector('.desc').textContent = t.contratoGrid2Desc || '24 horas máximo';
-                gridItems[2].querySelector('.title').textContent = t.contratoGrid3 || 'Protección';
-                gridItems[2].querySelector('.desc').textContent = t.contratoGrid3Desc || 'Contra fraudes';
-                gridItems[3].querySelector('.title').textContent = t.contratoGrid4 || 'Transparencia';
-                gridItems[3].querySelector('.desc').textContent = t.contratoGrid4Desc || 'Sin comisiones ocultas';
+                gridItems[0].querySelector('.title').textContent = t.contratoGrid1;
+                gridItems[0].querySelector('.desc').textContent = t.contratoGrid1Desc;
+                gridItems[1].querySelector('.title').textContent = t.contratoGrid2;
+                gridItems[1].querySelector('.desc').textContent = t.contratoGrid2Desc;
+                gridItems[2].querySelector('.title').textContent = t.contratoGrid3;
+                gridItems[2].querySelector('.desc').textContent = t.contratoGrid3Desc;
+                gridItems[3].querySelector('.title').textContent = t.contratoGrid4;
+                gridItems[3].querySelector('.desc').textContent = t.contratoGrid4Desc;
             }
             const sectionTitles = document.querySelectorAll('.contrato-section h4');
             if (sectionTitles.length >= 3) {
-                sectionTitles[0].textContent = t.garantiasSection || '🛡️ Nuestras Garantías';
-                sectionTitles[1].textContent = t.compromisosTitle || '🤝 Nuestros Compromisos';
-                sectionTitles[2].textContent = t.beneficiosTitle || '⭐ Beneficios Exclusivos';
+                sectionTitles[0].textContent = t.garantiasSection;
+                sectionTitles[1].textContent = t.compromisosTitle;
+                sectionTitles[2].textContent = t.beneficiosTitle;
             }
             const garantiaItems = document.querySelectorAll('.contrato-section ul li');
             if (garantiaItems.length >= 6) {
@@ -2441,8 +2454,8 @@
                     if (text) benItems[i].innerHTML = `<span class="check">✅</span> ${text}`;
                 });
             }
-            document.querySelectorAll('.id-label').forEach(el => el.textContent = t.userIdLabel || '🆔 ID de usuario');
-            document.querySelectorAll('.id-copy').forEach(el => el.textContent = t.copyBtn || '📋 Copiar');
+            document.querySelectorAll('.id-label').forEach(el => el.textContent = t.userIdLabel);
+            document.querySelectorAll('.id-copy').forEach(el => el.textContent = t.copyBtn);
         }
 
         function changeCurrency(currency) {
@@ -2461,6 +2474,27 @@
         }
 
         // ============================================================
+        //  AUTH SWITCH FUNCTIONS
+        // ============================================================
+        function showLogin() {
+            document.getElementById('registerForm').classList.remove('active');
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('loginForm').classList.add('active');
+            document.getElementById('regError').style.display = 'none';
+            document.getElementById('loginError').style.display = 'none';
+        }
+
+        function showRegister() {
+            document.getElementById('loginForm').classList.remove('active');
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('active');
+            document.getElementById('regError').style.display = 'none';
+            document.getElementById('loginError').style.display = 'none';
+        }
+
+        // ============================================================
         //  BANK FORM FUNCTIONS
         // ============================================================
         function updateBankOptions() {
@@ -2470,7 +2504,6 @@
             const data = bankData[countryCode];
 
             if (data) {
-                // Update bank list
                 bankSelect.innerHTML = '';
                 data.banks.forEach(bank => {
                     const option = document.createElement('option');
@@ -2478,15 +2511,8 @@
                     option.textContent = bank;
                     bankSelect.appendChild(option);
                 });
-
-                // Update format hints
                 document.getElementById('accountFormatHint').textContent = `Formato: ${data.accountFormat}`;
                 document.getElementById('cciFormatHint').textContent = `Formato: ${data.cciFormat}`;
-
-                // Update currency in display
-                currentCurrency = data.currency;
-                document.getElementById('currencySwitcher').value = data.currency;
-                document.getElementById('currentCurrencyDisplay').textContent = data.currency;
             }
         }
 
@@ -2527,12 +2553,18 @@
             withdrawalHistory: [],
             userId: '',
             vipOrders: {
-                vip1: { level: 'VIP 1', totalOrders: 12, completedOrders: 0, commissionRate: 0.30, isUnlocked: true, isCompleted: false, baseInvestment: 10.00 },
-                vip2: { level: 'VIP 2', totalOrders: 20, completedOrders: 0, commissionRate: 0.35, isUnlocked: false, isCompleted: false, baseInvestment: 25.00, unlockRequirement: { level: 'VIP 1', requiredOrders: 12 } },
-                vip3: { level: 'VIP 3', totalOrders: 30, completedOrders: 0, commissionRate: 0.40, isUnlocked: false, isCompleted: false, baseInvestment: 50.00, unlockRequirement: { level: 'VIP 2', requiredOrders: 20 } },
-                vip4: { level: 'VIP 4', totalOrders: 40, completedOrders: 0, commissionRate: 0.45, isUnlocked: false, isCompleted: false, baseInvestment: 100.00, unlockRequirement: { level: 'VIP 3', requiredOrders: 30 } },
-                vip5: { level: 'VIP 5', totalOrders: 50, completedOrders: 0, commissionRate: 0.50, isUnlocked: false, isCompleted: false, baseInvestment: 200.00, unlockRequirement: { level: 'VIP 4', requiredOrders: 40 } },
-                vip6: { level: 'VIP 6', totalOrders: 60, completedOrders: 0, commissionRate: 0.55, isUnlocked: false, isCompleted: false, baseInvestment: 500.00, unlockRequirement: { level: 'VIP 5', requiredOrders: 50 } }
+                vip1: { level: 'VIP 1', totalOrders: 12, completedOrders: 0, commissionRate: 0.30, isUnlocked: true,
+                    isCompleted: false, baseInvestment: 10.00 },
+                vip2: { level: 'VIP 2', totalOrders: 20, completedOrders: 0, commissionRate: 0.35, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 25.00, unlockRequirement: { level: 'VIP 1', requiredOrders: 12 } },
+                vip3: { level: 'VIP 3', totalOrders: 30, completedOrders: 0, commissionRate: 0.40, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 50.00, unlockRequirement: { level: 'VIP 2', requiredOrders: 20 } },
+                vip4: { level: 'VIP 4', totalOrders: 40, completedOrders: 0, commissionRate: 0.45, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 100.00, unlockRequirement: { level: 'VIP 3', requiredOrders: 30 } },
+                vip5: { level: 'VIP 5', totalOrders: 50, completedOrders: 0, commissionRate: 0.50, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 200.00, unlockRequirement: { level: 'VIP 4', requiredOrders: 40 } },
+                vip6: { level: 'VIP 6', totalOrders: 60, completedOrders: 0, commissionRate: 0.55, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 500.00, unlockRequirement: { level: 'VIP 5', requiredOrders: 50 } }
             },
             vipLevels: {
                 vip1: { name: 'VIP 1', active: true },
@@ -2595,9 +2627,9 @@
                 const statusClass = vip.active ? 'activo' : 'inactivo';
                 const statusText = vip.active ? '✅ Activo' : '⏳ No disponible';
                 div.innerHTML = `
-                    <span class="vip-name">${vip.name}</span>
-                    <span class="vip-status ${statusClass}">${statusText}</span>
-                `;
+                            <span class="vip-name">${vip.name}</span>
+                            <span class="vip-status ${statusClass}">${statusText}</span>
+                        `;
                 container.appendChild(div);
             });
         }
@@ -2613,25 +2645,25 @@
                 container.innerHTML = '';
                 if (userData.bankAccounts.length === 0) {
                     container.innerHTML = `
-                        <div style="text-align:center; padding:15px; color:#888; font-size:0.95rem; background:#f8f9fa; border-radius:12px;">
-                            ${t.noBanks || 'No hay cuentas bancarias registradas.'}
-                        </div>
-                    `;
+                                <div style="text-align:center; padding:15px; color:#888; font-size:0.95rem; background:#f8f9fa; border-radius:12px;">
+                                    ${t.noBanks || 'No hay cuentas bancarias registradas.'}
+                                </div>
+                            `;
                 } else {
                     userData.bankAccounts.forEach((account, index) => {
                         const countryData = bankData[account.countryCode] || bankData.PE;
                         const div = document.createElement('div');
                         div.className = 'bank-account-card';
                         div.innerHTML = `
-                            <div class="bank-info">
-                                <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
-                                <div class="bank-country">${countryData.flag || '🌍'} ${countryData.country || ''} (${account.countryCode || 'PE'})</div>
-                                <div><strong>${t.accountNumberLabel || 'Cuenta'}:</strong> ${account.accountNumber}</div>
-                                <div><strong>${t.accountHolderLabel || 'Titular'}:</strong> ${account.accountHolder}</div>
-                                <div><strong>${t.cciLabel || 'CCI'}:</strong> ${account.cci}</div>
-                            </div>
-                            <button class="delete-btn" onclick="deleteBankAccount(${index})" title="Eliminar">✕</button>
-                        `;
+                                    <div class="bank-info">
+                                        <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
+                                        <div class="bank-country">${countryData.flag || '🌍'} ${countryData.country || ''} (${account.countryCode || 'PE'})</div>
+                                        <div><strong>${t.accountNumberLabel || 'Cuenta'}:</strong> ${account.accountNumber}</div>
+                                        <div><strong>${t.accountHolderLabel || 'Titular'}:</strong> ${account.accountHolder}</div>
+                                        <div><strong>${t.cciLabel || 'CCI'}:</strong> ${account.cci}</div>
+                                    </div>
+                                    <button class="delete-btn" onclick="deleteBankAccount(${index})" title="Eliminar">✕</button>
+                                `;
                         container.appendChild(div);
                     });
                 }
@@ -2642,25 +2674,25 @@
                 containerMi.innerHTML = '';
                 if (userData.bankAccounts.length === 0) {
                     containerMi.innerHTML = `
-                        <div style="text-align:center; padding:10px; color:#888; font-size:0.9rem; background:#f8f9fa; border-radius:10px;">
-                            ${t.noBanks || 'No hay cuentas bancarias registradas.'}
-                        </div>
-                    `;
+                                <div style="text-align:center; padding:10px; color:#888; font-size:0.9rem; background:#f8f9fa; border-radius:10px;">
+                                    ${t.noBanks || 'No hay cuentas bancarias registradas.'}
+                                </div>
+                            `;
                 } else {
                     userData.bankAccounts.forEach((account, index) => {
                         const countryData = bankData[account.countryCode] || bankData.PE;
                         const div = document.createElement('div');
                         div.className = 'bank-account-card';
                         div.innerHTML = `
-                            <div class="bank-info">
-                                <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
-                                <div class="bank-country">${countryData.flag || '🌍'} ${countryData.country || ''} (${account.countryCode || 'PE'})</div>
-                                <div><strong>${t.accountNumberLabel || 'Cuenta'}:</strong> ${account.accountNumber}</div>
-                                <div><strong>${t.accountHolderLabel || 'Titular'}:</strong> ${account.accountHolder}</div>
-                                <div><strong>${t.cciLabel || 'CCI'}:</strong> ${account.cci}</div>
-                            </div>
-                            <button class="delete-btn" onclick="deleteBankAccount(${index})" title="Eliminar">✕</button>
-                        `;
+                                    <div class="bank-info">
+                                        <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
+                                        <div class="bank-country">${countryData.flag || '🌍'} ${countryData.country || ''} (${account.countryCode || 'PE'})</div>
+                                        <div><strong>${t.accountNumberLabel || 'Cuenta'}:</strong> ${account.accountNumber}</div>
+                                        <div><strong>${t.accountHolderLabel || 'Titular'}:</strong> ${account.accountHolder}</div>
+                                        <div><strong>${t.cciLabel || 'CCI'}:</strong> ${account.cci}</div>
+                                    </div>
+                                    <button class="delete-btn" onclick="deleteBankAccount(${index})" title="Eliminar">✕</button>
+                                `;
                         containerMi.appendChild(div);
                     });
                 }
@@ -2708,10 +2740,10 @@
 
             if (userData.withdrawalHistory.length === 0) {
                 container.innerHTML = `
-                    <div style="text-align:center; padding:15px; color:#888; font-size:0.9rem;">
-                        ${t.noHistory || 'No hay retiros realizados.'}
-                    </div>
-                `;
+                            <div style="text-align:center; padding:15px; color:#888; font-size:0.9rem;">
+                                ${t.noHistory || 'No hay retiros realizados.'}
+                            </div>
+                        `;
                 return;
             }
 
@@ -2720,15 +2752,15 @@
                 const div = document.createElement('div');
                 div.className = 'history-item';
                 div.innerHTML = `
-                    <div>
-                        <div class="bank-info">🏛️ ${item.bankName}</div>
-                        <div class="date-info">📅 ${item.date}</div>
-                    </div>
-                    <div style="text-align:right;">
-                        <div class="amount-info">${formatCurrency(-item.amount)}</div>
-                        <div class="status-success">✅ ${t.status || 'Completado'}</div>
-                    </div>
-                `;
+                            <div>
+                                <div class="bank-info">🏛️ ${item.bankName}</div>
+                                <div class="date-info">📅 ${item.date}</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div class="amount-info">${formatCurrency(-item.amount)}</div>
+                                <div class="status-success">✅ ${t.status || 'Completado'}</div>
+                            </div>
+                        `;
                 container.appendChild(div);
             });
         }
@@ -2757,7 +2789,8 @@
                         isUnlocked = true;
                         order.isUnlocked = true;
                     } else {
-                        lockReason = `🔒 ${t.requiresCompleting || 'Requiere completar'} ${req.level} (${req.requiredOrders} ${t.orders || 'órdenes'})`;
+                        lockReason =
+                            `🔒 ${t.requiresCompleting || 'Requiere completar'} ${req.level} (${req.requiredOrders} ${t.orders || 'órdenes'})`;
                     }
                 }
 
@@ -2770,37 +2803,39 @@
 
                 let buttonHtml = '';
                 if (isComplete) {
-                    buttonHtml = `<button class="btn btn-sm btn-vip completed" disabled>✅ ${t.completed || 'Completado'}</button>`;
+                    buttonHtml =
+                        `<button class="btn btn-sm btn-vip completed" disabled>✅ ${t.completed || 'Completado'}</button>`;
                 } else if (!isUnlocked) {
-                    buttonHtml = `<button class="btn btn-sm btn-vip locked" disabled>${lockReason || '🔒 ' + (t.locked || 'Bloqueado')}</button>`;
+                    buttonHtml =
+                        `<button class="btn btn-sm btn-vip locked" disabled>${lockReason || '🔒 ' + (t.locked || 'Bloqueado')}</button>`;
                 } else {
                     buttonHtml = `
-                        <button class="btn btn-sm btn-vip" onclick="completeVIPOrder('${key}')">
-                            📦 ${t.completeOrder || 'Completar Orden'}
-                        </button>
-                    `;
+                                <button class="btn btn-sm btn-vip" onclick="completeVIPOrder('${key}')">
+                                    📦 ${t.completeOrder || 'Completar Orden'}
+                                </button>
+                            `;
                 }
 
                 const commission = order.baseInvestment * order.commissionRate;
 
                 div.innerHTML = `
-                    <div class="vip-info">
-                        <div class="vip-title">${order.level}</div>
-                        <div class="vip-details">
-                            ${t.orders || 'Ordenes'}: ${order.completedOrders}/${order.totalOrders}
-                            ${isUnlocked ? `| 💰 ${t.investment || 'Inversión'}: ${formatCurrency(order.baseInvestment)}` : ''}
-                            ${isUnlocked ? `| 📈 ${t.commission || 'Comisión'}: ${(order.commissionRate * 100)}%` : ''}
-                        </div>
-                        <div class="vip-progress">
-                            <div class="progress-bar" style="width: ${Math.min(progress, 100)}%;"></div>
-                        </div>
-                    </div>
-                    <div class="vip-actions">
-                        <div class="order-count">${order.completedOrders}/${order.totalOrders}</div>
-                        ${isUnlocked ? `<div class="commission-info">💰 ${formatCurrency(commission)} ${t.perOrder || 'por orden'}</div>` : ''}
-                        ${buttonHtml}
-                    </div>
-                `;
+                            <div class="vip-info">
+                                <div class="vip-title">${order.level}</div>
+                                <div class="vip-details">
+                                    ${t.orders || 'Ordenes'}: ${order.completedOrders}/${order.totalOrders}
+                                    ${isUnlocked ? `| 💰 ${t.investment || 'Inversión'}: ${formatCurrency(order.baseInvestment)}` : ''}
+                                    ${isUnlocked ? `| 📈 ${t.commission || 'Comisión'}: ${(order.commissionRate * 100)}%` : ''}
+                                </div>
+                                <div class="vip-progress">
+                                    <div class="progress-bar" style="width: ${Math.min(progress, 100)}%;"></div>
+                                </div>
+                            </div>
+                            <div class="vip-actions">
+                                <div class="order-count">${order.completedOrders}/${order.totalOrders}</div>
+                                ${isUnlocked ? `<div class="commission-info">💰 ${formatCurrency(commission)} ${t.perOrder || 'por orden'}</div>` : ''}
+                                ${buttonHtml}
+                            </div>
+                        `;
                 container.appendChild(div);
             });
         }
@@ -2827,7 +2862,9 @@
 
             if (order.completedOrders >= order.totalOrders) {
                 order.isCompleted = true;
-                showMessage(`${t.completedAll || '🎉 ¡Felicidades! Has completado'} ${order.level} ${t.andEarned || 'y ganado'} ${formatCurrency(commission)}!`, true);
+                showMessage(
+                    `${t.completedAll || '🎉 ¡Felicidades! Has completado'} ${order.level} ${t.andEarned || 'y ganado'} ${formatCurrency(commission)}!`,
+                    true);
 
                 const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
                 const currentIndex = vipKeys.indexOf(vipKey);
@@ -2846,7 +2883,9 @@
                     }
                 }
             } else {
-                showMessage(`✅ ${t.orderCompleted || 'Orden completada en'} ${order.level}. ${t.earned || 'Ganaste'} ${formatCurrency(commission)}! (${order.completedOrders}/${order.totalOrders})`, true);
+                showMessage(
+                    `✅ ${t.orderCompleted || 'Orden completada en'} ${order.level}. ${t.earned || 'Ganaste'} ${formatCurrency(commission)}! (${order.completedOrders}/${order.totalOrders})`,
+                    true);
             }
 
             updateDashboard();
@@ -2856,22 +2895,6 @@
         // ============================================================
         //  NAVIGATION FUNCTIONS
         // ============================================================
-        function showLogin() {
-            document.getElementById('registerForm').classList.remove('hidden');
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('dashboard').classList.add('hidden');
-            document.getElementById('loginError').style.display = 'none';
-            document.getElementById('regError').style.display = 'none';
-        }
-
-        function showRegister() {
-            document.getElementById('registerForm').classList.add('hidden');
-            document.getElementById('loginForm').classList.remove('hidden');
-            document.getElementById('dashboard').classList.add('hidden');
-            document.getElementById('regError').style.display = 'none';
-            document.getElementById('loginError').style.display = 'none';
-        }
-
         function switchPage(pageId, element) {
             const pages = document.querySelectorAll('.page-section');
             pages.forEach(p => p.classList.remove('active'));
@@ -2936,7 +2959,8 @@
 
             renderBankAccounts();
             toggleBankForm();
-            showMessage(`✅ ${t.bankAccount || 'Cuenta bancaria'} "${bankName}" ${t.addedSuccess || 'agregada con éxito.'}`, true);
+            showMessage(`✅ ${t.bankAccount || 'Cuenta bancaria'} "${bankName}" ${t.addedSuccess || 'agregada con éxito.'}`,
+            true);
         }
 
         function toggleBankFormMi() {
@@ -2975,7 +2999,8 @@
 
             renderBankAccounts();
             toggleBankFormMi();
-            showMessage(`✅ ${t.bankAccount || 'Cuenta bancaria'} "${bankName}" ${t.addedSuccess || 'agregada con éxito.'}`, true);
+            showMessage(`✅ ${t.bankAccount || 'Cuenta bancaria'} "${bankName}" ${t.addedSuccess || 'agregada con éxito.'}`,
+            true);
         }
 
         function deleteBankAccount(index) {
@@ -3007,7 +3032,9 @@
             }
 
             if (amount > userData.balance) {
-                showMessage(`${t.insufficientBalance || '❌ Saldo insuficiente. Tu saldo es'} ${formatCurrency(userData.balance)}`, false);
+                showMessage(
+                    `${t.insufficientBalance || '❌ Saldo insuficiente. Tu saldo es'} ${formatCurrency(userData.balance)}`,
+                    false);
                 return;
             }
 
@@ -3028,13 +3055,14 @@
                 bankName: selectedBank.bankName,
                 amount: amount,
                 date: dateStr,
-                status: t.completed || 'Completado'
+                status: t.status || 'Completado'
             });
 
             updateDashboard();
             renderWithdrawalHistory();
             amountInput.value = '';
-            showMessage(t.withdrawalSuccess.replace('{amount}', formatCurrency(amount)).replace('{bank}', selectedBank.bankName), true);
+            showMessage(t.withdrawalSuccess.replace('{amount}', formatCurrency(amount)).replace('{bank}', selectedBank
+                .bankName), true);
         }
 
         // ============================================================
@@ -3075,7 +3103,9 @@
                 userData.vipLevels[key].active = (index === 0);
             });
 
+            document.getElementById('registerForm').classList.remove('active');
             document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('active');
             document.getElementById('loginForm').classList.add('hidden');
             document.getElementById('dashboard').classList.remove('hidden');
 
@@ -3085,7 +3115,8 @@
 
             updateDashboard();
             renderVIPOrders();
-            showMessage(t.registerSuccess.replace('{username}', username).replace('{amount}', formatCurrency(10.00)), true);
+            showMessage(t.registerSuccess.replace('{username}', username).replace('{amount}', formatCurrency(10.00)),
+            true);
         }
 
         function handleLogin() {
@@ -3097,7 +3128,9 @@
                 document.getElementById('loginError').style.display = 'none';
                 userData.isLoggedIn = true;
 
+                document.getElementById('registerForm').classList.remove('active');
                 document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('active');
                 document.getElementById('loginForm').classList.add('hidden');
                 document.getElementById('dashboard').classList.remove('hidden');
 
@@ -3119,6 +3152,8 @@
             userData.isLoggedIn = false;
             document.getElementById('dashboard').classList.add('hidden');
             document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('active');
+            document.getElementById('loginForm').classList.remove('active');
             document.getElementById('loginForm').classList.add('hidden');
             showMessage(t.logoutSuccess || '👋 Has cerrado sesión correctamente.', true);
         }
@@ -3190,7 +3225,9 @@
         // ============================================================
         window.onload = function() {
             document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('active');
             document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('active');
             document.getElementById('dashboard').classList.add('hidden');
             document.getElementById('regError').style.display = 'none';
             document.getElementById('loginError').style.display = 'none';
@@ -3200,7 +3237,6 @@
             currentLang = 'es';
             currentCurrency = 'PEN';
 
-            // Initialize bank options
             updateBankOptions();
             updateBankOptionsMi();
 
