@@ -25,217 +25,60 @@
 
         .container {
             background: #ffffff;
-            padding: 30px;
-            border-radius: 25px;
+            padding: 25px 30px;
+            border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
+            max-width: 1100px;
             width: 100%;
             border: 1px solid #e8e8e8;
         }
 
+        /* ========== HEADER ========== */
         .admin-header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
             border-bottom: 2px solid #f0f0f0;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .admin-header h1 {
+        .admin-header .logo h1 {
             color: #ff6b6b;
-            font-size: 2.2rem;
-            letter-spacing: 2px;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
         }
 
-        .admin-header p {
+        .admin-header .logo span {
             color: #888;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
-        .admin-header .badge {
-            background: #ff6b6b;
+        .admin-header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-header .user-info .badge {
+            background: #00b894;
             padding: 4px 15px;
             border-radius: 20px;
             font-size: 0.7rem;
             font-weight: 600;
-            display: inline-block;
-            margin-top: 5px;
             color: #fff;
         }
 
-        /* ========== TABS ========== */
-        .admin-tabs {
-            display: flex;
-            gap: 5px;
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 5px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            border: 1px solid #e8e8e8;
-        }
-
-        .admin-tabs .tab-btn {
-            flex: 1;
-            padding: 10px 12px;
+        .admin-header .user-info .btn {
+            padding: 6px 16px;
             border: none;
-            border-radius: 12px;
-            background: transparent;
-            color: #888;
-            font-weight: 600;
+            border-radius: 10px;
             font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.3s;
-            min-width: 80px;
-        }
-
-        .admin-tabs .tab-btn.active {
-            background: #ff6b6b;
-            color: white;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-        }
-
-        .admin-tabs .tab-btn:hover:not(.active) {
-            color: #2d3436;
-            background: rgba(0, 0, 0, 0.05);
-        }
-
-        .admin-tabs .tab-btn .icon {
-            margin-right: 5px;
-        }
-
-        /* ========== PANELS ========== */
-        .panel {
-            display: none;
-            animation: fadeSlide 0.4s ease;
-        }
-
-        .panel.active {
-            display: block;
-        }
-
-        @keyframes fadeSlide {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .panel-title {
-            color: #2d3436;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .panel-title .count {
-            background: #f0f2f5;
-            padding: 2px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: #888;
-        }
-
-        /* ========== FORMULARIOS ========== */
-        .form-group {
-            margin-bottom: 14px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #555;
-            font-size: 0.85rem;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            outline: none;
-            transition: 0.3s;
-            background: #fafafa;
-            color: #2d3436;
-        }
-
-        input:focus,
-        select:focus {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
-            background: #fff;
-        }
-
-        input::placeholder {
-            color: #aaa;
-        }
-
-        select option {
-            background: #fff;
-            color: #2d3436;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 12px;
-            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
-            width: 100%;
-        }
-
-        .btn-primary {
-            background: #ff6b6b;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #e55a5a;
-            transform: scale(1.02);
-        }
-
-        .btn-success {
-            background: #00b894;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #00a381;
-            transform: scale(1.02);
-        }
-
-        .btn-danger {
-            background: #d63031;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #c0392b;
-        }
-
-        .btn-warning {
-            background: #fdcb6e;
-            color: #2d3436;
-        }
-
-        .btn-warning:hover {
-            background: #f9ca24;
-        }
-
-        .btn-sm {
-            padding: 6px 14px;
-            font-size: 0.8rem;
-            width: auto;
         }
 
         .btn-outline {
@@ -250,122 +93,323 @@
             color: #2d3436;
         }
 
-        .btn-group {
+        /* ========== BREADCRUMB ========== */
+        .breadcrumb {
             display: flex;
             gap: 10px;
-        }
-
-        .btn-group .btn {
-            flex: 1;
-        }
-
-        /* ========== USER LIST ========== */
-        .user-card {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 12px 15px;
-            margin: 8px 0;
-            border: 1px solid #e8e8e8;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: #888;
             flex-wrap: wrap;
-            gap: 8px;
-            transition: 0.3s;
         }
 
-        .user-card:hover {
-            background: #f0f2f5;
-        }
-
-        .user-card .user-info {
-            flex: 1;
-        }
-
-        .user-card .user-info .name {
+        .breadcrumb span {
+            color: #2d3436;
             font-weight: 600;
+        }
+
+        .breadcrumb .separator {
+            color: #ddd;
+        }
+
+        /* ========== SEARCH SECTION ========== */
+        .search-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e8e8e8;
+        }
+
+        .search-section .search-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 15px;
             color: #2d3436;
         }
 
-        .user-card .user-info .details {
-            font-size: 0.8rem;
+        .search-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .search-grid .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
             color: #888;
+            text-transform: uppercase;
+            margin-bottom: 4px;
         }
 
-        .user-card .user-balance {
-            font-weight: 700;
-            color: #00b894;
-            font-size: 1.1rem;
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            outline: none;
+            transition: 0.3s;
+            background: #fff;
+            color: #2d3436;
         }
 
-        .user-card .user-actions {
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
+        }
+
+        .search-actions {
             display: flex;
-            gap: 5px;
+            gap: 10px;
+            margin-top: 15px;
             flex-wrap: wrap;
         }
 
-        .user-card .user-actions .btn {
-            padding: 4px 12px;
-            font-size: 0.7rem;
-            width: auto;
+        .search-actions .btn {
+            padding: 8px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        /* ========== ORDER MANAGEMENT ========== */
-        .order-config {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 15px;
-            margin: 8px 0;
-            border: 1px solid #e8e8e8;
+        .btn-primary {
+            background: #ff6b6b;
+            color: white;
         }
 
-        .order-config .order-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
+        .btn-primary:hover {
+            background: #e55a5a;
         }
 
-        .order-config .order-header .level {
-            font-weight: 700;
-            color: #6c5ce7;
-        }
-
-        .order-config .order-header .status {
-            font-size: 0.75rem;
-            padding: 2px 12px;
-            border-radius: 20px;
-            background: #f0f2f5;
-        }
-
-        .order-config .order-header .status.active {
+        .btn-success {
             background: #00b894;
             color: white;
         }
 
-        .order-config .order-header .status.locked {
-            background: #dfe6e9;
-            color: #636e72;
+        .btn-success:hover {
+            background: #00a381;
         }
 
-        .order-config .order-controls {
+        .btn-warning {
+            background: #fdcb6e;
+            color: #2d3436;
+        }
+
+        .btn-warning:hover {
+            background: #f9ca24;
+        }
+
+        .btn-danger {
+            background: #d63031;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-sm {
+            padding: 4px 12px;
+            font-size: 0.75rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #ddd;
+            color: #888;
+        }
+
+        .btn-outline:hover {
+            background: #f8f9fa;
+            border-color: #ff6b6b;
+            color: #2d3436;
+        }
+
+        /* ========== USER RESULT CARD ========== */
+        .user-result-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid #e8e8e8;
+            margin-bottom: 20px;
+            display: none;
+            animation: fadeSlide 0.5s ease;
+        }
+
+        .user-result-card.show {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-result-card .user-header {
             display: flex;
-            gap: 10px;
+            justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e8e8e8;
         }
 
-        .order-config .order-controls input {
-            width: 80px;
-            padding: 6px 10px;
+        .user-result-card .user-header .user-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d3436;
+        }
+
+        .user-result-card .user-header .user-id {
+            background: #dfe6e9;
+            padding: 4px 14px;
+            border-radius: 20px;
             font-size: 0.85rem;
+            font-weight: 600;
+            color: #2d3436;
+            font-family: 'Courier New', monospace;
+        }
+
+        .user-result-card .user-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .user-result-card .user-stats .stat-item {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #e8e8e8;
+        }
+
+        .user-result-card .user-stats .stat-item .label {
+            font-size: 0.65rem;
+            color: #888;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .user-result-card .user-stats .stat-item .value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-top: 3px;
+        }
+
+        .user-result-card .user-stats .stat-item .value.green {
+            color: #00b894;
+        }
+
+        .user-result-card .user-stats .stat-item .value.purple {
+            color: #6c5ce7;
+        }
+
+        .user-result-card .user-stats .stat-item .value.orange {
+            color: #fdcb6e;
+        }
+
+        .user-result-card .user-stats .stat-item .value.red {
+            color: #d63031;
+        }
+
+        /* ========== USER ACTIONS ========== */
+        .user-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .user-actions-grid .action-group {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid #e8e8e8;
+        }
+
+        .user-actions-grid .action-group .action-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .user-actions-grid .action-group .input-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .user-actions-grid .action-group .input-group input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            outline: none;
+            background: #fafafa;
+            color: #2d3436;
+            min-width: 60px;
+        }
+
+        .user-actions-grid .action-group .input-group input:focus {
+            border-color: #ff6b6b;
             background: #fff;
         }
 
-        .order-config .order-controls .btn {
+        .user-actions-grid .action-group .btn {
+            padding: 6px 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
             width: auto;
-            padding: 6px 16px;
-            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        /* ========== NOT FOUND ========== */
+        .not-found {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 2px dashed #ddd;
+            display: none;
+        }
+
+        .not-found.show {
+            display: block;
+        }
+
+        .not-found .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
         }
 
         /* ========== MESSAGE ========== */
@@ -458,47 +502,55 @@
             background: #fff;
         }
 
+        .login-box .form-group {
+            margin-bottom: 14px;
+        }
+
         /* ========== RESPONSIVE ========== */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .container {
-                padding: 18px;
+                padding: 15px;
             }
 
-            .admin-tabs .tab-btn {
-                font-size: 0.7rem;
-                padding: 8px 6px;
-                min-width: 60px;
+            .search-grid {
+                grid-template-columns: 1fr 1fr;
             }
 
-            .user-card {
+            .user-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .user-actions-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .admin-header {
                 flex-direction: column;
-                align-items: stretch;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .search-grid {
+                grid-template-columns: 1fr;
             }
 
-            .user-card .user-actions {
-                justify-content: center;
+            .user-stats {
+                grid-template-columns: 1fr;
             }
 
-            .order-config .order-controls {
+            .user-actions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .user-result-card .user-header {
                 flex-direction: column;
-                align-items: stretch;
-            }
-
-            .order-config .order-controls input {
-                width: 100%;
-            }
-
-            .btn-group {
-                flex-direction: column;
+                align-items: flex-start;
             }
 
             .login-box {
                 padding: 25px;
                 margin: 20px;
-            }
-
-            .admin-header h1 {
-                font-size: 1.8rem;
             }
         }
     </style>
@@ -519,136 +571,168 @@
                 <input type="password" id="adminPass" placeholder="********" value="admin123">
             </div>
             <div id="loginError" class="message error" style="display:none;">❌ Usuario o contraseña incorrectos</div>
-            <button class="btn btn-primary" onclick="adminLogin()">🚪 Ingresar</button>
+            <button class="btn btn-primary" onclick="adminLogin()" style="width:100%;">🚪 Ingresar</button>
             <p style="text-align:center; color:#aaa; font-size:0.7rem; margin-top:10px;">Usuario: admin | Contraseña: admin123</p>
         </div>
     </div>
 
     <!-- ===== ADMIN PANEL ===== -->
     <div class="container" id="adminPanel" style="display:none;">
+
+        <!-- ===== HEADER ===== -->
         <div class="admin-header">
-            <h1>🛠️ Shein Admin</h1>
-            <p>Panel de control para administrar la plataforma</p>
-            <span class="badge">🔒 Sesión activa</span>
-            <button class="btn btn-outline btn-sm" onclick="adminLogout()" style="width:auto; margin-top:8px;">🚪 Cerrar sesión</button>
+            <div class="logo">
+                <h1>🛠️ Shein Admin</h1>
+                <span>Panel de control - Member Management</span>
+            </div>
+            <div class="user-info">
+                <span class="badge">🔒 Sesión activa</span>
+                <button class="btn btn-outline" onclick="adminLogout()">🚪 Cerrar sesión</button>
+            </div>
         </div>
 
-        <!-- ===== TABS ===== -->
-        <div class="admin-tabs">
-            <button class="tab-btn active" onclick="switchTab('users', this)">
-                <span class="icon">👥</span> Usuarios
-            </button>
-            <button class="tab-btn" onclick="switchTab('orders', this)">
-                <span class="icon">📦</span> Órdenes
-            </button>
-            <button class="tab-btn" onclick="switchTab('balance', this)">
-                <span class="icon">💰</span> Balance
-            </button>
-            <button class="tab-btn" onclick="switchTab('settings', this)">
-                <span class="icon">⚙️</span> Ajustes
-            </button>
+        <!-- ===== BREADCRUMB ===== -->
+        <div class="breadcrumb">
+            <span>🏠 Inicio</span>
+            <span class="separator">›</span>
+            <span>👥 Miembros</span>
+            <span class="separator">›</span>
+            <span>🔍 Buscar por ID</span>
         </div>
 
         <!-- ===== MESSAGE ===== -->
         <div id="adminMessage" class="message"></div>
 
-        <!-- ===== PANEL: USERS ===== -->
-        <div id="panelUsers" class="panel active">
-            <div class="panel-title">
-                <span>👥 Usuarios Registrados</span>
-                <span class="count" id="userCount">0</span>
-            </div>
-            <div id="userList">
-                <!-- Generado por JavaScript -->
-            </div>
-        </div>
-
-        <!-- ===== PANEL: ORDERS ===== -->
-        <div id="panelOrders" class="panel">
-            <div class="panel-title">
-                <span>📦 Configuración de Órdenes VIP</span>
-                <span class="count">6 Niveles</span>
-            </div>
-            <div id="orderConfigList">
-                <!-- Generado por JavaScript -->
-            </div>
-        </div>
-
-        <!-- ===== PANEL: BALANCE ===== -->
-        <div id="panelBalance" class="panel">
-            <div class="panel-title">
-                <span>💰 Gestionar Balance</span>
-                <span class="count">Selecciona un usuario</span>
-            </div>
-            <div class="form-group">
-                <label>👤 Seleccionar usuario</label>
-                <select id="balanceUserSelect">
-                    <option value="">-- Selecciona un usuario --</option>
-                </select>
-            </div>
-            <div id="balanceUserInfo" style="background:#f8f9fa; border-radius:12px; padding:12px; margin-bottom:15px; display:none; border:1px solid #e8e8e8;">
-                <div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
-                    <span>👤 <span id="balanceUserName">-</span></span>
-                    <span>💰 <span id="balanceUserCurrent" style="color:#00b894;">S/ 0.00</span></span>
-                </div>
-            </div>
-            <div class="btn-group">
-                <div style="flex:1;">
-                    <label>➕ Agregar Saldo</label>
-                    <div style="display:flex; gap:10px;">
-                        <input type="number" id="balanceAddAmount" placeholder="Monto" min="0.01" step="0.01">
-                        <button class="btn btn-success" onclick="adminAddBalance()" style="width:auto; padding:10px 20px;">➕ Agregar</button>
-                    </div>
-                </div>
-                <div style="flex:1;">
-                    <label>➖ Retirar Saldo</label>
-                    <div style="display:flex; gap:10px;">
-                        <input type="number" id="balanceSubtractAmount" placeholder="Monto" min="0.01" step="0.01">
-                        <button class="btn btn-danger" onclick="adminSubtractBalance()" style="width:auto; padding:10px 20px;">➖ Retirar</button>
-                    </div>
-                </div>
-            </div>
-            <div style="margin-top:15px; padding:15px; background:#f8f9fa; border-radius:12px; border:1px dashed #ddd;">
-                <p style="color:#888; font-size:0.85rem;">💡 <strong>Consejo:</strong> Puedes agregar o retirar saldo de cualquier usuario registrado.</p>
-            </div>
-        </div>
-
-        <!-- ===== PANEL: SETTINGS ===== -->
-        <div id="panelSettings" class="panel">
-            <div class="panel-title">
-                <span>⚙️ Ajustes del Sistema</span>
-                <span class="count">Configuración</span>
-            </div>
-
-            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
-                <h4 style="color:#6c5ce7; margin-bottom:10px;">🔑 Cambiar Contraseña de Usuario</h4>
+        <!-- ===== SEARCH SECTION ===== -->
+        <div class="search-section">
+            <div class="search-title">🔍 Buscar miembro por ID</div>
+            <div class="search-grid">
                 <div class="form-group">
-                    <label>👤 Seleccionar usuario</label>
-                    <select id="passwordUserSelect">
-                        <option value="">-- Selecciona un usuario --</option>
+                    <label>🆔 ID de miembro</label>
+                    <input type="text" id="searchUserId" placeholder="Ej: 1234567" maxlength="7">
+                </div>
+                <div class="form-group">
+                    <label>👤 Usuario</label>
+                    <input type="text" id="searchUsername" placeholder="Nombre de usuario">
+                </div>
+                <div class="form-group">
+                    <label>📱 Teléfono</label>
+                    <input type="text" id="searchPhone" placeholder="Número de teléfono">
+                </div>
+                <div class="form-group">
+                    <label>🌍 País</label>
+                    <select id="searchCountry">
+                        <option value="">Todos</option>
+                        <option value="Perú">Perú</option>
+                        <option value="Colombia">Colombia</option>
+                        <option value="México">México</option>
+                        <option value="Chile">Chile</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="España">España</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>🔒 Nueva contraseña</label>
-                    <input type="text" id="newPassword" placeholder="Nueva contraseña (mínimo 6 caracteres)">
+            </div>
+            <div class="search-actions">
+                <button class="btn btn-primary" onclick="searchUserById()">🔍 Buscar</button>
+                <button class="btn btn-outline" onclick="clearSearch()">🗑️ Limpiar</button>
+            </div>
+        </div>
+
+        <!-- ===== NOT FOUND ===== -->
+        <div class="not-found" id="notFound">
+            <div class="icon">🔍</div>
+            <p>No se encontró ningún usuario con este ID.</p>
+            <p style="font-size:0.8rem; color:#aaa;">Verifica que el ID sea correcto (7 dígitos)</p>
+        </div>
+
+        <!-- ===== USER RESULT CARD ===== -->
+        <div class="user-result-card" id="userResultCard">
+            <div class="user-header">
+                <div>
+                    <span class="user-name" id="resultUserName">Usuario</span>
+                    <div style="font-size:0.8rem; color:#888; margin-top:2px;" id="resultUserPhone">📱 +51 987654321</div>
                 </div>
-                <button class="btn btn-warning" onclick="adminResetPassword()">🔄 Cambiar Contraseña</button>
+                <span class="user-id" id="resultUserId">🆔 1234567</span>
             </div>
 
-            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
-                <h4 style="color:#d63031; margin-bottom:10px;">⚠️ Acciones Peligrosas</h4>
-                <button class="btn btn-danger" onclick="adminClearAllData()" style="margin-bottom:8px;">🗑️ Eliminar todos los datos</button>
-                <p style="color:#888; font-size:0.75rem;">⚠️ Esta acción eliminará todos los usuarios y datos. ¡No se puede deshacer!</p>
-            </div>
-
-            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
-                <h4 style="color:#00b894; margin-bottom:10px;">📊 Estadísticas</h4>
-                <div id="adminStats">
-                    <p>👥 <span id="statUsers">0</span> usuarios registrados</p>
-                    <p>💰 <span id="statTotalBalance">S/ 0.00</span> balance total</p>
-                    <p>📦 <span id="statOrders">0</span> órdenes completadas</p>
+            <div class="user-stats">
+                <div class="stat-item">
+                    <div class="label">💰 Saldo</div>
+                    <div class="value green" id="resultUserBalance">S/ 10.00</div>
+                </div>
+                <div class="stat-item">
+                    <div class="label">📈 Ingresos totales</div>
+                    <div class="value orange" id="resultUserIncome">S/ 0.00</div>
+                </div>
+                <div class="stat-item">
+                    <div class="label">⭐ Nivel VIP</div>
+                    <div class="value purple" id="resultUserVip">VIP 1</div>
+                </div>
+                <div class="stat-item">
+                    <div class="label">🌍 País</div>
+                    <div class="value" id="resultUserCountry">Perú</div>
+                </div>
+                <div class="stat-item">
+                    <div class="label">📅 Registro</div>
+                    <div class="value" id="resultUserDate">2026-07-23</div>
+                </div>
+                <div class="stat-item">
+                    <div class="label">📦 Órdenes</div>
+                    <div class="value red" id="resultUserOrders">0</div>
                 </div>
             </div>
+
+            <!-- ===== USER ACTIONS ===== -->
+            <div class="user-actions-grid">
+                <!-- Agregar Saldo -->
+                <div class="action-group">
+                    <span class="action-label">➕ Agregar Saldo</span>
+                    <div class="input-group">
+                        <input type="number" id="resultAddAmount" placeholder="Monto" min="0.01" step="0.01">
+                        <button class="btn btn-success" onclick="resultAddBalance()">➕</button>
+                    </div>
+                </div>
+
+                <!-- Retirar Saldo -->
+                <div class="action-group">
+                    <span class="action-label">➖ Retirar Saldo</span>
+                    <div class="input-group">
+                        <input type="number" id="resultSubtractAmount" placeholder="Monto" min="0.01" step="0.01">
+                        <button class="btn btn-danger" onclick="resultSubtractBalance()">➖</button>
+                    </div>
+                </div>
+
+                <!-- Cambiar Contraseña -->
+                <div class="action-group">
+                    <span class="action-label">🔑 Cambiar Contraseña</span>
+                    <div class="input-group">
+                        <input type="text" id="resultNewPassword" placeholder="Nueva contraseña" minlength="6">
+                        <button class="btn btn-warning" onclick="resultResetPassword()">🔄</button>
+                    </div>
+                </div>
+
+                <!-- Congelar / Descongelar -->
+                <div class="action-group">
+                    <span class="action-label">🔒 Estado de cuenta</span>
+                    <div class="input-group" style="gap:6px;">
+                        <button class="btn btn-danger" onclick="resultFreezeAccount()" style="flex:1;">🔒 Congelar</button>
+                        <button class="btn btn-success" onclick="resultUnfreezeAccount()" style="flex:1;">🔓 Descongelar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== EXTRA ACTIONS ===== -->
+            <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap; border-top:1px solid #e8e8e8; padding-top:15px;">
+                <button class="btn btn-primary btn-sm" onclick="resultViewFullDetails()" style="width:auto;">👁️ Ver detalles completos</button>
+                <button class="btn btn-warning btn-sm" onclick="resultViewHistory()" style="width:auto;">📋 Historial</button>
+                <button class="btn btn-outline btn-sm" onclick="clearSearch()" style="width:auto;">🗑️ Limpiar</button>
+                <span style="font-size:0.7rem; color:#888; margin-left:auto; align-self:center;" id="resultStatus">✅ Activo</span>
+            </div>
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <div style="text-align:center; margin-top:20px; padding-top:15px; border-top:1px solid #f0f0f0; font-size:0.7rem; color:#aaa;">
+            Shein Admin Panel v2.0 | © 2026 Todos los derechos reservados
         </div>
     </div>
 
@@ -670,6 +754,8 @@
                 vip6: { totalOrders: 60, commissionRate: 0.55 }
             }
         };
+
+        let currentSearchUserIndex = -1;
 
         // ============================================================
         //  FUNCIONES DE ALMACENAMIENTO
@@ -714,7 +800,6 @@
                 errorEl.style.display = 'none';
                 document.getElementById('loginOverlay').classList.add('hidden');
                 document.getElementById('adminPanel').style.display = 'block';
-                renderAdminPanel();
                 showMessage('✅ Sesión iniciada correctamente', 'success');
             } else {
                 errorEl.style.display = 'block';
@@ -728,139 +813,7 @@
         }
 
         // ============================================================
-        //  RENDER FUNCTIONS
-        // ============================================================
-        function renderAdminPanel() {
-            renderUsers();
-            renderOrderConfigs();
-            renderBalanceSelects();
-            renderPasswordSelects();
-            renderStats();
-        }
-
-        function renderUsers() {
-            const container = document.getElementById('userList');
-            const count = document.getElementById('userCount');
-            container.innerHTML = '';
-            count.textContent = adminData.users.length;
-
-            if (adminData.users.length === 0) {
-                container.innerHTML = `
-                            <div style="text-align:center; padding:30px; color:#888; background:#f8f9fa; border-radius:12px;">
-                                No hay usuarios registrados aún.
-                            </div>
-                        `;
-                return;
-            }
-
-            adminData.users.forEach((user, index) => {
-                const div = document.createElement('div');
-                div.className = 'user-card';
-                div.innerHTML = `
-                            <div class="user-info">
-                                <div class="name">👤 ${user.username}</div>
-                                <div class="details">📱 ${user.phone || 'Sin teléfono'} | 🆔 ${user.userId || 'N/A'}</div>
-                            </div>
-                            <div class="user-balance">${formatCurrency(user.balance || 0)}</div>
-                            <div class="user-actions">
-                                <button class="btn btn-success btn-sm" onclick="adminSetBalance(${index}, 10)">+10</button>
-                                <button class="btn btn-danger btn-sm" onclick="adminSetBalance(${index}, -5)">-5</button>
-                                <button class="btn btn-warning btn-sm" onclick="adminViewUser(${index})">👁️</button>
-                            </div>
-                        `;
-                container.appendChild(div);
-            });
-        }
-
-        function renderOrderConfigs() {
-            const container = document.getElementById('orderConfigList');
-            container.innerHTML = '';
-
-            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
-            const vipNames = ['VIP 1', 'VIP 2', 'VIP 3', 'VIP 4', 'VIP 5', 'VIP 6'];
-
-            vipKeys.forEach((key, index) => {
-                const config = adminData.defaultOrders[key] || { totalOrders: (index + 1) * 10, commissionRate: 0.30 +
-                        (index * 0.05) };
-                const isUnlocked = index === 0;
-
-                const div = document.createElement('div');
-                div.className = 'order-config';
-                div.innerHTML = `
-                            <div class="order-header">
-                                <span class="level">${vipNames[index]}</span>
-                                <span class="status ${isUnlocked ? 'active' : 'locked'}">${isUnlocked ? '✅ Activo' : '🔒 Bloqueado'}</span>
-                            </div>
-                            <div class="order-controls">
-                                <div style="flex:1;">
-                                    <label style="font-size:0.7rem; color:#888;">Órdenes requeridas</label>
-                                    <input type="number" id="orderTotal_${key}" value="${config.totalOrders}" min="1" max="200">
-                                </div>
-                                <div style="flex:1;">
-                                    <label style="font-size:0.7rem; color:#888;">Comisión (%)</label>
-                                    <input type="number" id="orderRate_${key}" value="${(config.commissionRate * 100).toFixed(0)}" min="5" max="100">
-                                </div>
-                                <button class="btn btn-primary btn-sm" onclick="adminUpdateOrder('${key}')" style="margin-top:6px;">💾 Guardar</button>
-                            </div>
-                        `;
-                container.appendChild(div);
-            });
-        }
-
-        function renderBalanceSelects() {
-            const select = document.getElementById('balanceUserSelect');
-            const passwordSelect = document.getElementById('passwordUserSelect');
-            const currentValue = select.value;
-
-            select.innerHTML = '<option value="">-- Selecciona un usuario --</option>';
-            passwordSelect.innerHTML = '<option value="">-- Selecciona un usuario --</option>';
-
-            adminData.users.forEach((user, index) => {
-                const option = document.createElement('option');
-                option.value = index;
-                option.textContent = `${user.username} (${formatCurrency(user.balance || 0)})`;
-                select.appendChild(option);
-
-                const option2 = document.createElement('option');
-                option2.value = index;
-                option2.textContent = user.username;
-                passwordSelect.appendChild(option2);
-            });
-
-            if (currentValue && parseInt(currentValue) < adminData.users.length) {
-                select.value = currentValue;
-            }
-
-            select.onchange = function() {
-                const idx = parseInt(this.value);
-                const info = document.getElementById('balanceUserInfo');
-                if (!isNaN(idx) && idx >= 0 && idx < adminData.users.length) {
-                    const user = adminData.users[idx];
-                    document.getElementById('balanceUserName').textContent = user.username;
-                    document.getElementById('balanceUserCurrent').textContent = formatCurrency(user.balance || 0);
-                    info.style.display = 'block';
-                } else {
-                    info.style.display = 'none';
-                }
-            };
-        }
-
-        function renderPasswordSelects() {
-            // Ya se actualiza en renderBalanceSelects
-        }
-
-        function renderStats() {
-            const totalUsers = adminData.users.length;
-            const totalBalance = adminData.users.reduce((sum, u) => sum + (u.balance || 0), 0);
-            const totalOrders = adminData.users.reduce((sum, u) => sum + (u.totalOrders || 0), 0);
-
-            document.getElementById('statUsers').textContent = totalUsers;
-            document.getElementById('statTotalBalance').textContent = formatCurrency(totalBalance);
-            document.getElementById('statOrders').textContent = totalOrders;
-        }
-
-        // ============================================================
-        //  ADMIN ACTIONS
+        //  FUNCIONES AUXILIARES
         // ============================================================
         function showMessage(text, type = 'info') {
             const el = document.getElementById('adminMessage');
@@ -876,189 +829,271 @@
             return `S/ ${(amount || 0).toFixed(2)}`;
         }
 
-        // --- User Management ---
-        function adminSetBalance(index, amount) {
-            if (index < 0 || index >= adminData.users.length) {
-                showMessage('❌ Usuario no encontrado', 'error');
-                return;
+        function generateUserId() {
+            let id = '';
+            for (let i = 0; i < 7; i++) {
+                id += Math.floor(Math.random() * 10);
             }
-            const user = adminData.users[index];
-            user.balance = (user.balance || 0) + amount;
-            if (user.balance < 0) user.balance = 0;
-            saveAdminData();
-            renderAdminPanel();
-            showMessage(`✅ ${amount > 0 ? '+' : ''}${formatCurrency(amount)} aplicado a ${user.username}`, 'success');
+            return id;
         }
 
-        function adminViewUser(index) {
-            if (index < 0 || index >= adminData.users.length) {
-                showMessage('❌ Usuario no encontrado', 'error');
-                return;
-            }
-            const user = adminData.users[index];
-            showMessage(`
-                        👤 ${user.username} | 📱 ${user.phone || 'N/A'} | 💰 ${formatCurrency(user.balance)} | 🆔 ${user.userId || 'N/A'}
-                    `, 'info');
+        function getCurrentDate() {
+            const now = new Date();
+            return now.toISOString().split('T')[0];
         }
 
-        // --- Balance Management ---
-        function adminAddBalance() {
-            const select = document.getElementById('balanceUserSelect');
-            const amountInput = document.getElementById('balanceAddAmount');
-            const idx = parseInt(select.value);
+        function getCurrentTime() {
+            const now = new Date();
+            return now.toTimeString().split(' ')[0];
+        }
+
+        // ============================================================
+        //  SEARCH FUNCTIONS
+        // ============================================================
+        function searchUserById() {
+            const userId = document.getElementById('searchUserId').value.trim();
+            const username = document.getElementById('searchUsername').value.trim().toLowerCase();
+            const phone = document.getElementById('searchPhone').value.trim();
+            const country = document.getElementById('searchCountry').value;
+
+            const resultCard = document.getElementById('userResultCard');
+            const notFound = document.getElementById('notFound');
+
+            if (!userId && !username && !phone) {
+                showMessage('⚠️ Ingresa un ID, usuario o teléfono para buscar', 'error');
+                return;
+            }
+
+            let foundIndex = -1;
+
+            adminData.users.forEach((user, index) => {
+                let match = false;
+
+                if (userId && user.userId === userId) match = true;
+                else if (username && user.username.toLowerCase().includes(username)) match = true;
+                else if (phone && user.phone === phone) match = true;
+
+                if (country && user.country !== country) match = false;
+
+                if (match) foundIndex = index;
+            });
+
+            if (foundIndex === -1) {
+                resultCard.classList.remove('show');
+                notFound.classList.add('show');
+                return;
+            }
+
+            notFound.classList.remove('show');
+            currentSearchUserIndex = foundIndex;
+            displayUserResult(foundIndex);
+            resultCard.classList.add('show');
+            showMessage('✅ Usuario encontrado', 'success');
+        }
+
+        function displayUserResult(index) {
+            const user = adminData.users[index];
+            if (!user) return;
+
+            document.getElementById('resultUserName').textContent = user.username || 'Usuario';
+            document.getElementById('resultUserId').textContent = `🆔 ${user.userId || 'N/A'}`;
+            document.getElementById('resultUserPhone').textContent = `📱 ${user.phone || '+51 987654321'}`;
+            document.getElementById('resultUserBalance').textContent = formatCurrency(user.balance || 0);
+            document.getElementById('resultUserIncome').textContent = formatCurrency(user.totalIncome || 0);
+            document.getElementById('resultUserVip').textContent = user.vipLevel || 'VIP 1';
+            document.getElementById('resultUserCountry').textContent = user.country || 'Perú';
+            document.getElementById('resultUserDate').textContent = user.registrationDate || getCurrentDate();
+            document.getElementById('resultUserOrders').textContent = user.totalOrders || 0;
+            document.getElementById('resultStatus').textContent = user.frozen ? '🔒 Congelado' : '✅ Activo';
+            document.getElementById('resultStatus').style.color = user.frozen ? '#d63031' : '#00b894';
+
+            // Guardar referencia en el user para acciones
+            window._currentUserIndex = index;
+        }
+
+        function clearSearch() {
+            document.getElementById('searchUserId').value = '';
+            document.getElementById('searchUsername').value = '';
+            document.getElementById('searchPhone').value = '';
+            document.getElementById('searchCountry').value = '';
+            document.getElementById('userResultCard').classList.remove('show');
+            document.getElementById('notFound').classList.remove('show');
+            currentSearchUserIndex = -1;
+            window._currentUserIndex = -1;
+            showMessage('🧹 Búsqueda limpiada', 'info');
+        }
+
+        // ============================================================
+        //  RESULT ACTIONS
+        // ============================================================
+        function getCurrentUser() {
+            const idx = window._currentUserIndex;
+            if (idx === undefined || idx < 0 || idx >= adminData.users.length) {
+                showMessage('❌ No hay usuario seleccionado', 'error');
+                return null;
+            }
+            return adminData.users[idx];
+        }
+
+        function resultAddBalance() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            const amountInput = document.getElementById('resultAddAmount');
             const amount = parseFloat(amountInput.value);
-
-            if (isNaN(idx) || idx < 0 || idx >= adminData.users.length) {
-                showMessage('❌ Selecciona un usuario válido', 'error');
-                return;
-            }
 
             if (isNaN(amount) || amount <= 0) {
                 showMessage('❌ Ingresa un monto válido mayor a 0', 'error');
                 return;
             }
 
-            const user = adminData.users[idx];
             user.balance = (user.balance || 0) + amount;
             saveAdminData();
-            renderAdminPanel();
+            displayUserResult(window._currentUserIndex);
             amountInput.value = '';
             showMessage(`✅ Agregado ${formatCurrency(amount)} a ${user.username}`, 'success');
         }
 
-        function adminSubtractBalance() {
-            const select = document.getElementById('balanceUserSelect');
-            const amountInput = document.getElementById('balanceSubtractAmount');
-            const idx = parseInt(select.value);
-            const amount = parseFloat(amountInput.value);
+        function resultSubtractBalance() {
+            const user = getCurrentUser();
+            if (!user) return;
 
-            if (isNaN(idx) || idx < 0 || idx >= adminData.users.length) {
-                showMessage('❌ Selecciona un usuario válido', 'error');
-                return;
-            }
+            const amountInput = document.getElementById('resultSubtractAmount');
+            const amount = parseFloat(amountInput.value);
 
             if (isNaN(amount) || amount <= 0) {
                 showMessage('❌ Ingresa un monto válido mayor a 0', 'error');
                 return;
             }
 
-            const user = adminData.users[idx];
+            if ((user.balance || 0) < amount) {
+                showMessage(`❌ Saldo insuficiente. Saldo actual: ${formatCurrency(user.balance)}`, 'error');
+                return;
+            }
+
             user.balance = (user.balance || 0) - amount;
-            if (user.balance < 0) user.balance = 0;
             saveAdminData();
-            renderAdminPanel();
+            displayUserResult(window._currentUserIndex);
             amountInput.value = '';
             showMessage(`✅ Retirado ${formatCurrency(amount)} de ${user.username}`, 'success');
         }
 
-        // --- Order Management ---
-        function adminUpdateOrder(vipKey) {
-            const totalInput = document.getElementById(`orderTotal_${vipKey}`);
-            const rateInput = document.getElementById(`orderRate_${vipKey}`);
+        function resultResetPassword() {
+            const user = getCurrentUser();
+            if (!user) return;
 
-            const totalOrders = parseInt(totalInput.value);
-            const commissionRate = parseFloat(rateInput.value) / 100;
-
-            if (isNaN(totalOrders) || totalOrders < 1) {
-                showMessage('❌ Ingresa un número válido de órdenes', 'error');
-                return;
-            }
-
-            if (isNaN(commissionRate) || commissionRate < 0.05 || commissionRate > 1) {
-                showMessage('❌ Ingresa una comisión válida (5-100%)', 'error');
-                return;
-            }
-
-            adminData.defaultOrders[vipKey] = {
-                totalOrders: totalOrders,
-                commissionRate: commissionRate
-            };
-
-            saveAdminData();
-            renderAdminPanel();
-            showMessage(`✅ Configuración de ${vipKey.toUpperCase()} actualizada`, 'success');
-        }
-
-        // --- Password Reset ---
-        function adminResetPassword() {
-            const select = document.getElementById('passwordUserSelect');
-            const newPass = document.getElementById('newPassword').value.trim();
-
-            const idx = parseInt(select.value);
-            if (isNaN(idx) || idx < 0 || idx >= adminData.users.length) {
-                showMessage('❌ Selecciona un usuario válido', 'error');
-                return;
-            }
+            const passInput = document.getElementById('resultNewPassword');
+            const newPass = passInput.value.trim();
 
             if (newPass.length < 6) {
                 showMessage('❌ La contraseña debe tener al menos 6 caracteres', 'error');
                 return;
             }
 
-            const user = adminData.users[idx];
             user.password = newPass;
             saveAdminData();
-            document.getElementById('newPassword').value = '';
+            passInput.value = '';
             showMessage(`✅ Contraseña de ${user.username} actualizada`, 'success');
         }
 
-        // --- Danger Zone ---
-        function adminClearAllData() {
-            if (confirm('⚠️ ¿Estás seguro de eliminar TODOS los datos de usuarios? ¡Esta acción no se puede deshacer!')) {
-                if (confirm('⚠️ Confirmación final: ¿Estás absolutamente seguro?')) {
-                    adminData.users = [];
-                    saveAdminData();
-                    renderAdminPanel();
-                    showMessage('🗑️ Todos los datos han sido eliminados', 'error');
-                }
+        function resultFreezeAccount() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            if (user.frozen) {
+                showMessage('⚠️ La cuenta ya está congelada', 'info');
+                return;
             }
+
+            user.frozen = true;
+            saveAdminData();
+            displayUserResult(window._currentUserIndex);
+            showMessage(`🔒 Cuenta de ${user.username} congelada`, 'success');
+        }
+
+        function resultUnfreezeAccount() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            if (!user.frozen) {
+                showMessage('⚠️ La cuenta no está congelada', 'info');
+                return;
+            }
+
+            user.frozen = false;
+            saveAdminData();
+            displayUserResult(window._currentUserIndex);
+            showMessage(`🔓 Cuenta de ${user.username} descongelada`, 'success');
+        }
+
+        function resultViewFullDetails() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            let details = `
+            👤 Usuario: ${user.username}
+            🆔 ID: ${user.userId}
+            📱 Teléfono: ${user.phone}
+            💰 Saldo: ${formatCurrency(user.balance)}
+            📈 Ingresos: ${formatCurrency(user.totalIncome || 0)}
+            ⭐ VIP: ${user.vipLevel || 'VIP 1'}
+            🌍 País: ${user.country || 'Perú'}
+            📅 Registro: ${user.registrationDate || getCurrentDate()}
+            🔒 Estado: ${user.frozen ? 'Congelado' : 'Activo'}
+            📦 Órdenes: ${user.totalOrders || 0}
+            `;
+
+            alert('📋 Detalles completos del usuario:\n\n' + details);
+        }
+
+        function resultViewHistory() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            alert(`📋 Historial de ${user.username}:\n\n` +
+                `💰 Saldo actual: ${formatCurrency(user.balance)}\n` +
+                `📈 Ingresos totales: ${formatCurrency(user.totalIncome || 0)}\n` +
+                `📦 Órdenes completadas: ${user.totalOrders || 0}\n` +
+                `⭐ Nivel VIP: ${user.vipLevel || 'VIP 1'}\n` +
+                `📅 Registrado: ${user.registrationDate || getCurrentDate()}\n` +
+                `🔒 Estado: ${user.frozen ? 'Congelado' : 'Activo'}\n\n` +
+                `🔄 Para ver más detalles, usa "Ver detalles completos"`);
         }
 
         // ============================================================
-        //  TAB SWITCHING
-        // ============================================================
-        function switchTab(tabId, element) {
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-
-            if (element) {
-                element.classList.add('active');
-            }
-
-            document.querySelectorAll('.panel').forEach(el => el.classList.remove('active'));
-
-            document.getElementById(`panel${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`).classList.add('active');
-
-            if (tabId === 'users') renderUsers();
-            if (tabId === 'orders') renderOrderConfigs();
-            if (tabId === 'balance') renderBalanceSelects();
-            if (tabId === 'settings') {
-                renderPasswordSelects();
-                renderStats();
-            }
-        }
-
-        // ============================================================
-        //  INIT
+        //  INIT - DATOS DE EJEMPLO
         // ============================================================
         loadAdminData();
 
         // Agregar usuarios de ejemplo si no hay
         if (adminData.users.length === 0) {
             adminData.users.push({
-                username: 'demo_user',
-                phone: '987654321',
+                username: 'Jhostynjose',
+                phone: '938218405',
                 password: 'demo123',
-                balance: 25.50,
-                userId: '1234567',
-                totalOrders: 5
+                balance: 1011.72,
+                totalIncome: 465.72,
+                userId: '1776174',
+                country: 'Perú',
+                language: 'Español',
+                vipLevel: 'VIP 1',
+                totalOrders: 20,
+                frozen: false,
+                registrationDate: '2026-07-23 11:30'
             });
             adminData.users.push({
                 username: 'test_user',
                 phone: '912345678',
                 password: 'test123',
                 balance: 15.00,
+                totalIncome: 5.00,
                 userId: '7654321',
-                totalOrders: 3
+                country: 'Colombia',
+                language: 'Español',
+                vipLevel: 'VIP 1',
+                totalOrders: 3,
+                frozen: false,
+                registrationDate: '2026-07-22 14:20'
             });
             saveAdminData();
         }
