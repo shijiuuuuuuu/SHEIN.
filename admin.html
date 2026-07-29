@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" id="htmlRoot">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shein - Centro Comercial</title>
+    <title>Shein - Admin Panel</title>
     <style>
         /* ========== RESET Y ESTILOS BASE ========== */
         * {
@@ -15,6 +15,7 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f0f2f5;
+            color: #2d3436;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,154 +24,118 @@
         }
 
         .container {
-            background-color: #fff;
-            padding: 25px 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            max-width: 580px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            max-width: 1100px;
             width: 100%;
-            transition: all 0.3s ease;
-            position: relative;
+            border: 1px solid #e8e8e8;
         }
 
-        .app-header {
-            text-align: center;
-            margin-bottom: 15px;
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .app-header h1 {
+        .admin-header .logo h1 {
             color: #ff6b6b;
-            font-size: 2.5rem;
-            letter-spacing: 2px;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
         }
 
-        .app-header p {
+        .admin-header .logo span {
             color: #888;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
-        .form-group {
-            margin-bottom: 16px;
+        .admin-header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        label {
-            display: block;
+        .admin-header .user-info .badge {
+            background: #00b894;
+            padding: 4px 15px;
+            border-radius: 20px;
+            font-size: 0.7rem;
             font-weight: 600;
-            margin-bottom: 5px;
-            color: #333;
-            font-size: 0.9rem;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 30px;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
-            background: #fafafa;
-        }
-
-        input:focus,
-        select:focus {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
-            background: white;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #ff6b6b;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 8px;
-        }
-
-        .btn:hover {
-            background-color: #e55a5a;
-            transform: scale(1.02);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            color: #fff;
         }
 
         .btn-outline {
             background: transparent;
-            border: 2px solid #ff6b6b;
-            color: #ff6b6b;
+            border: 1px solid #ddd;
+            color: #888;
+            padding: 6px 16px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
         .btn-outline:hover {
-            background: #ff6b6b;
-            color: white;
-        }
-
-        .btn-success {
-            background: #00b894;
-        }
-
-        .btn-success:hover {
-            background: #00a381;
-        }
-
-        .btn-warning {
-            background: #fdcb6e;
+            background: #f8f9fa;
+            border-color: #ff6b6b;
             color: #2d3436;
         }
 
-        .btn-warning:hover {
-            background: #f9ca24;
+        /* ========== TABS ========== */
+        .admin-tabs {
+            display: flex;
+            gap: 5px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 5px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border: 1px solid #e8e8e8;
         }
 
-        .hidden {
-            display: none !important;
-        }
-
-        .switch-link {
-            text-align: center;
-            margin-top: 15px;
-            color: #0984e3;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .switch-link:hover {
-            text-decoration: underline;
-        }
-
-        .error-msg {
-            color: #d63031;
-            font-size: 0.85rem;
-            padding: 8px 12px;
-            border-radius: 10px;
-            background: #ffeaa7;
-            display: none;
-            margin-top: 5px;
-        }
-
-        .success-msg {
-            color: #00b894;
-            font-size: 0.95rem;
-            text-align: center;
-            padding: 10px;
-            background: #e0f7f1;
+        .admin-tabs .tab-btn {
+            flex: 1;
+            padding: 10px 12px;
+            border: none;
             border-radius: 12px;
-            margin: 10px 0;
+            background: transparent;
+            color: #888;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+            min-width: 80px;
         }
 
-        /* ========== AUTH SECTION ========== */
-        .auth-form {
+        .admin-tabs .tab-btn.active {
+            background: #ff6b6b;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .admin-tabs .tab-btn:hover:not(.active) {
+            color: #2d3436;
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .admin-tabs .tab-btn .icon {
+            margin-right: 5px;
+        }
+
+        /* ========== PANELS ========== */
+        .panel {
             display: none;
             animation: fadeSlide 0.4s ease;
         }
 
-        .auth-form.active {
+        .panel.active {
             display: block;
         }
 
@@ -185,556 +150,891 @@
             }
         }
 
-        .auth-form h2 {
+        .panel-title {
             color: #2d3436;
+            font-size: 1.1rem;
             margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        /* ========== DASHBOARD ========== */
-        .user-greeting {
-            font-size: 1.2rem;
-            color: #2d3436;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .user-greeting span {
-            color: #ff6b6b;
-            font-weight: 700;
-        }
-
-        .balance-cards {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .balance-card {
-            flex: 1;
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 15px;
-            text-align: center;
-            border: 1px solid #eee;
-        }
-
-        .balance-card .label {
-            font-size: 0.8rem;
-            color: #888;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .balance-card .amount {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #2d3436;
-        }
-
-        .balance-card .amount.green {
-            color: #00b894;
-        }
-
-        .balance-card .amount.orange {
-            color: #fdcb6e;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .action-buttons .btn {
-            flex: 1;
-            margin-top: 0;
-        }
-
-        /* ========== ID DISPLAY ========== */
-        .user-id-display {
-            background: linear-gradient(135deg, #2d3436, #636e72);
-            border-radius: 12px;
-            padding: 12px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 10px 0;
         }
 
-        .user-id-display .id-label {
-            color: #b2bec3;
+        .panel-title .count {
+            background: #f0f2f5;
+            padding: 2px 12px;
+            border-radius: 20px;
             font-size: 0.8rem;
-            font-weight: 600;
+            color: #888;
         }
 
-        .user-id-display .id-value {
+        /* ========== SEARCH BOX ========== */
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+            background: #fafafa;
+            color: #2d3436;
+            min-width: 200px;
+        }
+
+        .search-box input:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
+            background: #fff;
+        }
+
+        .search-box input::placeholder {
+            color: #aaa;
+        }
+
+        .search-box .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            width: auto;
+        }
+
+        .btn-primary {
+            background: #ff6b6b;
             color: white;
-            font-size: 1.1rem;
+        }
+
+        .btn-primary:hover {
+            background: #e55a5a;
+        }
+
+        .btn-success {
+            background: #00b894;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #00a381;
+        }
+
+        .btn-danger {
+            background: #d63031;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-warning {
+            background: #fdcb6e;
+            color: #2d3436;
+        }
+
+        .btn-warning:hover {
+            background: #f9ca24;
+        }
+
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            width: auto;
+        }
+
+        /* ========== USER RESULT CARD ========== */
+        .user-result-card {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 20px;
+            border: 2px solid #e8e8e8;
+            margin-bottom: 20px;
+            display: none;
+            animation: fadeSlide 0.5s ease;
+        }
+
+        .user-result-card.show {
+            display: block;
+        }
+
+        .user-result-card .user-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e8e8e8;
+        }
+
+        .user-result-card .user-header .user-name {
+            font-size: 1.3rem;
             font-weight: 700;
-            letter-spacing: 2px;
+            color: #2d3436;
+        }
+
+        .user-result-card .user-header .user-id-badge {
+            background: #6c5ce7;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
             font-family: 'Courier New', monospace;
         }
 
-        .user-id-display .id-copy {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            padding: 4px 12px;
+        .user-result-card .user-header .user-status-badge {
+            padding: 4px 14px;
             border-radius: 20px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: 0.3s;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
 
-        .user-id-display .id-copy:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        /* ========== BANK ACCOUNT ========== */
-        .bank-account-card {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 12px 15px;
-            margin: 8px 0;
-            border: 1px solid #e0e0e0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .bank-account-card .bank-info {
-            font-size: 0.9rem;
-        }
-
-        .bank-account-card .bank-info .bank-name {
-            color: #ff6b6b;
-            font-weight: 700;
-        }
-
-        .bank-account-card .delete-btn {
-            background: #ff6b6b;
+        .user-result-card .user-header .user-status-badge.active {
+            background: #00b894;
             color: white;
+        }
+
+        .user-result-card .user-header .user-status-badge.frozen {
+            background: #d63031;
+            color: white;
+        }
+
+        /* ========== USER INFO GRID ========== */
+        .user-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .user-info-grid .info-item {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid #e8e8e8;
+        }
+
+        .user-info-grid .info-item .label {
+            font-size: 0.6rem;
+            color: #888;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .user-info-grid .info-item .value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-top: 3px;
+            word-break: break-all;
+        }
+
+        .user-info-grid .info-item .value.green {
+            color: #00b894;
+        }
+
+        .user-info-grid .info-item .value.purple {
+            color: #6c5ce7;
+        }
+
+        .user-info-grid .info-item .value.orange {
+            color: #fdcb6e;
+        }
+
+        .user-info-grid .info-item .value.red {
+            color: #d63031;
+        }
+
+        .user-info-grid .info-item .value.blue {
+            color: #0984e3;
+        }
+
+        /* ========== USER ACTIONS ========== */
+        .user-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .user-actions-grid .action-group {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid #e8e8e8;
+        }
+
+        .user-actions-grid .action-group .action-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .user-actions-grid .action-group .input-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .user-actions-grid .action-group .input-group input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            outline: none;
+            background: #fafafa;
+            color: #2d3436;
+            min-width: 60px;
+        }
+
+        .user-actions-grid .action-group .input-group input:focus {
+            border-color: #ff6b6b;
+            background: #fff;
+        }
+
+        .user-actions-grid .action-group .btn {
+            padding: 6px 14px;
             border: none;
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            font-size: 0.9rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
+            width: auto;
+            white-space: nowrap;
         }
 
-        .bank-account-card .delete-btn:hover {
-            background: #e55a5a;
-            transform: scale(1.1);
+        /* ========== BANK ACCOUNTS ========== */
+        .bank-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #e8e8e8;
         }
 
-        .bank-form {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 15px;
-            margin: 10px 0;
-            border: 1px solid #eee;
-        }
-
-        /* ========== WITHDRAWAL SECTION ========== */
-        .withdrawal-section {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 15px;
-            margin: 15px 0;
-            border: 1px solid #eee;
-        }
-
-        .withdrawal-section h4 {
+        .bank-section .bank-title {
+            font-weight: 600;
+            font-size: 0.9rem;
             color: #2d3436;
             margin-bottom: 10px;
         }
 
-        .withdrawal-section .selected-bank {
+        .bank-item {
             background: white;
             border-radius: 10px;
             padding: 10px 15px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-        }
-
-        .withdrawal-history {
-            margin-top: 15px;
-        }
-
-        .withdrawal-history .history-item {
-            background: white;
-            border-radius: 10px;
-            padding: 10px 15px;
-            margin: 5px 0;
-            border: 1px solid #eee;
+            margin: 6px 0;
+            border: 1px solid #e8e8e8;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
-        .withdrawal-history .history-item .amount-info {
+        .bank-item .bank-info {
+            font-size: 0.85rem;
+        }
+
+        .bank-item .bank-info .bank-name {
             font-weight: 700;
-            color: #d63031;
-        }
-
-        /* ========== PROFILE ========== */
-        .profile-card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            margin: 10px 0;
-        }
-
-        .profile-card .avatar {
-            font-size: 4rem;
-        }
-
-        .profile-card .name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #2d3436;
-        }
-
-        .profile-card .phone {
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        .profile-card .detail-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .profile-card .detail-grid .detail-item {
-            background: white;
-            border-radius: 10px;
-            padding: 10px;
-        }
-
-        .profile-card .detail-grid .detail-item .detail-label {
-            font-size: 0.7rem;
-            color: #888;
-            text-transform: uppercase;
-        }
-
-        .profile-card .detail-grid .detail-item .detail-value {
-            font-weight: 700;
-            color: #2d3436;
-        }
-
-        /* ========== BOTTOM NAV ========== */
-        .bottom-nav {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-
-        .bottom-nav .nav-item {
-            text-align: center;
-            cursor: pointer;
-            color: #888;
-            transition: 0.3s;
-            font-size: 0.8rem;
-        }
-
-        .bottom-nav .nav-item:hover {
             color: #ff6b6b;
         }
 
-        .bottom-nav .nav-item .icon {
-            font-size: 1.5rem;
-            display: block;
+        .bank-item .bank-info .bank-details {
+            color: #888;
+            font-size: 0.75rem;
         }
 
-        .bottom-nav .nav-item.active {
-            color: #ff6b6b;
+        .bank-item .bank-badge {
+            background: #00b894;
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.65rem;
             font-weight: 600;
         }
 
-        .page-section {
+        .no-banks {
+            text-align: center;
+            padding: 15px;
+            color: #888;
+            font-size: 0.85rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        /* ========== NOT FOUND ========== */
+        .not-found {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 2px dashed #ddd;
             display: none;
         }
 
-        .page-section.active {
+        .not-found.show {
             display: block;
         }
 
+        .not-found .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        /* ========== MESSAGE ========== */
+        .message {
+            padding: 10px 15px;
+            border-radius: 12px;
+            margin: 10px 0;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .message.success {
+            display: block;
+            background: #e0f7f1;
+            border: 1px solid #00b894;
+            color: #00a381;
+        }
+
+        .message.error {
+            display: block;
+            background: #ffeaa7;
+            border: 1px solid #d63031;
+            color: #c0392b;
+        }
+
+        .message.info {
+            display: block;
+            background: #dfe6e9;
+            border: 1px solid #0984e3;
+            color: #0652DD;
+        }
+
+        /* ========== USER LIST ========== */
+        .user-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border: 1px solid #e8e8e8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .user-card:hover {
+            background: #f0f2f5;
+        }
+
+        .user-card .user-info {
+            flex: 1;
+        }
+
+        .user-card .user-info .name {
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .user-card .user-info .details {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .user-card .user-balance {
+            font-weight: 700;
+            color: #00b894;
+            font-size: 1.1rem;
+        }
+
+        .user-card .user-status {
+            font-size: 0.7rem;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .user-card .user-status.active {
+            background: #00b894;
+            color: white;
+        }
+
+        .user-card .user-status.frozen {
+            background: #d63031;
+            color: white;
+        }
+
+        .user-card .user-actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .user-card .user-actions .btn {
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            width: auto;
+        }
+
+        /* ========== ORDER MANAGEMENT ========== */
+        .order-config {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 8px 0;
+            border: 1px solid #e8e8e8;
+        }
+
+        .order-config .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .order-config .order-header .level {
+            font-weight: 700;
+            color: #6c5ce7;
+        }
+
+        .order-config .order-header .status {
+            font-size: 0.75rem;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #f0f2f5;
+        }
+
+        .order-config .order-header .status.active {
+            background: #00b894;
+            color: white;
+        }
+
+        .order-config .order-header .status.locked {
+            background: #dfe6e9;
+            color: #636e72;
+        }
+
+        .order-config .order-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .order-config .order-controls input {
+            width: 80px;
+            padding: 6px 10px;
+            font-size: 0.85rem;
+            background: #fff;
+        }
+
+        .order-config .order-controls .btn {
+            width: auto;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+        }
+
+        /* ========== LOGIN OVERLAY ========== */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .login-overlay.hidden {
+            display: none;
+        }
+
+        .login-box {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 25px;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-box h2 {
+            text-align: center;
+            color: #ff6b6b;
+            margin-bottom: 5px;
+        }
+
+        .login-box p {
+            text-align: center;
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .login-box .form-group {
+            margin-bottom: 14px;
+        }
+
+        .login-box .form-group label {
+            color: #555;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .login-box .form-group input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.3s;
+            background: #fafafa;
+            color: #2d3436;
+        }
+
+        .login-box .form-group input:focus {
+            border-color: #ff6b6b;
+            background: #fff;
+        }
+
+        .login-box .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
         /* ========== RESPONSIVE ========== */
-        @media (max-width: 500px) {
+        @media (max-width: 768px) {
             .container {
                 padding: 18px;
             }
-            .balance-cards {
+
+            .user-info-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .user-actions-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 15px;
+            }
+
+            .admin-tabs .tab-btn {
+                font-size: 0.65rem;
+                padding: 6px 4px;
+                min-width: 50px;
+            }
+
+            .search-box {
                 flex-direction: column;
             }
-            .action-buttons {
-                flex-direction: column;
+
+            .search-box .btn {
+                width: 100%;
             }
-            .profile-card .detail-grid {
+
+            .user-info-grid {
                 grid-template-columns: 1fr;
             }
-            .app-header h1 {
-                font-size: 2rem;
+
+            .user-actions-grid {
+                grid-template-columns: 1fr;
             }
-            .user-id-display {
-                flex-wrap: wrap;
-                gap: 8px;
+
+            .user-actions-grid .action-group .input-group {
+                flex-direction: column;
+            }
+
+            .user-actions-grid .action-group .input-group .btn {
+                width: 100%;
+            }
+
+            .user-result-card .user-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .user-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .user-card .user-actions {
                 justify-content: center;
+            }
+
+            .login-box {
+                padding: 25px;
+                margin: 20px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="container" id="appContainer">
+    <!-- ===== LOGIN OVERLAY ===== -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <h2>🔐 Admin Panel</h2>
+            <p>Ingresa tus credenciales para acceder</p>
+            <div class="form-group">
+                <label>👤 Usuario</label>
+                <input type="text" id="adminUser" placeholder="admin" value="admin">
+            </div>
+            <div class="form-group">
+                <label>🔒 Contraseña</label>
+                <input type="password" id="adminPass" placeholder="********" value="admin123">
+            </div>
+            <div id="loginError" class="message error" style="display:none;">❌ Usuario o contraseña incorrectos</div>
+            <button class="btn btn-primary" onclick="adminLogin()">🚪 Ingresar</button>
+            <p style="text-align:center; color:#aaa; font-size:0.7rem; margin-top:10px;">Usuario: admin | Contraseña: admin123</p>
+        </div>
+    </div>
+
+    <!-- ===== ADMIN PANEL ===== -->
+    <div class="container" id="adminPanel" style="display:none;">
 
         <!-- ===== HEADER ===== -->
-        <div class="app-header">
-            <h1>Shein</h1>
-            <p class="header-subtitle">✨ Tu centro comercial online ✨</p>
-        </div>
-
-        <!-- ===== REGISTER FORM ===== -->
-        <div id="registerForm" class="auth-form active">
-            <h2 class="register-title">📝 Crear cuenta</h2>
-
-            <div class="form-group">
-                <label class="label-phone">📱 Número de teléfono</label>
-                <input type="tel" id="regPhone" placeholder="Ej: 987654321">
+        <div class="admin-header">
+            <div class="logo">
+                <h1>🛠️ Shein Admin</h1>
+                <span>Panel de control - Gestión de usuarios</span>
             </div>
-
-            <div class="form-group">
-                <label class="label-country">🌍 Código de país</label>
-                <select id="regCountryCode">
-                    <option value="+51">+51 (Perú)</option>
-                    <option value="+95">+95 (Myanmar)</option>
-                    <option value="+1">+1 (USA)</option>
-                    <option value="+44">+44 (UK)</option>
-                    <option value="+86">+86 (China)</option>
-                    <option value="+34">+34 (España)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="label-username">👤 Nombre de usuario</label>
-                <input type="text" id="regUsername" placeholder="Ej: shein_user">
-            </div>
-
-            <div class="form-group">
-                <label class="label-password">🔒 Contraseña</label>
-                <input type="password" id="regPassword" placeholder="Mínimo 6 caracteres">
-            </div>
-
-            <div id="regError" class="error-msg">⚠️ Por favor, completa todos los campos.</div>
-
-            <button class="btn btn-register" onclick="handleRegister()">✅ Registrarse</button>
-
-            <div class="switch-link switch-to-login" onclick="showLogin()">
-                ¿Ya tienes cuenta? <strong>Iniciar sesión</strong>
+            <div class="user-info">
+                <span class="badge">🔒 Sesión activa</span>
+                <button class="btn-outline" onclick="adminLogout()">🚪 Cerrar sesión</button>
             </div>
         </div>
 
-        <!-- ===== LOGIN FORM ===== -->
-        <div id="loginForm" class="auth-form hidden">
-            <h2 class="login-title">🔐 Iniciar sesión</h2>
-
-            <div class="form-group">
-                <label class="label-login-identifier">👤 Usuario o teléfono</label>
-                <input type="text" id="loginIdentifier" placeholder="Usuario o número de teléfono">
-            </div>
-
-            <div class="form-group">
-                <label class="label-login-password">🔒 Contraseña</label>
-                <input type="password" id="loginPassword" placeholder="Tu contraseña">
-            </div>
-
-            <div id="loginError" class="error-msg">❌ Usuario o contraseña incorrectos.</div>
-
-            <button class="btn btn-login" onclick="handleLogin()">🚪 Iniciar sesión</button>
-
-            <div class="switch-link switch-to-register" onclick="showRegister()">
-                ¿No tienes cuenta? <strong>Regístrate aquí</strong>
-            </div>
-        </div>
-
-        <!-- ===== DASHBOARD ===== -->
-        <div id="dashboard" class="hidden">
-
-            <!-- ===== USER ID DISPLAY ===== -->
-            <div class="user-id-display">
-                <span class="id-label">🆔 ID de usuario</span>
-                <span class="id-value" id="userIdDisplay">1234567</span>
-                <button class="id-copy" onclick="copyUserId()">📋 Copiar</button>
-            </div>
-
-            <div class="user-greeting">
-                👋 <span class="greeting-text">Hola</span>, <span id="displayUsername">Usuario</span>
-            </div>
-
-            <div class="balance-cards">
-                <div class="balance-card">
-                    <div class="label label-balance">💰 Saldo</div>
-                    <div class="amount green" id="displayBalance">S/ 10.00</div>
-                </div>
-                <div class="balance-card">
-                    <div class="label label-income">📈 Ingresos totales</div>
-                    <div class="amount orange" id="totalIncome">S/ 0</div>
-                </div>
-            </div>
-
-            <button class="btn btn-success btn-comenzar" onclick="handleComenzar()" style="margin-bottom:10px;">
-                🚀 COMENZAR
+        <!-- ===== TABS ===== -->
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchTab('users', this)">
+                <span class="icon">👥</span> Usuarios
             </button>
-
-            <div class="action-buttons">
-                <button class="btn btn-warning btn-recargar" onclick="handleRecargar()">📥 RECARGAR</button>
-                <button class="btn btn-outline btn-retirar" onclick="handleRetirar()">📤 RETIRAR</button>
-            </div>
-
-            <!-- ===== MI PAGE ===== -->
-            <div id="miPage" class="page-section active">
-                <h3 class="mi-title" style="color:#2d3436; margin-top:10px;">👤 Mi Perfil</h3>
-
-                <div class="user-id-display">
-                    <span class="id-label">🆔 ID de usuario</span>
-                    <span class="id-value" id="miUserId">1234567</span>
-                    <button class="id-copy" onclick="copyUserId()">📋 Copiar</button>
-                </div>
-
-                <div class="profile-card">
-                    <div class="avatar">👤</div>
-                    <div class="name" id="profileUsername">Usuario</div>
-                    <div class="phone" id="profilePhone">+51 987654321</div>
-
-                    <div class="detail-grid">
-                        <div class="detail-item">
-                            <div class="detail-label label-member-since">📅 Miembro desde</div>
-                            <div class="detail-value">2026</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label label-profile-balance">💰 Saldo</div>
-                            <div class="detail-value" id="profileBalance">S/ 10.00</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label label-profile-vip">⭐ Nivel VIP</div>
-                            <div class="detail-value" id="profileVip">VIP 1</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== BANCOS ===== -->
-                <div style="margin-top:15px;">
-                    <div class="section-header">
-                        <h4 class="mis-bancos-title" style="color:#2d3436;">🏦 Mis Cuentas Bancarias</h4>
-                        <span class="badge-count" id="bankCountMi">0</span>
-                    </div>
-                    <div id="bankListMi"></div>
-                    <button class="btn btn-primary btn-add-bank-mi" onclick="toggleBankFormMi()" style="margin-top:5px; font-size:0.85rem; padding:8px;">
-                        ➕ Agregar cuenta bancaria
-                    </button>
-
-                    <div id="bankFormContainerMi" class="bank-form hidden">
-                        <h4 class="add-bank-mi-title" style="color:#2d3436; margin-bottom:10px;">🏦 Agregar cuenta bancaria</h4>
-
-                        <div class="form-group">
-                            <label class="label-bank-name-mi">🏛️ Nombre del banco</label>
-                            <select id="bankNameMi">
-                                <option value="">Selecciona un banco...</option>
-                                <option value="Banco de Crédito (BCP)">Banco de Crédito (BCP)</option>
-                                <option value="Banco BBVA">Banco BBVA</option>
-                                <option value="Banco Interbank">Banco Interbank</option>
-                                <option value="Banco Scotiabank">Banco Scotiabank</option>
-                                <option value="Banco Pichincha">Banco Pichincha</option>
-                                <option value="Banco Falabella">Banco Falabella</option>
-                                <option value="Banco Ripley">Banco Ripley</option>
-                                <option value="Banco GNB">Banco GNB</option>
-                                <option value="Banco Azteca">Banco Azteca</option>
-                                <option value="Banco Cencosud">Banco Cencosud</option>
-                                <option value="Banco Comercio">Banco Comercio</option>
-                                <option value="Banco Santander">Banco Santander</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="label-account-number-mi">🔢 Número de cuenta</label>
-                            <input type="text" id="bankAccountNumberMi" placeholder="Ej: 123-456-7890">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="label-account-holder-mi">👤 Titular de la cuenta</label>
-                            <input type="text" id="bankAccountHolderMi" placeholder="Nombre completo del titular">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="label-cci-mi">🔢 CCI (Código de Cuenta Interbancaria)</label>
-                            <input type="text" id="bankCCIMi" placeholder="Ej: 12345678901234567890">
-                        </div>
-
-                        <div style="display:flex; gap:10px; margin-top:5px;">
-                            <button class="btn btn-success btn-confirm-bank-mi" onclick="saveBankAccountMi()" style="flex:1;">✅ Confirmar</button>
-                            <button class="btn btn-outline btn-cancel-bank-mi" onclick="toggleBankFormMi()" style="flex:1;">❌ Cancelar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== WITHDRAWAL ===== -->
-                <div class="withdrawal-section">
-                    <h4 class="withdrawal-title">📤 Realizar Retiro</h4>
-
-                    <div class="form-group">
-                        <label class="label-withdraw-bank">🏛️ Selecciona tu cuenta bancaria</label>
-                        <select id="withdrawBankSelect">
-                            <option value="">-- Ninguna cuenta registrada --</option>
-                        </select>
-                    </div>
-
-                    <div id="selectedBankDisplay" class="selected-bank hidden">
-                        <div class="bank-label">🏦 Banco seleccionado</div>
-                        <div class="bank-value" id="selectedBankName">-</div>
-                        <div style="font-size:0.85rem; color:#888;" id="selectedBankDetails">-</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="label-withdraw-amount">💰 Monto a retirar</label>
-                        <input type="number" id="withdrawAmount" placeholder="Ej: 10.00" min="1" step="0.01">
-                    </div>
-
-                    <button class="btn btn-success btn-confirm-withdrawal" onclick="processWithdrawal()" style="margin-top:5px;">
-                        ✅ Confirmar Retiro
-                    </button>
-                </div>
-
-                <!-- ===== WITHDRAWAL HISTORY ===== -->
-                <div class="withdrawal-history">
-                    <h4 class="history-title" style="color:#2d3436; margin-top:10px;">📋 Historial de Retiros</h4>
-                    <div id="withdrawalHistoryList">
-                        <div style="text-align:center; padding:15px; color:#888; font-size:0.9rem;">
-                            No hay retiros realizados.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== BOTTOM NAV ===== -->
-            <div class="bottom-nav">
-                <div class="nav-item active" onclick="switchPage('miPage', this)">
-                    <span class="icon">👤</span> <span class="nav-mi">Mi</span>
-                </div>
-            </div>
-
-            <button class="btn btn-outline btn-logout" onclick="handleLogout()" style="margin-top:15px;">
-                🚪 <span class="logout-text">Cerrar sesión</span>
+            <button class="tab-btn" onclick="switchTab('search', this)">
+                <span class="icon">🔍</span> Buscar por ID
+            </button>
+            <button class="tab-btn" onclick="switchTab('orders', this)">
+                <span class="icon">📦</span> Órdenes
+            </button>
+            <button class="tab-btn" onclick="switchTab('settings', this)">
+                <span class="icon">⚙️</span> Ajustes
             </button>
         </div>
 
-        <div id="infoMessage" class="success-msg hidden"></div>
+        <!-- ===== MESSAGE ===== -->
+        <div id="adminMessage" class="message"></div>
+
+        <!-- ===== PANEL: USERS ===== -->
+        <div id="panelUsers" class="panel active">
+            <div class="panel-title">
+                <span>👥 Usuarios Registrados</span>
+                <span class="count" id="userCount">0</span>
+            </div>
+            <div id="userList">
+                <!-- Generado por JavaScript -->
+            </div>
+        </div>
+
+        <!-- ===== PANEL: SEARCH ===== -->
+        <div id="panelSearch" class="panel">
+            <div class="panel-title">
+                <span>🔍 Buscar Usuario por ID o Teléfono</span>
+                <span class="count">Ingresa el ID o teléfono</span>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Ej: 1234567 o 938218405">
+                <button class="btn btn-primary" onclick="searchUser()">🔍 Buscar</button>
+                <button class="btn btn-outline" onclick="clearSearch()">🗑️ Limpiar</button>
+            </div>
+
+            <div class="not-found" id="notFound">
+                <div class="icon">🔍</div>
+                <p>No se encontró ningún usuario con este ID o teléfono.</p>
+                <p style="font-size:0.8rem; color:#aaa;">Verifica que el ID sea correcto (7 dígitos) o el teléfono</p>
+            </div>
+
+            <div class="user-result-card" id="userResultCard">
+                <div class="user-header">
+                    <div>
+                        <span class="user-name" id="resultUserName">Usuario</span>
+                        <div style="font-size:0.8rem; color:#888; margin-top:2px;" id="resultUserPhone">📱 +51 938218405</div>
+                    </div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <span class="user-id-badge" id="resultUserId">🆔 1234567</span>
+                        <span class="user-status-badge active" id="resultStatusBadge">✅ Activo</span>
+                    </div>
+                </div>
+
+                <div class="user-info-grid">
+                    <div class="info-item">
+                        <div class="label">💰 Saldo</div>
+                        <div class="value green" id="resultUserBalance">S/ 0.00</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">📈 Ingresos totales</div>
+                        <div class="value orange" id="resultUserIncome">S/ 0.00</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">⭐ Nivel VIP</div>
+                        <div class="value purple" id="resultUserVip">VIP 1</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">🌍 País</div>
+                        <div class="value blue" id="resultUserCountry">Perú</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">📅 Registro</div>
+                        <div class="value" id="resultUserDate">2026-07-23</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">📦 Órdenes</div>
+                        <div class="value red" id="resultUserOrders">0</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">🌐 IP Address</div>
+                        <div class="value blue" id="resultUserIP">190.236.26.127</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">🔒 Estado</div>
+                        <div class="value green" id="resultUserStatus">✅ Activo</div>
+                    </div>
+                </div>
+
+                <div class="user-actions-grid">
+                    <div class="action-group">
+                        <span class="action-label">➕ Agregar Saldo</span>
+                        <div class="input-group">
+                            <input type="number" id="resultAddAmount" placeholder="Monto" min="0.01" step="0.01">
+                            <button class="btn btn-success" onclick="resultAddBalance()">➕</button>
+                        </div>
+                    </div>
+
+                    <div class="action-group">
+                        <span class="action-label">➖ Retirar Saldo</span>
+                        <div class="input-group">
+                            <input type="number" id="resultSubtractAmount" placeholder="Monto" min="0.01" step="0.01">
+                            <button class="btn btn-danger" onclick="resultSubtractBalance()">➖</button>
+                        </div>
+                    </div>
+
+                    <div class="action-group">
+                        <span class="action-label">🔑 Cambiar Contraseña</span>
+                        <div class="input-group">
+                            <input type="text" id="resultNewPassword" placeholder="Nueva contraseña" minlength="6">
+                            <button class="btn btn-warning" onclick="resultResetPassword()">🔄</button>
+                        </div>
+                    </div>
+
+                    <div class="action-group">
+                        <span class="action-label">🔒 Estado</span>
+                        <div class="input-group" style="gap:6px;">
+                            <button class="btn btn-danger" onclick="resultFreezeAccount()" style="flex:1;">🔒 Congelar</button>
+                            <button class="btn btn-success" onclick="resultUnfreezeAccount()" style="flex:1;">🔓 Descongelar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== BANK ACCOUNTS ===== -->
+                <div class="bank-section">
+                    <div class="bank-title">🏦 Cuentas bancarias vinculadas</div>
+                    <div id="bankListContainer">
+                        <!-- Generado por JavaScript -->
+                    </div>
+                </div>
+
+                <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap; border-top:1px solid #e8e8e8; padding-top:15px;">
+                    <button class="btn btn-primary btn-sm" onclick="resultViewFullDetails()" style="width:auto;">👁️ Ver detalles</button>
+                    <button class="btn btn-warning btn-sm" onclick="resultViewHistory()" style="width:auto;">📋 Historial</button>
+                    <button class="btn btn-outline btn-sm" onclick="clearSearch()" style="width:auto;">🗑️ Limpiar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL: ORDERS ===== -->
+        <div id="panelOrders" class="panel">
+            <div class="panel-title">
+                <span>📦 Configuración de Órdenes VIP</span>
+                <span class="count">6 Niveles</span>
+            </div>
+            <div id="orderConfigList">
+                <!-- Generado por JavaScript -->
+            </div>
+        </div>
+
+        <!-- ===== PANEL: SETTINGS ===== -->
+        <div id="panelSettings" class="panel">
+            <div class="panel-title">
+                <span>⚙️ Ajustes del Sistema</span>
+                <span class="count">Configuración</span>
+            </div>
+
+            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
+                <h4 style="color:#6c5ce7; margin-bottom:10px;">🔑 Cambiar Contraseña de Usuario</h4>
+                <div class="form-group">
+                    <label>👤 Seleccionar usuario</label>
+                    <select id="passwordUserSelect">
+                        <option value="">-- Selecciona un usuario --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>🔒 Nueva contraseña</label>
+                    <input type="text" id="newPassword" placeholder="Nueva contraseña (mínimo 6 caracteres)">
+                </div>
+                <button class="btn btn-warning" onclick="adminResetPassword()">🔄 Cambiar Contraseña</button>
+            </div>
+
+            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
+                <h4 style="color:#d63031; margin-bottom:10px;">⚠️ Acciones Peligrosas</h4>
+                <button class="btn btn-danger" onclick="adminClearAllData()" style="margin-bottom:8px;">🗑️ Eliminar todos los datos</button>
+                <p style="color:#888; font-size:0.75rem;">⚠️ Esta acción eliminará todos los usuarios y datos. ¡No se puede deshacer!</p>
+            </div>
+
+            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
+                <h4 style="color:#00b894; margin-bottom:10px;">📊 Estadísticas</h4>
+                <div id="adminStats">
+                    <p>👥 <span id="statUsers">0</span> usuarios registrados</p>
+                    <p>💰 <span id="statTotalBalance">S/ 0.00</span> balance total</p>
+                    <p>📦 <span id="statOrders">0</span> órdenes completadas</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -744,596 +1044,701 @@
         const STORAGE_KEY = 'shein_admin_data';
 
         // ============================================================
-        //  USER DATA
+        //  ADMIN DATA
         // ============================================================
-        let userData = {
-            username: '',
-            phone: '',
-            password: '',
-            balance: 10.00,
-            totalIncome: 0,
-            isLoggedIn: false,
-            recargaCount: 0,
-            retiroCount: 0,
-            trabajoCount: 0,
-            notificacionCount: 1,
-            bankAccounts: [],
-            withdrawalHistory: [],
-            userId: '',
-            country: 'Perú',
-            vipLevel: 'VIP 1',
-            totalOrders: 0,
-            frozen: false,
-            registrationDate: '',
-            ipAddress: '',
-            history: [],
-            vipOrders: {
-                vip1: { level: 'VIP 1', totalOrders: 12, completedOrders: 0, commissionRate: 0.30, isUnlocked: true,
-                    isCompleted: false, baseInvestment: 10.00 },
-                vip2: { level: 'VIP 2', totalOrders: 20, completedOrders: 0, commissionRate: 0.35, isUnlocked: false,
-                    isCompleted: false, baseInvestment: 25.00, unlockRequirement: { level: 'VIP 1', requiredOrders: 12 } },
-                vip3: { level: 'VIP 3', totalOrders: 30, completedOrders: 0, commissionRate: 0.40, isUnlocked: false,
-                    isCompleted: false, baseInvestment: 50.00, unlockRequirement: { level: 'VIP 2', requiredOrders: 20 } },
-                vip4: { level: 'VIP 4', totalOrders: 40, completedOrders: 0, commissionRate: 0.45, isUnlocked: false,
-                    isCompleted: false, baseInvestment: 100.00, unlockRequirement: { level: 'VIP 3', requiredOrders: 30 } },
-                vip5: { level: 'VIP 5', totalOrders: 50, completedOrders: 0, commissionRate: 0.50, isUnlocked: false,
-                    isCompleted: false, baseInvestment: 200.00, unlockRequirement: { level: 'VIP 4', requiredOrders: 40 } },
-                vip6: { level: 'VIP 6', totalOrders: 60, completedOrders: 0, commissionRate: 0.55, isUnlocked: false,
-                    isCompleted: false, baseInvestment: 500.00, unlockRequirement: { level: 'VIP 5', requiredOrders: 50 } }
-            },
-            vipLevels: {
-                vip1: { name: 'VIP 1', active: true },
-                vip2: { name: 'VIP 2', active: false },
-                vip3: { name: 'VIP 3', active: false },
-                vip4: { name: 'VIP 4', active: false },
-                vip5: { name: 'VIP 5', active: false },
-                vip6: { name: 'VIP 6', active: false }
+        let adminData = {
+            users: [],
+            adminPassword: 'admin123',
+            currentUserId: null,
+            defaultOrders: {
+                vip1: { totalOrders: 12, commissionRate: 0.30 },
+                vip2: { totalOrders: 20, commissionRate: 0.35 },
+                vip3: { totalOrders: 30, commissionRate: 0.40 },
+                vip4: { totalOrders: 40, commissionRate: 0.45 },
+                vip5: { totalOrders: 50, commissionRate: 0.50 },
+                vip6: { totalOrders: 60, commissionRate: 0.55 }
             }
         };
 
+        let currentSearchUserIndex = -1;
+
         // ============================================================
-        //  LOAD / SAVE FUNCTIONS
+        //  STORAGE FUNCTIONS
         // ============================================================
-        function loadUserData() {
+        function loadAdminData() {
             const stored = localStorage.getItem(STORAGE_KEY);
             if (stored) {
                 try {
-                    const data = JSON.parse(stored);
-                    if (data.currentUser) {
-                        Object.assign(userData, data.currentUser);
-                        // Also load bank accounts
-                        if (data.currentUser.bankAccounts) {
-                            userData.bankAccounts = data.currentUser.bankAccounts;
-                        }
-                        if (data.currentUser.withdrawalHistory) {
-                            userData.withdrawalHistory = data.currentUser.withdrawalHistory;
-                        }
-                        if (data.currentUser.history) {
-                            userData.history = data.currentUser.history;
-                        }
-                    }
-                    // Also check for users array to find current user
-                    if (data.users && data.currentUserId) {
-                        const found = data.users.find(u => u.userId === data.currentUserId);
-                        if (found) {
-                            Object.assign(userData, found);
-                        }
-                    }
+                    const parsed = JSON.parse(stored);
+                    adminData.users = parsed.users || [];
+                    adminData.adminPassword = parsed.adminPassword || 'admin123';
+                    adminData.currentUserId = parsed.currentUserId || null;
+                    adminData.defaultOrders = parsed.defaultOrders || {
+                        vip1: { totalOrders: 12, commissionRate: 0.30 },
+                        vip2: { totalOrders: 20, commissionRate: 0.35 },
+                        vip3: { totalOrders: 30, commissionRate: 0.40 },
+                        vip4: { totalOrders: 40, commissionRate: 0.45 },
+                        vip5: { totalOrders: 50, commissionRate: 0.50 },
+                        vip6: { totalOrders: 60, commissionRate: 0.55 }
+                    };
                 } catch (e) {
-                    console.error('Error loading user data:', e);
+                    console.error('Error al cargar datos:', e);
+                    adminData.users = [];
+                    adminData.adminPassword = 'admin123';
                 }
             }
+            if (!adminData.users) adminData.users = [];
         }
 
-        function saveUserData() {
-            let allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-            if (!allData.users) allData.users = [];
+        function saveAdminData() {
+            const data = {
+                users: adminData.users,
+                adminPassword: adminData.adminPassword,
+                currentUserId: adminData.currentUserId,
+                defaultOrders: adminData.defaultOrders
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
 
-            // Update or add current user
-            const userIndex = allData.users.findIndex(u => u.userId === userData.userId);
-            const userCopy = JSON.parse(JSON.stringify(userData));
-            delete userCopy.isLoggedIn;
-            delete userCopy.vipOrders;
-            delete userCopy.vipLevels;
+        // ============================================================
+        //  LOGIN / LOGOUT
+        // ============================================================
+        function adminLogin() {
+            const user = document.getElementById('adminUser').value.trim();
+            const pass = document.getElementById('adminPass').value.trim();
+            const errorEl = document.getElementById('loginError');
 
-            if (userIndex >= 0) {
-                allData.users[userIndex] = userCopy;
-            } else if (userData.userId) {
-                allData.users.push(userCopy);
+            if (user === 'admin' && pass === adminData.adminPassword) {
+                errorEl.style.display = 'none';
+                document.getElementById('loginOverlay').classList.add('hidden');
+                document.getElementById('adminPanel').style.display = 'block';
+                renderAdminPanel();
+                showMessage('✅ Sesión iniciada correctamente', 'success');
+            } else {
+                errorEl.style.display = 'block';
+                errorEl.textContent = '❌ Usuario o contraseña incorrectos';
             }
+        }
 
-            allData.currentUser = userCopy;
-            allData.currentUserId = userData.userId;
-
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
+        function adminLogout() {
+            document.getElementById('loginOverlay').classList.remove('hidden');
+            document.getElementById('adminPanel').style.display = 'none';
         }
 
         // ============================================================
-        //  AUTH FUNCTIONS
+        //  HELPER FUNCTIONS
         // ============================================================
-        function showLogin() {
-            document.getElementById('registerForm').classList.remove('active');
-            document.getElementById('registerForm').classList.add('hidden');
-            document.getElementById('loginForm').classList.remove('hidden');
-            document.getElementById('loginForm').classList.add('active');
-            document.getElementById('regError').style.display = 'none';
-            document.getElementById('loginError').style.display = 'none';
-        }
-
-        function showRegister() {
-            document.getElementById('loginForm').classList.remove('active');
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('registerForm').classList.remove('hidden');
-            document.getElementById('registerForm').classList.add('active');
-            document.getElementById('regError').style.display = 'none';
-            document.getElementById('loginError').style.display = 'none';
-        }
-
-        function showMessage(text, isSuccess = true) {
-            const msg = document.getElementById('infoMessage');
-            msg.textContent = text;
-            msg.style.color = isSuccess ? '#00b894' : '#d63031';
-            msg.style.background = isSuccess ? '#e0f7f1' : '#ffeaa7';
-            msg.classList.remove('hidden');
+        function showMessage(text, type = 'info') {
+            const el = document.getElementById('adminMessage');
+            el.textContent = text;
+            el.className = 'message ' + type;
+            el.style.display = 'block';
             setTimeout(() => {
-                msg.classList.add('hidden');
+                el.style.display = 'none';
             }, 4000);
-        }
-
-        function generateUserId() {
-            let id = '';
-            for (let i = 0; i < 7; i++) {
-                id += Math.floor(Math.random() * 10);
-            }
-            return id;
-        }
-
-        function getRandomIP() {
-            return `${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
-        }
-
-        function copyUserId() {
-            const userId = document.getElementById('userIdDisplay').textContent;
-            navigator.clipboard.writeText(userId).then(() => {
-                showMessage('✅ ID copiado al portapapeles', true);
-            }).catch(() => {
-                const userIdEl = document.getElementById('userIdDisplay');
-                const range = document.createRange();
-                range.selectNode(userIdEl);
-                window.getSelection().removeAllRanges();
-                window.getSelection().addRange(range);
-                document.execCommand('copy');
-                showMessage('✅ ID copiado al portapapeles', true);
-            });
         }
 
         function formatCurrency(amount) {
             return `S/ ${(amount || 0).toFixed(2)}`;
         }
 
-        // ============================================================
-        //  REGISTER / LOGIN / LOGOUT
-        // ============================================================
-        function handleRegister() {
-            const phone = document.getElementById('regPhone').value.trim();
-            const countryCode = document.getElementById('regCountryCode').value;
-            const username = document.getElementById('regUsername').value.trim();
-            const password = document.getElementById('regPassword').value.trim();
+        function getCurrentDate() {
+            const now = new Date();
+            return now.toLocaleString('es-ES');
+        }
 
-            if (!phone || !username || !password) {
-                document.getElementById('regError').style.display = 'block';
+        // ============================================================
+        //  RENDER FUNCTIONS
+        // ============================================================
+        function renderAdminPanel() {
+            renderUsers();
+            renderOrderConfigs();
+            renderPasswordSelects();
+            renderStats();
+        }
+
+        function renderUsers() {
+            const container = document.getElementById('userList');
+            const count = document.getElementById('userCount');
+            container.innerHTML = '';
+            count.textContent = adminData.users.length;
+
+            if (adminData.users.length === 0) {
+                container.innerHTML = `
+                            <div style="text-align:center; padding:30px; color:#888; background:#f8f9fa; border-radius:12px;">
+                                No hay usuarios registrados aún.
+                            </div>
+                        `;
                 return;
-            } else {
-                document.getElementById('regError').style.display = 'none';
             }
 
-            userData.userId = generateUserId();
-            userData.username = username;
-            userData.phone = phone;
-            userData.password = password;
-            userData.balance = 10.00;
-            userData.totalIncome = 0;
-            userData.isLoggedIn = true;
-            userData.recargaCount = 0;
-            userData.retiroCount = 0;
-            userData.trabajoCount = 0;
-            userData.notificacionCount = 1;
-            userData.bankAccounts = [];
-            userData.withdrawalHistory = [];
-            userData.history = [];
-            userData.country = 'Perú';
-            userData.vipLevel = 'VIP 1';
-            userData.totalOrders = 0;
-            userData.frozen = false;
-            userData.registrationDate = new Date().toLocaleString('es-ES');
-            userData.ipAddress = getRandomIP();
+            adminData.users.forEach((user, index) => {
+                const div = document.createElement('div');
+                div.className = 'user-card';
+                const statusClass = user.frozen ? 'frozen' : 'active';
+                const statusText = user.frozen ? '🔒 Congelado' : '✅ Activo';
+
+                div.innerHTML = `
+                            <div class="user-info">
+                                <div class="name">👤 ${user.username || 'Usuario'}</div>
+                                <div class="details">📱 ${user.phone || 'Sin teléfono'} | 🆔 ${user.userId || 'N/A'} | 🌐 ${user.ipAddress || 'N/A'}</div>
+                            </div>
+                            <div class="user-balance">${formatCurrency(user.balance || 0)}</div>
+                            <span class="user-status ${statusClass}">${statusText}</span>
+                            <div class="user-actions">
+                                <button class="btn btn-success btn-sm" onclick="adminSetBalance(${index}, 10)">+10</button>
+                                <button class="btn btn-danger btn-sm" onclick="adminSetBalance(${index}, -5)">-5</button>
+                                <button class="btn btn-warning btn-sm" onclick="adminViewUser(${index})">👁️</button>
+                            </div>
+                        `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderOrderConfigs() {
+            const container = document.getElementById('orderConfigList');
+            container.innerHTML = '';
 
             const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
+            const vipNames = ['VIP 1', 'VIP 2', 'VIP 3', 'VIP 4', 'VIP 5', 'VIP 6'];
+
             vipKeys.forEach((key, index) => {
-                userData.vipOrders[key].completedOrders = 0;
-                userData.vipOrders[key].isCompleted = false;
-                userData.vipOrders[key].isUnlocked = (index === 0);
-                userData.vipLevels[key].active = (index === 0);
+                const config = adminData.defaultOrders[key] || { totalOrders: (index + 1) * 10, commissionRate: 0.30 +
+                        (index * 0.05) };
+                const isUnlocked = index === 0;
+
+                const div = document.createElement('div');
+                div.className = 'order-config';
+                div.innerHTML = `
+                            <div class="order-header">
+                                <span class="level">${vipNames[index]}</span>
+                                <span class="status ${isUnlocked ? 'active' : 'locked'}">${isUnlocked ? '✅ Activo' : '🔒 Bloqueado'}</span>
+                            </div>
+                            <div class="order-controls">
+                                <div style="flex:1;">
+                                    <label style="font-size:0.7rem; color:#888;">Órdenes requeridas</label>
+                                    <input type="number" id="orderTotal_${key}" value="${config.totalOrders}" min="1" max="200">
+                                </div>
+                                <div style="flex:1;">
+                                    <label style="font-size:0.7rem; color:#888;">Comisión (%)</label>
+                                    <input type="number" id="orderRate_${key}" value="${(config.commissionRate * 100).toFixed(0)}" min="5" max="100">
+                                </div>
+                                <button class="btn btn-primary btn-sm" onclick="adminUpdateOrder('${key}')" style="margin-top:6px;">💾 Guardar</button>
+                            </div>
+                        `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderPasswordSelects() {
+            const select = document.getElementById('passwordUserSelect');
+            select.innerHTML = '<option value="">-- Selecciona un usuario --</option>';
+
+            adminData.users.forEach((user, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${user.username || 'Usuario'} (${user.userId || 'N/A'})`;
+                select.appendChild(option);
+            });
+        }
+
+        function renderStats() {
+            const totalUsers = adminData.users.length;
+            const totalBalance = adminData.users.reduce((sum, u) => sum + (u.balance || 0), 0);
+            const totalOrders = adminData.users.reduce((sum, u) => sum + (u.totalOrders || 0), 0);
+
+            document.getElementById('statUsers').textContent = totalUsers;
+            document.getElementById('statTotalBalance').textContent = formatCurrency(totalBalance);
+            document.getElementById('statOrders').textContent = totalOrders;
+        }
+
+        // ============================================================
+        //  USER LIST ACTIONS
+        // ============================================================
+        function adminSetBalance(index, amount) {
+            if (index < 0 || index >= adminData.users.length) {
+                showMessage('❌ Usuario no encontrado', 'error');
+                return;
+            }
+            const user = adminData.users[index];
+            user.balance = (user.balance || 0) + amount;
+            if (user.balance < 0) user.balance = 0;
+
+            if (!user.history) user.history = [];
+            user.history.push({
+                action: amount > 0 ? 'Depósito (Admin)' : 'Retiro (Admin)',
+                amount: amount,
+                date: getCurrentDate()
             });
 
-            saveUserData();
-
-            document.getElementById('registerForm').classList.remove('active');
-            document.getElementById('registerForm').classList.add('hidden');
-            document.getElementById('loginForm').classList.remove('active');
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
-
-            document.getElementById('userIdDisplay').textContent = userData.userId;
-            document.getElementById('miUserId').textContent = userData.userId;
-
-            updateDashboard();
-            showMessage(`✅ ¡Cuenta "${username}" creada con éxito! ${formatCurrency(10.00)} de bienvenida.`, true);
+            saveAdminData();
+            renderAdminPanel();
+            showMessage(`✅ ${amount > 0 ? '+' : ''}${formatCurrency(amount)} aplicado a ${user.username}`, 'success');
         }
 
-        function handleLogin() {
-            const identifier = document.getElementById('loginIdentifier').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-
-            // Load all users from storage
-            const allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-            const users = allData.users || [];
-
-            const found = users.find(u =>
-                (u.username === identifier || u.phone === identifier) &&
-                u.password === password
-            );
-
-            if (found) {
-                document.getElementById('loginError').style.display = 'none';
-                Object.assign(userData, found);
-                userData.isLoggedIn = true;
-
-                document.getElementById('registerForm').classList.remove('active');
-                document.getElementById('registerForm').classList.add('hidden');
-                document.getElementById('loginForm').classList.remove('active');
-                document.getElementById('loginForm').classList.add('hidden');
-                document.getElementById('dashboard').classList.remove('hidden');
-
-                document.getElementById('userIdDisplay').textContent = userData.userId;
-                document.getElementById('miUserId').textContent = userData.userId;
-
-                updateDashboard();
-                showMessage(`🔓 ¡Bienvenido de nuevo, ${userData.username}!`, true);
-            } else {
-                document.getElementById('loginError').style.display = 'block';
-                showMessage('❌ Usuario o contraseña incorrectos.', false);
+        function adminViewUser(index) {
+            if (index < 0 || index >= adminData.users.length) {
+                showMessage('❌ Usuario no encontrado', 'error');
+                return;
             }
-        }
-
-        function handleLogout() {
-            userData.isLoggedIn = false;
-            document.getElementById('dashboard').classList.add('hidden');
-            document.getElementById('registerForm').classList.remove('hidden');
-            document.getElementById('registerForm').classList.add('active');
-            document.getElementById('loginForm').classList.remove('active');
-            document.getElementById('loginForm').classList.add('hidden');
-            showMessage('👋 Has cerrado sesión correctamente.', true);
+            const user = adminData.users[index];
+            showMessage(`
+                        👤 ${user.username} | 📱 ${user.phone || 'N/A'} | 💰 ${formatCurrency(user.balance)} | 🆔 ${user.userId || 'N/A'} | 🌐 ${user.ipAddress || 'N/A'}
+                    `, 'info');
         }
 
         // ============================================================
-        //  DASHBOARD FUNCTIONS
+        //  SEARCH FUNCTIONS
         // ============================================================
-        function updateDashboard() {
-            document.getElementById('displayUsername').textContent = userData.username;
-            document.getElementById('displayBalance').textContent = formatCurrency(userData.balance);
-            document.getElementById('totalIncome').textContent = formatCurrency(userData.totalIncome);
+        function searchUser() {
+            const searchTerm = document.getElementById('searchInput').value.trim();
+            const resultCard = document.getElementById('userResultCard');
+            const notFound = document.getElementById('notFound');
 
-            const profileUsername = document.getElementById('profileUsername');
-            const profilePhone = document.getElementById('profilePhone');
-            const profileBalance = document.getElementById('profileBalance');
-            const profileVip = document.getElementById('profileVip');
-            if (profileUsername) profileUsername.textContent = userData.username;
-            if (profilePhone) profilePhone.textContent = userData.phone || '+51 987654321';
-            if (profileBalance) profileBalance.textContent = formatCurrency(userData.balance);
-            if (profileVip) profileVip.textContent = userData.vipLevel || 'VIP 1';
+            if (!searchTerm) {
+                showMessage('⚠️ Ingresa un ID o número de teléfono', 'error');
+                return;
+            }
 
-            document.getElementById('userIdDisplay').textContent = userData.userId || generateUserId();
-            document.getElementById('miUserId').textContent = userData.userId || generateUserId();
+            let foundIndex = -1;
 
-            renderBankAccounts();
-            updateWithdrawBankSelect();
-            renderWithdrawalHistory();
+            adminData.users.forEach((user, index) => {
+                if (user.userId === searchTerm || user.phone === searchTerm || user.username === searchTerm) {
+                    foundIndex = index;
+                }
+            });
+
+            if (foundIndex === -1) {
+                resultCard.classList.remove('show');
+                notFound.classList.add('show');
+                return;
+            }
+
+            notFound.classList.remove('show');
+            currentSearchUserIndex = foundIndex;
+            displayUserResult(foundIndex);
+            resultCard.classList.add('show');
+            showMessage('✅ Usuario encontrado', 'success');
         }
 
-        function renderBankAccounts() {
-            const container = document.getElementById('bankListMi');
-            const countEl = document.getElementById('bankCountMi');
-            if (!container) return;
+        function displayUserResult(index) {
+            const user = adminData.users[index];
+            if (!user) return;
 
+            document.getElementById('resultUserName').textContent = user.username || 'Usuario';
+            document.getElementById('resultUserId').textContent = `🆔 ${user.userId || 'N/A'}`;
+            document.getElementById('resultUserPhone').textContent = `📱 ${user.phone || '+51 987654321'}`;
+            document.getElementById('resultUserBalance').textContent = formatCurrency(user.balance || 0);
+            document.getElementById('resultUserIncome').textContent = formatCurrency(user.totalIncome || 0);
+            document.getElementById('resultUserVip').textContent = user.vipLevel || 'VIP 1';
+            document.getElementById('resultUserCountry').textContent = user.country || 'Perú';
+            document.getElementById('resultUserDate').textContent = user.registrationDate || getCurrentDate();
+            document.getElementById('resultUserOrders').textContent = user.totalOrders || 0;
+            document.getElementById('resultUserIP').textContent = user.ipAddress || '190.236.26.127';
+
+            const statusEl = document.getElementById('resultUserStatus');
+            const badgeEl = document.getElementById('resultStatusBadge');
+            if (user.frozen) {
+                statusEl.textContent = '🔒 Congelado';
+                statusEl.style.color = '#d63031';
+                badgeEl.textContent = '🔒 Congelado';
+                badgeEl.className = 'user-status-badge frozen';
+            } else {
+                statusEl.textContent = '✅ Activo';
+                statusEl.style.color = '#00b894';
+                badgeEl.textContent = '✅ Activo';
+                badgeEl.className = 'user-status-badge active';
+            }
+
+            // Render bank accounts
+            renderBankAccounts(user);
+
+            window._currentUserIndex = index;
+        }
+
+        function renderBankAccounts(user) {
+            const container = document.getElementById('bankListContainer');
             container.innerHTML = '';
-            const banks = userData.bankAccounts || [];
+
+            const banks = user.bankAccounts || [];
 
             if (banks.length === 0) {
                 container.innerHTML = `
-                            <div style="text-align:center; padding:15px; color:#888; font-size:0.95rem; background:#f8f9fa; border-radius:12px;">
-                                No hay cuentas bancarias registradas.
+                            <div class="no-banks">
+                                No hay cuentas bancarias vinculadas.
                             </div>
                         `;
-                if (countEl) countEl.textContent = '0';
                 return;
             }
 
-            banks.forEach((account, index) => {
+            banks.forEach((bank) => {
                 const div = document.createElement('div');
-                div.className = 'bank-account-card';
+                div.className = 'bank-item';
                 div.innerHTML = `
                             <div class="bank-info">
-                                <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
-                                <div><strong>Cuenta:</strong> ${account.accountNumber}</div>
-                                <div><strong>Titular:</strong> ${account.accountHolder}</div>
-                                <div><strong>CCI:</strong> ${account.cci}</div>
+                                <div class="bank-name">🏛️ ${bank.bankName || 'Banco'}</div>
+                                <div class="bank-details">
+                                    ${bank.accountNumber ? '🔢 ' + bank.accountNumber : ''}
+                                    ${bank.accountHolder ? ' | 👤 ' + bank.accountHolder : ''}
+                                    ${bank.cci ? ' | CCI: ' + bank.cci : ''}
+                                </div>
                             </div>
-                            <button class="delete-btn" onclick="deleteBankAccount(${index})" title="Eliminar">✕</button>
-                        `;
-                container.appendChild(div);
-            });
-
-            if (countEl) countEl.textContent = banks.length;
-        }
-
-        function updateWithdrawBankSelect() {
-            const select = document.getElementById('withdrawBankSelect');
-            if (!select) return;
-
-            select.innerHTML = '<option value="">-- Selecciona un banco --</option>';
-
-            const banks = userData.bankAccounts || [];
-            banks.forEach((account, index) => {
-                const option = document.createElement('option');
-                option.value = index;
-                option.textContent = `${account.bankName} - ${account.accountNumber}`;
-                select.appendChild(option);
-            });
-
-            select.onchange = function() {
-                const idx = parseInt(this.value);
-                const display = document.getElementById('selectedBankDisplay');
-                if (isNaN(idx) || idx < 0 || idx >= banks.length) {
-                    display.classList.add('hidden');
-                    return;
-                }
-                const bank = banks[idx];
-                document.getElementById('selectedBankName').textContent = bank.bankName;
-                document.getElementById('selectedBankDetails').textContent =
-                    `Cuenta: ${bank.accountNumber} | Titular: ${bank.accountHolder}`;
-                display.classList.remove('hidden');
-            };
-        }
-
-        function renderWithdrawalHistory() {
-            const container = document.getElementById('withdrawalHistoryList');
-            if (!container) return;
-            container.innerHTML = '';
-
-            const history = userData.withdrawalHistory || [];
-
-            if (history.length === 0) {
-                container.innerHTML = `
-                            <div style="text-align:center; padding:15px; color:#888; font-size:0.9rem;">
-                                No hay retiros realizados.
-                            </div>
-                        `;
-                return;
-            }
-
-            const reversed = [...history].reverse();
-            reversed.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'history-item';
-                div.innerHTML = `
-                            <div>
-                                <div class="bank-info">🏛️ ${item.bankName}</div>
-                                <div class="date-info">📅 ${item.date}</div>
-                            </div>
-                            <div style="text-align:right;">
-                                <div class="amount-info">${formatCurrency(-item.amount)}</div>
-                                <div class="status-success">✅ ${item.status || 'Completado'}</div>
-                            </div>
+                            <span class="bank-badge">✅ Vinculado</span>
                         `;
                 container.appendChild(div);
             });
         }
 
-        // ============================================================
-        //  BANK FUNCTIONS
-        // ============================================================
-        function toggleBankFormMi() {
-            const form = document.getElementById('bankFormContainerMi');
-            if (!form) return;
-            form.classList.toggle('hidden');
-            if (!form.classList.contains('hidden')) {
-                document.getElementById('bankNameMi').value = '';
-                document.getElementById('bankAccountNumberMi').value = '';
-                document.getElementById('bankAccountHolderMi').value = '';
-                document.getElementById('bankCCIMi').value = '';
-            }
-        }
-
-        function saveBankAccountMi() {
-            const bankName = document.getElementById('bankNameMi').value;
-            const accountNumber = document.getElementById('bankAccountNumberMi').value.trim();
-            const accountHolder = document.getElementById('bankAccountHolderMi').value.trim();
-            const cci = document.getElementById('bankCCIMi').value.trim();
-
-            if (!bankName || !accountNumber || !accountHolder || !cci) {
-                showMessage('⚠️ Por favor, completa todos los campos del banco.', false);
-                return;
-            }
-
-            if (!userData.bankAccounts) userData.bankAccounts = [];
-            userData.bankAccounts.push({
-                bankName: bankName,
-                accountNumber: accountNumber,
-                accountHolder: accountHolder,
-                cci: cci
-            });
-
-            saveUserData();
-            renderBankAccounts();
-            updateWithdrawBankSelect();
-            toggleBankFormMi();
-            showMessage(`✅ Cuenta bancaria "${bankName}" agregada con éxito.`, true);
-        }
-
-        function deleteBankAccount(index) {
-            if (confirm('¿Estás seguro de eliminar esta cuenta bancaria?')) {
-                const deleted = userData.bankAccounts[index];
-                userData.bankAccounts.splice(index, 1);
-                saveUserData();
-                renderBankAccounts();
-                updateWithdrawBankSelect();
-                showMessage(`🗑️ Cuenta "${deleted.bankName}" eliminada.`, true);
-            }
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('userResultCard').classList.remove('show');
+            document.getElementById('notFound').classList.remove('show');
+            currentSearchUserIndex = -1;
+            window._currentUserIndex = -1;
+            showMessage('🧹 Búsqueda limpiada', 'info');
         }
 
         // ============================================================
-        //  WITHDRAWAL FUNCTION
+        //  RESULT ACTIONS
         // ============================================================
-        function processWithdrawal() {
-            const select = document.getElementById('withdrawBankSelect');
-            const amountInput = document.getElementById('withdrawAmount');
+        function getCurrentUser() {
+            const idx = window._currentUserIndex;
+            if (idx === undefined || idx < 0 || idx >= adminData.users.length) {
+                showMessage('❌ No hay usuario seleccionado', 'error');
+                return null;
+            }
+            return adminData.users[idx];
+        }
+
+        function resultAddBalance() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            const amountInput = document.getElementById('resultAddAmount');
             const amount = parseFloat(amountInput.value);
 
-            const bankIndex = parseInt(select.value);
-            if (isNaN(bankIndex) || bankIndex < 0 || bankIndex >= (userData.bankAccounts || []).length) {
-                showMessage('⚠️ Por favor, selecciona una cuenta bancaria.', false);
+            if (isNaN(amount) || amount <= 0) {
+                showMessage('❌ Ingresa un monto válido mayor a 0', 'error');
                 return;
             }
+
+            user.balance = (user.balance || 0) + amount;
+
+            if (!user.history) user.history = [];
+            user.history.push({
+                action: 'Depósito (Admin)',
+                amount: amount,
+                date: getCurrentDate()
+            });
+
+            saveAdminData();
+            displayUserResult(window._currentUserIndex);
+            amountInput.value = '';
+            showMessage(`✅ Agregado ${formatCurrency(amount)} a ${user.username}`, 'success');
+        }
+
+        function resultSubtractBalance() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            const amountInput = document.getElementById('resultSubtractAmount');
+            const amount = parseFloat(amountInput.value);
 
             if (isNaN(amount) || amount <= 0) {
-                showMessage('⚠️ Por favor, ingresa un monto válido mayor a 0.', false);
+                showMessage('❌ Ingresa un monto válido mayor a 0', 'error');
                 return;
             }
 
-            if (amount > userData.balance) {
-                showMessage(`❌ Saldo insuficiente. Tu saldo es ${formatCurrency(userData.balance)}`, false);
+            if ((user.balance || 0) < amount) {
+                showMessage(`❌ Saldo insuficiente. Saldo actual: ${formatCurrency(user.balance)}`, 'error');
                 return;
             }
 
-            const selectedBank = userData.bankAccounts[bankIndex];
-            userData.balance -= amount;
-            userData.retiroCount += 1;
+            user.balance = (user.balance || 0) - amount;
 
-            if (!userData.withdrawalHistory) userData.withdrawalHistory = [];
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('es-ES', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-
-            userData.withdrawalHistory.push({
-                bankName: selectedBank.bankName,
-                amount: amount,
-                date: dateStr,
-                status: 'Completado'
-            });
-
-            if (!userData.history) userData.history = [];
-            userData.history.push({
-                action: 'Retiro',
+            if (!user.history) user.history = [];
+            user.history.push({
+                action: 'Retiro (Admin)',
                 amount: -amount,
-                date: dateStr
+                date: getCurrentDate()
             });
 
-            saveUserData();
-            updateDashboard();
-            updateWithdrawBankSelect();
-            renderWithdrawalHistory();
+            saveAdminData();
+            displayUserResult(window._currentUserIndex);
             amountInput.value = '';
-            showMessage(`✅ Retiro de ${formatCurrency(amount)} a ${selectedBank.bankName} completado con éxito.`, true);
+            showMessage(`✅ Retirado ${formatCurrency(amount)} de ${user.username}`, 'success');
+        }
+
+        function resultResetPassword() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            const passInput = document.getElementById('resultNewPassword');
+            const newPass = passInput.value.trim();
+
+            if (newPass.length < 6) {
+                showMessage('❌ La contraseña debe tener al menos 6 caracteres', 'error');
+                return;
+            }
+
+            user.password = newPass;
+            saveAdminData();
+            passInput.value = '';
+            showMessage(`✅ Contraseña de ${user.username} actualizada`, 'success');
+        }
+
+        function resultFreezeAccount() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            if (user.frozen) {
+                showMessage('⚠️ La cuenta ya está congelada', 'info');
+                return;
+            }
+
+            user.frozen = true;
+            saveAdminData();
+            displayUserResult(window._currentUserIndex);
+            showMessage(`🔒 Cuenta de ${user.username} congelada`, 'success');
+        }
+
+        function resultUnfreezeAccount() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            if (!user.frozen) {
+                showMessage('⚠️ La cuenta no está congelada', 'info');
+                return;
+            }
+
+            user.frozen = false;
+            saveAdminData();
+            displayUserResult(window._currentUserIndex);
+            showMessage(`🔓 Cuenta de ${user.username} descongelada`, 'success');
+        }
+
+        function resultViewFullDetails() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            let banksInfo = 'No hay bancos vinculados';
+            if (user.bankAccounts && user.bankAccounts.length > 0) {
+                banksInfo = user.bankAccounts.map(b =>
+                    `  🏛️ ${b.bankName || 'Banco'}\n     🔢 ${b.accountNumber || 'N/A'}\n     👤 ${b.accountHolder || 'N/A'}\n     CCI: ${b.cci || 'N/A'}`
+                ).join('\n\n');
+            }
+
+            let historyInfo = 'No hay historial';
+            if (user.history && user.history.length > 0) {
+                historyInfo = user.history.map((h, i) =>
+                    `  ${i+1}. ${h.action} - ${formatCurrency(h.amount)} (${h.date})`
+                ).join('\n');
+            }
+
+            let details = `
+            📋 DETALLES COMPLETOS DEL USUARIO
+            ═══════════════════════════════════
+
+            👤 Usuario: ${user.username}
+            🆔 ID: ${user.userId}
+            📱 Teléfono: ${user.phone}
+            🌐 IP: ${user.ipAddress || 'N/A'}
+            🌍 País: ${user.country || 'Perú'}
+            📅 Registro: ${user.registrationDate || getCurrentDate()}
+
+            💰 Saldo: ${formatCurrency(user.balance)}
+            📈 Ingresos totales: ${formatCurrency(user.totalIncome || 0)}
+            ⭐ Nivel VIP: ${user.vipLevel || 'VIP 1'}
+            📦 Órdenes: ${user.totalOrders || 0}
+            🔒 Estado: ${user.frozen ? 'Congelado' : 'Activo'}
+
+            🏦 CUENTAS BANCARIAS:
+            ${banksInfo}
+
+            📜 HISTORIAL:
+            ${historyInfo}
+            `;
+
+            alert(details);
+        }
+
+        function resultViewHistory() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            let historyText = 'No hay historial disponible';
+            if (user.history && user.history.length > 0) {
+                historyText = user.history.map((h, i) =>
+                    `  ${i+1}. ${h.action} - ${formatCurrency(h.amount)} (${h.date})`
+                ).join('\n');
+            }
+
+            alert(`📋 HISTORIAL DE ${(user.username || 'Usuario').toUpperCase()}\n\n` +
+                `💰 Saldo actual: ${formatCurrency(user.balance)}\n` +
+                `📈 Ingresos totales: ${formatCurrency(user.totalIncome || 0)}\n` +
+                `📦 Órdenes: ${user.totalOrders || 0}\n` +
+                `⭐ VIP: ${user.vipLevel || 'VIP 1'}\n` +
+                `🔒 Estado: ${user.frozen ? 'Congelado' : 'Activo'}\n\n` +
+                `📜 HISTORIAL DE TRANSACCIONES:\n${historyText}`);
         }
 
         // ============================================================
-        //  DASHBOARD BUTTONS
+        //  ADMIN ORDER MANAGEMENT
         // ============================================================
-        function handleComenzar() {
-            userData.balance += 5;
-            userData.totalIncome += 5;
-            userData.trabajoCount += 1;
-            if (!userData.history) userData.history = [];
-            userData.history.push({
-                action: 'Trabajo completado',
-                amount: 5,
-                date: new Date().toLocaleString('es-ES')
-            });
-            saveUserData();
-            updateDashboard();
-            showMessage(`🚀 ¡Has comenzado un nuevo trabajo! +${formatCurrency(5)}`, true);
+        function adminUpdateOrder(vipKey) {
+            const totalInput = document.getElementById(`orderTotal_${vipKey}`);
+            const rateInput = document.getElementById(`orderRate_${vipKey}`);
+
+            const totalOrders = parseInt(totalInput.value);
+            const commissionRate = parseFloat(rateInput.value) / 100;
+
+            if (isNaN(totalOrders) || totalOrders < 1) {
+                showMessage('❌ Ingresa un número válido de órdenes', 'error');
+                return;
+            }
+
+            if (isNaN(commissionRate) || commissionRate < 0.05 || commissionRate > 1) {
+                showMessage('❌ Ingresa una comisión válida (5-100%)', 'error');
+                return;
+            }
+
+            adminData.defaultOrders[vipKey] = {
+                totalOrders: totalOrders,
+                commissionRate: commissionRate
+            };
+
+            saveAdminData();
+            renderAdminPanel();
+            showMessage(`✅ Configuración de ${vipKey.toUpperCase()} actualizada`, 'success');
         }
 
-        function handleRecargar() {
-            userData.balance += 10;
-            userData.recargaCount += 1;
-            if (!userData.history) userData.history = [];
-            userData.history.push({
-                action: 'Recarga',
-                amount: 10,
-                date: new Date().toLocaleString('es-ES')
-            });
-            saveUserData();
-            updateDashboard();
-            showMessage(`📥 ¡Recarga exitosa! +${formatCurrency(10)}`, true);
+        // ============================================================
+        //  ADMIN PASSWORD RESET
+        // ============================================================
+        function adminResetPassword() {
+            const select = document.getElementById('passwordUserSelect');
+            const newPass = document.getElementById('newPassword').value.trim();
+
+            const idx = parseInt(select.value);
+            if (isNaN(idx) || idx < 0 || idx >= adminData.users.length) {
+                showMessage('❌ Selecciona un usuario válido', 'error');
+                return;
+            }
+
+            if (newPass.length < 6) {
+                showMessage('❌ La contraseña debe tener al menos 6 caracteres', 'error');
+                return;
+            }
+
+            const user = adminData.users[idx];
+            user.password = newPass;
+            saveAdminData();
+            document.getElementById('newPassword').value = '';
+            showMessage(`✅ Contraseña de ${user.username} actualizada`, 'success');
         }
 
-        function handleRetirar() {
-            const navItems = document.querySelectorAll('.bottom-nav .nav-item');
-            showMessage('📤 Ve a la sección "Mi" para realizar tu retiro.', true);
+        // ============================================================
+        //  DANGER ZONE
+        // ============================================================
+        function adminClearAllData() {
+            if (confirm('⚠️ ¿Estás seguro de eliminar TODOS los datos de usuarios? ¡Esta acción no se puede deshacer!')) {
+                if (confirm('⚠️ Confirmación final: ¿Estás absolutamente seguro?')) {
+                    adminData.users = [];
+                    saveAdminData();
+                    renderAdminPanel();
+                    showMessage('🗑️ Todos los datos han sido eliminados', 'error');
+                }
+            }
         }
 
-        function switchPage(pageId, element) {
-            const pages = document.querySelectorAll('.page-section');
-            pages.forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
+        // ============================================================
+        //  TAB SWITCHING
+        // ============================================================
+        function switchTab(tabId, element) {
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
 
-            const navItems = document.querySelectorAll('.bottom-nav .nav-item');
-            navItems.forEach(item => item.classList.remove('active'));
             if (element) {
                 element.classList.add('active');
             }
 
-            if (pageId === 'miPage') {
-                updateDashboard();
+            document.querySelectorAll('.panel').forEach(el => el.classList.remove('active'));
+
+            const panelMap = {
+                'users': 'panelUsers',
+                'search': 'panelSearch',
+                'orders': 'panelOrders',
+                'settings': 'panelSettings'
+            };
+
+            document.getElementById(panelMap[tabId]).classList.add('active');
+
+            if (tabId === 'users') renderUsers();
+            if (tabId === 'orders') renderOrderConfigs();
+            if (tabId === 'settings') {
+                renderPasswordSelects();
+                renderStats();
             }
         }
 
         // ============================================================
         //  INIT
         // ============================================================
-        window.onload = function() {
-            loadUserData();
+        loadAdminData();
 
-            // Check if user is already logged in
-            if (userData.isLoggedIn && userData.userId) {
-                document.getElementById('registerForm').classList.remove('active');
-                document.getElementById('registerForm').classList.add('hidden');
-                document.getElementById('loginForm').classList.remove('active');
-                document.getElementById('loginForm').classList.add('hidden');
-                document.getElementById('dashboard').classList.remove('hidden');
+        // Si no hay usuarios, crear datos de ejemplo
+        if (adminData.users.length === 0) {
+            adminData.users.push({
+                username: 'Jhostynjose',
+                phone: '938218405',
+                password: 'demo123',
+                balance: 1011.72,
+                totalIncome: 465.72,
+                userId: '1776174',
+                country: 'Perú',
+                language: 'Español',
+                vipLevel: 'VIP 1',
+                totalOrders: 20,
+                frozen: false,
+                registrationDate: '2026-07-23 11:30',
+                ipAddress: '190.236.26.127',
+                bankAccounts: [
+                    { bankName: 'Banco BBVA', accountNumber: '453215', accountHolder: 'Jhostynjose', cci: '5412456' },
+                    { bankName: 'Banco de Crédito (BCP)', accountNumber: '789012', accountHolder: 'Jhostynjose',
+                        cci: '9876543' }
+                ],
+                history: [
+                    { action: 'Depósito', amount: 50, date: '2026-07-23 10:00' },
+                    { action: 'Retiro', amount: 20, date: '2026-07-22 15:30' },
+                    { action: 'Comisión VIP 1', amount: 15, date: '2026-07-21 09:00' }
+                ]
+            });
+            adminData.users.push({
+                username: 'test_user',
+                phone: '912345678',
+                password: 'test123',
+                balance: 15.00,
+                totalIncome: 5.00,
+                userId: '7654321',
+                country: 'Colombia',
+                language: 'Español',
+                vipLevel: 'VIP 1',
+                totalOrders: 3,
+                frozen: false,
+                registrationDate: '2026-07-22 14:20',
+                ipAddress: '192.168.1.100',
+                bankAccounts: [
+                    { bankName: 'Banco Interbank', accountNumber: '123456', accountHolder: 'Test User', cci: '1234567' }
+                ],
+                history: [
+                    { action: 'Depósito', amount: 10, date: '2026-07-22 12:00' }
+                ]
+            });
+            saveAdminData();
+        }
 
-                document.getElementById('userIdDisplay').textContent = userData.userId;
-                document.getElementById('miUserId').textContent = userData.userId;
-
-                updateDashboard();
-            } else {
-                document.getElementById('registerForm').classList.remove('hidden');
-                document.getElementById('registerForm').classList.add('active');
-                document.getElementById('loginForm').classList.add('hidden');
-                document.getElementById('loginForm').classList.remove('active');
-                document.getElementById('dashboard').classList.add('hidden');
-            }
-
-            document.getElementById('regError').style.display = 'none';
-            document.getElementById('loginError').style.display = 'none';
-        };
+        console.log('🛠️ Admin Panel cargado correctamente');
+        console.log('👥 Usuarios:', adminData.users.length);
+        console.log('🔑 Contraseña admin:', adminData.adminPassword);
     </script>
 
 </body>
