@@ -209,6 +209,38 @@
             background: #0652DD;
         }
 
+        .btn-vip {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+        }
+
+        .btn-vip:hover {
+            background: linear-gradient(135deg, #5a4bd1, #8c7fe6);
+        }
+
+        .btn-vip.completed {
+            background: linear-gradient(135deg, #00b894, #55efc4);
+            color: white;
+        }
+
+        .btn-vip.locked {
+            background: linear-gradient(135deg, #636e72, #b2bec3);
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .btn-vip.locked:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-sm {
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            width: auto;
+            margin-top: 0;
+        }
+
         .hidden {
             display: none !important;
         }
@@ -319,10 +351,15 @@
             align-items: center;
             padding: 12px 0;
             border-bottom: 1px solid #e0e0e0;
+            transition: 0.3s;
         }
 
-        .vip-order-item:last-child {
-            border-bottom: none;
+        .vip-order-item:hover {
+            background: #fafafa;
+            margin: 0 -5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            border-radius: 10px;
         }
 
         .vip-order-item .vip-info {
@@ -375,64 +412,194 @@
             font-weight: 600;
         }
 
-        .vip-section {
-            background: #fafafa;
-            border-radius: 15px;
-            padding: 15px 20px;
-            margin-top: 15px;
-            border: 1px solid #eee;
+        /* ========== ORDER COMPLETED MODAL ========== */
+        .order-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeInOverlay 0.3s ease;
         }
 
-        .vip-item {
+        .order-modal-overlay.show {
             display: flex;
-            justify-content: space-between;
-            padding: 8px 5px;
-            border-bottom: 1px solid #f0f0f0;
         }
 
-        .vip-item:last-child {
-            border-bottom: none;
+        @keyframes fadeInOverlay {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
-        .vip-name {
-            font-weight: 600;
-            color: #2d3436;
-        }
-
-        .vip-status.activo {
-            color: #00b894;
-        }
-
-        .vip-status.inactivo {
-            color: #b2bec3;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .info-item {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 12px;
+        .order-modal {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            max-width: 420px;
+            width: 90%;
             text-align: center;
-            border: 1px solid #eee;
+            animation: modalPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
-        .info-item .number {
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .order-modal .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 5px;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .order-modal .modal-title {
             font-size: 1.5rem;
             font-weight: 700;
             color: #2d3436;
+            margin-bottom: 5px;
         }
 
-        .info-item .label {
-            font-size: 0.7rem;
+        .order-modal .modal-subtitle {
             color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .order-modal .modal-product {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .order-modal .modal-product .product-icon {
+            font-size: 3rem;
+        }
+
+        .order-modal .modal-product .product-name {
             font-weight: 600;
-            text-transform: uppercase;
+            color: #2d3436;
+            font-size: 1.1rem;
+        }
+
+        .order-modal .modal-product .product-price {
+            color: #00b894;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .order-modal .modal-commission {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            border-radius: 15px;
+            padding: 12px;
+            margin: 10px 0;
+        }
+
+        .order-modal .modal-commission .commission-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .order-modal .modal-commission .commission-amount {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .order-modal .modal-close-btn {
+            margin-top: 15px;
+            padding: 10px 30px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .order-modal .modal-close-btn:hover {
+            background: #e55a5a;
+            transform: scale(1.02);
+        }
+
+        /* ========== ORDER HISTORY ========== */
+        .order-history-section {
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        .order-history-section h4 {
+            color: #2d3436;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .order-history-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 8px 12px;
+            margin: 4px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .order-history-item .product-name {
+            color: #2d3436;
+            font-weight: 500;
+        }
+
+        .order-history-item .order-earned {
+            color: #00b894;
+            font-weight: 600;
+        }
+
+        .order-history-item .order-time {
+            color: #888;
+            font-size: 0.7rem;
         }
 
         /* ========== ID DISPLAY ========== */
@@ -525,15 +692,6 @@
             border: 1px solid #eee;
         }
 
-        .bank-form .form-row {
-            display: flex;
-            gap: 10px;
-        }
-
-        .bank-form .form-row .form-group {
-            flex: 1;
-        }
-
         /* ========== WITHDRAWAL SECTION ========== */
         .withdrawal-section {
             background: #f8f9fa;
@@ -556,16 +714,6 @@
             border: 1px solid #ddd;
         }
 
-        .withdrawal-section .selected-bank .bank-label {
-            color: #888;
-            font-size: 0.8rem;
-        }
-
-        .withdrawal-section .selected-bank .bank-value {
-            font-weight: 600;
-            color: #2d3436;
-        }
-
         .withdrawal-history {
             margin-top: 15px;
         }
@@ -584,22 +732,6 @@
         .withdrawal-history .history-item .amount-info {
             font-weight: 700;
             color: #d63031;
-        }
-
-        .withdrawal-history .history-item .bank-info {
-            color: #888;
-            font-size: 0.85rem;
-        }
-
-        .withdrawal-history .history-item .date-info {
-            color: #888;
-            font-size: 0.8rem;
-        }
-
-        .withdrawal-history .history-item .status-success {
-            color: #00b894;
-            font-weight: 600;
-            font-size: 0.85rem;
         }
 
         /* ========== INICIO PAGE ========== */
@@ -866,26 +998,6 @@
             font-weight: 600;
         }
 
-        .contrato-page .contrato-badge.gold {
-            background: #fdcb6e;
-            color: #2d3436;
-        }
-
-        .contrato-page .contrato-badge.blue {
-            background: #0984e3;
-            color: white;
-        }
-
-        .contrato-page .contrato-badge.purple {
-            background: #6c5ce7;
-            color: white;
-        }
-
-        .contrato-page .contrato-badge.red {
-            background: #ff6b6b;
-            color: white;
-        }
-
         /* ========== BOTTOM NAV ========== */
         .bottom-nav {
             display: flex;
@@ -1006,29 +1118,8 @@
             .action-buttons {
                 flex-direction: column;
             }
-            .info-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 6px;
-            }
-            .info-item .number {
-                font-size: 1.2rem;
-            }
             .app-header h1 {
                 font-size: 2rem;
-            }
-            .bank-form .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-            .inicio-page .stat-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 6px;
-            }
-            .inicio-page .stat-box .stat-number {
-                font-size: 1.2rem;
-            }
-            .profile-card .detail-grid {
-                grid-template-columns: 1fr;
             }
             .vip-order-item {
                 flex-direction: column;
@@ -1057,6 +1148,15 @@
                 flex-wrap: wrap;
                 gap: 8px;
                 justify-content: center;
+            }
+            .order-modal {
+                padding: 20px;
+            }
+            .order-modal .modal-title {
+                font-size: 1.2rem;
+            }
+            .order-modal .modal-commission .commission-amount {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -1278,6 +1378,16 @@
 
                 <div id="vipOrdersContainer">
                     <!-- Generado por JavaScript -->
+                </div>
+
+                <!-- ===== ORDER HISTORY ===== -->
+                <div class="order-history-section">
+                    <h4>📋 Historial de órdenes</h4>
+                    <div id="orderHistoryList">
+                        <div style="text-align:center; padding:10px; color:#888; font-size:0.85rem;">
+                            No hay órdenes completadas aún.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1620,7 +1730,57 @@
         <div id="infoMessage" class="success-msg hidden"></div>
     </div>
 
+    <!-- ===== ORDER COMPLETED MODAL ===== -->
+    <div class="order-modal-overlay" id="orderModal">
+        <div class="order-modal">
+            <div class="modal-icon">🎉</div>
+            <div class="modal-title">¡Orden Completada!</div>
+            <div class="modal-subtitle">Has completado una orden exitosamente</div>
+
+            <div class="modal-product" id="modalProduct">
+                <div class="product-icon" id="modalProductIcon">📱</div>
+                <div class="product-name" id="modalProductName">Smartphone X</div>
+                <div class="product-price" id="modalProductPrice">S/ 299.00</div>
+            </div>
+
+            <div class="modal-commission">
+                <div class="commission-label">💰 Comisión ganada</div>
+                <div class="commission-amount" id="modalCommission">S/ 3.00</div>
+            </div>
+
+            <div style="font-size:0.85rem; color:#888; margin-top:5px;" id="modalOrderCount">
+                Orden #1 de 12 completada
+            </div>
+
+            <button class="modal-close-btn" onclick="closeOrderModal()">✅ ¡Excelente!</button>
+        </div>
+    </div>
+
     <script>
+        // ============================================================
+        //  PRODUCTOS ALEATORIOS
+        // ============================================================
+        const productos = [
+            { icon: '📱', name: 'Smartphone X Pro', price: 299.00 },
+            { icon: '💻', name: 'Laptop Ultra 15"', price: 499.00 },
+            { icon: '🎧', name: 'Audífonos Bluetooth', price: 29.99 },
+            { icon: '⌚', name: 'Smartwatch Series 5', price: 89.00 },
+            { icon: '📷', name: 'Cámara Digital 4K', price: 199.00 },
+            { icon: '🎮', name: 'Consola de Videojuegos', price: 149.00 },
+            { icon: '📺', name: 'TV Smart 50"', price: 399.00 },
+            { icon: '🔊', name: 'Altavoz Bluetooth', price: 39.99 },
+            { icon: '💍', name: 'Anillo de Oro 18k', price: 159.00 },
+            { icon: '👟', name: 'Zapatillas Deportivas', price: 69.00 },
+            { icon: '👗', name: 'Vestido de Moda', price: 45.00 },
+            { icon: '🧥', name: 'Chaqueta de Cuero', price: 89.00 },
+            { icon: '💄', name: 'Set de Maquillaje', price: 25.00 },
+            { icon: '🏠', name: 'Decoración para Hogar', price: 15.00 },
+            { icon: '📚', name: 'Libro Best Seller', price: 12.00 }
+        ];
+
+        let orderHistory = [];
+        let orderCounter = 0;
+
         // ============================================================
         //  BANK DATA BY COUNTRY
         // ============================================================
@@ -1840,7 +2000,7 @@
         };
 
         // ============================================================
-        //  LANGUAGE DATA
+        //  LANGUAGE DATA (Simplified)
         // ============================================================
         const translations = {
             es: {
@@ -1992,7 +2152,12 @@
                 investment: 'Inversión',
                 commission: 'Comisión',
                 perOrder: 'por orden',
-                countryCurrency: 'País / Moneda'
+                countryCurrency: 'País / Moneda',
+                orderCompletedTitle: '¡Orden Completada!',
+                orderCompletedSub: 'Has completado una orden exitosamente',
+                orderCount: 'Orden #{count} de {total} completada',
+                noOrders: 'No hay órdenes completadas aún.',
+                orderHistory: '📋 Historial de órdenes'
             },
             en: {
                 appTitle: '✨ Your online shopping center ✨',
@@ -2143,7 +2308,12 @@
                 investment: 'Investment',
                 commission: 'Commission',
                 perOrder: 'per order',
-                countryCurrency: 'Country / Currency'
+                countryCurrency: 'Country / Currency',
+                orderCompletedTitle: 'Order Completed!',
+                orderCompletedSub: 'You have successfully completed an order',
+                orderCount: 'Order #{count} of {total} completed',
+                noOrders: 'No orders completed yet.',
+                orderHistory: '📋 Order History'
             },
             my: {
                 appTitle: '✨ သင့်အွန်လိုင်းစျေးဝယ်စင်တာ ✨',
@@ -2294,7 +2464,12 @@
                 investment: 'ရင်းနှီးငွေ',
                 commission: 'ကော်မရှင်',
                 perOrder: 'တစ်ခုလျှင်',
-                countryCurrency: 'နိုင်ငံ / ငွေကြေး'
+                countryCurrency: 'နိုင်ငံ / ငွေကြေး',
+                orderCompletedTitle: 'အမှာစာ ပြီးဆုံးပါပြီ!',
+                orderCompletedSub: 'အမှာစာကို အောင်မြင်စွာ ပြီးဆုံးပါပြီ',
+                orderCount: 'အမှာစာ #{count} မှ {total} ပြီးဆုံးပါပြီ',
+                noOrders: 'အမှာစာများ မပြီးသေးပါ။',
+                orderHistory: '📋 အမှာစာမှတ်တမ်း'
             }
         };
 
@@ -2335,7 +2510,8 @@
             document.querySelector('.btn-login').textContent = t.loginBtn;
             document.querySelector('.label-login-identifier').textContent = t.loginIdentifierLabel;
             document.querySelector('.label-login-password').textContent = t.loginPasswordLabel;
-            document.querySelector('.label-login-identifier + small').textContent = t.loginIdentifierHelp || '';
+            const helpEl = document.querySelector('.label-login-identifier + small');
+            if (helpEl) helpEl.textContent = t.loginIdentifierHelp || '';
             document.querySelector('.switch-to-login').innerHTML = t.switchToLogin + ' <strong>Iniciar sesión</strong>';
             document.querySelector('.switch-to-register').innerHTML = t.switchToRegister + ' <strong>Regístrate aquí</strong>';
             document.querySelector('.greeting-text').textContent = t.greeting;
@@ -2412,6 +2588,14 @@
             document.getElementById('regError').textContent = t.regError;
             document.getElementById('loginError').textContent = t.loginError;
             document.getElementById('currentLangDisplay').textContent = lang.toUpperCase();
+
+            // Order modal translations
+            document.querySelector('.modal-title').textContent = t.orderCompletedTitle || '¡Orden Completada!';
+            document.querySelector('.modal-subtitle').textContent = t.orderCompletedSub || 'Has completado una orden exitosamente';
+            document.querySelector('.modal-close-btn').textContent = '✅ ' + (t.completed || '¡Excelente!');
+
+            // Order history
+            document.querySelector('.order-history-section h4').textContent = t.orderHistory || '📋 Historial de órdenes';
 
             // Contrato translations
             document.querySelector('.contrato-hero-title').textContent = t.contratoHeroTitle;
@@ -2615,23 +2799,347 @@
             });
         }
 
-        function renderVIPs() {
-            const container = document.getElementById('vipList');
+        // ============================================================
+        //  ORDER FUNCTIONS
+        // ============================================================
+        function getRandomProduct() {
+            return productos[Math.floor(Math.random() * productos.length)];
+        }
+
+        function showOrderModal(product, commission, completedCount, totalCount) {
+            document.getElementById('modalProductIcon').textContent = product.icon;
+            document.getElementById('modalProductName').textContent = product.name;
+            document.getElementById('modalProductPrice').textContent = formatCurrency(product.price);
+            document.getElementById('modalCommission').textContent = formatCurrency(commission);
+
+            const t = translations[currentLang] || translations.es;
+            document.getElementById('modalOrderCount').textContent =
+                t.orderCount.replace('{count}', completedCount).replace('{total}', totalCount) ||
+                `Orden #${completedCount} de ${totalCount} completada`;
+
+            document.getElementById('orderModal').classList.add('show');
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.remove('show');
+        }
+
+        function renderOrderHistory() {
+            const container = document.getElementById('orderHistoryList');
             if (!container) return;
             container.innerHTML = '';
-            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
-            vipKeys.forEach(key => {
-                const vip = userData.vipLevels[key];
+
+            const t = translations[currentLang] || translations.es;
+
+            if (orderHistory.length === 0) {
+                container.innerHTML = `
+                            <div style="text-align:center; padding:10px; color:#888; font-size:0.85rem;">
+                                ${t.noOrders || 'No hay órdenes completadas aún.'}
+                            </div>
+                        `;
+                return;
+            }
+
+            const history = [...orderHistory].reverse();
+            history.forEach(item => {
                 const div = document.createElement('div');
-                div.className = 'vip-item';
-                const statusClass = vip.active ? 'activo' : 'inactivo';
-                const statusText = vip.active ? '✅ Activo' : '⏳ No disponible';
+                div.className = 'order-history-item';
                 div.innerHTML = `
-                            <span class="vip-name">${vip.name}</span>
-                            <span class="vip-status ${statusClass}">${statusText}</span>
+                            <div>
+                                <span class="product-name">${item.icon} ${item.product}</span>
+                                <div class="order-time">${item.time}</div>
+                            </div>
+                            <div>
+                                <span class="order-earned">+${formatCurrency(item.commission)}</span>
+                            </div>
                         `;
                 container.appendChild(div);
             });
+        }
+
+        // ============================================================
+        //  VIP ORDER SYSTEM
+        // ============================================================
+        function renderVIPOrders() {
+            const container = document.getElementById('vipOrdersContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            const t = translations[currentLang] || translations.es;
+
+            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
+
+            vipKeys.forEach(key => {
+                const order = userData.vipOrders[key];
+                const progress = (order.completedOrders / order.totalOrders) * 100;
+                const isComplete = order.completedOrders >= order.totalOrders;
+
+                let isUnlocked = order.isUnlocked;
+                let lockReason = '';
+
+                if (!isUnlocked && order.unlockRequirement) {
+                    const req = order.unlockRequirement;
+                    const reqKey = req.level.toLowerCase().replace(' ', '');
+                    const reqOrder = userData.vipOrders[reqKey];
+                    if (reqOrder && reqOrder.completedOrders >= req.requiredOrders) {
+                        isUnlocked = true;
+                        order.isUnlocked = true;
+                    } else {
+                        lockReason =
+                            `🔒 ${t.requiresCompleting || 'Requiere completar'} ${req.level} (${req.requiredOrders} ${t.orders || 'órdenes'})`;
+                    }
+                }
+
+                if (isUnlocked && !userData.vipLevels[key].active) {
+                    userData.vipLevels[key].active = true;
+                }
+
+                const div = document.createElement('div');
+                div.className = 'vip-order-item';
+
+                let buttonHtml = '';
+                if (isComplete) {
+                    buttonHtml =
+                        `<button class="btn btn-sm btn-vip completed" disabled>✅ ${t.completed || 'Completado'}</button>`;
+                } else if (!isUnlocked) {
+                    buttonHtml =
+                        `<button class="btn btn-sm btn-vip locked" disabled>${lockReason || '🔒 ' + (t.locked || 'Bloqueado')}</button>`;
+                } else {
+                    buttonHtml = `
+                                <button class="btn btn-sm btn-vip" onclick="completeVIPOrder('${key}')">
+                                    📦 ${t.completeOrder || 'Completar Orden'}
+                                </button>
+                            `;
+                }
+
+                const commission = order.baseInvestment * order.commissionRate;
+
+                div.innerHTML = `
+                            <div class="vip-info">
+                                <div class="vip-title">${order.level}</div>
+                                <div class="vip-details">
+                                    ${t.orders || 'Ordenes'}: ${order.completedOrders}/${order.totalOrders}
+                                    ${isUnlocked ? `| 💰 ${t.investment || 'Inversión'}: ${formatCurrency(order.baseInvestment)}` : ''}
+                                    ${isUnlocked ? `| 📈 ${t.commission || 'Comisión'}: ${(order.commissionRate * 100)}%` : ''}
+                                </div>
+                                <div class="vip-progress">
+                                    <div class="progress-bar" style="width: ${Math.min(progress, 100)}%;"></div>
+                                </div>
+                            </div>
+                            <div class="vip-actions">
+                                <div class="order-count">${order.completedOrders}/${order.totalOrders}</div>
+                                ${isUnlocked ? `<div class="commission-info">💰 ${formatCurrency(commission)} ${t.perOrder || 'por orden'}</div>` : ''}
+                                ${buttonHtml}
+                            </div>
+                        `;
+                container.appendChild(div);
+            });
+
+            renderOrderHistory();
+        }
+
+        function completeVIPOrder(vipKey) {
+            const order = userData.vipOrders[vipKey];
+            const t = translations[currentLang] || translations.es;
+
+            if (!order.isUnlocked) {
+                showMessage(t.notUnlocked || '❌ Este nivel VIP no está desbloqueado aún.', false);
+                return;
+            }
+
+            if (order.completedOrders >= order.totalOrders) {
+                showMessage(t.alreadyCompleted || '✅ ¡Ya has completado todas las órdenes de este nivel!', true);
+                return;
+            }
+
+            // Get random product
+            const product = getRandomProduct();
+            const commission = order.baseInvestment * order.commissionRate;
+
+            // Update order count
+            order.completedOrders += 1;
+            orderCounter += 1;
+
+            // Update balance
+            userData.balance += commission;
+            userData.totalIncome += commission;
+
+            // Add to history
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('es-ES', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            orderHistory.push({
+                icon: product.icon,
+                product: product.name,
+                commission: commission,
+                time: timeStr,
+                vipLevel: order.level
+            });
+
+            // Show modal with product info
+            showOrderModal(product, commission, order.completedOrders, order.totalOrders);
+
+            // Check if VIP level is completed
+            if (order.completedOrders >= order.totalOrders) {
+                order.isCompleted = true;
+                // Show completion message after modal
+                setTimeout(() => {
+                    showMessage(
+                        `${t.completedAll || '🎉 ¡Felicidades! Has completado'} ${order.level} ${t.andEarned || 'y ganado'} ${formatCurrency(commission)}!`,
+                        true);
+
+                    // Unlock next VIP level
+                    const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
+                    const currentIndex = vipKeys.indexOf(vipKey);
+                    if (currentIndex < vipKeys.length - 1) {
+                        const nextKey = vipKeys[currentIndex + 1];
+                        const nextOrder = userData.vipOrders[nextKey];
+                        if (nextOrder && !nextOrder.isUnlocked) {
+                            const req = nextOrder.unlockRequirement;
+                            const reqKey = req.level.toLowerCase().replace(' ', '');
+                            const reqOrder = userData.vipOrders[reqKey];
+                            if (reqOrder && reqOrder.completedOrders >= req.requiredOrders) {
+                                nextOrder.isUnlocked = true;
+                                userData.vipLevels[nextKey].active = true;
+                                showMessage(t.unlocked.replace('{level}', nextOrder.level), true);
+                            }
+                        }
+                    }
+                }, 500);
+            } else {
+                setTimeout(() => {
+                    showMessage(
+                        `✅ ${t.orderCompleted || 'Orden completada en'} ${order.level}. ${t.earned || 'Ganaste'} ${formatCurrency(commission)}! (${order.completedOrders}/${order.totalOrders})`,
+                        true);
+                }, 500);
+            }
+
+            updateDashboard();
+            renderVIPOrders();
+        }
+
+        // ============================================================
+        //  NAVIGATION FUNCTIONS
+        // ============================================================
+        function switchPage(pageId, element) {
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+
+            const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            if (element) {
+                element.classList.add('active');
+            }
+
+            if (pageId === 'vipOrdersPage') {
+                renderVIPOrders();
+            }
+            if (pageId === 'miPage' || pageId === 'configPage') {
+                renderBankAccounts();
+                updateWithdrawBankSelect();
+                renderWithdrawalHistory();
+                document.getElementById('miUserId').textContent = userData.userId || generateUserId();
+            }
+            if (pageId === 'contratoPage') {
+                document.getElementById('contratoUserId').textContent = userData.userId || generateUserId();
+            }
+        }
+
+        // ============================================================
+        //  BANK FUNCTIONS
+        // ============================================================
+        function toggleBankForm() {
+            const form = document.getElementById('bankFormContainer');
+            if (!form) return;
+            form.classList.toggle('hidden');
+            if (!form.classList.contains('hidden')) {
+                document.getElementById('bankCountrySelect').value = 'PE';
+                updateBankOptions();
+                document.getElementById('bankAccountNumber').value = '';
+                document.getElementById('bankAccountHolder').value = '';
+                document.getElementById('bankCCI').value = '';
+            }
+        }
+
+        function saveBankAccount() {
+            const countryCode = document.getElementById('bankCountrySelect').value;
+            const bankName = document.getElementById('bankName').value;
+            const accountNumber = document.getElementById('bankAccountNumber').value.trim();
+            const accountHolder = document.getElementById('bankAccountHolder').value.trim();
+            const cci = document.getElementById('bankCCI').value.trim();
+            const t = translations[currentLang] || translations.es;
+
+            if (!bankName || !accountNumber || !accountHolder || !cci) {
+                showMessage('⚠️ ' + (t.fillAllFields || 'Por favor, completa todos los campos.'), false);
+                return;
+            }
+
+            userData.bankAccounts.push({
+                countryCode: countryCode,
+                bankName: bankName,
+                accountNumber: accountNumber,
+                accountHolder: accountHolder,
+                cci: cci
+            });
+
+            renderBankAccounts();
+            toggleBankForm();
+            showMessage(`✅ ${t.bankAccount || 'Cuenta bancaria'} "${bankName}" ${t.addedSuccess || 'agregada con éxito.'}`,
+            true);
+        }
+
+        function toggleBankFormMi() {
+            const form = document.getElementById('bankFormContainerMi');
+            if (!form) return;
+            form.classList.toggle('hidden');
+            if (!form.classList.contains('hidden')) {
+                document.getElementById('bankCountrySelectMi').value = 'PE';
+                updateBankOptionsMi();
+                document.getElementById('bankAccountNumberMi').value = '';
+                document.getElementById('bankAccountHolderMi').value = '';
+                document.getElementById('bankCCIMi').value = '';
+            }
+        }
+
+        function saveBankAccountMi() {
+            const countryCode = document.getElementById('bankCountrySelectMi').value;
+            const bankName = document.getElementById('bankNameMi').value;
+            const accountNumber = document.getElementById('bankAccountNumberMi').value.trim();
+            const accountHolder = document.getElementById('bankAccountHolderMi').value.trim();
+            const cci = document.getElementById('bankCCIMi').value.trim();
+            const t = translations[currentLang] || translations.es;
+
+            if (!bankName || !accountNumber || !accountHolder || !cci) {
+                showMessage('⚠️ ' + (t.fillAllFields || 'Por favor, completa todos los campos.'), false);
+                return;
+            }
+
+            userData.bankAccounts.push({
+                countryCode: countryCode,
+                bankName: bankName,
+                accountNumber: accountNumber,
+                accountHolder: accountHolder,
+                cci: cci
+            });
+
+            renderBankAccounts();
+            toggleBankFormMi();
+            showMessage(`✅ ${t.bankAccount || 'Cuenta bancaria'} "${bankName}" ${t.addedSuccess || 'agregada con éxito.'}`,
+            true);
+        }
+
+        function deleteBankAccount(index) {
+            const t = translations[currentLang] || translations.es;
+            if (confirm(t.confirmDelete || '¿Estás seguro de eliminar esta cuenta bancaria?')) {
+                const deleted = userData.bankAccounts[index];
+                userData.bankAccounts.splice(index, 1);
+                renderBankAccounts();
+                updateWithdrawBankSelect();
+                showMessage(`🗑️ ${t.account || 'Cuenta'} "${deleted.bankName}" ${t.deleted || 'eliminada.'}`, true);
+            }
         }
 
         function renderBankAccounts() {
@@ -2765,255 +3273,6 @@
             });
         }
 
-        function renderVIPOrders() {
-            const container = document.getElementById('vipOrdersContainer');
-            if (!container) return;
-            container.innerHTML = '';
-            const t = translations[currentLang] || translations.es;
-
-            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
-
-            vipKeys.forEach(key => {
-                const order = userData.vipOrders[key];
-                const progress = (order.completedOrders / order.totalOrders) * 100;
-                const isComplete = order.completedOrders >= order.totalOrders;
-
-                let isUnlocked = order.isUnlocked;
-                let lockReason = '';
-
-                if (!isUnlocked && order.unlockRequirement) {
-                    const req = order.unlockRequirement;
-                    const reqKey = req.level.toLowerCase().replace(' ', '');
-                    const reqOrder = userData.vipOrders[reqKey];
-                    if (reqOrder && reqOrder.completedOrders >= req.requiredOrders) {
-                        isUnlocked = true;
-                        order.isUnlocked = true;
-                    } else {
-                        lockReason =
-                            `🔒 ${t.requiresCompleting || 'Requiere completar'} ${req.level} (${req.requiredOrders} ${t.orders || 'órdenes'})`;
-                    }
-                }
-
-                if (isUnlocked && !userData.vipLevels[key].active) {
-                    userData.vipLevels[key].active = true;
-                }
-
-                const div = document.createElement('div');
-                div.className = 'vip-order-item';
-
-                let buttonHtml = '';
-                if (isComplete) {
-                    buttonHtml =
-                        `<button class="btn btn-sm btn-vip completed" disabled>✅ ${t.completed || 'Completado'}</button>`;
-                } else if (!isUnlocked) {
-                    buttonHtml =
-                        `<button class="btn btn-sm btn-vip locked" disabled>${lockReason || '🔒 ' + (t.locked || 'Bloqueado')}</button>`;
-                } else {
-                    buttonHtml = `
-                                <button class="btn btn-sm btn-vip" onclick="completeVIPOrder('${key}')">
-                                    📦 ${t.completeOrder || 'Completar Orden'}
-                                </button>
-                            `;
-                }
-
-                const commission = order.baseInvestment * order.commissionRate;
-
-                div.innerHTML = `
-                            <div class="vip-info">
-                                <div class="vip-title">${order.level}</div>
-                                <div class="vip-details">
-                                    ${t.orders || 'Ordenes'}: ${order.completedOrders}/${order.totalOrders}
-                                    ${isUnlocked ? `| 💰 ${t.investment || 'Inversión'}: ${formatCurrency(order.baseInvestment)}` : ''}
-                                    ${isUnlocked ? `| 📈 ${t.commission || 'Comisión'}: ${(order.commissionRate * 100)}%` : ''}
-                                </div>
-                                <div class="vip-progress">
-                                    <div class="progress-bar" style="width: ${Math.min(progress, 100)}%;"></div>
-                                </div>
-                            </div>
-                            <div class="vip-actions">
-                                <div class="order-count">${order.completedOrders}/${order.totalOrders}</div>
-                                ${isUnlocked ? `<div class="commission-info">💰 ${formatCurrency(commission)} ${t.perOrder || 'por orden'}</div>` : ''}
-                                ${buttonHtml}
-                            </div>
-                        `;
-                container.appendChild(div);
-            });
-        }
-
-        function completeVIPOrder(vipKey) {
-            const order = userData.vipOrders[vipKey];
-            const t = translations[currentLang] || translations.es;
-
-            if (!order.isUnlocked) {
-                showMessage(t.notUnlocked || '❌ Este nivel VIP no está desbloqueado aún.', false);
-                return;
-            }
-
-            if (order.completedOrders >= order.totalOrders) {
-                showMessage(t.alreadyCompleted || '✅ ¡Ya has completado todas las órdenes de este nivel!', true);
-                return;
-            }
-
-            const commission = order.baseInvestment * order.commissionRate;
-
-            order.completedOrders += 1;
-            userData.balance += commission;
-            userData.totalIncome += commission;
-
-            if (order.completedOrders >= order.totalOrders) {
-                order.isCompleted = true;
-                showMessage(
-                    `${t.completedAll || '🎉 ¡Felicidades! Has completado'} ${order.level} ${t.andEarned || 'y ganado'} ${formatCurrency(commission)}!`,
-                    true);
-
-                const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
-                const currentIndex = vipKeys.indexOf(vipKey);
-                if (currentIndex < vipKeys.length - 1) {
-                    const nextKey = vipKeys[currentIndex + 1];
-                    const nextOrder = userData.vipOrders[nextKey];
-                    if (nextOrder && !nextOrder.isUnlocked) {
-                        const req = nextOrder.unlockRequirement;
-                        const reqKey = req.level.toLowerCase().replace(' ', '');
-                        const reqOrder = userData.vipOrders[reqKey];
-                        if (reqOrder && reqOrder.completedOrders >= req.requiredOrders) {
-                            nextOrder.isUnlocked = true;
-                            userData.vipLevels[nextKey].active = true;
-                            showMessage(t.unlocked.replace('{level}', nextOrder.level), true);
-                        }
-                    }
-                }
-            } else {
-                showMessage(
-                    `✅ ${t.orderCompleted || 'Orden completada en'} ${order.level}. ${t.earned || 'Ganaste'} ${formatCurrency(commission)}! (${order.completedOrders}/${order.totalOrders})`,
-                    true);
-            }
-
-            updateDashboard();
-            renderVIPOrders();
-        }
-
-        // ============================================================
-        //  NAVIGATION FUNCTIONS
-        // ============================================================
-        function switchPage(pageId, element) {
-            const pages = document.querySelectorAll('.page-section');
-            pages.forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-
-            const navItems = document.querySelectorAll('.bottom-nav .nav-item');
-            navItems.forEach(item => item.classList.remove('active'));
-            if (element) {
-                element.classList.add('active');
-            }
-
-            if (pageId === 'vipOrdersPage') {
-                renderVIPOrders();
-            }
-            if (pageId === 'miPage' || pageId === 'configPage') {
-                renderBankAccounts();
-                updateWithdrawBankSelect();
-                renderWithdrawalHistory();
-                document.getElementById('miUserId').textContent = userData.userId || generateUserId();
-            }
-            if (pageId === 'contratoPage') {
-                document.getElementById('contratoUserId').textContent = userData.userId || generateUserId();
-            }
-        }
-
-        // ============================================================
-        //  BANK FUNCTIONS
-        // ============================================================
-        function toggleBankForm() {
-            const form = document.getElementById('bankFormContainer');
-            if (!form) return;
-            form.classList.toggle('hidden');
-            if (!form.classList.contains('hidden')) {
-                document.getElementById('bankCountrySelect').value = 'PE';
-                updateBankOptions();
-                document.getElementById('bankAccountNumber').value = '';
-                document.getElementById('bankAccountHolder').value = '';
-                document.getElementById('bankCCI').value = '';
-            }
-        }
-
-        function saveBankAccount() {
-            const countryCode = document.getElementById('bankCountrySelect').value;
-            const bankName = document.getElementById('bankName').value;
-            const accountNumber = document.getElementById('bankAccountNumber').value.trim();
-            const accountHolder = document.getElementById('bankAccountHolder').value.trim();
-            const cci = document.getElementById('bankCCI').value.trim();
-            const t = translations[currentLang] || translations.es;
-
-            if (!bankName || !accountNumber || !accountHolder || !cci) {
-                showMessage('⚠️ ' + (t.fillAllFields || 'Por favor, completa todos los campos.'), false);
-                return;
-            }
-
-            userData.bankAccounts.push({
-                countryCode: countryCode,
-                bankName: bankName,
-                accountNumber: accountNumber,
-                accountHolder: accountHolder,
-                cci: cci
-            });
-
-            renderBankAccounts();
-            toggleBankForm();
-            showMessage(`✅ ${t.bankAccount || 'Cuenta bancaria'} "${bankName}" ${t.addedSuccess || 'agregada con éxito.'}`,
-            true);
-        }
-
-        function toggleBankFormMi() {
-            const form = document.getElementById('bankFormContainerMi');
-            if (!form) return;
-            form.classList.toggle('hidden');
-            if (!form.classList.contains('hidden')) {
-                document.getElementById('bankCountrySelectMi').value = 'PE';
-                updateBankOptionsMi();
-                document.getElementById('bankAccountNumberMi').value = '';
-                document.getElementById('bankAccountHolderMi').value = '';
-                document.getElementById('bankCCIMi').value = '';
-            }
-        }
-
-        function saveBankAccountMi() {
-            const countryCode = document.getElementById('bankCountrySelectMi').value;
-            const bankName = document.getElementById('bankNameMi').value;
-            const accountNumber = document.getElementById('bankAccountNumberMi').value.trim();
-            const accountHolder = document.getElementById('bankAccountHolderMi').value.trim();
-            const cci = document.getElementById('bankCCIMi').value.trim();
-            const t = translations[currentLang] || translations.es;
-
-            if (!bankName || !accountNumber || !accountHolder || !cci) {
-                showMessage('⚠️ ' + (t.fillAllFields || 'Por favor, completa todos los campos.'), false);
-                return;
-            }
-
-            userData.bankAccounts.push({
-                countryCode: countryCode,
-                bankName: bankName,
-                accountNumber: accountNumber,
-                accountHolder: accountHolder,
-                cci: cci
-            });
-
-            renderBankAccounts();
-            toggleBankFormMi();
-            showMessage(`✅ ${t.bankAccount || 'Cuenta bancaria'} "${bankName}" ${t.addedSuccess || 'agregada con éxito.'}`,
-            true);
-        }
-
-        function deleteBankAccount(index) {
-            const t = translations[currentLang] || translations.es;
-            if (confirm(t.confirmDelete || '¿Estás seguro de eliminar esta cuenta bancaria?')) {
-                const deleted = userData.bankAccounts[index];
-                userData.bankAccounts.splice(index, 1);
-                renderBankAccounts();
-                updateWithdrawBankSelect();
-                showMessage(`🗑️ ${t.account || 'Cuenta'} "${deleted.bankName}" ${t.deleted || 'eliminada.'}`, true);
-            }
-        }
-
         function processWithdrawal() {
             const select = document.getElementById('withdrawBankSelect');
             const amountInput = document.getElementById('withdrawAmount');
@@ -3094,6 +3353,8 @@
             userData.notificacionCount = 1;
             userData.bankAccounts = [];
             userData.withdrawalHistory = [];
+            orderHistory = [];
+            orderCounter = 0;
 
             const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
             vipKeys.forEach((key, index) => {
@@ -3191,6 +3452,25 @@
             document.getElementById('currentCurrencyDisplay').textContent = currentCurrency;
         }
 
+        function renderVIPs() {
+            const container = document.getElementById('vipList');
+            if (!container) return;
+            container.innerHTML = '';
+            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
+            vipKeys.forEach(key => {
+                const vip = userData.vipLevels[key];
+                const div = document.createElement('div');
+                div.className = 'vip-item';
+                const statusClass = vip.active ? 'activo' : 'inactivo';
+                const statusText = vip.active ? '✅ Activo' : '⏳ No disponible';
+                div.innerHTML = `
+                            <span class="vip-name">${vip.name}</span>
+                            <span class="vip-status ${statusClass}">${statusText}</span>
+                        `;
+                container.appendChild(div);
+            });
+        }
+
         // ============================================================
         //  DASHBOARD BUTTONS
         // ============================================================
@@ -3244,6 +3524,13 @@
             renderVIPOrders();
             updateWithdrawBankSelect();
             changeLanguage('es');
+
+            // Close modal on overlay click
+            document.getElementById('orderModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeOrderModal();
+                }
+            });
         };
     </script>
 
