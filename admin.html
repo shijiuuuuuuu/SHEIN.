@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shein - Admin Panel</title>
     <style>
-        /* ========== RESET ========== */
+        /* ========== RESET Y ESTILOS BASE ========== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -25,194 +25,91 @@
 
         .container {
             background: #ffffff;
-            padding: 25px 30px;
-            border-radius: 20px;
+            padding: 30px;
+            border-radius: 25px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            max-width: 1000px;
+            max-width: 800px;
             width: 100%;
             border: 1px solid #e8e8e8;
         }
 
-        /* ========== HEADER ========== */
         .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
             border-bottom: 2px solid #f0f0f0;
-            flex-wrap: wrap;
-            gap: 10px;
         }
 
-        .admin-header .logo h1 {
+        .admin-header h1 {
             color: #ff6b6b;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
         }
 
-        .admin-header .logo span {
+        .admin-header p {
             color: #888;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
         }
 
-        .admin-header .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .admin-header .user-info .badge {
-            background: #00b894;
+        .admin-header .badge {
+            background: #ff6b6b;
             padding: 4px 15px;
             border-radius: 20px;
             font-size: 0.7rem;
             font-weight: 600;
+            display: inline-block;
+            margin-top: 5px;
             color: #fff;
         }
 
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #ddd;
-            color: #888;
-            padding: 6px 16px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-outline:hover {
-            background: #f8f9fa;
-            border-color: #ff6b6b;
-            color: #2d3436;
-        }
-
-        /* ========== SEARCH SECTION ========== */
-        .search-section {
+        /* ========== TABS ========== */
+        .admin-tabs {
+            display: flex;
+            gap: 5px;
             background: #f8f9fa;
             border-radius: 15px;
-            padding: 20px;
+            padding: 5px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
             border: 1px solid #e8e8e8;
         }
 
-        .search-section .search-title {
-            font-weight: 700;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            color: #2d3436;
-        }
-
-        .search-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .form-group {
-            margin-bottom: 0;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #888;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            outline: none;
-            transition: 0.3s;
-            background: #fff;
-            color: #2d3436;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
-        }
-
-        .search-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 8px 20px;
+        .admin-tabs .tab-btn {
+            flex: 1;
+            padding: 10px 12px;
             border: none;
-            border-radius: 10px;
-            font-size: 0.85rem;
+            border-radius: 12px;
+            background: transparent;
+            color: #888;
             font-weight: 600;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: 0.3s;
+            min-width: 80px;
         }
 
-        .btn-primary {
+        .admin-tabs .tab-btn.active {
             background: #ff6b6b;
             color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
         }
 
-        .btn-primary:hover {
-            background: #e55a5a;
-        }
-
-        .btn-success {
-            background: #00b894;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #00a381;
-        }
-
-        .btn-warning {
-            background: #fdcb6e;
+        .admin-tabs .tab-btn:hover:not(.active) {
             color: #2d3436;
+            background: rgba(0, 0, 0, 0.05);
         }
 
-        .btn-warning:hover {
-            background: #f9ca24;
+        .admin-tabs .tab-btn .icon {
+            margin-right: 5px;
         }
 
-        .btn-danger {
-            background: #d63031;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #c0392b;
-        }
-
-        .btn-sm {
-            padding: 4px 12px;
-            font-size: 0.75rem;
-        }
-
-        /* ========== USER RESULT CARD ========== */
-        .user-result-card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            border: 2px solid #e8e8e8;
-            margin-bottom: 20px;
+        /* ========== PANELS ========== */
+        .panel {
             display: none;
-            animation: fadeSlide 0.5s ease;
+            animation: fadeSlide 0.4s ease;
         }
 
-        .user-result-card.show {
+        .panel.active {
             display: block;
         }
 
@@ -227,213 +124,248 @@
             }
         }
 
-        .user-result-card .user-header {
+        .panel-title {
+            color: #2d3436;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e8e8e8;
         }
 
-        .user-result-card .user-header .user-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #2d3436;
-        }
-
-        .user-result-card .user-header .user-id {
-            background: #dfe6e9;
-            padding: 4px 14px;
+        .panel-title .count {
+            background: #f0f2f5;
+            padding: 2px 12px;
             border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #2d3436;
-            font-family: 'Courier New', monospace;
-        }
-
-        .user-result-card .user-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .user-result-card .user-stats .stat-item {
-            background: white;
-            border-radius: 12px;
-            padding: 12px;
-            text-align: center;
-            border: 1px solid #e8e8e8;
-        }
-
-        .user-result-card .user-stats .stat-item .label {
-            font-size: 0.65rem;
-            color: #888;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .user-result-card .user-stats .stat-item .value {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #2d3436;
-            margin-top: 3px;
-        }
-
-        .user-result-card .user-stats .stat-item .value.green {
-            color: #00b894;
-        }
-
-        .user-result-card .user-stats .stat-item .value.purple {
-            color: #6c5ce7;
-        }
-
-        .user-result-card .user-stats .stat-item .value.orange {
-            color: #fdcb6e;
-        }
-
-        .user-result-card .user-stats .stat-item .value.red {
-            color: #d63031;
-        }
-
-        /* ========== USER ACTIONS ========== */
-        .user-actions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .user-actions-grid .action-group {
-            background: white;
-            border-radius: 12px;
-            padding: 12px;
-            border: 1px solid #e8e8e8;
-        }
-
-        .user-actions-grid .action-group .action-label {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #888;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-            display: block;
-        }
-
-        .user-actions-grid .action-group .input-group {
-            display: flex;
-            gap: 6px;
-        }
-
-        .user-actions-grid .action-group .input-group input {
-            flex: 1;
-            padding: 6px 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
             font-size: 0.8rem;
+            color: #888;
+        }
+
+        /* ========== FORMULARIOS ========== */
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 0.85rem;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 0.95rem;
             outline: none;
+            transition: 0.3s;
             background: #fafafa;
             color: #2d3436;
-            min-width: 60px;
         }
 
-        .user-actions-grid .action-group .input-group input:focus {
+        input:focus,
+        select:focus {
             border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
             background: #fff;
         }
 
-        .user-actions-grid .action-group .btn {
-            padding: 6px 14px;
+        input::placeholder {
+            color: #aaa;
+        }
+
+        select option {
+            background: #fff;
+            color: #2d3436;
+        }
+
+        .btn {
+            padding: 10px 20px;
             border: none;
-            border-radius: 8px;
-            font-size: 0.7rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
-            width: auto;
-            white-space: nowrap;
+            width: 100%;
         }
 
-        /* ========== BANK ACCOUNTS SECTION ========== */
-        .bank-section {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px solid #e8e8e8;
+        .btn-primary {
+            background: #ff6b6b;
+            color: white;
         }
 
-        .bank-section .bank-title {
-            font-weight: 600;
-            font-size: 0.9rem;
+        .btn-primary:hover {
+            background: #e55a5a;
+            transform: scale(1.02);
+        }
+
+        .btn-success {
+            background: #00b894;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #00a381;
+            transform: scale(1.02);
+        }
+
+        .btn-danger {
+            background: #d63031;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-warning {
+            background: #fdcb6e;
             color: #2d3436;
-            margin-bottom: 10px;
         }
 
-        .bank-item {
-            background: white;
-            border-radius: 10px;
-            padding: 10px 15px;
-            margin: 6px 0;
+        .btn-warning:hover {
+            background: #f9ca24;
+        }
+
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            width: auto;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #ddd;
+            color: #888;
+        }
+
+        .btn-outline:hover {
+            background: #f8f9fa;
+            border-color: #ff6b6b;
+            color: #2d3436;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-group .btn {
+            flex: 1;
+        }
+
+        /* ========== USER LIST ========== */
+        .user-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin: 8px 0;
             border: 1px solid #e8e8e8;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 8px;
+            transition: 0.3s;
         }
 
-        .bank-item .bank-info {
-            font-size: 0.85rem;
+        .user-card:hover {
+            background: #f0f2f5;
         }
 
-        .bank-item .bank-info .bank-name {
-            font-weight: 700;
-            color: #ff6b6b;
+        .user-card .user-info {
+            flex: 1;
         }
 
-        .bank-item .bank-info .bank-details {
-            color: #888;
-            font-size: 0.75rem;
-        }
-
-        .bank-item .bank-badge {
-            background: #00b894;
-            color: white;
-            padding: 2px 12px;
-            border-radius: 20px;
-            font-size: 0.65rem;
+        .user-card .user-info .name {
             font-weight: 600;
+            color: #2d3436;
         }
 
-        .no-banks {
-            text-align: center;
-            padding: 15px;
+        .user-card .user-info .details {
+            font-size: 0.8rem;
             color: #888;
-            font-size: 0.85rem;
-            background: #f8f9fa;
-            border-radius: 10px;
         }
 
-        /* ========== NOT FOUND ========== */
-        .not-found {
-            text-align: center;
-            padding: 30px;
-            color: #888;
+        .user-card .user-balance {
+            font-weight: 700;
+            color: #00b894;
+            font-size: 1.1rem;
+        }
+
+        .user-card .user-actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .user-card .user-actions .btn {
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            width: auto;
+        }
+
+        /* ========== ORDER MANAGEMENT ========== */
+        .order-config {
             background: #f8f9fa;
             border-radius: 12px;
-            border: 2px dashed #ddd;
-            display: none;
+            padding: 15px;
+            margin: 8px 0;
+            border: 1px solid #e8e8e8;
         }
 
-        .not-found.show {
-            display: block;
+        .order-config .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
         }
 
-        .not-found .icon {
-            font-size: 3rem;
-            margin-bottom: 10px;
+        .order-config .order-header .level {
+            font-weight: 700;
+            color: #6c5ce7;
+        }
+
+        .order-config .order-header .status {
+            font-size: 0.75rem;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #f0f2f5;
+        }
+
+        .order-config .order-header .status.active {
+            background: #00b894;
+            color: white;
+        }
+
+        .order-config .order-header .status.locked {
+            background: #dfe6e9;
+            color: #636e72;
+        }
+
+        .order-config .order-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .order-config .order-controls input {
+            width: 80px;
+            padding: 6px 10px;
+            font-size: 0.85rem;
+            background: #fff;
+        }
+
+        .order-config .order-controls .btn {
+            width: auto;
+            padding: 6px 16px;
+            font-size: 0.8rem;
         }
 
         /* ========== MESSAGE ========== */
@@ -508,12 +440,7 @@
         }
 
         .login-box .btn {
-            width: 100%;
             margin-top: 10px;
-        }
-
-        .login-box .form-group {
-            margin-bottom: 14px;
         }
 
         .login-box .form-group label {
@@ -532,50 +459,46 @@
         }
 
         /* ========== RESPONSIVE ========== */
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
             .container {
-                padding: 15px;
+                padding: 18px;
             }
 
-            .search-grid {
-                grid-template-columns: 1fr 1fr;
+            .admin-tabs .tab-btn {
+                font-size: 0.7rem;
+                padding: 8px 6px;
+                min-width: 60px;
             }
 
-            .user-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .user-actions-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .admin-header {
+            .user-card {
                 flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .search-grid {
-                grid-template-columns: 1fr;
+                align-items: stretch;
             }
 
-            .user-stats {
-                grid-template-columns: 1fr;
+            .user-card .user-actions {
+                justify-content: center;
             }
 
-            .user-actions-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .user-result-card .user-header {
+            .order-config .order-controls {
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: stretch;
+            }
+
+            .order-config .order-controls input {
+                width: 100%;
+            }
+
+            .btn-group {
+                flex-direction: column;
             }
 
             .login-box {
                 padding: 25px;
                 margin: 20px;
+            }
+
+            .admin-header h1 {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -603,136 +526,129 @@
 
     <!-- ===== ADMIN PANEL ===== -->
     <div class="container" id="adminPanel" style="display:none;">
-
-        <!-- ===== HEADER ===== -->
         <div class="admin-header">
-            <div class="logo">
-                <h1>🛠️ Shein Admin</h1>
-                <span>Panel de control - Gestión de usuarios</span>
-            </div>
-            <div class="user-info">
-                <span class="badge">🔒 Sesión activa</span>
-                <button class="btn-outline" onclick="adminLogout()">🚪 Cerrar sesión</button>
-            </div>
+            <h1>🛠️ Shein Admin</h1>
+            <p>Panel de control para administrar la plataforma</p>
+            <span class="badge">🔒 Sesión activa</span>
+            <button class="btn btn-outline btn-sm" onclick="adminLogout()" style="width:auto; margin-top:8px;">🚪 Cerrar sesión</button>
+        </div>
+
+        <!-- ===== TABS ===== -->
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchTab('users', this)">
+                <span class="icon">👥</span> Usuarios
+            </button>
+            <button class="tab-btn" onclick="switchTab('orders', this)">
+                <span class="icon">📦</span> Órdenes
+            </button>
+            <button class="tab-btn" onclick="switchTab('balance', this)">
+                <span class="icon">💰</span> Balance
+            </button>
+            <button class="tab-btn" onclick="switchTab('settings', this)">
+                <span class="icon">⚙️</span> Ajustes
+            </button>
         </div>
 
         <!-- ===== MESSAGE ===== -->
         <div id="adminMessage" class="message"></div>
 
-        <!-- ===== SEARCH SECTION ===== -->
-        <div class="search-section">
-            <div class="search-title">🔍 Buscar usuario por ID o teléfono</div>
-            <div class="search-grid">
+        <!-- ===== PANEL: USERS ===== -->
+        <div id="panelUsers" class="panel active">
+            <div class="panel-title">
+                <span>👥 Usuarios Registrados</span>
+                <span class="count" id="userCount">0</span>
+            </div>
+            <div id="userList">
+                <!-- Generado por JavaScript -->
+            </div>
+        </div>
+
+        <!-- ===== PANEL: ORDERS ===== -->
+        <div id="panelOrders" class="panel">
+            <div class="panel-title">
+                <span>📦 Configuración de Órdenes VIP</span>
+                <span class="count">6 Niveles</span>
+            </div>
+            <div id="orderConfigList">
+                <!-- Generado por JavaScript -->
+            </div>
+        </div>
+
+        <!-- ===== PANEL: BALANCE ===== -->
+        <div id="panelBalance" class="panel">
+            <div class="panel-title">
+                <span>💰 Gestionar Balance</span>
+                <span class="count">Selecciona un usuario</span>
+            </div>
+            <div class="form-group">
+                <label>👤 Seleccionar usuario</label>
+                <select id="balanceUserSelect">
+                    <option value="">-- Selecciona un usuario --</option>
+                </select>
+            </div>
+            <div id="balanceUserInfo" style="background:#f8f9fa; border-radius:12px; padding:12px; margin-bottom:15px; display:none; border:1px solid #e8e8e8;">
+                <div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
+                    <span>👤 <span id="balanceUserName">-</span></span>
+                    <span>💰 <span id="balanceUserCurrent" style="color:#00b894;">S/ 0.00</span></span>
+                </div>
+            </div>
+            <div class="btn-group">
+                <div style="flex:1;">
+                    <label>➕ Agregar Saldo</label>
+                    <div style="display:flex; gap:10px;">
+                        <input type="number" id="balanceAddAmount" placeholder="Monto" min="0.01" step="0.01">
+                        <button class="btn btn-success" onclick="adminAddBalance()" style="width:auto; padding:10px 20px;">➕ Agregar</button>
+                    </div>
+                </div>
+                <div style="flex:1;">
+                    <label>➖ Retirar Saldo</label>
+                    <div style="display:flex; gap:10px;">
+                        <input type="number" id="balanceSubtractAmount" placeholder="Monto" min="0.01" step="0.01">
+                        <button class="btn btn-danger" onclick="adminSubtractBalance()" style="width:auto; padding:10px 20px;">➖ Retirar</button>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top:15px; padding:15px; background:#f8f9fa; border-radius:12px; border:1px dashed #ddd;">
+                <p style="color:#888; font-size:0.85rem;">💡 <strong>Consejo:</strong> Puedes agregar o retirar saldo de cualquier usuario registrado.</p>
+            </div>
+        </div>
+
+        <!-- ===== PANEL: SETTINGS ===== -->
+        <div id="panelSettings" class="panel">
+            <div class="panel-title">
+                <span>⚙️ Ajustes del Sistema</span>
+                <span class="count">Configuración</span>
+            </div>
+
+            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
+                <h4 style="color:#6c5ce7; margin-bottom:10px;">🔑 Cambiar Contraseña de Usuario</h4>
                 <div class="form-group">
-                    <label>🆔 ID o 📱 Teléfono</label>
-                    <input type="text" id="searchInput" placeholder="Ej: 1234567 o 987654321">
+                    <label>👤 Seleccionar usuario</label>
+                    <select id="passwordUserSelect">
+                        <option value="">-- Selecciona un usuario --</option>
+                    </select>
                 </div>
-            </div>
-            <div class="search-actions">
-                <button class="btn btn-primary" onclick="searchUser()">🔍 Buscar</button>
-                <button class="btn btn-outline" onclick="clearSearch()">🗑️ Limpiar</button>
-            </div>
-        </div>
-
-        <!-- ===== NOT FOUND ===== -->
-        <div class="not-found" id="notFound">
-            <div class="icon">🔍</div>
-            <p>No se encontró ningún usuario con este ID o teléfono.</p>
-            <p style="font-size:0.8rem; color:#aaa;">Verifica que el ID sea de 7 dígitos o el teléfono sea correcto</p>
-        </div>
-
-        <!-- ===== USER RESULT CARD ===== -->
-        <div class="user-result-card" id="userResultCard">
-            <div class="user-header">
-                <div>
-                    <span class="user-name" id="resultUserName">Usuario</span>
-                    <div style="font-size:0.8rem; color:#888; margin-top:2px;" id="resultUserPhone">📱 +51 987654321</div>
+                <div class="form-group">
+                    <label>🔒 Nueva contraseña</label>
+                    <input type="text" id="newPassword" placeholder="Nueva contraseña (mínimo 6 caracteres)">
                 </div>
-                <span class="user-id" id="resultUserId">🆔 1234567</span>
+                <button class="btn btn-warning" onclick="adminResetPassword()">🔄 Cambiar Contraseña</button>
             </div>
 
-            <div class="user-stats">
-                <div class="stat-item">
-                    <div class="label">💰 Saldo</div>
-                    <div class="value green" id="resultUserBalance">S/ 10.00</div>
-                </div>
-                <div class="stat-item">
-                    <div class="label">📈 Ingresos</div>
-                    <div class="value orange" id="resultUserIncome">S/ 0.00</div>
-                </div>
-                <div class="stat-item">
-                    <div class="label">⭐ VIP</div>
-                    <div class="value purple" id="resultUserVip">VIP 1</div>
-                </div>
-                <div class="stat-item">
-                    <div class="label">📦 Órdenes</div>
-                    <div class="value red" id="resultUserOrders">0</div>
-                </div>
-                <div class="stat-item">
-                    <div class="label">🌍 País</div>
-                    <div class="value" id="resultUserCountry">Perú</div>
-                </div>
-                <div class="stat-item">
-                    <div class="label">📅 Registro</div>
-                    <div class="value" id="resultUserDate">2026-07-23</div>
-                </div>
+            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
+                <h4 style="color:#d63031; margin-bottom:10px;">⚠️ Acciones Peligrosas</h4>
+                <button class="btn btn-danger" onclick="adminClearAllData()" style="margin-bottom:8px;">🗑️ Eliminar todos los datos</button>
+                <p style="color:#888; font-size:0.75rem;">⚠️ Esta acción eliminará todos los usuarios y datos. ¡No se puede deshacer!</p>
             </div>
 
-            <!-- ===== USER ACTIONS ===== -->
-            <div class="user-actions-grid">
-                <div class="action-group">
-                    <span class="action-label">➕ Agregar Saldo</span>
-                    <div class="input-group">
-                        <input type="number" id="resultAddAmount" placeholder="Monto" min="0.01" step="0.01">
-                        <button class="btn btn-success" onclick="resultAddBalance()">➕</button>
-                    </div>
-                </div>
-
-                <div class="action-group">
-                    <span class="action-label">➖ Retirar Saldo</span>
-                    <div class="input-group">
-                        <input type="number" id="resultSubtractAmount" placeholder="Monto" min="0.01" step="0.01">
-                        <button class="btn btn-danger" onclick="resultSubtractBalance()">➖</button>
-                    </div>
-                </div>
-
-                <div class="action-group">
-                    <span class="action-label">🔑 Cambiar Contraseña</span>
-                    <div class="input-group">
-                        <input type="text" id="resultNewPassword" placeholder="Nueva contraseña" minlength="6">
-                        <button class="btn btn-warning" onclick="resultResetPassword()">🔄</button>
-                    </div>
-                </div>
-
-                <div class="action-group">
-                    <span class="action-label">🔒 Estado</span>
-                    <div class="input-group" style="gap:6px;">
-                        <button class="btn btn-danger" onclick="resultFreezeAccount()" style="flex:1;">🔒 Congelar</button>
-                        <button class="btn btn-success" onclick="resultUnfreezeAccount()" style="flex:1;">🔓 Descongelar</button>
-                    </div>
+            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
+                <h4 style="color:#00b894; margin-bottom:10px;">📊 Estadísticas</h4>
+                <div id="adminStats">
+                    <p>👥 <span id="statUsers">0</span> usuarios registrados</p>
+                    <p>💰 <span id="statTotalBalance">S/ 0.00</span> balance total</p>
+                    <p>📦 <span id="statOrders">0</span> órdenes completadas</p>
                 </div>
             </div>
-
-            <!-- ===== BANK ACCOUNTS ===== -->
-            <div class="bank-section">
-                <div class="bank-title">🏦 Cuentas bancarias vinculadas</div>
-                <div id="bankListContainer">
-                    <!-- Generado por JavaScript -->
-                </div>
-            </div>
-
-            <!-- ===== EXTRA ACTIONS ===== -->
-            <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap; border-top:1px solid #e8e8e8; padding-top:15px;">
-                <button class="btn btn-primary btn-sm" onclick="resultViewFullDetails()" style="width:auto;">👁️ Ver detalles</button>
-                <button class="btn btn-warning btn-sm" onclick="resultViewHistory()" style="width:auto;">📋 Historial</button>
-                <button class="btn btn-outline btn-sm" onclick="clearSearch()" style="width:auto;">🗑️ Limpiar</button>
-                <span style="font-size:0.7rem; color:#888; margin-left:auto; align-self:center;" id="resultStatus">✅ Activo</span>
-            </div>
-        </div>
-
-        <!-- ===== FOOTER ===== -->
-        <div style="text-align:center; margin-top:20px; padding-top:15px; border-top:1px solid #f0f0f0; font-size:0.7rem; color:#aaa;">
-            Shein Admin Panel v3.0 | © 2026 Todos los derechos reservados
         </div>
     </div>
 
@@ -755,10 +671,8 @@
             }
         };
 
-        let currentSearchUserIndex = -1;
-
         // ============================================================
-        //  STORAGE FUNCTIONS
+        //  FUNCIONES DE ALMACENAMIENTO
         // ============================================================
         function loadAdminData() {
             const stored = localStorage.getItem(STORAGE_KEY);
@@ -789,7 +703,7 @@
         }
 
         // ============================================================
-        //  LOGIN / LOGOUT
+        //  FUNCIONES DE LOGIN / LOGOUT
         // ============================================================
         function adminLogin() {
             const user = document.getElementById('adminUser').value.trim();
@@ -800,6 +714,7 @@
                 errorEl.style.display = 'none';
                 document.getElementById('loginOverlay').classList.add('hidden');
                 document.getElementById('adminPanel').style.display = 'block';
+                renderAdminPanel();
                 showMessage('✅ Sesión iniciada correctamente', 'success');
             } else {
                 errorEl.style.display = 'block';
@@ -813,7 +728,139 @@
         }
 
         // ============================================================
-        //  HELPER FUNCTIONS
+        //  RENDER FUNCTIONS
+        // ============================================================
+        function renderAdminPanel() {
+            renderUsers();
+            renderOrderConfigs();
+            renderBalanceSelects();
+            renderPasswordSelects();
+            renderStats();
+        }
+
+        function renderUsers() {
+            const container = document.getElementById('userList');
+            const count = document.getElementById('userCount');
+            container.innerHTML = '';
+            count.textContent = adminData.users.length;
+
+            if (adminData.users.length === 0) {
+                container.innerHTML = `
+                            <div style="text-align:center; padding:30px; color:#888; background:#f8f9fa; border-radius:12px;">
+                                No hay usuarios registrados aún.
+                            </div>
+                        `;
+                return;
+            }
+
+            adminData.users.forEach((user, index) => {
+                const div = document.createElement('div');
+                div.className = 'user-card';
+                div.innerHTML = `
+                            <div class="user-info">
+                                <div class="name">👤 ${user.username}</div>
+                                <div class="details">📱 ${user.phone || 'Sin teléfono'} | 🆔 ${user.userId || 'N/A'}</div>
+                            </div>
+                            <div class="user-balance">${formatCurrency(user.balance || 0)}</div>
+                            <div class="user-actions">
+                                <button class="btn btn-success btn-sm" onclick="adminSetBalance(${index}, 10)">+10</button>
+                                <button class="btn btn-danger btn-sm" onclick="adminSetBalance(${index}, -5)">-5</button>
+                                <button class="btn btn-warning btn-sm" onclick="adminViewUser(${index})">👁️</button>
+                            </div>
+                        `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderOrderConfigs() {
+            const container = document.getElementById('orderConfigList');
+            container.innerHTML = '';
+
+            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
+            const vipNames = ['VIP 1', 'VIP 2', 'VIP 3', 'VIP 4', 'VIP 5', 'VIP 6'];
+
+            vipKeys.forEach((key, index) => {
+                const config = adminData.defaultOrders[key] || { totalOrders: (index + 1) * 10, commissionRate: 0.30 +
+                        (index * 0.05) };
+                const isUnlocked = index === 0;
+
+                const div = document.createElement('div');
+                div.className = 'order-config';
+                div.innerHTML = `
+                            <div class="order-header">
+                                <span class="level">${vipNames[index]}</span>
+                                <span class="status ${isUnlocked ? 'active' : 'locked'}">${isUnlocked ? '✅ Activo' : '🔒 Bloqueado'}</span>
+                            </div>
+                            <div class="order-controls">
+                                <div style="flex:1;">
+                                    <label style="font-size:0.7rem; color:#888;">Órdenes requeridas</label>
+                                    <input type="number" id="orderTotal_${key}" value="${config.totalOrders}" min="1" max="200">
+                                </div>
+                                <div style="flex:1;">
+                                    <label style="font-size:0.7rem; color:#888;">Comisión (%)</label>
+                                    <input type="number" id="orderRate_${key}" value="${(config.commissionRate * 100).toFixed(0)}" min="5" max="100">
+                                </div>
+                                <button class="btn btn-primary btn-sm" onclick="adminUpdateOrder('${key}')" style="margin-top:6px;">💾 Guardar</button>
+                            </div>
+                        `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderBalanceSelects() {
+            const select = document.getElementById('balanceUserSelect');
+            const passwordSelect = document.getElementById('passwordUserSelect');
+            const currentValue = select.value;
+
+            select.innerHTML = '<option value="">-- Selecciona un usuario --</option>';
+            passwordSelect.innerHTML = '<option value="">-- Selecciona un usuario --</option>';
+
+            adminData.users.forEach((user, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${user.username} (${formatCurrency(user.balance || 0)})`;
+                select.appendChild(option);
+
+                const option2 = document.createElement('option');
+                option2.value = index;
+                option2.textContent = user.username;
+                passwordSelect.appendChild(option2);
+            });
+
+            if (currentValue && parseInt(currentValue) < adminData.users.length) {
+                select.value = currentValue;
+            }
+
+            select.onchange = function() {
+                const idx = parseInt(this.value);
+                const info = document.getElementById('balanceUserInfo');
+                if (!isNaN(idx) && idx >= 0 && idx < adminData.users.length) {
+                    const user = adminData.users[idx];
+                    document.getElementById('balanceUserName').textContent = user.username;
+                    document.getElementById('balanceUserCurrent').textContent = formatCurrency(user.balance || 0);
+                    info.style.display = 'block';
+                } else {
+                    info.style.display = 'none';
+                }
+            };
+        }
+
+        function renderPasswordSelects() {
+            // Ya se actualiza en renderBalanceSelects
+        }
+
+        function renderStats() {
+            const totalUsers = adminData.users.length;
+            const totalBalance = adminData.users.reduce((sum, u) => sum + (u.balance || 0), 0);
+            const totalOrders = adminData.users.reduce((sum, u) => sum + (u.totalOrders || 0), 0);
+
+            document.getElementById('statUsers').textContent = totalUsers;
+            document.getElementById('statTotalBalance').textContent = formatCurrency(totalBalance);
+            document.getElementById('statOrders').textContent = totalOrders;
+        }
+
+        // ============================================================
+        //  ADMIN ACTIONS
         // ============================================================
         function showMessage(text, type = 'info') {
             const el = document.getElementById('adminMessage');
@@ -829,328 +876,189 @@
             return `S/ ${(amount || 0).toFixed(2)}`;
         }
 
-        function generateUserId() {
-            let id = '';
-            for (let i = 0; i < 7; i++) {
-                id += Math.floor(Math.random() * 10);
-            }
-            return id;
-        }
-
-        function getCurrentDate() {
-            const now = new Date();
-            return now.toISOString().split('T')[0];
-        }
-
-        // ============================================================
-        //  SEARCH FUNCTIONS
-        // ============================================================
-        function searchUser() {
-            const searchTerm = document.getElementById('searchInput').value.trim();
-            const resultCard = document.getElementById('userResultCard');
-            const notFound = document.getElementById('notFound');
-
-            if (!searchTerm) {
-                showMessage('⚠️ Ingresa un ID o número de teléfono', 'error');
+        // --- User Management ---
+        function adminSetBalance(index, amount) {
+            if (index < 0 || index >= adminData.users.length) {
+                showMessage('❌ Usuario no encontrado', 'error');
                 return;
             }
-
-            let foundIndex = -1;
-
-            adminData.users.forEach((user, index) => {
-                // Buscar por ID o teléfono
-                if (user.userId === searchTerm || user.phone === searchTerm) {
-                    foundIndex = index;
-                }
-            });
-
-            if (foundIndex === -1) {
-                resultCard.classList.remove('show');
-                notFound.classList.add('show');
-                return;
-            }
-
-            notFound.classList.remove('show');
-            currentSearchUserIndex = foundIndex;
-            displayUserResult(foundIndex);
-            resultCard.classList.add('show');
-            showMessage('✅ Usuario encontrado', 'success');
-        }
-
-        function displayUserResult(index) {
             const user = adminData.users[index];
-            if (!user) return;
-
-            document.getElementById('resultUserName').textContent = user.username || 'Usuario';
-            document.getElementById('resultUserId').textContent = `🆔 ${user.userId || 'N/A'}`;
-            document.getElementById('resultUserPhone').textContent = `📱 ${user.phone || '+51 987654321'}`;
-            document.getElementById('resultUserBalance').textContent = formatCurrency(user.balance || 0);
-            document.getElementById('resultUserIncome').textContent = formatCurrency(user.totalIncome || 0);
-            document.getElementById('resultUserVip').textContent = user.vipLevel || 'VIP 1';
-            document.getElementById('resultUserCountry').textContent = user.country || 'Perú';
-            document.getElementById('resultUserDate').textContent = user.registrationDate || getCurrentDate();
-            document.getElementById('resultUserOrders').textContent = user.totalOrders || 0;
-            document.getElementById('resultStatus').textContent = user.frozen ? '🔒 Congelado' : '✅ Activo';
-            document.getElementById('resultStatus').style.color = user.frozen ? '#d63031' : '#00b894';
-
-            // Mostrar bancos
-            renderBankAccounts(user);
-
-            window._currentUserIndex = index;
+            user.balance = (user.balance || 0) + amount;
+            if (user.balance < 0) user.balance = 0;
+            saveAdminData();
+            renderAdminPanel();
+            showMessage(`✅ ${amount > 0 ? '+' : ''}${formatCurrency(amount)} aplicado a ${user.username}`, 'success');
         }
 
-        function renderBankAccounts(user) {
-            const container = document.getElementById('bankListContainer');
-            container.innerHTML = '';
-
-            const banks = user.bankAccounts || [];
-
-            if (banks.length === 0) {
-                container.innerHTML = `
-                            <div class="no-banks">
-                                No hay cuentas bancarias vinculadas.
-                            </div>
-                        `;
+        function adminViewUser(index) {
+            if (index < 0 || index >= adminData.users.length) {
+                showMessage('❌ Usuario no encontrado', 'error');
                 return;
             }
-
-            banks.forEach((bank, index) => {
-                const div = document.createElement('div');
-                div.className = 'bank-item';
-                div.innerHTML = `
-                            <div class="bank-info">
-                                <div class="bank-name">🏛️ ${bank.bankName || 'Banco'}</div>
-                                <div class="bank-details">
-                                    ${bank.accountNumber ? '🔢 ' + bank.accountNumber : ''}
-                                    ${bank.accountHolder ? ' | 👤 ' + bank.accountHolder : ''}
-                                    ${bank.cci ? ' | CCI: ' + bank.cci : ''}
-                                </div>
-                            </div>
-                            <span class="bank-badge">✅ Vinculado</span>
-                        `;
-                container.appendChild(div);
-            });
+            const user = adminData.users[index];
+            showMessage(`
+                        👤 ${user.username} | 📱 ${user.phone || 'N/A'} | 💰 ${formatCurrency(user.balance)} | 🆔 ${user.userId || 'N/A'}
+                    `, 'info');
         }
 
-        function clearSearch() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('userResultCard').classList.remove('show');
-            document.getElementById('notFound').classList.remove('show');
-            currentSearchUserIndex = -1;
-            window._currentUserIndex = -1;
-            showMessage('🧹 Búsqueda limpiada', 'info');
-        }
-
-        // ============================================================
-        //  RESULT ACTIONS
-        // ============================================================
-        function getCurrentUser() {
-            const idx = window._currentUserIndex;
-            if (idx === undefined || idx < 0 || idx >= adminData.users.length) {
-                showMessage('❌ No hay usuario seleccionado', 'error');
-                return null;
-            }
-            return adminData.users[idx];
-        }
-
-        function resultAddBalance() {
-            const user = getCurrentUser();
-            if (!user) return;
-
-            const amountInput = document.getElementById('resultAddAmount');
+        // --- Balance Management ---
+        function adminAddBalance() {
+            const select = document.getElementById('balanceUserSelect');
+            const amountInput = document.getElementById('balanceAddAmount');
+            const idx = parseInt(select.value);
             const amount = parseFloat(amountInput.value);
+
+            if (isNaN(idx) || idx < 0 || idx >= adminData.users.length) {
+                showMessage('❌ Selecciona un usuario válido', 'error');
+                return;
+            }
 
             if (isNaN(amount) || amount <= 0) {
                 showMessage('❌ Ingresa un monto válido mayor a 0', 'error');
                 return;
             }
 
+            const user = adminData.users[idx];
             user.balance = (user.balance || 0) + amount;
             saveAdminData();
-            displayUserResult(window._currentUserIndex);
+            renderAdminPanel();
             amountInput.value = '';
             showMessage(`✅ Agregado ${formatCurrency(amount)} a ${user.username}`, 'success');
         }
 
-        function resultSubtractBalance() {
-            const user = getCurrentUser();
-            if (!user) return;
-
-            const amountInput = document.getElementById('resultSubtractAmount');
+        function adminSubtractBalance() {
+            const select = document.getElementById('balanceUserSelect');
+            const amountInput = document.getElementById('balanceSubtractAmount');
+            const idx = parseInt(select.value);
             const amount = parseFloat(amountInput.value);
+
+            if (isNaN(idx) || idx < 0 || idx >= adminData.users.length) {
+                showMessage('❌ Selecciona un usuario válido', 'error');
+                return;
+            }
 
             if (isNaN(amount) || amount <= 0) {
                 showMessage('❌ Ingresa un monto válido mayor a 0', 'error');
                 return;
             }
 
-            if ((user.balance || 0) < amount) {
-                showMessage(`❌ Saldo insuficiente. Saldo actual: ${formatCurrency(user.balance)}`, 'error');
-                return;
-            }
-
+            const user = adminData.users[idx];
             user.balance = (user.balance || 0) - amount;
+            if (user.balance < 0) user.balance = 0;
             saveAdminData();
-            displayUserResult(window._currentUserIndex);
+            renderAdminPanel();
             amountInput.value = '';
             showMessage(`✅ Retirado ${formatCurrency(amount)} de ${user.username}`, 'success');
         }
 
-        function resultResetPassword() {
-            const user = getCurrentUser();
-            if (!user) return;
+        // --- Order Management ---
+        function adminUpdateOrder(vipKey) {
+            const totalInput = document.getElementById(`orderTotal_${vipKey}`);
+            const rateInput = document.getElementById(`orderRate_${vipKey}`);
 
-            const passInput = document.getElementById('resultNewPassword');
-            const newPass = passInput.value.trim();
+            const totalOrders = parseInt(totalInput.value);
+            const commissionRate = parseFloat(rateInput.value) / 100;
+
+            if (isNaN(totalOrders) || totalOrders < 1) {
+                showMessage('❌ Ingresa un número válido de órdenes', 'error');
+                return;
+            }
+
+            if (isNaN(commissionRate) || commissionRate < 0.05 || commissionRate > 1) {
+                showMessage('❌ Ingresa una comisión válida (5-100%)', 'error');
+                return;
+            }
+
+            adminData.defaultOrders[vipKey] = {
+                totalOrders: totalOrders,
+                commissionRate: commissionRate
+            };
+
+            saveAdminData();
+            renderAdminPanel();
+            showMessage(`✅ Configuración de ${vipKey.toUpperCase()} actualizada`, 'success');
+        }
+
+        // --- Password Reset ---
+        function adminResetPassword() {
+            const select = document.getElementById('passwordUserSelect');
+            const newPass = document.getElementById('newPassword').value.trim();
+
+            const idx = parseInt(select.value);
+            if (isNaN(idx) || idx < 0 || idx >= adminData.users.length) {
+                showMessage('❌ Selecciona un usuario válido', 'error');
+                return;
+            }
 
             if (newPass.length < 6) {
                 showMessage('❌ La contraseña debe tener al menos 6 caracteres', 'error');
                 return;
             }
 
+            const user = adminData.users[idx];
             user.password = newPass;
             saveAdminData();
-            passInput.value = '';
+            document.getElementById('newPassword').value = '';
             showMessage(`✅ Contraseña de ${user.username} actualizada`, 'success');
         }
 
-        function resultFreezeAccount() {
-            const user = getCurrentUser();
-            if (!user) return;
-
-            if (user.frozen) {
-                showMessage('⚠️ La cuenta ya está congelada', 'info');
-                return;
+        // --- Danger Zone ---
+        function adminClearAllData() {
+            if (confirm('⚠️ ¿Estás seguro de eliminar TODOS los datos de usuarios? ¡Esta acción no se puede deshacer!')) {
+                if (confirm('⚠️ Confirmación final: ¿Estás absolutamente seguro?')) {
+                    adminData.users = [];
+                    saveAdminData();
+                    renderAdminPanel();
+                    showMessage('🗑️ Todos los datos han sido eliminados', 'error');
+                }
             }
-
-            user.frozen = true;
-            saveAdminData();
-            displayUserResult(window._currentUserIndex);
-            showMessage(`🔒 Cuenta de ${user.username} congelada`, 'success');
-        }
-
-        function resultUnfreezeAccount() {
-            const user = getCurrentUser();
-            if (!user) return;
-
-            if (!user.frozen) {
-                showMessage('⚠️ La cuenta no está congelada', 'info');
-                return;
-            }
-
-            user.frozen = false;
-            saveAdminData();
-            displayUserResult(window._currentUserIndex);
-            showMessage(`🔓 Cuenta de ${user.username} descongelada`, 'success');
-        }
-
-        function resultViewFullDetails() {
-            const user = getCurrentUser();
-            if (!user) return;
-
-            let banksInfo = 'No hay bancos vinculados';
-            if (user.bankAccounts && user.bankAccounts.length > 0) {
-                banksInfo = user.bankAccounts.map(b =>
-                    `  🏛️ ${b.bankName || 'Banco'}\n` +
-                    `     🔢 ${b.accountNumber || 'N/A'}\n` +
-                    `     👤 ${b.accountHolder || 'N/A'}\n` +
-                    `     CCI: ${b.cci || 'N/A'}`
-                ).join('\n\n');
-            }
-
-            let details = `
-            📋 DETALLES COMPLETOS DEL USUARIO
-            ═══════════════════════════════════
-
-            👤 Usuario: ${user.username}
-            🆔 ID: ${user.userId}
-            📱 Teléfono: ${user.phone}
-            🌍 País: ${user.country || 'Perú'}
-            📅 Registro: ${user.registrationDate || getCurrentDate()}
-
-            💰 Saldo: ${formatCurrency(user.balance)}
-            📈 Ingresos totales: ${formatCurrency(user.totalIncome || 0)}
-            ⭐ Nivel VIP: ${user.vipLevel || 'VIP 1'}
-            📦 Órdenes: ${user.totalOrders || 0}
-            🔒 Estado: ${user.frozen ? 'Congelado' : 'Activo'}
-
-            🏦 CUENTAS BANCARIAS:
-            ${banksInfo}
-            `;
-
-            alert(details);
-        }
-
-        function resultViewHistory() {
-            const user = getCurrentUser();
-            if (!user) return;
-
-            const history = user.history || [];
-
-            let historyText = 'No hay historial disponible';
-            if (history.length > 0) {
-                historyText = history.map((h, i) =>
-                    `  ${i+1}. ${h.action || 'Acción'} - ${h.amount ? formatCurrency(h.amount) : ''} (${h.date || 'N/A'})`
-                ).join('\n');
-            }
-
-            alert(`📋 HISTORIAL DE ${user.username.toUpperCase()}\n\n` +
-                `💰 Saldo actual: ${formatCurrency(user.balance)}\n` +
-                `📈 Ingresos totales: ${formatCurrency(user.totalIncome || 0)}\n` +
-                `📦 Órdenes: ${user.totalOrders || 0}\n` +
-                `⭐ VIP: ${user.vipLevel || 'VIP 1'}\n` +
-                `🔒 Estado: ${user.frozen ? 'Congelado' : 'Activo'}\n\n` +
-                `📜 HISTORIAL DE TRANSACCIONES:\n${historyText}`);
         }
 
         // ============================================================
-        //  INIT - DATOS DE EJEMPLO
+        //  TAB SWITCHING
+        // ============================================================
+        function switchTab(tabId, element) {
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            if (element) {
+                element.classList.add('active');
+            }
+
+            document.querySelectorAll('.panel').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(`panel${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`).classList.add('active');
+
+            if (tabId === 'users') renderUsers();
+            if (tabId === 'orders') renderOrderConfigs();
+            if (tabId === 'balance') renderBalanceSelects();
+            if (tabId === 'settings') {
+                renderPasswordSelects();
+                renderStats();
+            }
+        }
+
+        // ============================================================
+        //  INIT
         // ============================================================
         loadAdminData();
 
+        // Agregar usuarios de ejemplo si no hay
         if (adminData.users.length === 0) {
             adminData.users.push({
-                username: 'Jhostynjose',
-                phone: '938218405',
+                username: 'demo_user',
+                phone: '987654321',
                 password: 'demo123',
-                balance: 1011.72,
-                totalIncome: 465.72,
-                userId: '1776174',
-                country: 'Perú',
-                language: 'Español',
-                vipLevel: 'VIP 1',
-                totalOrders: 20,
-                frozen: false,
-                registrationDate: '2026-07-23 11:30',
-                bankAccounts: [
-                    { bankName: 'Banco BBVA', accountNumber: '453215', accountHolder: 'Jhostynjose', cci: '5412456' },
-                    { bankName: 'Banco de Crédito (BCP)', accountNumber: '789012', accountHolder: 'Jhostynjose',
-                    cci: '9876543' }
-                ],
-                history: [
-                    { action: 'Depósito', amount: 50, date: '2026-07-23 10:00' },
-                    { action: 'Retiro', amount: 20, date: '2026-07-22 15:30' }
-                ]
+                balance: 25.50,
+                userId: '1234567',
+                totalOrders: 5
             });
             adminData.users.push({
                 username: 'test_user',
                 phone: '912345678',
                 password: 'test123',
                 balance: 15.00,
-                totalIncome: 5.00,
                 userId: '7654321',
-                country: 'Colombia',
-                language: 'Español',
-                vipLevel: 'VIP 1',
-                totalOrders: 3,
-                frozen: false,
-                registrationDate: '2026-07-22 14:20',
-                bankAccounts: [
-                    { bankName: 'Banco Interbank', accountNumber: '123456', accountHolder: 'Test User', cci: '1234567' }
-                ],
-                history: [
-                    { action: 'Depósito', amount: 10, date: '2026-07-22 12:00' }
-                ]
+                totalOrders: 3
             });
             saveAdminData();
         }
