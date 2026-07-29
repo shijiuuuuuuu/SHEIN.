@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,6 +30,47 @@
             max-width: 580px;
             width: 100%;
             transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* ========== LANGUAGE & CURRENCY SWITCHER ========== */
+        .top-bar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .top-bar .switcher-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .top-bar .switcher-group select {
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            background: #fafafa;
+            font-size: 0.75rem;
+            cursor: pointer;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .top-bar .switcher-group select:hover {
+            border-color: #ff6b6b;
+        }
+
+        .top-bar .switcher-group .globe-icon {
+            font-size: 1.2rem;
+        }
+
+        .top-bar .switcher-group .currency-icon {
+            font-size: 1.2rem;
         }
 
         .app-header {
@@ -163,14 +204,6 @@
             font-size: 0.85rem;
             width: auto;
             margin-top: 0;
-        }
-
-        .btn-danger {
-            background: #d63031;
-        }
-
-        .btn-danger:hover {
-            background: #c0392b;
         }
 
         .hidden {
@@ -837,6 +870,10 @@
             .vip-order-item .vip-actions .btn {
                 width: 100%;
             }
+            .top-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -844,23 +881,45 @@
 
 <div class="container" id="appContainer">
     
+    <!-- ===== TOP BAR: LANGUAGE & CURRENCY SWITCHER ===== -->
+    <div class="top-bar">
+        <div class="switcher-group">
+            <span class="globe-icon">🌐</span>
+            <select id="languageSwitcher" onchange="changeLanguage(this.value)">
+                <option value="es">🇪🇸 Español</option>
+                <option value="en">🇬🇧 English</option>
+                <option value="my">🇲🇲 မြန်မာ</option>
+                <option value="zh">🇨🇳 中文</option>
+            </select>
+        </div>
+        <div class="switcher-group">
+            <span class="currency-icon">💰</span>
+            <select id="currencySwitcher" onchange="changeCurrency(this.value)">
+                <option value="PEN">S/ (Perú)</option>
+                <option value="USD">$ (USD)</option>
+                <option value="EUR">€ (EUR)</option>
+                <option value="MMK">K (MMK)</option>
+            </select>
+        </div>
+    </div>
+
     <!-- ===== HEADER ===== -->
     <div class="app-header">
         <h1>Shein</h1>
-        <p>✨ Tu centro comercial online ✨</p>
+        <p class="header-subtitle">✨ Tu centro comercial online ✨</p>
     </div>
 
     <!-- ===== REGISTER FORM ===== -->
     <div id="registerForm">
-        <h2 style="margin-bottom: 15px; color:#2d3436;">📝 Crear cuenta</h2>
+        <h2 class="register-title" style="margin-bottom: 15px; color:#2d3436;">📝 Crear cuenta</h2>
         
         <div class="form-group">
-            <label>📱 Número de teléfono</label>
+            <label class="label-phone">📱 Número de teléfono</label>
             <input type="tel" id="regPhone" placeholder="Ej: 987654321">
         </div>
 
         <div class="form-group">
-            <label>🌍 Código de país</label>
+            <label class="label-country">🌍 Código de país</label>
             <select id="regCountryCode">
                 <option value="+51">+51 (Perú)</option>
                 <option value="+95">+95 (Myanmar)</option>
@@ -872,122 +931,122 @@
         </div>
 
         <div class="form-group">
-            <label>👤 Nombre de usuario</label>
+            <label class="label-username">👤 Nombre de usuario</label>
             <input type="text" id="regUsername" placeholder="Ej: shein_user">
         </div>
 
         <div class="form-group">
-            <label>🔒 Contraseña</label>
+            <label class="label-password">🔒 Contraseña</label>
             <input type="password" id="regPassword" placeholder="Mínimo 6 caracteres">
         </div>
 
         <div id="regError" class="error-msg">⚠️ Por favor, completa todos los campos.</div>
         
-        <button class="btn" onclick="handleRegister()">✅ Registrarse</button>
+        <button class="btn btn-register" onclick="handleRegister()">✅ Registrarse</button>
         
-        <div class="switch-link" onclick="showLogin()">¿Ya tienes cuenta? <strong>Iniciar sesión</strong></div>
+        <div class="switch-link switch-to-login" onclick="showLogin()">¿Ya tienes cuenta? <strong>Iniciar sesión</strong></div>
     </div>
 
     <!-- ===== LOGIN FORM ===== -->
     <div id="loginForm" class="hidden">
-        <h2 style="margin-bottom: 15px; color:#2d3436;">🔐 Iniciar sesión</h2>
+        <h2 class="login-title" style="margin-bottom: 15px; color:#2d3436;">🔐 Iniciar sesión</h2>
 
         <div class="form-group">
-            <label>👤 Usuario o teléfono</label>
+            <label class="label-login-identifier">👤 Usuario o teléfono</label>
             <input type="text" id="loginIdentifier" placeholder="Usuario o número de teléfono">
         </div>
 
         <div class="form-group">
-            <label>🔒 Contraseña</label>
+            <label class="label-login-password">🔒 Contraseña</label>
             <input type="password" id="loginPassword" placeholder="Tu contraseña">
         </div>
 
         <div id="loginError" class="error-msg">❌ Usuario o contraseña incorrectos.</div>
         
-        <button class="btn" onclick="handleLogin()">🚪 Iniciar sesión</button>
+        <button class="btn btn-login" onclick="handleLogin()">🚪 Iniciar sesión</button>
 
-        <div class="switch-link" onclick="showRegister()">¿No tienes cuenta? <strong>Regístrate aquí</strong></div>
+        <div class="switch-link switch-to-register" onclick="showRegister()">¿No tienes cuenta? <strong>Regístrate aquí</strong></div>
     </div>
 
     <!-- ===== DASHBOARD ===== -->
     <div id="dashboard" class="hidden">
         
         <div class="user-greeting">
-            👋 Hola, <span id="displayUsername">Usuario</span>
+            👋 <span class="greeting-text">Hola</span>, <span id="displayUsername">Usuario</span>
         </div>
 
         <div class="balance-cards">
             <div class="balance-card">
-                <div class="label">💰 Saldo</div>
+                <div class="label label-balance">💰 Saldo</div>
                 <div class="amount green" id="displayBalance">S/ 10.00</div>
             </div>
             <div class="balance-card">
-                <div class="label">📈 Ingresos totales</div>
+                <div class="label label-income">📈 Ingresos totales</div>
                 <div class="amount orange" id="totalIncome">S/ 0</div>
             </div>
         </div>
 
-        <button class="btn btn-success" onclick="handleComenzar()" style="margin-bottom:10px;">
+        <button class="btn btn-success btn-comenzar" onclick="handleComenzar()" style="margin-bottom:10px;">
             🚀 COMENZAR
         </button>
 
         <div class="action-buttons">
-            <button class="btn btn-warning" onclick="handleRecargar()">📥 RECARGAR</button>
-            <button class="btn btn-outline" onclick="handleRetirar()">📤 RETIRAR</button>
+            <button class="btn btn-warning btn-recargar" onclick="handleRecargar()">📥 RECARGAR</button>
+            <button class="btn btn-outline btn-retirar" onclick="handleRetirar()">📤 RETIRAR</button>
         </div>
 
         <!-- ===== INICIO PAGE ===== -->
         <div id="inicioPage" class="page-section active">
             <div class="inicio-page">
                 <div class="hero-icon">🌍</div>
-                <h3 style="color:#2d3436; margin:10px 0;">¡Bienvenido a Shein!</h3>
-                <p style="color:#888; font-size:0.9rem;">Miles de personas confían en nosotros en todo el mundo.</p>
+                <h3 class="welcome-title" style="color:#2d3436; margin:10px 0;">¡Bienvenido a Shein!</h3>
+                <p class="welcome-subtitle" style="color:#888; font-size:0.9rem;">Miles de personas confían en nosotros en todo el mundo.</p>
 
                 <div class="stat-grid">
                     <div class="stat-box">
                         <div class="stat-number" id="globalUsers">2.5M</div>
-                        <div class="stat-label">Usuarios activos</div>
+                        <div class="stat-label stat-users">Usuarios activos</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-number" id="globalTransactions">1.2M</div>
-                        <div class="stat-label">Transacciones</div>
+                        <div class="stat-label stat-transactions">Transacciones</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-number" id="globalCountries">150+</div>
-                        <div class="stat-label">Países</div>
+                        <div class="stat-label stat-countries">Países</div>
                     </div>
                 </div>
 
                 <div class="trust-badges">
-                    <span class="trust-badge">🔒 100% Seguro</span>
-                    <span class="trust-badge">✅ Verificado</span>
-                    <span class="trust-badge">⭐ 4.9/5 Estrellas</span>
-                    <span class="trust-badge">🛡️ Protegido</span>
-                    <span class="trust-badge">🏆 Líder del mercado</span>
-                    <span class="trust-badge">💳 Pagos rápidos</span>
+                    <span class="trust-badge">🔒 <span class="badge-seguro">100% Seguro</span></span>
+                    <span class="trust-badge">✅ <span class="badge-verificado">Verificado</span></span>
+                    <span class="trust-badge">⭐ <span class="badge-estrellas">4.9/5 Estrellas</span></span>
+                    <span class="trust-badge">🛡️ <span class="badge-protegido">Protegido</span></span>
+                    <span class="trust-badge">🏆 <span class="badge-lider">Líder del mercado</span></span>
+                    <span class="trust-badge">💳 <span class="badge-pagos">Pagos rápidos</span></span>
                 </div>
 
                 <div class="testimonial">
                     <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <div class="quote">"Shein es la mejor plataforma para comprar y vender. ¡100% confiable!"</div>
+                    <div class="quote quote1">"Shein es la mejor plataforma para comprar y vender. ¡100% confiable!"</div>
                     <div class="author">— María G. (Lima, Perú)</div>
                 </div>
 
                 <div class="testimonial">
                     <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <div class="quote">"He recibido mis pagos a tiempo. Excelente servicio."</div>
+                    <div class="quote quote2">"He recibido mis pagos a tiempo. Excelente servicio."</div>
                     <div class="author">— Carlos R. (Bogotá, Colombia)</div>
                 </div>
 
                 <div style="background:#f0f2f5; border-radius:12px; padding:15px; margin:10px 0;">
-                    <h4 style="color:#2d3436;">🛡️ Nuestras Garantías</h4>
+                    <h4 class="garantias-title" style="color:#2d3436;">🛡️ Nuestras Garantías</h4>
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px; font-size:0.85rem; text-align:left;">
-                        <div>✅ 100% de transparencia</div>
-                        <div>✅ Soporte 24/7</div>
-                        <div>✅ Retiros en 24 horas</div>
-                        <div>✅ Datos protegidos</div>
-                        <div>✅ Sin comisiones ocultas</div>
-                        <div>✅ Seguridad bancaria</div>
+                        <div class="garantia-item1">✅ 100% de transparencia</div>
+                        <div class="garantia-item2">✅ Soporte 24/7</div>
+                        <div class="garantia-item3">✅ Retiros en 24 horas</div>
+                        <div class="garantia-item4">✅ Datos protegidos</div>
+                        <div class="garantia-item5">✅ Sin comisiones ocultas</div>
+                        <div class="garantia-item6">✅ Seguridad bancaria</div>
                     </div>
                 </div>
             </div>
@@ -996,10 +1055,10 @@
         <!-- ===== VIP ORDERS PAGE ===== -->
         <div id="vipOrdersPage" class="page-section">
             <div class="section-header">
-                <h3 style="color:#2d3436;">📦 Órdenes VIP</h3>
+                <h3 class="vip-orders-title">📦 Órdenes VIP</h3>
                 <span class="badge-count">6 Niveles</span>
             </div>
-            <p style="color:#888; font-size:0.85rem; margin-bottom:10px;">
+            <p class="vip-orders-subtitle" style="color:#888; font-size:0.85rem; margin-bottom:10px;">
                 Completa órdenes para ganar comisiones. ¡Cada orden te acerca a tu próximo nivel VIP!
             </p>
 
@@ -1011,7 +1070,7 @@
         <!-- ===== CONFIGURACIÓN (Bancos) ===== -->
         <div id="configPage" class="page-section">
             <div class="section-header">
-                <h3 style="color:#2d3436;">⚙️ Configuración</h3>
+                <h3 class="config-title">⚙️ Configuración</h3>
                 <span class="badge-count" id="bankCount">0</span>
             </div>
             
@@ -1019,15 +1078,15 @@
                 <div id="bankList"></div>
             </div>
 
-            <button class="btn btn-primary" onclick="toggleBankForm()" style="margin-top:5px; font-size:0.9rem; padding:10px;">
+            <button class="btn btn-primary btn-add-bank" onclick="toggleBankForm()" style="margin-top:5px; font-size:0.9rem; padding:10px;">
                 ➕ Agregar cuenta bancaria
             </button>
 
             <div id="bankFormContainer" class="bank-form hidden">
-                <h4 style="color:#2d3436; margin-bottom:10px;">🏦 Agregar cuenta bancaria</h4>
+                <h4 class="add-bank-title" style="color:#2d3436; margin-bottom:10px;">🏦 Agregar cuenta bancaria</h4>
                 
                 <div class="form-group">
-                    <label>🏛️ Nombre del banco</label>
+                    <label class="label-bank-name">🏛️ Nombre del banco</label>
                     <select id="bankName">
                         <option value="">Selecciona un banco...</option>
                         <option value="Banco de Crédito (BCP)">Banco de Crédito (BCP)</option>
@@ -1046,66 +1105,70 @@
                 </div>
 
                 <div class="form-group">
-                    <label>🔢 Número de cuenta</label>
+                    <label class="label-account-number">🔢 Número de cuenta</label>
                     <input type="text" id="bankAccountNumber" placeholder="Ej: 123-456-7890">
                 </div>
 
                 <div class="form-group">
-                    <label>👤 Titular de la cuenta</label>
+                    <label class="label-account-holder">👤 Titular de la cuenta</label>
                     <input type="text" id="bankAccountHolder" placeholder="Nombre completo del titular">
                 </div>
 
                 <div class="form-group">
-                    <label>🔢 CCI (Código de Cuenta Interbancaria)</label>
+                    <label class="label-cci">🔢 CCI (Código de Cuenta Interbancaria)</label>
                     <input type="text" id="bankCCI" placeholder="Ej: 12345678901234567890">
                 </div>
 
                 <div style="display:flex; gap:10px; margin-top:5px;">
-                    <button class="btn btn-success" onclick="saveBankAccount()" style="flex:1;">✅ Confirmar</button>
-                    <button class="btn btn-outline" onclick="toggleBankForm()" style="flex:1;">❌ Cancelar</button>
+                    <button class="btn btn-success btn-confirm-bank" onclick="saveBankAccount()" style="flex:1;">✅ Confirmar</button>
+                    <button class="btn btn-outline btn-cancel-bank" onclick="toggleBankForm()" style="flex:1;">❌ Cancelar</button>
                 </div>
             </div>
 
             <div class="config-item">
-                <span>🌐 Idioma</span>
-                <span class="value">es</span>
+                <span class="config-lang-label">🌐 Idioma</span>
+                <span class="value" id="currentLangDisplay">es</span>
+            </div>
+            <div class="config-item">
+                <span class="config-currency-label">💰 Moneda</span>
+                <span class="value" id="currentCurrencyDisplay">PEN</span>
             </div>
         </div>
 
         <!-- ===== CONTRATO PAGE ===== -->
         <div id="contratoPage" class="page-section">
-            <h3 style="color:#2d3436; margin-top:15px;">📄 Contrato</h3>
-            <p style="color:#888; padding:20px; text-align:center;">Términos y condiciones de Shein.<br>Lee atentamente antes de aceptar.</p>
+            <h3 class="contrato-title" style="color:#2d3436; margin-top:15px;">📄 Contrato</h3>
+            <p class="contrato-text" style="color:#888; padding:20px; text-align:center;">Términos y condiciones de Shein.<br>Lee atentamente antes de aceptar.</p>
             <div style="background:#f8f9fa; border-radius:12px; padding:15px; font-size:0.85rem; color:#555;">
-                <p>📌 Shein se compromete a proporcionar un servicio seguro y transparente.</p>
-                <p>📌 Los retiros se procesan en un plazo de 24 horas.</p>
-                <p>📌 Los datos personales están protegidos bajo nuestra política de privacidad.</p>
+                <p class="contrato-item1">📌 Shein se compromete a proporcionar un servicio seguro y transparente.</p>
+                <p class="contrato-item2">📌 Los retiros se procesan en un plazo de 24 horas.</p>
+                <p class="contrato-item3">📌 Los datos personales están protegidos bajo nuestra política de privacidad.</p>
             </div>
         </div>
 
         <!-- ===== TRABAJO PAGE ===== -->
         <div id="trabajoPage" class="page-section">
-            <h3 style="color:#2d3436; margin-top:15px;">💼 Trabajo</h3>
-            <p style="color:#888; padding:20px; text-align:center;">Encuentra oportunidades de trabajo en Shein.</p>
+            <h3 class="trabajo-title" style="color:#2d3436; margin-top:15px;">💼 Trabajo</h3>
+            <p class="trabajo-subtitle" style="color:#888; padding:20px; text-align:center;">Encuentra oportunidades de trabajo en Shein.</p>
             <div style="display:grid; grid-template-columns:1fr; gap:10px;">
                 <div style="background:#f8f9fa; border-radius:12px; padding:15px; border-left:4px solid #00b894;">
-                    <h4 style="color:#2d3436;">📱 Marketing Digital</h4>
-                    <p style="color:#888; font-size:0.85rem;">Gana dinero promocionando productos.</p>
+                    <h4 class="trabajo-item1-title" style="color:#2d3436;">📱 Marketing Digital</h4>
+                    <p class="trabajo-item1-desc" style="color:#888; font-size:0.85rem;">Gana dinero promocionando productos.</p>
                 </div>
                 <div style="background:#f8f9fa; border-radius:12px; padding:15px; border-left:4px solid #fdcb6e;">
-                    <h4 style="color:#2d3436;">💻 Atención al Cliente</h4>
-                    <p style="color:#888; font-size:0.85rem;">Ayuda a nuestros usuarios con sus consultas.</p>
+                    <h4 class="trabajo-item2-title" style="color:#2d3436;">💻 Atención al Cliente</h4>
+                    <p class="trabajo-item2-desc" style="color:#888; font-size:0.85rem;">Ayuda a nuestros usuarios con sus consultas.</p>
                 </div>
                 <div style="background:#f8f9fa; border-radius:12px; padding:15px; border-left:4px solid #ff6b6b;">
-                    <h4 style="color:#2d3436;">📊 Analista de Datos</h4>
-                    <p style="color:#888; font-size:0.85rem;">Analiza el comportamiento de los usuarios.</p>
+                    <h4 class="trabajo-item3-title" style="color:#2d3436;">📊 Analista de Datos</h4>
+                    <p class="trabajo-item3-desc" style="color:#888; font-size:0.85rem;">Analiza el comportamiento de los usuarios.</p>
                 </div>
             </div>
         </div>
 
         <!-- ===== MI PAGE (Perfil + Bancos + Retiros) ===== -->
         <div id="miPage" class="page-section">
-            <h3 style="color:#2d3436; margin-top:10px;">👤 Mi Perfil</h3>
+            <h3 class="mi-title" style="color:#2d3436; margin-top:10px;">👤 Mi Perfil</h3>
             
             <div class="profile-card">
                 <div class="avatar">👤</div>
@@ -1114,15 +1177,15 @@
                 
                 <div class="detail-grid">
                     <div class="detail-item">
-                        <div class="detail-label">📅 Miembro desde</div>
+                        <div class="detail-label label-member-since">📅 Miembro desde</div>
                         <div class="detail-value">2026</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">💰 Saldo</div>
+                        <div class="detail-label label-profile-balance">💰 Saldo</div>
                         <div class="detail-value" id="profileBalance">S/ 10.00</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">⭐ Nivel VIP</div>
+                        <div class="detail-label label-profile-vip">⭐ Nivel VIP</div>
                         <div class="detail-value" id="profileVip">VIP 1</div>
                     </div>
                 </div>
@@ -1131,19 +1194,19 @@
             <!-- ===== BANCOS EN MI PAGE ===== -->
             <div style="margin-top:15px;">
                 <div class="section-header">
-                    <h4 style="color:#2d3436;">🏦 Mis Cuentas Bancarias</h4>
+                    <h4 class="mis-bancos-title" style="color:#2d3436;">🏦 Mis Cuentas Bancarias</h4>
                     <span class="badge-count" id="bankCountMi">0</span>
                 </div>
                 <div id="bankListMi"></div>
-                <button class="btn btn-primary" onclick="toggleBankFormMi()" style="margin-top:5px; font-size:0.85rem; padding:8px;">
+                <button class="btn btn-primary btn-add-bank-mi" onclick="toggleBankFormMi()" style="margin-top:5px; font-size:0.85rem; padding:8px;">
                     ➕ Agregar cuenta bancaria
                 </button>
 
                 <div id="bankFormContainerMi" class="bank-form hidden">
-                    <h4 style="color:#2d3436; margin-bottom:10px;">🏦 Agregar cuenta bancaria</h4>
+                    <h4 class="add-bank-mi-title" style="color:#2d3436; margin-bottom:10px;">🏦 Agregar cuenta bancaria</h4>
                     
                     <div class="form-group">
-                        <label>🏛️ Nombre del banco</label>
+                        <label class="label-bank-name-mi">🏛️ Nombre del banco</label>
                         <select id="bankNameMi">
                             <option value="">Selecciona un banco...</option>
                             <option value="Banco de Crédito (BCP)">Banco de Crédito (BCP)</option>
@@ -1162,33 +1225,33 @@
                     </div>
 
                     <div class="form-group">
-                        <label>🔢 Número de cuenta</label>
+                        <label class="label-account-number-mi">🔢 Número de cuenta</label>
                         <input type="text" id="bankAccountNumberMi" placeholder="Ej: 123-456-7890">
                     </div>
 
                     <div class="form-group">
-                        <label>👤 Titular de la cuenta</label>
+                        <label class="label-account-holder-mi">👤 Titular de la cuenta</label>
                         <input type="text" id="bankAccountHolderMi" placeholder="Nombre completo del titular">
                     </div>
 
                     <div class="form-group">
-                        <label>🔢 CCI (Código de Cuenta Interbancaria)</label>
+                        <label class="label-cci-mi">🔢 CCI (Código de Cuenta Interbancaria)</label>
                         <input type="text" id="bankCCIMi" placeholder="Ej: 12345678901234567890">
                     </div>
 
                     <div style="display:flex; gap:10px; margin-top:5px;">
-                        <button class="btn btn-success" onclick="saveBankAccountMi()" style="flex:1;">✅ Confirmar</button>
-                        <button class="btn btn-outline" onclick="toggleBankFormMi()" style="flex:1;">❌ Cancelar</button>
+                        <button class="btn btn-success btn-confirm-bank-mi" onclick="saveBankAccountMi()" style="flex:1;">✅ Confirmar</button>
+                        <button class="btn btn-outline btn-cancel-bank-mi" onclick="toggleBankFormMi()" style="flex:1;">❌ Cancelar</button>
                     </div>
                 </div>
             </div>
 
             <!-- ===== WITHDRAWAL ===== -->
             <div class="withdrawal-section">
-                <h4>📤 Realizar Retiro</h4>
+                <h4 class="withdrawal-title">📤 Realizar Retiro</h4>
                 
                 <div class="form-group">
-                    <label>🏛️ Selecciona tu cuenta bancaria</label>
+                    <label class="label-withdraw-bank">🏛️ Selecciona tu cuenta bancaria</label>
                     <select id="withdrawBankSelect">
                         <option value="">-- Ninguna cuenta registrada --</option>
                     </select>
@@ -1201,18 +1264,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label>💰 Monto a retirar (S/)</label>
+                    <label class="label-withdraw-amount">💰 Monto a retirar</label>
                     <input type="number" id="withdrawAmount" placeholder="Ej: 10.00" min="1" step="0.01">
                 </div>
 
-                <button class="btn btn-success" onclick="processWithdrawal()" style="margin-top:5px;">
+                <button class="btn btn-success btn-confirm-withdrawal" onclick="processWithdrawal()" style="margin-top:5px;">
                     ✅ Confirmar Retiro
                 </button>
             </div>
 
             <!-- ===== WITHDRAWAL HISTORY ===== -->
             <div class="withdrawal-history">
-                <h4 style="color:#2d3436; margin-top:10px;">📋 Historial de Retiros</h4>
+                <h4 class="history-title" style="color:#2d3436; margin-top:10px;">📋 Historial de Retiros</h4>
                 <div id="withdrawalHistoryList">
                     <div style="text-align:center; padding:15px; color:#888; font-size:0.9rem;">
                         No hay retiros realizados.
@@ -1224,24 +1287,24 @@
         <!-- ===== BOTTOM NAV ===== -->
         <div class="bottom-nav">
             <div class="nav-item active" onclick="switchPage('inicioPage', this)">
-                <span class="icon">🏠</span> Inicio
+                <span class="icon">🏠</span> <span class="nav-inicio">Inicio</span>
             </div>
             <div class="nav-item" onclick="switchPage('vipOrdersPage', this)">
-                <span class="icon">📦</span> Órdenes
+                <span class="icon">📦</span> <span class="nav-ordenes">Órdenes</span>
             </div>
             <div class="nav-item" onclick="switchPage('contratoPage', this)">
-                <span class="icon">📄</span> Contrato
+                <span class="icon">📄</span> <span class="nav-contrato">Contrato</span>
             </div>
             <div class="nav-item" onclick="switchPage('trabajoPage', this)">
-                <span class="icon">💼</span> Trabajo
+                <span class="icon">💼</span> <span class="nav-trabajo">Trabajo</span>
             </div>
             <div class="nav-item" onclick="switchPage('miPage', this)">
-                <span class="icon">👤</span> Mi
+                <span class="icon">👤</span> <span class="nav-mi">Mi</span>
             </div>
         </div>
 
-        <button class="btn btn-outline" onclick="handleLogout()" style="margin-top:15px;">
-            🚪 Cerrar sesión
+        <button class="btn btn-outline btn-logout" onclick="handleLogout()" style="margin-top:15px;">
+            🚪 <span class="logout-text">Cerrar sesión</span>
         </button>
     </div>
 
@@ -1249,6 +1312,620 @@
 </div>
 
 <script>
+    // ============================================================
+    //  LANGUAGE & CURRENCY DATA
+    // ============================================================
+    const translations = {
+        es: {
+            // General
+            appTitle: '✨ Tu centro comercial online ✨',
+            registerTitle: '📝 Crear cuenta',
+            loginTitle: '🔐 Iniciar sesión',
+            phoneLabel: '📱 Número de teléfono',
+            countryLabel: '🌍 Código de país',
+            usernameLabel: '👤 Nombre de usuario',
+            passwordLabel: '🔒 Contraseña',
+            registerBtn: '✅ Registrarse',
+            loginBtn: '🚪 Iniciar sesión',
+            switchToLogin: '¿Ya tienes cuenta?',
+            switchToRegister: '¿No tienes cuenta?',
+            loginIdentifierLabel: '👤 Usuario o teléfono',
+            loginPasswordLabel: '🔒 Contraseña',
+            // Dashboard
+            greeting: 'Hola',
+            balanceLabel: '💰 Saldo',
+            incomeLabel: '📈 Ingresos totales',
+            comenzarBtn: '🚀 COMENZAR',
+            recargarBtn: '📥 RECARGAR',
+            retirarBtn: '📤 RETIRAR',
+            // Inicio
+            welcomeTitle: '¡Bienvenido a Shein!',
+            welcomeSubtitle: 'Miles de personas confían en nosotros en todo el mundo.',
+            statUsers: 'Usuarios activos',
+            statTransactions: 'Transacciones',
+            statCountries: 'Países',
+            badgeSeguro: '100% Seguro',
+            badgeVerificado: 'Verificado',
+            badgeEstrellas: '4.9/5 Estrellas',
+            badgeProtegido: 'Protegido',
+            badgeLider: 'Líder del mercado',
+            badgePagos: 'Pagos rápidos',
+            quote1: '"Shein es la mejor plataforma para comprar y vender. ¡100% confiable!"',
+            quote2: '"He recibido mis pagos a tiempo. Excelente servicio."',
+            garantiasTitle: '🛡️ Nuestras Garantías',
+            garantia1: '✅ 100% de transparencia',
+            garantia2: '✅ Soporte 24/7',
+            garantia3: '✅ Retiros en 24 horas',
+            garantia4: '✅ Datos protegidos',
+            garantia5: '✅ Sin comisiones ocultas',
+            garantia6: '✅ Seguridad bancaria',
+            // VIP Orders
+            vipOrdersTitle: '📦 Órdenes VIP',
+            vipOrdersSubtitle: 'Completa órdenes para ganar comisiones. ¡Cada orden te acerca a tu próximo nivel VIP!',
+            // Config
+            configTitle: '⚙️ Configuración',
+            addBankBtn: '➕ Agregar cuenta bancaria',
+            addBankTitle: '🏦 Agregar cuenta bancaria',
+            bankNameLabel: '🏛️ Nombre del banco',
+            accountNumberLabel: '🔢 Número de cuenta',
+            accountHolderLabel: '👤 Titular de la cuenta',
+            cciLabel: '🔢 CCI (Código de Cuenta Interbancaria)',
+            confirmBtn: '✅ Confirmar',
+            cancelBtn: '❌ Cancelar',
+            langLabel: '🌐 Idioma',
+            currencyLabel: '💰 Moneda',
+            noBanks: 'No hay cuentas bancarias registradas.',
+            // Contrato
+            contratoTitle: '📄 Contrato',
+            contratoText: 'Términos y condiciones de Shein. Lee atentamente antes de aceptar.',
+            contratoItem1: '📌 Shein se compromete a proporcionar un servicio seguro y transparente.',
+            contratoItem2: '📌 Los retiros se procesan en un plazo de 24 horas.',
+            contratoItem3: '📌 Los datos personales están protegidos bajo nuestra política de privacidad.',
+            // Trabajo
+            trabajoTitle: '💼 Trabajo',
+            trabajoSubtitle: 'Encuentra oportunidades de trabajo en Shein.',
+            trabajoItem1: '📱 Marketing Digital',
+            trabajoItem1Desc: 'Gana dinero promocionando productos.',
+            trabajoItem2: '💻 Atención al Cliente',
+            trabajoItem2Desc: 'Ayuda a nuestros usuarios con sus consultas.',
+            trabajoItem3: '📊 Analista de Datos',
+            trabajoItem3Desc: 'Analiza el comportamiento de los usuarios.',
+            // Mi
+            miTitle: '👤 Mi Perfil',
+            memberSince: '📅 Miembro desde',
+            profileBalance: '💰 Saldo',
+            profileVip: '⭐ Nivel VIP',
+            misBancos: '🏦 Mis Cuentas Bancarias',
+            addBankMi: '➕ Agregar cuenta bancaria',
+            withdrawalTitle: '📤 Realizar Retiro',
+            withdrawBankLabel: '🏛️ Selecciona tu cuenta bancaria',
+            withdrawAmountLabel: '💰 Monto a retirar',
+            confirmWithdrawal: '✅ Confirmar Retiro',
+            historyTitle: '📋 Historial de Retiros',
+            noHistory: 'No hay retiros realizados.',
+            // Nav
+            navInicio: 'Inicio',
+            navOrdenes: 'Órdenes',
+            navContrato: 'Contrato',
+            navTrabajo: 'Trabajo',
+            navMi: 'Mi',
+            logout: 'Cerrar sesión',
+            // Messages
+            regError: '⚠️ Por favor, completa todos los campos.',
+            loginError: '❌ Usuario o contraseña incorrectos.',
+            // VIP Order Messages
+            orderCompleted: 'Orden completada en',
+            earned: 'Ganaste',
+            completedAll: '🎉 ¡Felicidades! Has completado',
+            andEarned: 'y ganado',
+            unlocked: '🔓 ¡{level} ha sido desbloqueado!',
+            notUnlocked: '❌ Este nivel VIP no está desbloqueado aún.',
+            alreadyCompleted: '✅ ¡Ya has completado todas las órdenes de este nivel!',
+            // Withdrawal
+            selectBank: '⚠️ Por favor, selecciona una cuenta bancaria.',
+            validAmount: '⚠️ Por favor, ingresa un monto válido mayor a 0.',
+            insufficientBalance: '❌ Saldo insuficiente. Tu saldo es',
+            withdrawalSuccess: '✅ Retiro de {amount} a {bank} completado con éxito.',
+            // Register/Login
+            registerSuccess: '✅ ¡Cuenta "{username}" creada con éxito! {amount} de bienvenida.',
+            loginSuccess: '🔓 ¡Bienvenido de nuevo, {username}!',
+            logoutSuccess: '👋 Has cerrado sesión correctamente.',
+            // Comenzar/Recargar
+            comenzarSuccess: '🚀 ¡Has comenzado un nuevo trabajo! +{amount}',
+            recargarSuccess: '📥 ¡Recarga exitosa! +{amount}',
+            goToWithdraw: '📤 Ve a la sección "Mi" para realizar tu retiro.'
+        },
+        en: {
+            appTitle: '✨ Your online shopping center ✨',
+            registerTitle: '📝 Create account',
+            loginTitle: '🔐 Login',
+            phoneLabel: '📱 Phone number',
+            countryLabel: '🌍 Country code',
+            usernameLabel: '👤 Username',
+            passwordLabel: '🔒 Password',
+            registerBtn: '✅ Register',
+            loginBtn: '🚪 Login',
+            switchToLogin: 'Already have an account?',
+            switchToRegister: "Don't have an account?",
+            loginIdentifierLabel: '👤 Username or phone',
+            loginPasswordLabel: '🔒 Password',
+            greeting: 'Hello',
+            balanceLabel: '💰 Balance',
+            incomeLabel: '📈 Total income',
+            comenzarBtn: '🚀 START',
+            recargarBtn: '📥 RECHARGE',
+            retirarBtn: '📤 WITHDRAW',
+            welcomeTitle: 'Welcome to Shein!',
+            welcomeSubtitle: 'Thousands of people trust us worldwide.',
+            statUsers: 'Active Users',
+            statTransactions: 'Transactions',
+            statCountries: 'Countries',
+            badgeSeguro: '100% Secure',
+            badgeVerificado: 'Verified',
+            badgeEstrellas: '4.9/5 Stars',
+            badgeProtegido: 'Protected',
+            badgeLider: 'Market Leader',
+            badgePagos: 'Fast Payments',
+            quote1: '"Shein is the best platform to buy and sell. 100% reliable!"',
+            quote2: '"I have received my payments on time. Excellent service."',
+            garantiasTitle: '🛡️ Our Guarantees',
+            garantia1: '✅ 100% transparency',
+            garantia2: '✅ 24/7 Support',
+            garantia3: '✅ Withdrawals in 24 hours',
+            garantia4: '✅ Protected data',
+            garantia5: '✅ No hidden fees',
+            garantia6: '✅ Banking security',
+            vipOrdersTitle: '📦 VIP Orders',
+            vipOrdersSubtitle: 'Complete orders to earn commissions. Each order brings you closer to your next VIP level!',
+            configTitle: '⚙️ Settings',
+            addBankBtn: '➕ Add bank account',
+            addBankTitle: '🏦 Add bank account',
+            bankNameLabel: '🏛️ Bank name',
+            accountNumberLabel: '🔢 Account number',
+            accountHolderLabel: '👤 Account holder',
+            cciLabel: '🔢 CCI (Interbank Code)',
+            confirmBtn: '✅ Confirm',
+            cancelBtn: '❌ Cancel',
+            langLabel: '🌐 Language',
+            currencyLabel: '💰 Currency',
+            noBanks: 'No bank accounts registered.',
+            contratoTitle: '📄 Contract',
+            contratoText: 'Terms and conditions of Shein. Please read carefully before accepting.',
+            contratoItem1: '📌 Shein is committed to providing a secure and transparent service.',
+            contratoItem2: '📌 Withdrawals are processed within 24 hours.',
+            contratoItem3: '📌 Personal data is protected under our privacy policy.',
+            trabajoTitle: '💼 Work',
+            trabajoSubtitle: 'Find job opportunities at Shein.',
+            trabajoItem1: '📱 Digital Marketing',
+            trabajoItem1Desc: 'Earn money promoting products.',
+            trabajoItem2: '💻 Customer Service',
+            trabajoItem2Desc: 'Help our users with their inquiries.',
+            trabajoItem3: '📊 Data Analyst',
+            trabajoItem3Desc: 'Analyze user behavior.',
+            miTitle: '👤 My Profile',
+            memberSince: '📅 Member since',
+            profileBalance: '💰 Balance',
+            profileVip: '⭐ VIP Level',
+            misBancos: '🏦 My Bank Accounts',
+            addBankMi: '➕ Add bank account',
+            withdrawalTitle: '📤 Make Withdrawal',
+            withdrawBankLabel: '🏛️ Select your bank account',
+            withdrawAmountLabel: '💰 Amount to withdraw',
+            confirmWithdrawal: '✅ Confirm Withdrawal',
+            historyTitle: '📋 Withdrawal History',
+            noHistory: 'No withdrawals made.',
+            navInicio: 'Home',
+            navOrdenes: 'Orders',
+            navContrato: 'Contract',
+            navTrabajo: 'Work',
+            navMi: 'My',
+            logout: 'Logout',
+            regError: '⚠️ Please fill in all fields.',
+            loginError: '❌ Incorrect username/phone or password.',
+            orderCompleted: 'Order completed in',
+            earned: 'Earned',
+            completedAll: '🎉 Congratulations! You have completed',
+            andEarned: 'and earned',
+            unlocked: '🔓 {level} has been unlocked!',
+            notUnlocked: '❌ This VIP level is not unlocked yet.',
+            alreadyCompleted: '✅ You have already completed all orders for this level!',
+            selectBank: '⚠️ Please select a bank account.',
+            validAmount: '⚠️ Please enter a valid amount greater than 0.',
+            insufficientBalance: '❌ Insufficient balance. Your balance is',
+            withdrawalSuccess: '✅ Withdrawal of {amount} to {bank} completed successfully.',
+            registerSuccess: '✅ Account "{username}" created successfully! {amount} welcome bonus.',
+            loginSuccess: '🔓 Welcome back, {username}!',
+            logoutSuccess: '👋 You have logged out successfully.',
+            comenzarSuccess: '🚀 You have started a new job! +{amount}',
+            recargarSuccess: '📥 Recharge successful! +{amount}',
+            goToWithdraw: '📤 Go to the "My" section to make your withdrawal.'
+        },
+        my: {
+            appTitle: '✨ သင့်အွန်လိုင်းစျေးဝယ်စင်တာ ✨',
+            registerTitle: '📝 အကောင့်ဖွင့်ရန်',
+            loginTitle: '🔐 ဝင်ရောက်ရန်',
+            phoneLabel: '📱 ဖုန်းနံပါတ်',
+            countryLabel: '🌍 နိုင်ငံကုဒ်',
+            usernameLabel: '👤 အသုံးပြုသူအမည်',
+            passwordLabel: '🔒 စကားဝှက်',
+            registerBtn: '✅ မှတ်ပုံတင်ရန်',
+            loginBtn: '🚪 ဝင်ရောက်ရန်',
+            switchToLogin: 'အကောင့်ရှိပြီးသားလား?',
+            switchToRegister: 'အကောင့်မရှိသေးဘူးလား?',
+            loginIdentifierLabel: '👤 အသုံးပြုသူအမည် သို့မဟုတ် ဖုန်းနံပါတ်',
+            loginPasswordLabel: '🔒 စကားဝှက်',
+            greeting: 'မင်္ဂလာပါ',
+            balanceLabel: '💰 လက်ကျန်ငွေ',
+            incomeLabel: '📈 စုစုပေါင်းဝင်ငွေ',
+            comenzarBtn: '🚀 စတင်ရန်',
+            recargarBtn: '📥 ငွေဖြည့်ရန်',
+            retirarBtn: '📤 ငွေထုတ်ရန်',
+            welcomeTitle: 'Shein မှ ကြိုဆိုပါတယ်!',
+            welcomeSubtitle: 'ကမ္ဘာတစ်ဝန်းမှ လူထောင်ပေါင်းများစွာ ကျွန်ုပ်တို့ကို ယုံကြည်ကြသည်။',
+            statUsers: 'တက်ကြွသောအသုံးပြုသူများ',
+            statTransactions: 'ငွေပေးချေမှုများ',
+            statCountries: 'နိုင်ငံများ',
+            badgeSeguro: '၁၀၀% လုံခြုံသည်',
+            badgeVerificado: 'အတည်ပြုပြီး',
+            badgeEstrellas: '၄.၉/၅ ကြယ်ပွင့်',
+            badgeProtegido: 'ကာကွယ်ထားသည်',
+            badgeLider: 'စျေးကွက်ခေါင်းဆောင်',
+            badgePagos: 'အမြန်ငွေပေးချေမှု',
+            quote1: '"Shein သည် ဝယ်ရောင်းရန် အကောင်းဆုံးပလက်ဖောင်းဖြစ်သည်။ ၁၀၀% ယုံကြည်ရသည်!"',
+            quote2: '"ကျွန်ုပ်၏ငွေများကို အချိန်မှန်ရရှိပါသည်။ အကောင်းဆုံးဝန်ဆောင်မှုပါ။"',
+            garantiasTitle: '🛡️ ကျွန်ုပ်တို့၏ အာမခံချက်များ',
+            garantia1: '✅ ၁၀၀% ပွင့်လင်းမြင်သာမှု',
+            garantia2: '✅ ၂၄/၇ ပံ့ပိုးမှု',
+            garantia3: '✅ ၂၄ နာရီအတွင်း ငွေထုတ်ခြင်း',
+            garantia4: '✅ ကာကွယ်ထားသောဒေတာ',
+            garantia5: '✅ လျှို့ဝှက်ကောက်ခံမှုမရှိ',
+            garantia6: '✅ ဘဏ်လုံခြုံရေး',
+            vipOrdersTitle: '📦 VIP အမှာစာများ',
+            vipOrdersSubtitle: 'ကော်မရှင်ရရန် အမှာစာများကို ပြီးအောင်လုပ်ပါ။ အမှာစာတိုင်းသည် သင့်အား နောက် VIP အဆင့်သို့ ပို့ဆောင်ပေးသည်။',
+            configTitle: '⚙️ ပြင်ဆင်ချက်များ',
+            addBankBtn: '➕ ဘဏ်အကောင့်ထည့်ရန်',
+            addBankTitle: '🏦 ဘဏ်အကောင့်ထည့်ရန်',
+            bankNameLabel: '🏛️ ဘဏ်အမည်',
+            accountNumberLabel: '🔢 အကောင့်နံပါတ်',
+            accountHolderLabel: '👤 အကောင့်ပိုင်ရှင်',
+            cciLabel: '🔢 CCI (ဘဏ်ချင်းဆက်ကုဒ်)',
+            confirmBtn: '✅ အတည်ပြုရန်',
+            cancelBtn: '❌ ဖျက်သိမ်းရန်',
+            langLabel: '🌐 ဘာသာစကား',
+            currencyLabel: '💰 ငွေကြေး',
+            noBanks: 'မှတ်ပုံတင်ထားသော ဘဏ်အကောင့်မရှိပါ။',
+            contratoTitle: '📄 စာချုပ်',
+            contratoText: 'Shein ၏ စည်းကမ်းချက်များ။ လက်ခံမှုမပြုမီ သေချာဖတ်ပါ။',
+            contratoItem1: '📌 Shein သည် လုံခြုံပြီး ပွင့်လင်းမြင်သာသော ဝန်ဆောင်မှုကို ပေးအပ်ရန် ကတိပြုပါသည်။',
+            contratoItem2: '📌 ငွေထုတ်ခြင်းကို ၂၄ နာရီအတွင်း ဆောင်ရွက်ပေးပါသည်။',
+            contratoItem3: '📌 ကိုယ်ရေးအချက်အလက်များကို ကိုယ်ရေးကိုယ်တာမူဝါဒဖြင့် ကာကွယ်ထားပါသည်။',
+            trabajoTitle: '💼 အလုပ်',
+            trabajoSubtitle: 'Shein တွင် အလုပ်အကိုင်အခွင့်အလမ်းများကို ရှာဖွေပါ။',
+            trabajoItem1: '📱 ဒစ်ဂျစ်တယ်မားကတ်တင်း',
+            trabajoItem1Desc: 'ထုတ်ကုန်များကို ကြော်ငြာခြင်းဖြင့် ငွေရှာပါ။',
+            trabajoItem2: '💻 ဖောက်သည်ဝန်ဆောင်မှု',
+            trabajoItem2Desc: 'ကျွန်ုပ်တို့၏အသုံးပြုသူများကို အကူအညီပေးပါ။',
+            trabajoItem3: '📊 ဒေတာခွဲခြမ်းစိတ်ဖြာသူ',
+            trabajoItem3Desc: 'အသုံးပြုသူများ၏ အပြုအမူကို ခွဲခြမ်းစိတ်ဖြာပါ။',
+            miTitle: '👤 ကျွန်ုပ်၏ ပရိုဖိုင်',
+            memberSince: '📅 အဖွဲ့ဝင်ဖြစ်ကတည်းက',
+            profileBalance: '💰 လက်ကျန်ငွေ',
+            profileVip: '⭐ VIP အဆင့်',
+            misBancos: '🏦 ကျွန်ုပ်၏ ဘဏ်အကောင့်များ',
+            addBankMi: '➕ ဘဏ်အကောင့်ထည့်ရန်',
+            withdrawalTitle: '📤 ငွေထုတ်ရန်',
+            withdrawBankLabel: '🏛️ သင့်ဘဏ်အကောင့်ကိုရွေးပါ',
+            withdrawAmountLabel: '💰 ထုတ်ချင်သောပမာဏ',
+            confirmWithdrawal: '✅ ငွေထုတ်ရန်အတည်ပြုပါ',
+            historyTitle: '📋 ငွေထုတ်မှတ်တမ်း',
+            noHistory: 'ငွေထုတ်ခြင်းမရှိသေးပါ။',
+            navInicio: 'မူလစာမျက်နှာ',
+            navOrdenes: 'အမှာစာများ',
+            navContrato: 'စာချုပ်',
+            navTrabajo: 'အလုပ်',
+            navMi: 'ကျွန်ုပ်',
+            logout: 'ထွက်ရန်',
+            regError: '⚠️ ကျေးဇူးပြု၍ အားလုံးဖြည့်ပါ။',
+            loginError: '❌ အသုံးပြုသူအမည်/ဖုန်းနံပါတ် သို့မဟုတ် စကားဝှက် မှားနေပါသည်။',
+            orderCompleted: 'တွင် အမှာစာပြီးဆုံးပါပြီ',
+            earned: 'ရရှိငွေ',
+            completedAll: '🎉 ဂုဏ်ယူပါတယ်! သင်',
+            andEarned: 'ပြီးဆုံးပြီး',
+            unlocked: '🔓 {level} ကို ဖွင့်လှစ်လိုက်ပါပြီ!',
+            notUnlocked: '❌ ဤ VIP အဆင့်ကို မဖွင့်ရသေးပါ။',
+            alreadyCompleted: '✅ ဤအဆင့်အတွက် အမှာစာများအားလုံးကို ပြီးဆုံးပြီးဖြစ်ပါသည်။',
+            selectBank: '⚠️ ကျေးဇူးပြု၍ ဘဏ်အကောင့်တစ်ခုကို ရွေးပါ။',
+            validAmount: '⚠️ ကျေးဇူးပြု၍ ၀ ထက်ကြီးသော ပမာဏကို ရိုက်ထည့်ပါ။',
+            insufficientBalance: '❌ လက်ကျန်မလုံလောက်ပါ။ သင့်လက်ကျန်မှာ',
+            withdrawalSuccess: '✅ {bank} သို့ {amount} ငွေထုတ်ခြင်း အောင်မြင်ပါပြီ။',
+            registerSuccess: '✅ "{username}" အကောင့်ကို အောင်မြင်စွာဖွင့်လှစ်ပြီး {amount} ကြိုဆိုငွေ ရရှိပါပြီ။',
+            loginSuccess: '🔓 ပြန်လည်ကြိုဆိုပါတယ် {username}!',
+            logoutSuccess: '👋 အကောင့်မှ အောင်မြင်စွာ ထွက်ပြီးပါပြီ။',
+            comenzarSuccess: '🚀 အလုပ်အသစ်စတင်ပြီပါပြီ! +{amount}',
+            recargarSuccess: '📥 ငွေဖြည့်ခြင်း အောင်မြင်ပါပြီ! +{amount}',
+            goToWithdraw: '📤 ငွေထုတ်ရန် "ကျွန်ုပ်" ကဏ္ဍသို့ သွားပါ။'
+        },
+        zh: {
+            appTitle: '✨ 您的在线购物中心 ✨',
+            registerTitle: '📝 创建账户',
+            loginTitle: '🔐 登录',
+            phoneLabel: '📱 电话号码',
+            countryLabel: '🌍 国家代码',
+            usernameLabel: '👤 用户名',
+            passwordLabel: '🔒 密码',
+            registerBtn: '✅ 注册',
+            loginBtn: '🚪 登录',
+            switchToLogin: '已有账户？',
+            switchToRegister: '没有账户？',
+            loginIdentifierLabel: '👤 用户名或电话',
+            loginPasswordLabel: '🔒 密码',
+            greeting: '你好',
+            balanceLabel: '💰 余额',
+            incomeLabel: '📈 总收入',
+            comenzarBtn: '🚀 开始',
+            recargarBtn: '📥 充值',
+            retirarBtn: '📤 提现',
+            welcomeTitle: '欢迎来到 Shein！',
+            welcomeSubtitle: '全球有成千上万的人信任我们。',
+            statUsers: '活跃用户',
+            statTransactions: '交易',
+            statCountries: '国家',
+            badgeSeguro: '100% 安全',
+            badgeVerificado: '已验证',
+            badgeEstrellas: '4.9/5 星',
+            badgeProtegido: '受保护',
+            badgeLider: '市场领导者',
+            badgePagos: '快速支付',
+            quote1: '"Shein 是买卖的最佳平台。100% 可靠！"',
+            quote2: '"我按时收到了付款。服务很棒。"',
+            garantiasTitle: '🛡️ 我们的保障',
+            garantia1: '✅ 100% 透明',
+            garantia2: '✅ 24/7 支持',
+            garantia3: '✅ 24小时内提现',
+            garantia4: '✅ 数据保护',
+            garantia5: '✅ 无隐藏费用',
+            garantia6: '✅ 银行安全',
+            vipOrdersTitle: '📦 VIP 订单',
+            vipOrdersSubtitle: '完成订单赚取佣金。每个订单都让您更接近下一个VIP级别！',
+            configTitle: '⚙️ 设置',
+            addBankBtn: '➕ 添加银行账户',
+            addBankTitle: '🏦 添加银行账户',
+            bankNameLabel: '🏛️ 银行名称',
+            accountNumberLabel: '🔢 账户号码',
+            accountHolderLabel: '👤 账户持有人',
+            cciLabel: '🔢 CCI（银行间代码）',
+            confirmBtn: '✅ 确认',
+            cancelBtn: '❌ 取消',
+            langLabel: '🌐 语言',
+            currencyLabel: '💰 货币',
+            noBanks: '没有注册的银行账户。',
+            contratoTitle: '📄 合同',
+            contratoText: 'Shein 的条款和条件。接受前请仔细阅读。',
+            contratoItem1: '📌 Shein 致力于提供安全透明的服务。',
+            contratoItem2: '📌 提现在24小时内处理。',
+            contratoItem3: '📌 个人信息受隐私政策保护。',
+            trabajoTitle: '💼 工作',
+            trabajoSubtitle: '在 Shein 寻找工作机会。',
+            trabajoItem1: '📱 数字营销',
+            trabajoItem1Desc: '通过推广产品赚钱。',
+            trabajoItem2: '💻 客户服务',
+            trabajoItem2Desc: '帮助我们的用户解答问题。',
+            trabajoItem3: '📊 数据分析师',
+            trabajoItem3Desc: '分析用户行为。',
+            miTitle: '👤 我的资料',
+            memberSince: '📅 加入日期',
+            profileBalance: '💰 余额',
+            profileVip: '⭐ VIP 级别',
+            misBancos: '🏦 我的银行账户',
+            addBankMi: '➕ 添加银行账户',
+            withdrawalTitle: '📤 提现',
+            withdrawBankLabel: '🏛️ 选择您的银行账户',
+            withdrawAmountLabel: '💰 提现金额',
+            confirmWithdrawal: '✅ 确认提现',
+            historyTitle: '📋 提现记录',
+            noHistory: '没有提现记录。',
+            navInicio: '首页',
+            navOrdenes: '订单',
+            navContrato: '合同',
+            navTrabajo: '工作',
+            navMi: '我的',
+            logout: '退出',
+            regError: '⚠️ 请填写所有字段。',
+            loginError: '❌ 用户名/电话或密码错误。',
+            orderCompleted: '订单完成于',
+            earned: '赚取',
+            completedAll: '🎉 恭喜！您已完成',
+            andEarned: '并赚取',
+            unlocked: '🔓 {level} 已解锁！',
+            notUnlocked: '❌ 此VIP级别尚未解锁。',
+            alreadyCompleted: '✅ 您已完成此级别的所有订单！',
+            selectBank: '⚠️ 请选择银行账户。',
+            validAmount: '⚠️ 请输入大于0的有效金额。',
+            insufficientBalance: '❌ 余额不足。您的余额是',
+            withdrawalSuccess: '✅ 向 {bank} 提现 {amount} 成功。',
+            registerSuccess: '✅ 账户 "{username}" 创建成功！获得 {amount} 欢迎奖励。',
+            loginSuccess: '🔓 欢迎回来，{username}！',
+            logoutSuccess: '👋 您已成功退出。',
+            comenzarSuccess: '🚀 您已开始新工作！+{amount}',
+            recargarSuccess: '📥 充值成功！+{amount}',
+            goToWithdraw: '📤 请前往"我的"部分进行提现。'
+        }
+    };
+
+    const currencySymbols = {
+        'PEN': 'S/',
+        'USD': '$',
+        'EUR': '€',
+        'MMK': 'K'
+    };
+
+    let currentLang = 'es';
+    let currentCurrency = 'PEN';
+
+    // ============================================================
+    //  LANGUAGE & CURRENCY FUNCTIONS
+    // ============================================================
+    function changeLanguage(lang) {
+        currentLang = lang;
+        document.getElementById('htmlRoot').lang = lang;
+        applyTranslations(lang);
+        updateDashboard();
+        renderVIPOrders();
+        renderBankAccounts();
+        updateWithdrawBankSelect();
+        renderWithdrawalHistory();
+        updateCurrencyDisplay();
+    }
+
+    function changeCurrency(currency) {
+        currentCurrency = currency;
+        updateCurrencyDisplay();
+        updateDashboard();
+        renderVIPOrders();
+        renderBankAccounts();
+        updateWithdrawBankSelect();
+        renderWithdrawalHistory();
+    }
+
+    function applyTranslations(lang) {
+        const t = translations[lang];
+        if (!t) return;
+
+        // Header
+        document.querySelector('.header-subtitle').textContent = t.appTitle;
+
+        // Register
+        document.querySelector('.register-title').textContent = t.registerTitle;
+        document.querySelector('.label-phone').textContent = t.phoneLabel;
+        document.querySelector('.label-country').textContent = t.countryLabel;
+        document.querySelector('.label-username').textContent = t.usernameLabel;
+        document.querySelector('.label-password').textContent = t.passwordLabel;
+        document.querySelector('.btn-register').textContent = t.registerBtn;
+        document.querySelector('.switch-to-login').innerHTML = t.switchToLogin + ' <strong>' + (lang === 'es' ? 'Iniciar sesión' : lang === 'en' ? 'Login' : lang === 'my' ? 'ဝင်ရောက်ရန်' : '登录') + '</strong>';
+
+        // Login
+        document.querySelector('.login-title').textContent = t.loginTitle;
+        document.querySelector('.label-login-identifier').textContent = t.loginIdentifierLabel;
+        document.querySelector('.label-login-password').textContent = t.loginPasswordLabel;
+        document.querySelector('.btn-login').textContent = t.loginBtn;
+        document.querySelector('.switch-to-register').innerHTML = t.switchToRegister + ' <strong>' + (lang === 'es' ? 'Regístrate aquí' : lang === 'en' ? 'Register here' : lang === 'my' ? 'ဒီမှာမှတ်ပုံတင်ပါ' : '在此注册') + '</strong>';
+
+        // Dashboard Greeting
+        document.querySelector('.greeting-text').textContent = t.greeting;
+        document.querySelector('.label-balance').textContent = t.balanceLabel;
+        document.querySelector('.label-income').textContent = t.incomeLabel;
+        document.querySelector('.btn-comenzar').textContent = t.comenzarBtn;
+        document.querySelector('.btn-recargar').textContent = t.recargarBtn;
+        document.querySelector('.btn-retirar').textContent = t.retirarBtn;
+
+        // Inicio
+        document.querySelector('.welcome-title').textContent = t.welcomeTitle;
+        document.querySelector('.welcome-subtitle').textContent = t.welcomeSubtitle;
+        document.querySelector('.stat-users').textContent = t.statUsers;
+        document.querySelector('.stat-transactions').textContent = t.statTransactions;
+        document.querySelector('.stat-countries').textContent = t.statCountries;
+        document.querySelector('.badge-seguro').textContent = t.badgeSeguro;
+        document.querySelector('.badge-verificado').textContent = t.badgeVerificado;
+        document.querySelector('.badge-estrellas').textContent = t.badgeEstrellas;
+        document.querySelector('.badge-protegido').textContent = t.badgeProtegido;
+        document.querySelector('.badge-lider').textContent = t.badgeLider;
+        document.querySelector('.badge-pagos').textContent = t.badgePagos;
+        document.querySelector('.quote1').textContent = t.quote1;
+        document.querySelector('.quote2').textContent = t.quote2;
+        document.querySelector('.garantias-title').textContent = t.garantiasTitle;
+        document.querySelector('.garantia-item1').textContent = t.garantia1;
+        document.querySelector('.garantia-item2').textContent = t.garantia2;
+        document.querySelector('.garantia-item3').textContent = t.garantia3;
+        document.querySelector('.garantia-item4').textContent = t.garantia4;
+        document.querySelector('.garantia-item5').textContent = t.garantia5;
+        document.querySelector('.garantia-item6').textContent = t.garantia6;
+
+        // VIP Orders
+        document.querySelector('.vip-orders-title').textContent = t.vipOrdersTitle;
+        document.querySelector('.vip-orders-subtitle').textContent = t.vipOrdersSubtitle;
+
+        // Config
+        document.querySelector('.config-title').textContent = t.configTitle;
+        document.querySelector('.btn-add-bank').textContent = t.addBankBtn;
+        document.querySelector('.add-bank-title').textContent = t.addBankTitle;
+        document.querySelector('.label-bank-name').textContent = t.bankNameLabel;
+        document.querySelector('.label-account-number').textContent = t.accountNumberLabel;
+        document.querySelector('.label-account-holder').textContent = t.accountHolderLabel;
+        document.querySelector('.label-cci').textContent = t.cciLabel;
+        document.querySelector('.btn-confirm-bank').textContent = t.confirmBtn;
+        document.querySelector('.btn-cancel-bank').textContent = t.cancelBtn;
+        document.querySelector('.config-lang-label').textContent = t.langLabel;
+        document.querySelector('.config-currency-label').textContent = t.currencyLabel;
+
+        // Contrato
+        document.querySelector('.contrato-title').textContent = t.contratoTitle;
+        document.querySelector('.contrato-text').textContent = t.contratoText;
+        document.querySelector('.contrato-item1').textContent = t.contratoItem1;
+        document.querySelector('.contrato-item2').textContent = t.contratoItem2;
+        document.querySelector('.contrato-item3').textContent = t.contratoItem3;
+
+        // Trabajo
+        document.querySelector('.trabajo-title').textContent = t.trabajoTitle;
+        document.querySelector('.trabajo-subtitle').textContent = t.trabajoSubtitle;
+        document.querySelector('.trabajo-item1-title').textContent = t.trabajoItem1;
+        document.querySelector('.trabajo-item1-desc').textContent = t.trabajoItem1Desc;
+        document.querySelector('.trabajo-item2-title').textContent = t.trabajoItem2;
+        document.querySelector('.trabajo-item2-desc').textContent = t.trabajoItem2Desc;
+        document.querySelector('.trabajo-item3-title').textContent = t.trabajoItem3;
+        document.querySelector('.trabajo-item3-desc').textContent = t.trabajoItem3Desc;
+
+        // Mi
+        document.querySelector('.mi-title').textContent = t.miTitle;
+        document.querySelector('.label-member-since').textContent = t.memberSince;
+        document.querySelector('.label-profile-balance').textContent = t.profileBalance;
+        document.querySelector('.label-profile-vip').textContent = t.profileVip;
+        document.querySelector('.mis-bancos-title').textContent = t.misBancos;
+        document.querySelector('.btn-add-bank-mi').textContent = t.addBankMi;
+        document.querySelector('.add-bank-mi-title').textContent = t.addBankTitle;
+        document.querySelector('.label-bank-name-mi').textContent = t.bankNameLabel;
+        document.querySelector('.label-account-number-mi').textContent = t.accountNumberLabel;
+        document.querySelector('.label-account-holder-mi').textContent = t.accountHolderLabel;
+        document.querySelector('.label-cci-mi').textContent = t.cciLabel;
+        document.querySelector('.btn-confirm-bank-mi').textContent = t.confirmBtn;
+        document.querySelector('.btn-cancel-bank-mi').textContent = t.cancelBtn;
+        document.querySelector('.withdrawal-title').textContent = t.withdrawalTitle;
+        document.querySelector('.label-withdraw-bank').textContent = t.withdrawBankLabel;
+        document.querySelector('.label-withdraw-amount').textContent = t.withdrawAmountLabel;
+        document.querySelector('.btn-confirm-withdrawal').textContent = t.confirmWithdrawal;
+        document.querySelector('.history-title').textContent = t.historyTitle;
+
+        // Nav
+        document.querySelector('.nav-inicio').textContent = t.navInicio;
+        document.querySelector('.nav-ordenes').textContent = t.navOrdenes;
+        document.querySelector('.nav-contrato').textContent = t.navContrato;
+        document.querySelector('.nav-trabajo').textContent = t.navTrabajo;
+        document.querySelector('.nav-mi').textContent = t.navMi;
+        document.querySelector('.logout-text').textContent = t.logout;
+
+        // Error messages
+        document.getElementById('regError').textContent = t.regError;
+        document.getElementById('loginError').textContent = t.loginError;
+
+        // Update current language display
+        document.getElementById('currentLangDisplay').textContent = lang.toUpperCase();
+    }
+
+    function updateCurrencyDisplay() {
+        const symbol = currencySymbols[currentCurrency] || 'S/';
+        document.getElementById('currentCurrencyDisplay').textContent = currentCurrency;
+        
+        // Update all currency displays
+        const balanceElements = document.querySelectorAll('#displayBalance, #profileBalance, .amount.green, .amount.orange');
+        const incomeElements = document.querySelectorAll('#totalIncome');
+        
+        // We'll update actual values in updateDashboard
+    }
+
+    function formatCurrency(amount) {
+        const symbol = currencySymbols[currentCurrency] || 'S/';
+        return `${symbol} ${amount.toFixed(2)}`;
+    }
+
     // ============================================================
     //  ESTADO GLOBAL
     // ============================================================
@@ -1308,28 +1985,30 @@
             const div = document.createElement('div');
             div.className = 'vip-item';
             const statusClass = vip.active ? 'activo' : 'inactivo';
+            const t = translations[currentLang];
             const statusText = vip.active ? '✅ Activo' : '⏳ No disponible';
+            // We'll use the translated version
             div.innerHTML = `
                 <span class="vip-name">${vip.name}</span>
-                <span class="vip-status ${statusClass}">${statusText}</span>
+                <span class="vip-status ${statusClass}">${vip.active ? '✅ ' + (currentLang === 'es' ? 'Activo' : currentLang === 'en' ? 'Active' : currentLang === 'my' ? 'အသက်သွင်းပြီး' : '已激活') : '⏳ ' + (currentLang === 'es' ? 'No disponible' : currentLang === 'en' ? 'Not available' : currentLang === 'my' ? 'မရရှိသေး' : '不可用')}</span>
             `;
             container.appendChild(div);
         });
     }
 
     function renderBankAccounts() {
-        // Config page
         const container = document.getElementById('bankList');
         const containerMi = document.getElementById('bankListMi');
         const countEl = document.getElementById('bankCount');
         const countMi = document.getElementById('bankCountMi');
+        const t = translations[currentLang];
         
         if (container) {
             container.innerHTML = '';
             if (userData.bankAccounts.length === 0) {
                 container.innerHTML = `
                     <div style="text-align:center; padding:15px; color:#888; font-size:0.95rem; background:#f8f9fa; border-radius:12px;">
-                        No hay cuentas bancarias registradas.
+                        ${t.noBanks}
                     </div>
                 `;
             } else {
@@ -1339,11 +2018,11 @@
                     div.innerHTML = `
                         <div class="bank-info">
                             <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
-                            <div><strong>Cuenta:</strong> ${account.accountNumber}</div>
-                            <div><strong>Titular:</strong> ${account.accountHolder}</div>
+                            <div><strong>${currentLang === 'es' ? 'Cuenta' : currentLang === 'en' ? 'Account' : currentLang === 'my' ? 'အကောင့်' : '账户'}:</strong> ${account.accountNumber}</div>
+                            <div><strong>${currentLang === 'es' ? 'Titular' : currentLang === 'en' ? 'Holder' : currentLang === 'my' ? 'ပိုင်ရှင်' : '持有人'}:</strong> ${account.accountHolder}</div>
                             <div><strong>CCI:</strong> ${account.cci}</div>
                         </div>
-                        <button class="delete-btn" onclick="deleteBankAccount(${index})" title="Eliminar">✕</button>
+                        <button class="delete-btn" onclick="deleteBankAccount(${index})" title="${currentLang === 'es' ? 'Eliminar' : currentLang === 'en' ? 'Delete' : currentLang === 'my' ? 'ဖျက်ရန်' : '删除'}">✕</button>
                     `;
                     container.appendChild(div);
                 });
@@ -1351,13 +2030,12 @@
             if (countEl) countEl.textContent = userData.bankAccounts.length;
         }
 
-        // Mi page
         if (containerMi) {
             containerMi.innerHTML = '';
             if (userData.bankAccounts.length === 0) {
                 containerMi.innerHTML = `
                     <div style="text-align:center; padding:10px; color:#888; font-size:0.9rem; background:#f8f9fa; border-radius:10px;">
-                        No hay cuentas registradas.
+                        ${t.noBanks}
                     </div>
                 `;
             } else {
@@ -1367,11 +2045,11 @@
                     div.innerHTML = `
                         <div class="bank-info">
                             <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
-                            <div><strong>Cuenta:</strong> ${account.accountNumber}</div>
-                            <div><strong>Titular:</strong> ${account.accountHolder}</div>
+                            <div><strong>${currentLang === 'es' ? 'Cuenta' : currentLang === 'en' ? 'Account' : currentLang === 'my' ? 'အကောင့်' : '账户'}:</strong> ${account.accountNumber}</div>
+                            <div><strong>${currentLang === 'es' ? 'Titular' : currentLang === 'en' ? 'Holder' : currentLang === 'my' ? 'ပိုင်ရှင်' : '持有人'}:</strong> ${account.accountHolder}</div>
                             <div><strong>CCI:</strong> ${account.cci}</div>
                         </div>
-                        <button class="delete-btn" onclick="deleteBankAccount(${index})" title="Eliminar">✕</button>
+                        <button class="delete-btn" onclick="deleteBankAccount(${index})" title="${currentLang === 'es' ? 'Eliminar' : currentLang === 'en' ? 'Delete' : currentLang === 'my' ? 'ဖျက်ရန်' : '删除'}">✕</button>
                     `;
                     containerMi.appendChild(div);
                 });
@@ -1385,8 +2063,9 @@
     function updateWithdrawBankSelect() {
         const select = document.getElementById('withdrawBankSelect');
         if (!select) return;
+        const t = translations[currentLang];
         
-        select.innerHTML = '<option value="">-- Selecciona un banco --</option>';
+        select.innerHTML = `<option value="">-- ${currentLang === 'es' ? 'Selecciona un banco' : currentLang === 'en' ? 'Select a bank' : currentLang === 'my' ? 'ဘဏ်တစ်ခုရွေးပါ' : '选择银行'} --</option>`;
         
         userData.bankAccounts.forEach((account, index) => {
             const option = document.createElement('option');
@@ -1405,7 +2084,7 @@
             const bank = userData.bankAccounts[idx];
             document.getElementById('selectedBankName').textContent = bank.bankName;
             document.getElementById('selectedBankDetails').textContent = 
-                `Cuenta: ${bank.accountNumber} | Titular: ${bank.accountHolder}`;
+                `${currentLang === 'es' ? 'Cuenta' : currentLang === 'en' ? 'Account' : currentLang === 'my' ? 'အကောင့်' : '账户'}: ${bank.accountNumber} | ${currentLang === 'es' ? 'Titular' : currentLang === 'en' ? 'Holder' : currentLang === 'my' ? 'ပိုင်ရှင်' : '持有人'}: ${bank.accountHolder}`;
             display.classList.remove('hidden');
         };
     }
@@ -1414,11 +2093,12 @@
         const container = document.getElementById('withdrawalHistoryList');
         if (!container) return;
         container.innerHTML = '';
+        const t = translations[currentLang];
 
         if (userData.withdrawalHistory.length === 0) {
             container.innerHTML = `
                 <div style="text-align:center; padding:15px; color:#888; font-size:0.9rem;">
-                    No hay retiros realizados.
+                    ${t.noHistory}
                 </div>
             `;
             return;
@@ -1434,8 +2114,8 @@
                     <div class="date-info">📅 ${item.date}</div>
                 </div>
                 <div style="text-align:right;">
-                    <div class="amount-info">-S/ ${item.amount.toFixed(2)}</div>
-                    <div class="status-success">✅ ${item.status}</div>
+                    <div class="amount-info">${formatCurrency(-item.amount)}</div>
+                    <div class="status-success">✅ ${currentLang === 'es' ? 'Completado' : currentLang === 'en' ? 'Completed' : currentLang === 'my' ? 'ပြီးဆုံးပြီ' : '已完成'}</div>
                 </div>
             `;
             container.appendChild(div);
@@ -1449,6 +2129,7 @@
         const container = document.getElementById('vipOrdersContainer');
         if (!container) return;
         container.innerHTML = '';
+        const t = translations[currentLang];
 
         const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
         
@@ -1468,7 +2149,7 @@
                     isUnlocked = true;
                     order.isUnlocked = true;
                 } else {
-                    lockReason = `🔒 Requiere completar ${req.level} (${req.requiredOrders} órdenes)`;
+                    lockReason = `🔒 ${currentLang === 'es' ? 'Requiere completar' : currentLang === 'en' ? 'Requires completing' : currentLang === 'my' ? 'ပြီးဆုံးရန် လိုအပ်သည်' : '需要完成'} ${req.level} (${req.requiredOrders} ${currentLang === 'es' ? 'órdenes' : currentLang === 'en' ? 'orders' : currentLang === 'my' ? 'အမှာစာ' : '订单'})`;
                 }
             }
 
@@ -1481,13 +2162,13 @@
             
             let buttonHtml = '';
             if (isComplete) {
-                buttonHtml = `<button class="btn btn-sm btn-vip completed" disabled>✅ Completado</button>`;
+                buttonHtml = `<button class="btn btn-sm btn-vip completed" disabled>✅ ${currentLang === 'es' ? 'Completado' : currentLang === 'en' ? 'Completed' : currentLang === 'my' ? 'ပြီးဆုံးပြီ' : '已完成'}</button>`;
             } else if (!isUnlocked) {
-                buttonHtml = `<button class="btn btn-sm btn-vip locked" disabled>${lockReason || '🔒 Bloqueado'}</button>`;
+                buttonHtml = `<button class="btn btn-sm btn-vip locked" disabled>${lockReason || '🔒 ' + (currentLang === 'es' ? 'Bloqueado' : currentLang === 'en' ? 'Locked' : currentLang === 'my' ? 'ပိတ်ထားသည်' : '已锁定')}</button>`;
             } else {
                 buttonHtml = `
                     <button class="btn btn-sm btn-vip" onclick="completeVIPOrder('${key}')">
-                        📦 Completar Orden
+                        📦 ${currentLang === 'es' ? 'Completar Orden' : currentLang === 'en' ? 'Complete Order' : currentLang === 'my' ? 'အမှာစာပြီးအောင်လုပ်ရန်' : '完成订单'}
                     </button>
                 `;
             }
@@ -1498,9 +2179,9 @@
                 <div class="vip-info">
                     <div class="vip-title">${order.level}</div>
                     <div class="vip-details">
-                        Ordenes: ${order.completedOrders}/${order.totalOrders}
-                        ${isUnlocked ? `| 💰 Inversión: S/ ${order.baseInvestment.toFixed(2)}` : ''}
-                        ${isUnlocked ? `| 📈 Comisión: ${(order.commissionRate * 100)}%` : ''}
+                        ${currentLang === 'es' ? 'Ordenes' : currentLang === 'en' ? 'Orders' : currentLang === 'my' ? 'အမှာစာ' : '订单'}: ${order.completedOrders}/${order.totalOrders}
+                        ${isUnlocked ? `| 💰 ${currentLang === 'es' ? 'Inversión' : currentLang === 'en' ? 'Investment' : currentLang === 'my' ? 'ရင်းနှီးငွေ' : '投资'}: ${formatCurrency(order.baseInvestment)}` : ''}
+                        ${isUnlocked ? `| 📈 ${currentLang === 'es' ? 'Comisión' : currentLang === 'en' ? 'Commission' : currentLang === 'my' ? 'ကော်မရှင်' : '佣金'}: ${(order.commissionRate * 100)}%` : ''}
                     </div>
                     <div class="vip-progress">
                         <div class="progress-bar" style="width: ${Math.min(progress, 100)}%;"></div>
@@ -1508,7 +2189,7 @@
                 </div>
                 <div class="vip-actions">
                     <div class="order-count">${order.completedOrders}/${order.totalOrders}</div>
-                    ${isUnlocked ? `<div class="commission-info">💰 S/ ${commission.toFixed(2)} por orden</div>` : ''}
+                    ${isUnlocked ? `<div class="commission-info">💰 ${formatCurrency(commission)} ${currentLang === 'es' ? 'por orden' : currentLang === 'en' ? 'per order' : currentLang === 'my' ? 'တစ်ခုလျှင်' : '每订单'}</div>` : ''}
                     ${buttonHtml}
                 </div>
             `;
@@ -1518,14 +2199,15 @@
 
     function completeVIPOrder(vipKey) {
         const order = userData.vipOrders[vipKey];
+        const t = translations[currentLang];
         
         if (!order.isUnlocked) {
-            showMessage('❌ Este nivel VIP no está desbloqueado aún.', false);
+            showMessage(t.notUnlocked, false);
             return;
         }
 
         if (order.completedOrders >= order.totalOrders) {
-            showMessage('✅ ¡Ya has completado todas las órdenes de este nivel!', true);
+            showMessage(t.alreadyCompleted, true);
             return;
         }
 
@@ -1537,7 +2219,7 @@
 
         if (order.completedOrders >= order.totalOrders) {
             order.isCompleted = true;
-            showMessage(`🎉 ¡Felicidades! Has completado ${order.level} y ganado S/ ${commission.toFixed(2)}!`, true);
+            showMessage(`${t.completedAll} ${order.level} ${t.andEarned} ${formatCurrency(commission)}!`, true);
             
             const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
             const currentIndex = vipKeys.indexOf(vipKey);
@@ -1551,12 +2233,12 @@
                     if (reqOrder && reqOrder.completedOrders >= req.requiredOrders) {
                         nextOrder.isUnlocked = true;
                         userData.vipLevels[nextKey].active = true;
-                        showMessage(`🔓 ¡${nextOrder.level} ha sido desbloqueado!`, true);
+                        showMessage(t.unlocked.replace('{level}', nextOrder.level), true);
                     }
                 }
             }
         } else {
-            showMessage(`✅ Orden completada en ${order.level}. Ganaste S/ ${commission.toFixed(2)}! (${order.completedOrders}/${order.totalOrders})`, true);
+            showMessage(`✅ ${t.orderCompleted} ${order.level}. ${t.earned} ${formatCurrency(commission)}! (${order.completedOrders}/${order.totalOrders})`, true);
         }
 
         updateDashboard();
@@ -1572,6 +2254,7 @@
         document.getElementById('dashboard').classList.add('hidden');
         document.getElementById('loginError').style.display = 'none';
         document.getElementById('regError').style.display = 'none';
+        applyTranslations(currentLang);
     }
 
     function showRegister() {
@@ -1580,6 +2263,7 @@
         document.getElementById('dashboard').classList.add('hidden');
         document.getElementById('regError').style.display = 'none';
         document.getElementById('loginError').style.display = 'none';
+        applyTranslations(currentLang);
     }
 
     function switchPage(pageId, element) {
@@ -1601,6 +2285,7 @@
             updateWithdrawBankSelect();
             renderWithdrawalHistory();
         }
+        applyTranslations(currentLang);
     }
 
     // ============================================================
@@ -1616,6 +2301,7 @@
             document.getElementById('bankAccountHolder').value = '';
             document.getElementById('bankCCI').value = '';
         }
+        applyTranslations(currentLang);
     }
 
     function saveBankAccount() {
@@ -1623,9 +2309,10 @@
         const accountNumber = document.getElementById('bankAccountNumber').value.trim();
         const accountHolder = document.getElementById('bankAccountHolder').value.trim();
         const cci = document.getElementById('bankCCI').value.trim();
+        const t = translations[currentLang];
 
         if (!bankName || !accountNumber || !accountHolder || !cci) {
-            showMessage('⚠️ Por favor, completa todos los campos del banco.', false);
+            showMessage('⚠️ ' + (currentLang === 'es' ? 'Por favor, completa todos los campos del banco.' : currentLang === 'en' ? 'Please fill in all bank fields.' : currentLang === 'my' ? 'ကျေးဇူးပြု၍ ဘဏ်အကွက်အားလုံးကို ဖြည့်ပါ။' : '请填写所有银行字段。'), false);
             return;
         }
 
@@ -1638,7 +2325,7 @@
 
         renderBankAccounts();
         toggleBankForm();
-        showMessage(`✅ Cuenta bancaria "${bankName}" agregada con éxito.`, true);
+        showMessage(`✅ ${currentLang === 'es' ? 'Cuenta bancaria' : currentLang === 'en' ? 'Bank account' : currentLang === 'my' ? 'ဘဏ်အကောင့်' : '银行账户'} "${bankName}" ${currentLang === 'es' ? 'agregada con éxito.' : currentLang === 'en' ? 'added successfully.' : currentLang === 'my' ? 'အောင်မြင်စွာထည့်သွင်းပြီးပါပြီ။' : '添加成功。'}`, true);
     }
 
     // ============================================================
@@ -1654,6 +2341,7 @@
             document.getElementById('bankAccountHolderMi').value = '';
             document.getElementById('bankCCIMi').value = '';
         }
+        applyTranslations(currentLang);
     }
 
     function saveBankAccountMi() {
@@ -1661,9 +2349,10 @@
         const accountNumber = document.getElementById('bankAccountNumberMi').value.trim();
         const accountHolder = document.getElementById('bankAccountHolderMi').value.trim();
         const cci = document.getElementById('bankCCIMi').value.trim();
+        const t = translations[currentLang];
 
         if (!bankName || !accountNumber || !accountHolder || !cci) {
-            showMessage('⚠️ Por favor, completa todos los campos del banco.', false);
+            showMessage('⚠️ ' + (currentLang === 'es' ? 'Por favor, completa todos los campos del banco.' : currentLang === 'en' ? 'Please fill in all bank fields.' : currentLang === 'my' ? 'ကျေးဇူးပြု၍ ဘဏ်အကွက်အားလုံးကို ဖြည့်ပါ။' : '请填写所有银行字段。'), false);
             return;
         }
 
@@ -1676,16 +2365,17 @@
 
         renderBankAccounts();
         toggleBankFormMi();
-        showMessage(`✅ Cuenta bancaria "${bankName}" agregada con éxito.`, true);
+        showMessage(`✅ ${currentLang === 'es' ? 'Cuenta bancaria' : currentLang === 'en' ? 'Bank account' : currentLang === 'my' ? 'ဘဏ်အကောင့်' : '银行账户'} "${bankName}" ${currentLang === 'es' ? 'agregada con éxito.' : currentLang === 'en' ? 'added successfully.' : currentLang === 'my' ? 'အောင်မြင်စွာထည့်သွင်းပြီးပါပြီ။' : '添加成功。'}`, true);
     }
 
     function deleteBankAccount(index) {
-        if (confirm('¿Estás seguro de eliminar esta cuenta bancaria?')) {
+        const t = translations[currentLang];
+        if (confirm(currentLang === 'es' ? '¿Estás seguro de eliminar esta cuenta bancaria?' : currentLang === 'en' ? 'Are you sure you want to delete this bank account?' : currentLang === 'my' ? 'ဤဘဏ်အကောင့်ကို ဖျက်ရန် သေချာပါသလား။' : '确定要删除此银行账户吗？')) {
             const deleted = userData.bankAccounts[index];
             userData.bankAccounts.splice(index, 1);
             renderBankAccounts();
             updateWithdrawBankSelect();
-            showMessage(`🗑️ Cuenta "${deleted.bankName}" eliminada.`, true);
+            showMessage(`🗑️ ${currentLang === 'es' ? 'Cuenta' : currentLang === 'en' ? 'Account' : currentLang === 'my' ? 'အကောင့်' : '账户'} "${deleted.bankName}" ${currentLang === 'es' ? 'eliminada.' : currentLang === 'en' ? 'deleted.' : currentLang === 'my' ? 'ဖျက်ပြီးပါပြီ။' : '已删除。'}`, true);
         }
     }
 
@@ -1696,20 +2386,21 @@
         const select = document.getElementById('withdrawBankSelect');
         const amountInput = document.getElementById('withdrawAmount');
         const amount = parseFloat(amountInput.value);
+        const t = translations[currentLang];
 
         const bankIndex = parseInt(select.value);
         if (isNaN(bankIndex) || bankIndex < 0 || bankIndex >= userData.bankAccounts.length) {
-            showMessage('⚠️ Por favor, selecciona una cuenta bancaria.', false);
+            showMessage(t.selectBank, false);
             return;
         }
 
         if (isNaN(amount) || amount <= 0) {
-            showMessage('⚠️ Por favor, ingresa un monto válido mayor a 0.', false);
+            showMessage(t.validAmount, false);
             return;
         }
 
         if (amount > userData.balance) {
-            showMessage(`❌ Saldo insuficiente. Tu saldo es S/ ${userData.balance.toFixed(2)}`, false);
+            showMessage(`${t.insufficientBalance} ${formatCurrency(userData.balance)}`, false);
             return;
         }
 
@@ -1718,7 +2409,7 @@
         userData.retiroCount += 1;
 
         const now = new Date();
-        const dateStr = now.toLocaleDateString('es-ES', {
+        const dateStr = now.toLocaleDateString(currentLang === 'es' ? 'es-ES' : currentLang === 'my' ? 'my-MM' : 'en-US', {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
@@ -1730,13 +2421,13 @@
             bankName: selectedBank.bankName,
             amount: amount,
             date: dateStr,
-            status: 'Completado'
+            status: currentLang === 'es' ? 'Completado' : currentLang === 'en' ? 'Completed' : currentLang === 'my' ? 'ပြီးဆုံးပြီ' : '已完成'
         });
 
         updateDashboard();
         renderWithdrawalHistory();
         amountInput.value = '';
-        showMessage(`✅ Retiro de S/ ${amount.toFixed(2)} a ${selectedBank.bankName} completado con éxito.`, true);
+        showMessage(t.withdrawalSuccess.replace('{amount}', formatCurrency(amount)).replace('{bank}', selectedBank.bankName), true);
     }
 
     // ============================================================
@@ -1747,6 +2438,7 @@
         const countryCode = document.getElementById('regCountryCode').value;
         const username = document.getElementById('regUsername').value.trim();
         const password = document.getElementById('regPassword').value.trim();
+        const t = translations[currentLang];
 
         if (!phone || !username || !password) {
             document.getElementById('regError').style.display = 'block';
@@ -1782,12 +2474,13 @@
 
         updateDashboard();
         renderVIPOrders();
-        showMessage(`✅ ¡Cuenta "${username}" creada con éxito! S/ 10.00 de bienvenida.`, true);
+        showMessage(t.registerSuccess.replace('{username}', username).replace('{amount}', formatCurrency(10.00)), true);
     }
 
     function handleLogin() {
         const identifier = document.getElementById('loginIdentifier').value.trim();
         const password = document.getElementById('loginPassword').value.trim();
+        const t = translations[currentLang];
 
         if ((identifier === userData.username || identifier === userData.phone) && password === userData.password) {
             document.getElementById('loginError').style.display = 'none';
@@ -1799,25 +2492,27 @@
 
             updateDashboard();
             renderVIPOrders();
-            showMessage(`🔓 ¡Bienvenido de nuevo, ${userData.username}!`, true);
+            showMessage(t.loginSuccess.replace('{username}', userData.username), true);
         } else {
             document.getElementById('loginError').style.display = 'block';
-            showMessage('❌ Usuario/teléfono o contraseña incorrectos.', false);
+            showMessage(t.loginError, false);
         }
     }
 
     function handleLogout() {
+        const t = translations[currentLang];
         userData.isLoggedIn = false;
         document.getElementById('dashboard').classList.add('hidden');
         document.getElementById('registerForm').classList.remove('hidden');
         document.getElementById('loginForm').classList.add('hidden');
-        showMessage('👋 Has cerrado sesión correctamente.', true);
+        showMessage(t.logoutSuccess, true);
+        applyTranslations(currentLang);
     }
 
     function updateDashboard() {
         document.getElementById('displayUsername').textContent = userData.username;
-        document.getElementById('displayBalance').textContent = `S/ ${userData.balance.toFixed(2)}`;
-        document.getElementById('totalIncome').textContent = `S/ ${userData.totalIncome.toFixed(2)}`;
+        document.getElementById('displayBalance').textContent = formatCurrency(userData.balance);
+        document.getElementById('totalIncome').textContent = formatCurrency(userData.totalIncome);
         
         const recargaEl = document.getElementById('recargaCount');
         const retiroEl = document.getElementById('retiroCount');
@@ -1834,38 +2529,43 @@
         const profileVip = document.getElementById('profileVip');
         if (profileUsername) profileUsername.textContent = userData.username;
         if (profilePhone) profilePhone.textContent = userData.phone || '+51 987654321';
-        if (profileBalance) profileBalance.textContent = `S/ ${userData.balance.toFixed(2)}`;
+        if (profileBalance) profileBalance.textContent = formatCurrency(userData.balance);
         if (profileVip) profileVip.textContent = 'VIP 1';
         
         renderVIPs();
         renderBankAccounts();
         renderWithdrawalHistory();
+        updateCurrencyDisplay();
+        applyTranslations(currentLang);
     }
 
     // ============================================================
     //  BOTONES DEL DASHBOARD
     // ============================================================
     function handleComenzar() {
+        const t = translations[currentLang];
         userData.balance += 5;
         userData.totalIncome += 5;
         userData.trabajoCount += 1;
         updateDashboard();
-        showMessage('🚀 ¡Has comenzado un nuevo trabajo! +S/ 5.00', true);
+        showMessage(t.comenzarSuccess.replace('{amount}', formatCurrency(5)), true);
     }
 
     function handleRecargar() {
+        const t = translations[currentLang];
         userData.balance += 10;
         userData.recargaCount += 1;
         updateDashboard();
-        showMessage('📥 ¡Recarga exitosa! +S/ 10.00', true);
+        showMessage(t.recargarSuccess.replace('{amount}', formatCurrency(10)), true);
     }
 
     function handleRetirar() {
+        const t = translations[currentLang];
         const navItems = document.querySelectorAll('.bottom-nav .nav-item');
         if (navItems.length > 4) {
             switchPage('miPage', navItems[4]);
         }
-        showMessage('📤 Ve a la sección "Mi" para realizar tu retiro.', true);
+        showMessage(t.goToWithdraw, true);
     }
 
     // ============================================================
@@ -1878,9 +2578,16 @@
         document.getElementById('regError').style.display = 'none';
         document.getElementById('loginError').style.display = 'none';
         
+        // Set default language and currency
+        document.getElementById('languageSwitcher').value = 'es';
+        document.getElementById('currencySwitcher').value = 'PEN';
+        currentLang = 'es';
+        currentCurrency = 'PEN';
+        
         renderBankAccounts();
         renderVIPOrders();
         updateWithdrawBankSelect();
+        applyTranslations('es');
     };
 </script>
 
