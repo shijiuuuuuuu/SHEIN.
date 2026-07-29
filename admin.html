@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shein - Admin Panel</title>
+    <style>
+        /* ========== RESET Y ESTILOS BASE ========== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 20px;
+        }
+
+        .container {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-header h1 {
+            color: #ff6b6b;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+        }
+
+        .admin-header p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .admin-header .badge {
+            background: #ff6b6b;
+            padding: 4px 15px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        /* ========== TABS ========== */
+        .admin-tabs {
+            display: flex;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 5px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .admin-tabs .tab-btn {
+            flex: 1;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+            color: #888;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+            min-width: 80px;
+        }
+
+        .admin-tabs .tab-btn.active {
+            background: #ff6b6b;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .admin-tabs .tab-btn:hover:not(.active) {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .admin-tabs .tab-btn .icon {
+            margin-right: 5px;
+        }
+
+        /* ========== PANELS ========== */
+        .panel {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .panel-title {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-title .count {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        /* ========== FORMULARIOS ========== */
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #ccc;
+            font-size: 0.85rem;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        input::placeholder {
+            color: #666;
+        }
+
+        select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e55a5a;
+            transform: scale(1.02);
+        }
+
+        .btn-success {
+            background: #00b894;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #00a381;
+            transform: scale(1.02);
+        }
+
+        .btn-danger {
+            background: #d63031;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-warning {
+            background: #fdcb6e;
+            color: #2d3436;
+        }
+
+        .btn-warning:hover {
+            background: #f9ca24;
+        }
+
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            width: auto;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ccc;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #ff6b6b;
+            color: #fff;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-group .btn {
+            flex: 1;
+        }
+
+        /* ========== USER LIST ========== */
+        .user-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .user-card .user-info {
+            flex: 1;
+        }
+
+        .user-card .user-info .name {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .user-card .user-info .details {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .user-card .user-balance {
+            font-weight: 700;
+            color: #00b894;
+            font-size: 1.1rem;
+        }
+
+        .user-card .user-actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .user-card .user-actions .btn {
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            width: auto;
+        }
+
+        /* ========== ORDER MANAGEMENT ========== */
+        .order-config {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 8px 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .order-config .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .order-config .order-header .level {
+            font-weight: 700;
+            color: #a29bfe;
+        }
+
+        .order-config .order-header .status {
+            font-size: 0.75rem;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .order-config .order-header .status.active {
+            background: #00b894;
+            color: white;
+        }
+
+        .order-config .order-header .status.locked {
+            background: #636e72;
+            color: #b2bec3;
+        }
+
+        .order-config .order-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .order-config .order-controls input {
+            width: 80px;
+            padding: 6px 10px;
+            font-size: 0.85rem;
+        }
+
+        .order-config .order-controls .btn {
+            width: auto;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+        }
+
+        /* ========== MESSAGE ========== */
+        .message {
+            padding: 10px 15px;
+            border-radius: 12px;
+            margin: 10px 0;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .message.success {
+            display: block;
+            background: rgba(0, 184, 148, 0.2);
+            border: 1px solid #00b894;
+            color: #55efc4;
+        }
+
+        .message.error {
+            display: block;
+            background: rgba(214, 48, 49, 0.2);
+            border: 1px solid #d63031;
+            color: #ff6b6b;
+        }
+
+        .message.info {
+            display: block;
+            background: rgba(9, 132, 227, 0.2);
+            border: 1px solid #0984e3;
+            color: #74b9ff;
+        }
+
+        /* ========== LOGIN OVERLAY ========== */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .login-overlay.hidden {
+            display: none;
+        }
+
+        .login-box {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            padding: 40px;
+            border-radius: 25px;
+            max-width: 380px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-box h2 {
+            text-align: center;
+            color: #ff6b6b;
+            margin-bottom: 5px;
+        }
+
+        .login-box p {
+            text-align: center;
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .login-box .btn {
+            margin-top: 10px;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 600px) {
+            .container {
+                padding: 18px;
+            }
+
+            .admin-tabs .tab-btn {
+                font-size: 0.7rem;
+                padding: 8px 6px;
+                min-width: 60px;
+            }
+
+            .user-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .user-card .user-actions {
+                justify-content: center;
+            }
+
+            .order-config .order-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .order-config .order-controls input {
+                width: 100%;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .login-box {
+                padding: 25px;
+                margin: 20px;
+            }
+
+            .admin-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== LOGIN OVERLAY ===== -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <h2>🔐 Admin Panel</h2>
+            <p>Ingresa tus credenciales para acceder</p>
+            <div class="form-group">
+                <label>👤 Usuario</label>
+                <input type="text" id="adminUser" placeholder="admin" value="admin">
+            </div>
+            <div class="form-group">
+                <label>🔒 Contraseña</label>
+                <input type="password" id="adminPass" placeholder="********" value="admin123">
+            </div>
+            <div id="loginError" class="message error" style="display:none;">❌ Usuario o contraseña incorrectos</div>
+            <button class="btn btn-primary" onclick="adminLogin()">🚪 Ingresar</button>
+            <p style="text-align:center; color:#666; font-size:0.7rem; margin-top:10px;">Usuario: admin | Contraseña: admin123</p>
+        </div>
+    </div>
+
+    <!-- ===== ADMIN PANEL ===== -->
+    <div class="container" id="adminPanel" style="display:none;">
+        <div class="admin-header">
+            <h1>🛠️ Shein Admin</h1>
+            <p>Panel de control para administrar la plataforma</p>
+            <span class="badge">🔒 Sesión activa</span>
+            <button class="btn btn-outline btn-sm" onclick="adminLogout()" style="width:auto; margin-top:8px;">🚪 Cerrar sesión</button>
+        </div>
+
+        <!-- ===== TABS ===== -->
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchTab('users', this)">
+                <span class="icon">👥</span> Usuarios
+            </button>
+            <button class="tab-btn" onclick="switchTab('orders', this)">
+                <span class="icon">📦</span> Órdenes
+            </button>
+            <button class="tab-btn" onclick="switchTab('balance', this)">
+                <span class="icon">💰</span> Balance
+            </button>
+            <button class="tab-btn" onclick="switchTab('settings', this)">
+                <span class="icon">⚙️</span> Ajustes
+            </button>
+        </div>
+
+        <!-- ===== MESSAGE ===== -->
+        <div id="adminMessage" class="message"></div>
+
+        <!-- ===== PANEL: USERS ===== -->
+        <div id="panelUsers" class="panel active">
+            <div class="panel-title">
+                <span>👥 Usuarios Registrados</span>
+                <span class="count" id="userCount">0</span>
+            </div>
+            <div id="userList">
+                <!-- Generado por JavaScript -->
+            </div>
+        </div>
+
+        <!-- ===== PANEL: ORDERS ===== -->
+        <div id="panelOrders" class="panel">
+            <div class="panel-title">
+                <span>📦 Configuración de Órdenes VIP</span>
+                <span class="count">6 Niveles</span>
+            </div>
+            <div id="orderConfigList">
+                <!-- Generado por JavaScript -->
+            </div>
+        </div>
+
+        <!-- ===== PANEL: BALANCE ===== -->
+        <div id="panelBalance" class="panel">
+            <div class="panel-title">
+                <span>💰 Gestionar Balance</span>
+                <span class="count">Selecciona un usuario</span>
+            </div>
+            <div class="form-group">
+                <label>👤 Seleccionar usuario</label>
+                <select id="balanceUserSelect">
+                    <option value="">-- Selecciona un usuario --</option>
+                </select>
+            </div>
+            <div id="balanceUserInfo" style="background:rgba(255,255,255,0.05); border-radius:12px; padding:12px; margin-bottom:15px; display:none;">
+                <div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
+                    <span>👤 <span id="balanceUserName">-</span></span>
+                    <span>💰 <span id="balanceUserCurrent" style="color:#00b894;">S/ 0.00</span></span>
+                </div>
+            </div>
+            <div class="btn-group">
+                <div style="flex:1;">
+                    <label>➕ Agregar Saldo</label>
+                    <div style="display:flex; gap:10px;">
+                        <input type="number" id="balanceAddAmount" placeholder="Monto" min="0.01" step="0.01">
+                        <button class="btn btn-success" onclick="adminAddBalance()" style="width:auto; padding:10px 20px;">➕ Agregar</button>
+                    </div>
+                </div>
+                <div style="flex:1;">
+                    <label>➖ Retirar Saldo</label>
+                    <div style="display:flex; gap:10px;">
+                        <input type="number" id="balanceSubtractAmount" placeholder="Monto" min="0.01" step="0.01">
+                        <button class="btn btn-danger" onclick="adminSubtractBalance()" style="width:auto; padding:10px 20px;">➖ Retirar</button>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top:15px; padding:15px; background:rgba(255,255,255,0.03); border-radius:12px; border:1px dashed rgba(255,255,255,0.1);">
+                <p style="color:#888; font-size:0.85rem;">💡 <strong>Consejo:</strong> Puedes agregar o retirar saldo de cualquier usuario registrado.</p>
+            </div>
+        </div>
+
+        <!-- ===== PANEL: SETTINGS ===== -->
+        <div id="panelSettings" class="panel">
+            <div class="panel-title">
+                <span>⚙️ Ajustes del Sistema</span>
+                <span class="count">Configuración</span>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.05); border-radius:12px; padding:15px; margin:10px 0;">
+                <h4 style="color:#a29bfe; margin-bottom:10px;">🔑 Cambiar Contraseña de Usuario</h4>
+                <div class="form-group">
+                    <label>👤 Seleccionar usuario</label>
+                    <select id="passwordUserSelect">
+                        <option value="">-- Selecciona un usuario --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>🔒 Nueva contraseña</label>
+                    <input type="text" id="newPassword" placeholder="Nueva contraseña (mínimo 6 caracteres)">
+                </div>
+                <button class="btn btn-warning" onclick="adminResetPassword()">🔄 Cambiar Contraseña</button>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.05); border-radius:12px; padding:15px; margin:10px 0;">
+                <h4 style="color:#ff6b6b; margin-bottom:10px;">⚠️ Acciones Peligrosas</h4>
+                <button class="btn btn-danger" onclick="adminClearAllData()" style="margin-bottom:8px;">🗑️ Eliminar todos los datos</button>
+                <p style="color:#888; font-size:0.75rem;">⚠️ Esta acción eliminará todos los usuarios y datos. ¡No se puede deshacer!</p>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.05); border-radius:12px; padding:15px; margin:10px 0;">
+                <h4 style="color:#00b894; margin-bottom:10px;">📊 Estadísticas</h4>
+                <div id="adminStats">
+                    <p>👥 <span id="statUsers">0</span> usuarios registrados</p>
+                    <p>💰 <span id="statTotalBalance">S/ 0.00</span> balance total</p>
+                    <p>📦 <span id="statOrders">0</span> órdenes completadas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        //  ADMIN DATA (Local Storage)
+        // ============================================================
+        // Clave para almacenar datos en Local Storage
+        const STORAGE_KEY = 'shein_admin_data';
+
+        // Datos iniciales
+        let adminData = {
+            users: [],
+            adminPassword: 'admin123',
+            // Datos por defecto de VIP Orders
+            defaultOrders: {
+                vip1: { totalOrders: 12, commissionRate: 0.30 },
+                vip2: { totalOrders: 20, commissionRate: 0.35 },
+                vip3: { totalOrders: 30, commissionRate: 0.40 },
+                vip4: { totalOrders: 40, commissionRate: 0.45 },
+                vip5: { totalOrders: 50, commissionRate: 0.50 },
+                vip6: { totalOrders: 60, commissionRate: 0.55 }
+            }
+        };
+
+        // ============================================================
+        //  FUNCIONES DE ALMACENAMIENTO
+        // ============================================================
+        function loadAdminData() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                try {
+                    adminData = JSON.parse(stored);
+                } catch (e) {
+                    console.error('Error al cargar datos:', e);
+                    // Si hay error, usar datos por defecto
+                    adminData.users = [];
+                    adminData.adminPassword = 'admin123';
+                }
+            }
+            // Asegurar que los campos existan
+            if (!adminData.users) adminData.users = [];
+            if (!adminData.defaultOrders) {
+                adminData.defaultOrders = {
+                    vip1: { totalOrders: 12, commissionRate: 0.30 },
+                    vip2: { totalOrders: 20, commissionRate: 0.35 },
+                    vip3: { totalOrders: 30, commissionRate: 0.40 },
+                    vip4: { totalOrders: 40, commissionRate: 0.45 },
+                    vip5: { totalOrders: 50, commissionRate: 0.50 },
+                    vip6: { totalOrders: 60, commissionRate: 0.55 }
+                };
+            }
+        }
+
+        function saveAdminData() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(adminData));
+        }
+
+        // ============================================================
+        //  FUNCIONES DE LOGIN / LOGOUT
+        // ============================================================
+        function adminLogin() {
+            const user = document.getElementById('adminUser').value.trim();
+            const pass = document.getElementById('adminPass').value.trim();
+            const errorEl = document.getElementById('loginError');
+
+            if (user === 'admin' && pass === adminData.adminPassword) {
+                errorEl.style.display = 'none';
+                document.getElementById('loginOverlay').classList.add('hidden');
+                document.getElementById('adminPanel').style.display = 'block';
+                renderAdminPanel();
+                showMessage('✅ Sesión iniciada correctamente', 'success');
+            } else {
+                errorEl.style.display = 'block';
+                errorEl.textContent = '❌ Usuario o contraseña incorrectos';
+            }
+        }
+
+        function adminLogout() {
+            document.getElementById('loginOverlay').classList.remove('hidden');
+            document.getElementById('adminPanel').style.display = 'none';
+        }
+
+        // ============================================================
+        //  RENDER FUNCTIONS
+        // ============================================================
+        function renderAdminPanel() {
+            renderUsers();
+            renderOrderConfigs();
+            renderBalanceSelects();
+            renderPasswordSelects();
+            renderStats();
+        }
+
+        function renderUsers() {
+            const container = document.getElementById('userList');
+            const count = document.getElementById('userCount');
+            container.innerHTML = '';
+            count.textContent = adminData.users.length;
+
+            if (adminData.users.length === 0) {
+                container.innerHTML = `
+                            <div style="text-align:center; padding:30px; color:#888;">
+                                No hay usuarios registrados aún.
+                            </div>
+                        `;
+                return;
+            }
+
+            adminData.users.forEach((user, index) => {
+                const div = document.createElement('div');
+                div.className = 'user-card';
+                div.innerHTML = `
+                            <div class="user-info">
+                                <div class="name">👤 ${user.username}</div>
+                                <div class="details">📱 ${user.phone || 'Sin teléfono'} | 🆔 ${user.userId || 'N/A'}</div>
+                            </div>
+                            <div class="user-balance">${formatCurrency(user.balance || 0)}</div>
+                            <div class="user-actions">
+                                <button class="btn btn-success btn-sm" onclick="adminSetBalance(${index}, 10)">+10</button>
+                                <button class="btn btn-danger btn-sm" onclick="adminSetBalance(${index}, -5)">-5</button>
+                                <button class="btn btn-warning btn-sm" onclick="adminViewUser(${index})">👁️</button>
+                            </div>
+                        `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderOrderConfigs() {
+            const container = document.getElementById('orderConfigList');
+            container.innerHTML = '';
+
+            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
+            const vipNames = ['VIP 1', 'VIP 2', 'VIP 3', 'VIP 4', 'VIP 5', 'VIP 6'];
+
+            vipKeys.forEach((key, index) => {
+                const config = adminData.defaultOrders[key] || { totalOrders: (index + 1) * 10, commissionRate: 0.30 +
+                        (index * 0.05) };
+                const isUnlocked = index === 0;
+
+                const div = document.createElement('div');
+                div.className = 'order-config';
+                div.innerHTML = `
+                            <div class="order-header">
+                                <span class="level">${vipNames[index]}</span>
+                                <span class="status ${isUnlocked ? 'active' : 'locked'}">${isUnlocked ? '✅ Activo' : '🔒 Bloqueado'}</span>
+                            </div>
+                            <div class="order-controls">
+                                <div style="flex:1;">
+                                    <label style="font-size:0.7rem; color:#888;">Órdenes requeridas</label>
+                                    <input type="number" id="orderTotal_${key}" value="${config.totalOrders}" min="1" max="200">
+                                </div>
+                                <div style="flex:1;">
+                                    <label style="font-size:0.7rem; color:#888;">Comisión (%)</label>
+                                    <input type="number" id="orderRate_${key}" value="${(config.commissionRate * 100).toFixed(0)}" min="5" max="100">
+                                </div>
+                                <button class="btn btn-primary btn-sm" onclick="adminUpdateOrder('${key}')" style="margin-top:6px;">💾 Guardar</button>
+                            </div>
+                        `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderBalanceSelects() {
+            const select = document.getElementById('balanceUserSelect');
+            const passwordSelect = document.getElementById('passwordUserSelect');
+            const currentValue = select.value;
+
+            select.innerHTML = '<option value="">-- Selecciona un usuario --</option>';
+            passwordSelect.innerHTML = '<option value="">-- Selecciona un usuario --</option>';
+
+            adminData.users.forEach((user, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${user.username} (${formatCurrency(user.balance || 0)})`;
+                select.appendChild(option);
+
+                const option2 = document.createElement('option');
+                option2.value = index;
+                option2.textContent = user.username;
+                passwordSelect.appendChild(option2);
+            });
+
+            // Restaurar selección si es posible
+            if (currentValue && parseInt(currentValue) < adminData.users.length) {
+                select.value = currentValue;
+            }
+
+            // Event listener para mostrar información del usuario
+            select.onchange = function() {
+                const idx = parseInt(this.value);
+                const info = document.getElementById('balanceUserInfo');
+                if (!isNaN(idx) && idx >= 0 && idx < adminData.users.length) {
+                    const user = adminData.users[idx];
+                    document.getElementById('balanceUserName').textContent = user.username;
+                    document.getElementById('balanceUserCurrent').textContent = formatCurrency(user.balance || 0);
+                    info.style.display = 'block';
+                } else {
+                    info.style.display = 'none';
+                }
+            };
+        }
+
+        function renderPasswordSelects() {
+            // Ya se actualiza en renderBalanceSelects
+        }
+
+        function renderStats() {
+            const totalUsers = adminData.users.length;
+            const totalBalance = adminData.users.reduce((sum, u) => sum + (u.balance || 0), 0);
+            const totalOrders = adminData.users.reduce((sum, u) => sum + (u.totalOrders || 0), 0);
+
+            document.getElementById('statUsers').textContent = totalUsers;
+            document.getElementById('statTotalBalance').textContent = formatCurrency(totalBalance);
+            document.getElementById('statOrders').textContent = totalOrders;
+        }
+
+        // ============================================================
+        //  ADMIN ACTIONS
+        // ============================================================
+        function showMessage(text, type = 'info') {
+            const el = document.getElementById('adminMessage');
+            el.textContent = text;
+            el.className = 'message ' + type;
+            el.style.display = 'block';
+            setTimeout(() => {
+                el.style.display = 'none';
+            }, 4000);
+        }
+
+        function formatCurrency(amount) {
+            return `S/ ${(amount || 0).toFixed(2)}`;
+        }
+
+        // --- User Management ---
+        function adminSetBalance(index, amount) {
+            if (index < 0 || index >= adminData.users.length) {
+                showMessage('❌ Usuario no encontrado', 'error');
+                return;
+            }
+            const user = adminData.users[index];
+            user.balance = (user.balance || 0) + amount;
+            if (user.balance < 0) user.balance = 0;
+            saveAdminData();
+            renderAdminPanel();
+            showMessage(`✅ ${amount > 0 ? '+' : ''}${formatCurrency(amount)} aplicado a ${user.username}`, 'success');
+        }
+
+        function adminViewUser(index) {
+            if (index < 0 || index >= adminData.users.length) {
+                showMessage('❌ Usuario no encontrado', 'error');
+                return;
+            }
+            const user = adminData.users[index];
+            showMessage(`
+                        👤 ${user.username} | 📱 ${user.phone || 'N/A'} | 💰 ${formatCurrency(user.balance)} | 🆔 ${user.userId || 'N/A'}
+                    `, 'info');
+        }
+
+        // --- Balance Management ---
+        function adminAddBalance() {
+            const select = document.getElementById('balanceUserSelect');
+            const amountInput = document.getElementById('balanceAddAmount');
+            const idx = parseInt(select.value);
+            const amount = parseFloat(amountInput.value);
+
+            if (isNaN(idx) || idx < 0 || idx >= adminData.users.length) {
+                showMessage('❌ Selecciona un usuario válido', 'error');
+                return;
+            }
+
+            if (isNaN(amount) || amount <= 0) {
+                showMessage('❌ Ingresa un monto válido mayor a 0', 'error');
+                return;
+            }
+
+            const user = adminData.users[idx];
+            user.balance = (user.balance || 0) + amount;
+            saveAdminData();
+            renderAdminPanel();
+            amountInput.value = '';
+            showMessage(`✅ Agregado ${formatCurrency(amount)} a ${user.username}`, 'success');
+        }
+
+        function adminSubtractBalance() {
+            const select = document.getElementById('balanceUserSelect');
+            const amountInput = document.getElementById('balanceSubtractAmount');
+            const idx = parseInt(select.value);
+            const amount = parseFloat(amountInput.value);
+
+            if (isNaN(idx) || idx < 0 || idx >= adminData.users.length) {
+                showMessage('❌ Selecciona un usuario válido', 'error');
+                return;
+            }
+
+            if (isNaN(amount) || amount <= 0) {
+                showMessage('❌ Ingresa un monto válido mayor a 0', 'error');
+                return;
+            }
+
+            const user = adminData.users[idx];
+            user.balance = (user.balance || 0) - amount;
+            if (user.balance < 0) user.balance = 0;
+            saveAdminData();
+            renderAdminPanel();
+            amountInput.value = '';
+            showMessage(`✅ Retirado ${formatCurrency(amount)} de ${user.username}`, 'success');
+        }
+
+        // --- Order Management ---
+        function adminUpdateOrder(vipKey) {
+            const totalInput = document.getElementById(`orderTotal_${vipKey}`);
+            const rateInput = document.getElementById(`orderRate_${vipKey}`);
+
+            const totalOrders = parseInt(totalInput.value);
+            const commissionRate = parseFloat(rateInput.value) / 100;
+
+            if (isNaN(totalOrders) || totalOrders < 1) {
+                showMessage('❌ Ingresa un número válido de órdenes', 'error');
+                return;
+            }
+
+            if (isNaN(commissionRate) || commissionRate < 0.05 || commissionRate > 1) {
+                showMessage('❌ Ingresa una comisión válida (5-100%)', 'error');
+                return;
+            }
+
+            adminData.defaultOrders[vipKey] = {
+                totalOrders: totalOrders,
+                commissionRate: commissionRate
+            };
+
+            saveAdminData();
+            renderAdminPanel();
+            showMessage(`✅ Configuración de ${vipKey.toUpperCase()} actualizada`, 'success');
+        }
+
+        // --- Password Reset ---
+        function adminResetPassword() {
+            const select = document.getElementById('passwordUserSelect');
+            const newPass = document.getElementById('newPassword').value.trim();
+
+            const idx = parseInt(select.value);
+            if (isNaN(idx) || idx < 0 || idx >= adminData.users.length) {
+                showMessage('❌ Selecciona un usuario válido', 'error');
+                return;
+            }
+
+            if (newPass.length < 6) {
+                showMessage('❌ La contraseña debe tener al menos 6 caracteres', 'error');
+                return;
+            }
+
+            const user = adminData.users[idx];
+            user.password = newPass;
+            saveAdminData();
+            document.getElementById('newPassword').value = '';
+            showMessage(`✅ Contraseña de ${user.username} actualizada`, 'success');
+        }
+
+        // --- Danger Zone ---
+        function adminClearAllData() {
+            if (confirm('⚠️ ¿Estás seguro de eliminar TODOS los datos de usuarios? ¡Esta acción no se puede deshacer!')) {
+                if (confirm('⚠️ Confirmación final: ¿Estás absolutamente seguro?')) {
+                    adminData.users = [];
+                    saveAdminData();
+                    renderAdminPanel();
+                    showMessage('🗑️ Todos los datos han sido eliminados', 'error');
+                }
+            }
+        }
+
+        // ============================================================
+        //  TAB SWITCHING
+        // ============================================================
+        function switchTab(tabId, element) {
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            // Add active class to clicked tab
+            if (element) {
+                element.classList.add('active');
+            }
+
+            // Hide all panels
+            document.querySelectorAll('.panel').forEach(el => el.classList.remove('active'));
+
+            // Show selected panel
+            document.getElementById(`panel${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`).classList.add('active');
+
+            // Render appropriate content
+            if (tabId === 'users') renderUsers();
+            if (tabId === 'orders') renderOrderConfigs();
+            if (tabId === 'balance') renderBalanceSelects();
+            if (tabId === 'settings') {
+                renderPasswordSelects();
+                renderStats();
+            }
+        }
+
+        // ============================================================
+        //  SYNC WITH FRONTEND USER DATA
+        // ============================================================
+        // Función para sincronizar con los datos del frontend (main app)
+        function syncUserData(frontendUsers) {
+            // Este método se llama desde la app principal cuando se registra un usuario
+            // Para simplificar, se puede llamar manualmente o automáticamente
+            console.log('Usuarios sincronizados:', frontendUsers);
+            // En una implementación real, se guardaría en localStorage
+        }
+
+        // ============================================================
+        //  INIT
+        // ============================================================
+        // Cargar datos al iniciar
+        loadAdminData();
+
+        // Verificar si hay usuarios de muestra para demostración
+        if (adminData.users.length === 0) {
+            // Agregar usuario de ejemplo
+            adminData.users.push({
+                username: 'demo_user',
+                phone: '987654321',
+                password: 'demo123',
+                balance: 25.50,
+                userId: '1234567',
+                totalOrders: 5
+            });
+            adminData.users.push({
+                username: 'test_user',
+                phone: '912345678',
+                password: 'test123',
+                balance: 15.00,
+                userId: '7654321',
+                totalOrders: 3
+            });
+            saveAdminData();
+        }
+
+        // Mostrar panel si ya está logueado (para desarrollo)
+        // En producción, siempre mostrar login primero
+        // document.getElementById('loginOverlay').classList.remove('hidden');
+
+        console.log('🛠️ Admin Panel cargado correctamente');
+        console.log('👥 Usuarios:', adminData.users.length);
+        console.log('🔑 Contraseña admin:', adminData.adminPassword);
+    </script>
+
+</body>
+</html>
