@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shein - Admin Panel</title>
     <style>
-        /* ========== RESET Y ESTILOS BASE ========== */
+        /* ========== RESET ========== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -28,7 +28,7 @@
             padding: 25px 30px;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            max-width: 1100px;
+            max-width: 1000px;
             width: 100%;
             border: 1px solid #e8e8e8;
         }
@@ -71,9 +71,11 @@
             color: #fff;
         }
 
-        .admin-header .user-info .btn {
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #ddd;
+            color: #888;
             padding: 6px 16px;
-            border: none;
             border-radius: 10px;
             font-size: 0.8rem;
             font-weight: 600;
@@ -81,35 +83,10 @@
             transition: 0.3s;
         }
 
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #ddd;
-            color: #888;
-        }
-
         .btn-outline:hover {
             background: #f8f9fa;
             border-color: #ff6b6b;
             color: #2d3436;
-        }
-
-        /* ========== BREADCRUMB ========== */
-        .breadcrumb {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            font-size: 0.85rem;
-            color: #888;
-            flex-wrap: wrap;
-        }
-
-        .breadcrumb span {
-            color: #2d3436;
-            font-weight: 600;
-        }
-
-        .breadcrumb .separator {
-            color: #ddd;
         }
 
         /* ========== SEARCH SECTION ========== */
@@ -134,7 +111,7 @@
             gap: 15px;
         }
 
-        .search-grid .form-group {
+        .form-group {
             margin-bottom: 0;
         }
 
@@ -173,8 +150,8 @@
             flex-wrap: wrap;
         }
 
-        .search-actions .btn {
-            padding: 8px 25px;
+        .btn {
+            padding: 8px 20px;
             border: none;
             border-radius: 10px;
             font-size: 0.85rem;
@@ -222,18 +199,6 @@
         .btn-sm {
             padding: 4px 12px;
             font-size: 0.75rem;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #ddd;
-            color: #888;
-        }
-
-        .btn-outline:hover {
-            background: #f8f9fa;
-            border-color: #ff6b6b;
-            color: #2d3436;
         }
 
         /* ========== USER RESULT CARD ========== */
@@ -291,7 +256,7 @@
 
         .user-result-card .user-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 12px;
             margin-bottom: 15px;
         }
@@ -312,7 +277,7 @@
         }
 
         .user-result-card .user-stats .stat-item .value {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             color: #2d3436;
             margin-top: 3px;
@@ -390,6 +355,65 @@
             transition: 0.3s;
             width: auto;
             white-space: nowrap;
+        }
+
+        /* ========== BANK ACCOUNTS SECTION ========== */
+        .bank-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #e8e8e8;
+        }
+
+        .bank-section .bank-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #2d3436;
+            margin-bottom: 10px;
+        }
+
+        .bank-item {
+            background: white;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin: 6px 0;
+            border: 1px solid #e8e8e8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .bank-item .bank-info {
+            font-size: 0.85rem;
+        }
+
+        .bank-item .bank-info .bank-name {
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+
+        .bank-item .bank-info .bank-details {
+            color: #888;
+            font-size: 0.75rem;
+        }
+
+        .bank-item .bank-badge {
+            background: #00b894;
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+
+        .no-banks {
+            text-align: center;
+            padding: 15px;
+            color: #888;
+            font-size: 0.85rem;
+            background: #f8f9fa;
+            border-radius: 10px;
         }
 
         /* ========== NOT FOUND ========== */
@@ -484,7 +508,12 @@
         }
 
         .login-box .btn {
+            width: 100%;
             margin-top: 10px;
+        }
+
+        .login-box .form-group {
+            margin-bottom: 14px;
         }
 
         .login-box .form-group label {
@@ -500,10 +529,6 @@
         .login-box .form-group input:focus {
             border-color: #ff6b6b;
             background: #fff;
-        }
-
-        .login-box .form-group {
-            margin-bottom: 14px;
         }
 
         /* ========== RESPONSIVE ========== */
@@ -571,7 +596,7 @@
                 <input type="password" id="adminPass" placeholder="********" value="admin123">
             </div>
             <div id="loginError" class="message error" style="display:none;">❌ Usuario o contraseña incorrectos</div>
-            <button class="btn btn-primary" onclick="adminLogin()" style="width:100%;">🚪 Ingresar</button>
+            <button class="btn btn-primary" onclick="adminLogin()">🚪 Ingresar</button>
             <p style="text-align:center; color:#aaa; font-size:0.7rem; margin-top:10px;">Usuario: admin | Contraseña: admin123</p>
         </div>
     </div>
@@ -583,21 +608,12 @@
         <div class="admin-header">
             <div class="logo">
                 <h1>🛠️ Shein Admin</h1>
-                <span>Panel de control - Member Management</span>
+                <span>Panel de control - Gestión de usuarios</span>
             </div>
             <div class="user-info">
                 <span class="badge">🔒 Sesión activa</span>
-                <button class="btn btn-outline" onclick="adminLogout()">🚪 Cerrar sesión</button>
+                <button class="btn-outline" onclick="adminLogout()">🚪 Cerrar sesión</button>
             </div>
-        </div>
-
-        <!-- ===== BREADCRUMB ===== -->
-        <div class="breadcrumb">
-            <span>🏠 Inicio</span>
-            <span class="separator">›</span>
-            <span>👥 Miembros</span>
-            <span class="separator">›</span>
-            <span>🔍 Buscar por ID</span>
         </div>
 
         <!-- ===== MESSAGE ===== -->
@@ -605,35 +621,15 @@
 
         <!-- ===== SEARCH SECTION ===== -->
         <div class="search-section">
-            <div class="search-title">🔍 Buscar miembro por ID</div>
+            <div class="search-title">🔍 Buscar usuario por ID o teléfono</div>
             <div class="search-grid">
                 <div class="form-group">
-                    <label>🆔 ID de miembro</label>
-                    <input type="text" id="searchUserId" placeholder="Ej: 1234567" maxlength="7">
-                </div>
-                <div class="form-group">
-                    <label>👤 Usuario</label>
-                    <input type="text" id="searchUsername" placeholder="Nombre de usuario">
-                </div>
-                <div class="form-group">
-                    <label>📱 Teléfono</label>
-                    <input type="text" id="searchPhone" placeholder="Número de teléfono">
-                </div>
-                <div class="form-group">
-                    <label>🌍 País</label>
-                    <select id="searchCountry">
-                        <option value="">Todos</option>
-                        <option value="Perú">Perú</option>
-                        <option value="Colombia">Colombia</option>
-                        <option value="México">México</option>
-                        <option value="Chile">Chile</option>
-                        <option value="Argentina">Argentina</option>
-                        <option value="España">España</option>
-                    </select>
+                    <label>🆔 ID o 📱 Teléfono</label>
+                    <input type="text" id="searchInput" placeholder="Ej: 1234567 o 987654321">
                 </div>
             </div>
             <div class="search-actions">
-                <button class="btn btn-primary" onclick="searchUserById()">🔍 Buscar</button>
+                <button class="btn btn-primary" onclick="searchUser()">🔍 Buscar</button>
                 <button class="btn btn-outline" onclick="clearSearch()">🗑️ Limpiar</button>
             </div>
         </div>
@@ -641,8 +637,8 @@
         <!-- ===== NOT FOUND ===== -->
         <div class="not-found" id="notFound">
             <div class="icon">🔍</div>
-            <p>No se encontró ningún usuario con este ID.</p>
-            <p style="font-size:0.8rem; color:#aaa;">Verifica que el ID sea correcto (7 dígitos)</p>
+            <p>No se encontró ningún usuario con este ID o teléfono.</p>
+            <p style="font-size:0.8rem; color:#aaa;">Verifica que el ID sea de 7 dígitos o el teléfono sea correcto</p>
         </div>
 
         <!-- ===== USER RESULT CARD ===== -->
@@ -661,12 +657,16 @@
                     <div class="value green" id="resultUserBalance">S/ 10.00</div>
                 </div>
                 <div class="stat-item">
-                    <div class="label">📈 Ingresos totales</div>
+                    <div class="label">📈 Ingresos</div>
                     <div class="value orange" id="resultUserIncome">S/ 0.00</div>
                 </div>
                 <div class="stat-item">
-                    <div class="label">⭐ Nivel VIP</div>
+                    <div class="label">⭐ VIP</div>
                     <div class="value purple" id="resultUserVip">VIP 1</div>
+                </div>
+                <div class="stat-item">
+                    <div class="label">📦 Órdenes</div>
+                    <div class="value red" id="resultUserOrders">0</div>
                 </div>
                 <div class="stat-item">
                     <div class="label">🌍 País</div>
@@ -676,15 +676,10 @@
                     <div class="label">📅 Registro</div>
                     <div class="value" id="resultUserDate">2026-07-23</div>
                 </div>
-                <div class="stat-item">
-                    <div class="label">📦 Órdenes</div>
-                    <div class="value red" id="resultUserOrders">0</div>
-                </div>
             </div>
 
             <!-- ===== USER ACTIONS ===== -->
             <div class="user-actions-grid">
-                <!-- Agregar Saldo -->
                 <div class="action-group">
                     <span class="action-label">➕ Agregar Saldo</span>
                     <div class="input-group">
@@ -693,7 +688,6 @@
                     </div>
                 </div>
 
-                <!-- Retirar Saldo -->
                 <div class="action-group">
                     <span class="action-label">➖ Retirar Saldo</span>
                     <div class="input-group">
@@ -702,7 +696,6 @@
                     </div>
                 </div>
 
-                <!-- Cambiar Contraseña -->
                 <div class="action-group">
                     <span class="action-label">🔑 Cambiar Contraseña</span>
                     <div class="input-group">
@@ -711,9 +704,8 @@
                     </div>
                 </div>
 
-                <!-- Congelar / Descongelar -->
                 <div class="action-group">
-                    <span class="action-label">🔒 Estado de cuenta</span>
+                    <span class="action-label">🔒 Estado</span>
                     <div class="input-group" style="gap:6px;">
                         <button class="btn btn-danger" onclick="resultFreezeAccount()" style="flex:1;">🔒 Congelar</button>
                         <button class="btn btn-success" onclick="resultUnfreezeAccount()" style="flex:1;">🔓 Descongelar</button>
@@ -721,9 +713,17 @@
                 </div>
             </div>
 
+            <!-- ===== BANK ACCOUNTS ===== -->
+            <div class="bank-section">
+                <div class="bank-title">🏦 Cuentas bancarias vinculadas</div>
+                <div id="bankListContainer">
+                    <!-- Generado por JavaScript -->
+                </div>
+            </div>
+
             <!-- ===== EXTRA ACTIONS ===== -->
             <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap; border-top:1px solid #e8e8e8; padding-top:15px;">
-                <button class="btn btn-primary btn-sm" onclick="resultViewFullDetails()" style="width:auto;">👁️ Ver detalles completos</button>
+                <button class="btn btn-primary btn-sm" onclick="resultViewFullDetails()" style="width:auto;">👁️ Ver detalles</button>
                 <button class="btn btn-warning btn-sm" onclick="resultViewHistory()" style="width:auto;">📋 Historial</button>
                 <button class="btn btn-outline btn-sm" onclick="clearSearch()" style="width:auto;">🗑️ Limpiar</button>
                 <span style="font-size:0.7rem; color:#888; margin-left:auto; align-self:center;" id="resultStatus">✅ Activo</span>
@@ -732,7 +732,7 @@
 
         <!-- ===== FOOTER ===== -->
         <div style="text-align:center; margin-top:20px; padding-top:15px; border-top:1px solid #f0f0f0; font-size:0.7rem; color:#aaa;">
-            Shein Admin Panel v2.0 | © 2026 Todos los derechos reservados
+            Shein Admin Panel v3.0 | © 2026 Todos los derechos reservados
         </div>
     </div>
 
@@ -758,7 +758,7 @@
         let currentSearchUserIndex = -1;
 
         // ============================================================
-        //  FUNCIONES DE ALMACENAMIENTO
+        //  STORAGE FUNCTIONS
         // ============================================================
         function loadAdminData() {
             const stored = localStorage.getItem(STORAGE_KEY);
@@ -789,7 +789,7 @@
         }
 
         // ============================================================
-        //  FUNCIONES DE LOGIN / LOGOUT
+        //  LOGIN / LOGOUT
         // ============================================================
         function adminLogin() {
             const user = document.getElementById('adminUser').value.trim();
@@ -813,7 +813,7 @@
         }
 
         // ============================================================
-        //  FUNCIONES AUXILIARES
+        //  HELPER FUNCTIONS
         // ============================================================
         function showMessage(text, type = 'info') {
             const el = document.getElementById('adminMessage');
@@ -842,40 +842,26 @@
             return now.toISOString().split('T')[0];
         }
 
-        function getCurrentTime() {
-            const now = new Date();
-            return now.toTimeString().split(' ')[0];
-        }
-
         // ============================================================
         //  SEARCH FUNCTIONS
         // ============================================================
-        function searchUserById() {
-            const userId = document.getElementById('searchUserId').value.trim();
-            const username = document.getElementById('searchUsername').value.trim().toLowerCase();
-            const phone = document.getElementById('searchPhone').value.trim();
-            const country = document.getElementById('searchCountry').value;
-
+        function searchUser() {
+            const searchTerm = document.getElementById('searchInput').value.trim();
             const resultCard = document.getElementById('userResultCard');
             const notFound = document.getElementById('notFound');
 
-            if (!userId && !username && !phone) {
-                showMessage('⚠️ Ingresa un ID, usuario o teléfono para buscar', 'error');
+            if (!searchTerm) {
+                showMessage('⚠️ Ingresa un ID o número de teléfono', 'error');
                 return;
             }
 
             let foundIndex = -1;
 
             adminData.users.forEach((user, index) => {
-                let match = false;
-
-                if (userId && user.userId === userId) match = true;
-                else if (username && user.username.toLowerCase().includes(username)) match = true;
-                else if (phone && user.phone === phone) match = true;
-
-                if (country && user.country !== country) match = false;
-
-                if (match) foundIndex = index;
+                // Buscar por ID o teléfono
+                if (user.userId === searchTerm || user.phone === searchTerm) {
+                    foundIndex = index;
+                }
             });
 
             if (foundIndex === -1) {
@@ -907,15 +893,47 @@
             document.getElementById('resultStatus').textContent = user.frozen ? '🔒 Congelado' : '✅ Activo';
             document.getElementById('resultStatus').style.color = user.frozen ? '#d63031' : '#00b894';
 
-            // Guardar referencia en el user para acciones
+            // Mostrar bancos
+            renderBankAccounts(user);
+
             window._currentUserIndex = index;
         }
 
+        function renderBankAccounts(user) {
+            const container = document.getElementById('bankListContainer');
+            container.innerHTML = '';
+
+            const banks = user.bankAccounts || [];
+
+            if (banks.length === 0) {
+                container.innerHTML = `
+                            <div class="no-banks">
+                                No hay cuentas bancarias vinculadas.
+                            </div>
+                        `;
+                return;
+            }
+
+            banks.forEach((bank, index) => {
+                const div = document.createElement('div');
+                div.className = 'bank-item';
+                div.innerHTML = `
+                            <div class="bank-info">
+                                <div class="bank-name">🏛️ ${bank.bankName || 'Banco'}</div>
+                                <div class="bank-details">
+                                    ${bank.accountNumber ? '🔢 ' + bank.accountNumber : ''}
+                                    ${bank.accountHolder ? ' | 👤 ' + bank.accountHolder : ''}
+                                    ${bank.cci ? ' | CCI: ' + bank.cci : ''}
+                                </div>
+                            </div>
+                            <span class="bank-badge">✅ Vinculado</span>
+                        `;
+                container.appendChild(div);
+            });
+        }
+
         function clearSearch() {
-            document.getElementById('searchUserId').value = '';
-            document.getElementById('searchUsername').value = '';
-            document.getElementById('searchPhone').value = '';
-            document.getElementById('searchCountry').value = '';
+            document.getElementById('searchInput').value = '';
             document.getElementById('userResultCard').classList.remove('show');
             document.getElementById('notFound').classList.remove('show');
             currentSearchUserIndex = -1;
@@ -1030,34 +1048,59 @@
             const user = getCurrentUser();
             if (!user) return;
 
+            let banksInfo = 'No hay bancos vinculados';
+            if (user.bankAccounts && user.bankAccounts.length > 0) {
+                banksInfo = user.bankAccounts.map(b =>
+                    `  🏛️ ${b.bankName || 'Banco'}\n` +
+                    `     🔢 ${b.accountNumber || 'N/A'}\n` +
+                    `     👤 ${b.accountHolder || 'N/A'}\n` +
+                    `     CCI: ${b.cci || 'N/A'}`
+                ).join('\n\n');
+            }
+
             let details = `
+            📋 DETALLES COMPLETOS DEL USUARIO
+            ═══════════════════════════════════
+
             👤 Usuario: ${user.username}
             🆔 ID: ${user.userId}
             📱 Teléfono: ${user.phone}
-            💰 Saldo: ${formatCurrency(user.balance)}
-            📈 Ingresos: ${formatCurrency(user.totalIncome || 0)}
-            ⭐ VIP: ${user.vipLevel || 'VIP 1'}
             🌍 País: ${user.country || 'Perú'}
             📅 Registro: ${user.registrationDate || getCurrentDate()}
-            🔒 Estado: ${user.frozen ? 'Congelado' : 'Activo'}
+
+            💰 Saldo: ${formatCurrency(user.balance)}
+            📈 Ingresos totales: ${formatCurrency(user.totalIncome || 0)}
+            ⭐ Nivel VIP: ${user.vipLevel || 'VIP 1'}
             📦 Órdenes: ${user.totalOrders || 0}
+            🔒 Estado: ${user.frozen ? 'Congelado' : 'Activo'}
+
+            🏦 CUENTAS BANCARIAS:
+            ${banksInfo}
             `;
 
-            alert('📋 Detalles completos del usuario:\n\n' + details);
+            alert(details);
         }
 
         function resultViewHistory() {
             const user = getCurrentUser();
             if (!user) return;
 
-            alert(`📋 Historial de ${user.username}:\n\n` +
+            const history = user.history || [];
+
+            let historyText = 'No hay historial disponible';
+            if (history.length > 0) {
+                historyText = history.map((h, i) =>
+                    `  ${i+1}. ${h.action || 'Acción'} - ${h.amount ? formatCurrency(h.amount) : ''} (${h.date || 'N/A'})`
+                ).join('\n');
+            }
+
+            alert(`📋 HISTORIAL DE ${user.username.toUpperCase()}\n\n` +
                 `💰 Saldo actual: ${formatCurrency(user.balance)}\n` +
                 `📈 Ingresos totales: ${formatCurrency(user.totalIncome || 0)}\n` +
-                `📦 Órdenes completadas: ${user.totalOrders || 0}\n` +
-                `⭐ Nivel VIP: ${user.vipLevel || 'VIP 1'}\n` +
-                `📅 Registrado: ${user.registrationDate || getCurrentDate()}\n` +
+                `📦 Órdenes: ${user.totalOrders || 0}\n` +
+                `⭐ VIP: ${user.vipLevel || 'VIP 1'}\n` +
                 `🔒 Estado: ${user.frozen ? 'Congelado' : 'Activo'}\n\n` +
-                `🔄 Para ver más detalles, usa "Ver detalles completos"`);
+                `📜 HISTORIAL DE TRANSACCIONES:\n${historyText}`);
         }
 
         // ============================================================
@@ -1065,7 +1108,6 @@
         // ============================================================
         loadAdminData();
 
-        // Agregar usuarios de ejemplo si no hay
         if (adminData.users.length === 0) {
             adminData.users.push({
                 username: 'Jhostynjose',
@@ -1079,7 +1121,16 @@
                 vipLevel: 'VIP 1',
                 totalOrders: 20,
                 frozen: false,
-                registrationDate: '2026-07-23 11:30'
+                registrationDate: '2026-07-23 11:30',
+                bankAccounts: [
+                    { bankName: 'Banco BBVA', accountNumber: '453215', accountHolder: 'Jhostynjose', cci: '5412456' },
+                    { bankName: 'Banco de Crédito (BCP)', accountNumber: '789012', accountHolder: 'Jhostynjose',
+                    cci: '9876543' }
+                ],
+                history: [
+                    { action: 'Depósito', amount: 50, date: '2026-07-23 10:00' },
+                    { action: 'Retiro', amount: 20, date: '2026-07-22 15:30' }
+                ]
             });
             adminData.users.push({
                 username: 'test_user',
@@ -1093,7 +1144,13 @@
                 vipLevel: 'VIP 1',
                 totalOrders: 3,
                 frozen: false,
-                registrationDate: '2026-07-22 14:20'
+                registrationDate: '2026-07-22 14:20',
+                bankAccounts: [
+                    { bankName: 'Banco Interbank', accountNumber: '123456', accountHolder: 'Test User', cci: '1234567' }
+                ],
+                history: [
+                    { action: 'Depósito', amount: 10, date: '2026-07-22 12:00' }
+                ]
             });
             saveAdminData();
         }
