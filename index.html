@@ -33,44 +33,50 @@
             position: relative;
         }
 
-        /* ========== LANGUAGE & CURRENCY SWITCHER ========== */
+        /* ========== TOP BAR: LANGUAGE & CURRENCY SWITCHER ========== */
         .top-bar {
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 10px;
             padding-bottom: 10px;
             border-bottom: 1px solid #f0f0f0;
+            flex-wrap: wrap;
         }
 
         .top-bar .switcher-group {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
+            background: #f8f9fa;
+            padding: 3px 8px 3px 5px;
+            border-radius: 25px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .top-bar .switcher-group .icon {
+            font-size: 1rem;
         }
 
         .top-bar .switcher-group select {
-            padding: 5px 10px;
-            border-radius: 20px;
-            border: 1px solid #ddd;
-            background: #fafafa;
-            font-size: 0.75rem;
+            padding: 4px 6px;
+            border: none;
+            background: transparent;
+            font-size: 0.7rem;
             cursor: pointer;
             outline: none;
-            transition: 0.3s;
+            color: #2d3436;
+            font-weight: 500;
+            max-width: 110px;
         }
 
         .top-bar .switcher-group select:hover {
-            border-color: #ff6b6b;
+            color: #ff6b6b;
         }
 
-        .top-bar .switcher-group .globe-icon {
-            font-size: 1.2rem;
-        }
-
-        .top-bar .switcher-group .currency-icon {
-            font-size: 1.2rem;
+        .top-bar .switcher-group select option {
+            font-size: 0.75rem;
         }
 
         .app-header {
@@ -871,8 +877,15 @@
                 width: 100%;
             }
             .top-bar {
-                flex-wrap: wrap;
                 justify-content: center;
+                gap: 5px;
+            }
+            .top-bar .switcher-group select {
+                max-width: 80px;
+                font-size: 0.65rem;
+            }
+            .top-bar .switcher-group {
+                padding: 2px 5px 2px 4px;
             }
         }
     </style>
@@ -884,21 +897,33 @@
     <!-- ===== TOP BAR: LANGUAGE & CURRENCY SWITCHER ===== -->
     <div class="top-bar">
         <div class="switcher-group">
-            <span class="globe-icon">🌐</span>
+            <span class="icon">🌐</span>
             <select id="languageSwitcher" onchange="changeLanguage(this.value)">
                 <option value="es">🇪🇸 Español</option>
                 <option value="en">🇬🇧 English</option>
                 <option value="my">🇲🇲 မြန်မာ</option>
                 <option value="zh">🇨🇳 中文</option>
+                <option value="ja">🇯🇵 日本語</option>
+                <option value="ko">🇰🇷 한국어</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="de">🇩🇪 Deutsch</option>
+                <option value="pt">🇵🇹 Português</option>
+                <option value="ru">🇷🇺 Русский</option>
             </select>
         </div>
         <div class="switcher-group">
-            <span class="currency-icon">💰</span>
+            <span class="icon">💰</span>
             <select id="currencySwitcher" onchange="changeCurrency(this.value)">
-                <option value="PEN">S/ (Perú)</option>
+                <option value="PEN">S/ (PEN)</option>
                 <option value="USD">$ (USD)</option>
                 <option value="EUR">€ (EUR)</option>
                 <option value="MMK">K (MMK)</option>
+                <option value="JPY">¥ (JPY)</option>
+                <option value="KRW">₩ (KRW)</option>
+                <option value="GBP">£ (GBP)</option>
+                <option value="CNY">¥ (CNY)</option>
+                <option value="BRL">R$ (BRL)</option>
+                <option value="RUB">₽ (RUB)</option>
             </select>
         </div>
     </div>
@@ -927,6 +952,12 @@
                 <option value="+44">+44 (UK)</option>
                 <option value="+86">+86 (China)</option>
                 <option value="+34">+34 (España)</option>
+                <option value="+81">+81 (Japón)</option>
+                <option value="+82">+82 (Corea)</option>
+                <option value="+33">+33 (Francia)</option>
+                <option value="+49">+49 (Alemania)</option>
+                <option value="+55">+55 (Brasil)</option>
+                <option value="+7">+7 (Rusia)</option>
             </select>
         </div>
 
@@ -1313,11 +1344,10 @@
 
 <script>
     // ============================================================
-    //  LANGUAGE & CURRENCY DATA
+    //  TRANSLATIONS DATA (10 LANGUAGES)
     // ============================================================
     const translations = {
         es: {
-            // General
             appTitle: '✨ Tu centro comercial online ✨',
             registerTitle: '📝 Crear cuenta',
             loginTitle: '🔐 Iniciar sesión',
@@ -1331,14 +1361,12 @@
             switchToRegister: '¿No tienes cuenta?',
             loginIdentifierLabel: '👤 Usuario o teléfono',
             loginPasswordLabel: '🔒 Contraseña',
-            // Dashboard
             greeting: 'Hola',
             balanceLabel: '💰 Saldo',
             incomeLabel: '📈 Ingresos totales',
             comenzarBtn: '🚀 COMENZAR',
             recargarBtn: '📥 RECARGAR',
             retirarBtn: '📤 RETIRAR',
-            // Inicio
             welcomeTitle: '¡Bienvenido a Shein!',
             welcomeSubtitle: 'Miles de personas confían en nosotros en todo el mundo.',
             statUsers: 'Usuarios activos',
@@ -1359,10 +1387,8 @@
             garantia4: '✅ Datos protegidos',
             garantia5: '✅ Sin comisiones ocultas',
             garantia6: '✅ Seguridad bancaria',
-            // VIP Orders
             vipOrdersTitle: '📦 Órdenes VIP',
             vipOrdersSubtitle: 'Completa órdenes para ganar comisiones. ¡Cada orden te acerca a tu próximo nivel VIP!',
-            // Config
             configTitle: '⚙️ Configuración',
             addBankBtn: '➕ Agregar cuenta bancaria',
             addBankTitle: '🏦 Agregar cuenta bancaria',
@@ -1375,13 +1401,11 @@
             langLabel: '🌐 Idioma',
             currencyLabel: '💰 Moneda',
             noBanks: 'No hay cuentas bancarias registradas.',
-            // Contrato
             contratoTitle: '📄 Contrato',
             contratoText: 'Términos y condiciones de Shein. Lee atentamente antes de aceptar.',
             contratoItem1: '📌 Shein se compromete a proporcionar un servicio seguro y transparente.',
             contratoItem2: '📌 Los retiros se procesan en un plazo de 24 horas.',
             contratoItem3: '📌 Los datos personales están protegidos bajo nuestra política de privacidad.',
-            // Trabajo
             trabajoTitle: '💼 Trabajo',
             trabajoSubtitle: 'Encuentra oportunidades de trabajo en Shein.',
             trabajoItem1: '📱 Marketing Digital',
@@ -1390,7 +1414,6 @@
             trabajoItem2Desc: 'Ayuda a nuestros usuarios con sus consultas.',
             trabajoItem3: '📊 Analista de Datos',
             trabajoItem3Desc: 'Analiza el comportamiento de los usuarios.',
-            // Mi
             miTitle: '👤 Mi Perfil',
             memberSince: '📅 Miembro desde',
             profileBalance: '💰 Saldo',
@@ -1403,17 +1426,14 @@
             confirmWithdrawal: '✅ Confirmar Retiro',
             historyTitle: '📋 Historial de Retiros',
             noHistory: 'No hay retiros realizados.',
-            // Nav
             navInicio: 'Inicio',
             navOrdenes: 'Órdenes',
             navContrato: 'Contrato',
             navTrabajo: 'Trabajo',
             navMi: 'Mi',
             logout: 'Cerrar sesión',
-            // Messages
             regError: '⚠️ Por favor, completa todos los campos.',
             loginError: '❌ Usuario o contraseña incorrectos.',
-            // VIP Order Messages
             orderCompleted: 'Orden completada en',
             earned: 'Ganaste',
             completedAll: '🎉 ¡Felicidades! Has completado',
@@ -1421,16 +1441,13 @@
             unlocked: '🔓 ¡{level} ha sido desbloqueado!',
             notUnlocked: '❌ Este nivel VIP no está desbloqueado aún.',
             alreadyCompleted: '✅ ¡Ya has completado todas las órdenes de este nivel!',
-            // Withdrawal
             selectBank: '⚠️ Por favor, selecciona una cuenta bancaria.',
             validAmount: '⚠️ Por favor, ingresa un monto válido mayor a 0.',
             insufficientBalance: '❌ Saldo insuficiente. Tu saldo es',
             withdrawalSuccess: '✅ Retiro de {amount} a {bank} completado con éxito.',
-            // Register/Login
             registerSuccess: '✅ ¡Cuenta "{username}" creada con éxito! {amount} de bienvenida.',
             loginSuccess: '🔓 ¡Bienvenido de nuevo, {username}!',
             logoutSuccess: '👋 Has cerrado sesión correctamente.',
-            // Comenzar/Recargar
             comenzarSuccess: '🚀 ¡Has comenzado un nuevo trabajo! +{amount}',
             recargarSuccess: '📥 ¡Recarga exitosa! +{amount}',
             goToWithdraw: '📤 Ve a la sección "Mi" para realizar tu retiro.'
@@ -1749,6 +1766,636 @@
             comenzarSuccess: '🚀 您已开始新工作！+{amount}',
             recargarSuccess: '📥 充值成功！+{amount}',
             goToWithdraw: '📤 请前往"我的"部分进行提现。'
+        },
+        ja: {
+            appTitle: '✨ あなたのオンラインショッピングセンター ✨',
+            registerTitle: '📝 アカウント作成',
+            loginTitle: '🔐 ログイン',
+            phoneLabel: '📱 電話番号',
+            countryLabel: '🌍 国コード',
+            usernameLabel: '👤 ユーザー名',
+            passwordLabel: '🔒 パスワード',
+            registerBtn: '✅ 登録',
+            loginBtn: '🚪 ログイン',
+            switchToLogin: 'アカウントをお持ちですか？',
+            switchToRegister: 'アカウントをお持ちでないですか？',
+            loginIdentifierLabel: '👤 ユーザー名または電話番号',
+            loginPasswordLabel: '🔒 パスワード',
+            greeting: 'こんにちは',
+            balanceLabel: '💰 残高',
+            incomeLabel: '📈 総収入',
+            comenzarBtn: '🚀 開始',
+            recargarBtn: '📥 チャージ',
+            retirarBtn: '📤 出金',
+            welcomeTitle: 'Sheinへようこそ！',
+            welcomeSubtitle: '世界中の何千人もの人々が私たちを信頼しています。',
+            statUsers: 'アクティブユーザー',
+            statTransactions: '取引',
+            statCountries: '国',
+            badgeSeguro: '100% 安全',
+            badgeVerificado: '検証済み',
+            badgeEstrellas: '4.9/5 星',
+            badgeProtegido: '保護済み',
+            badgeLider: '市場リーダー',
+            badgePagos: '迅速な支払い',
+            quote1: '"Sheinは売買に最適なプラットフォームです。100%信頼できます！"',
+            quote2: '"支払いを時間通りに受け取りました。素晴らしいサービスです。"',
+            garantiasTitle: '🛡️ 私たちの保証',
+            garantia1: '✅ 100% 透明性',
+            garantia2: '✅ 24/7 サポート',
+            garantia3: '✅ 24時間以内の出金',
+            garantia4: '✅ データ保護',
+            garantia5: '✅ 隠れた手数料なし',
+            garantia6: '✅ 銀行セキュリティ',
+            vipOrdersTitle: '📦 VIP注文',
+            vipOrdersSubtitle: '注文を完了してコミッションを獲得しましょう。各注文は次のVIPレベルに近づきます！',
+            configTitle: '⚙️ 設定',
+            addBankBtn: '➕ 銀行口座を追加',
+            addBankTitle: '🏦 銀行口座を追加',
+            bankNameLabel: '🏛️ 銀行名',
+            accountNumberLabel: '🔢 口座番号',
+            accountHolderLabel: '👤 口座名義人',
+            cciLabel: '🔢 CCI（銀行間コード）',
+            confirmBtn: '✅ 確認',
+            cancelBtn: '❌ キャンセル',
+            langLabel: '🌐 言語',
+            currencyLabel: '💰 通貨',
+            noBanks: '登録された銀行口座はありません。',
+            contratoTitle: '📄 契約',
+            contratoText: 'Sheinの利用規約。同意する前によくお読みください。',
+            contratoItem1: '📌 Sheinは安全で透明なサービスを提供することをお約束します。',
+            contratoItem2: '📌 出金は24時間以内に処理されます。',
+            contratoItem3: '📌 個人データはプライバシーポリシーに基づいて保護されます。',
+            trabajoTitle: '💼 仕事',
+            trabajoSubtitle: 'Sheinで仕事の機会を見つけましょう。',
+            trabajoItem1: '📱 デジタルマーケティング',
+            trabajoItem1Desc: '製品のプロモーションでお金を稼ぎましょう。',
+            trabajoItem2: '💻 カスタマーサービス',
+            trabajoItem2Desc: 'ユーザーの質問にお答えします。',
+            trabajoItem3: '📊 データアナリスト',
+            trabajoItem3Desc: 'ユーザーの行動を分析します。',
+            miTitle: '👤 マイプロフィール',
+            memberSince: '📅 登録日',
+            profileBalance: '💰 残高',
+            profileVip: '⭐ VIPレベル',
+            misBancos: '🏦 銀行口座',
+            addBankMi: '➕ 銀行口座を追加',
+            withdrawalTitle: '📤 出金する',
+            withdrawBankLabel: '🏛️ 銀行口座を選択',
+            withdrawAmountLabel: '💰 出金額',
+            confirmWithdrawal: '✅ 出金を確認',
+            historyTitle: '📋 出金履歴',
+            noHistory: '出金履歴はありません。',
+            navInicio: 'ホーム',
+            navOrdenes: '注文',
+            navContrato: '契約',
+            navTrabajo: '仕事',
+            navMi: 'マイ',
+            logout: 'ログアウト',
+            regError: '⚠️ すべての項目を入力してください。',
+            loginError: '❌ ユーザー名/電話番号またはパスワードが間違っています。',
+            orderCompleted: 'で注文が完了しました',
+            earned: '獲得',
+            completedAll: '🎉 おめでとうございます！',
+            andEarned: 'を完了し、',
+            unlocked: '🔓 {level} がアンロックされました！',
+            notUnlocked: '❌ このVIPレベルはまだアンロックされていません。',
+            alreadyCompleted: '✅ このレベルのすべての注文を完了しました！',
+            selectBank: '⚠️ 銀行口座を選択してください。',
+            validAmount: '⚠️ 0より大きい有効な金額を入力してください。',
+            insufficientBalance: '❌ 残高が不足しています。残高は',
+            withdrawalSuccess: '✅ {bank} への {amount} の出金が完了しました。',
+            registerSuccess: '✅ アカウント "{username}" が作成されました！ {amount} のウェルカムボーナス。',
+            loginSuccess: '🔓 おかえりなさい、{username}！',
+            logoutSuccess: '👋 ログアウトしました。',
+            comenzarSuccess: '🚀 新しい仕事を始めました！ +{amount}',
+            recargarSuccess: '📥 チャージが成功しました！ +{amount}',
+            goToWithdraw: '📤 出金するには「マイ」セクションに移動してください。'
+        },
+        ko: {
+            appTitle: '✨ 온라인 쇼핑 센터 ✨',
+            registerTitle: '📝 계정 만들기',
+            loginTitle: '🔐 로그인',
+            phoneLabel: '📱 전화번호',
+            countryLabel: '🌍 국가 코드',
+            usernameLabel: '👤 사용자 이름',
+            passwordLabel: '🔒 비밀번호',
+            registerBtn: '✅ 등록',
+            loginBtn: '🚪 로그인',
+            switchToLogin: '이미 계정이 있으신가요?',
+            switchToRegister: '계정이 없으신가요?',
+            loginIdentifierLabel: '👤 사용자 이름 또는 전화번호',
+            loginPasswordLabel: '🔒 비밀번호',
+            greeting: '안녕하세요',
+            balanceLabel: '💰 잔액',
+            incomeLabel: '📈 총 수입',
+            comenzarBtn: '🚀 시작',
+            recargarBtn: '📥 충전',
+            retirarBtn: '📤 출금',
+            welcomeTitle: 'Shein에 오신 것을 환영합니다!',
+            welcomeSubtitle: '전 세계 수천 명의 사람들이 우리를 신뢰합니다.',
+            statUsers: '활성 사용자',
+            statTransactions: '거래',
+            statCountries: '국가',
+            badgeSeguro: '100% 안전',
+            badgeVerificado: '인증됨',
+            badgeEstrellas: '4.9/5 별점',
+            badgeProtegido: '보호됨',
+            badgeLider: '시장 리더',
+            badgePagos: '빠른 결제',
+            quote1: '"Shein은 구매 및 판매를 위한 최고의 플랫폼입니다. 100% 신뢰할 수 있습니다!"',
+            quote2: '"제때 지급을 받았습니다. 훌륭한 서비스입니다."',
+            garantiasTitle: '🛡️ 우리의 보장',
+            garantia1: '✅ 100% 투명성',
+            garantia2: '✅ 24/7 지원',
+            garantia3: '✅ 24시간 이내 출금',
+            garantia4: '✅ 데이터 보호',
+            garantia5: '✅ 숨겨진 수수료 없음',
+            garantia6: '✅ 은행 보안',
+            vipOrdersTitle: '📦 VIP 주문',
+            vipOrdersSubtitle: '수수료를 받으려면 주문을 완료하세요. 각 주문은 다음 VIP 레벨로 이동합니다!',
+            configTitle: '⚙️ 설정',
+            addBankBtn: '➕ 은행 계좌 추가',
+            addBankTitle: '🏦 은행 계좌 추가',
+            bankNameLabel: '🏛️ 은행 이름',
+            accountNumberLabel: '🔢 계좌 번호',
+            accountHolderLabel: '👤 계좌 소유자',
+            cciLabel: '🔢 CCI (은행 간 코드)',
+            confirmBtn: '✅ 확인',
+            cancelBtn: '❌ 취소',
+            langLabel: '🌐 언어',
+            currencyLabel: '💰 통화',
+            noBanks: '등록된 은행 계좌가 없습니다.',
+            contratoTitle: '📄 계약',
+            contratoText: 'Shein의 이용 약관. 동의하기 전에 주의 깊게 읽으십시오.',
+            contratoItem1: '📌 Shein은 안전하고 투명한 서비스를 제공하기 위해 노력합니다.',
+            contratoItem2: '📌 출금은 24시간 이내에 처리됩니다.',
+            contratoItem3: '📌 개인 데이터는 개인정보 보호정책에 따라 보호됩니다.',
+            trabajoTitle: '💼 업무',
+            trabajoSubtitle: 'Shein에서 업무 기회를 찾으세요.',
+            trabajoItem1: '📱 디지털 마케팅',
+            trabajoItem1Desc: '제품을 홍보하여 돈을 벌 수 있습니다.',
+            trabajoItem2: '💻 고객 서비스',
+            trabajoItem2Desc: '사용자의 문의를 도와주세요.',
+            trabajoItem3: '📊 데이터 분석가',
+            trabajoItem3Desc: '사용자 행동을 분석하세요.',
+            miTitle: '👤 내 프로필',
+            memberSince: '📅 가입일',
+            profileBalance: '💰 잔액',
+            profileVip: '⭐ VIP 레벨',
+            misBancos: '🏦 내 은행 계좌',
+            addBankMi: '➕ 은행 계좌 추가',
+            withdrawalTitle: '📤 출금하기',
+            withdrawBankLabel: '🏛️ 은행 계좌 선택',
+            withdrawAmountLabel: '💰 출금할 금액',
+            confirmWithdrawal: '✅ 출금 확인',
+            historyTitle: '📋 출금 내역',
+            noHistory: '출금 내역이 없습니다.',
+            navInicio: '홈',
+            navOrdenes: '주문',
+            navContrato: '계약',
+            navTrabajo: '업무',
+            navMi: '내 정보',
+            logout: '로그아웃',
+            regError: '⚠️ 모든 필드를 입력해 주세요.',
+            loginError: '❌ 사용자 이름/전화번호 또는 비밀번호가 올바르지 않습니다.',
+            orderCompleted: '에서 주문 완료',
+            earned: '획득',
+            completedAll: '🎉 축하합니다!',
+            andEarned: '을(를) 완료하고',
+            unlocked: '🔓 {level}이(가) 잠금 해제되었습니다!',
+            notUnlocked: '❌ 이 VIP 레벨이 아직 잠금 해제되지 않았습니다.',
+            alreadyCompleted: '✅ 이 레벨의 모든 주문을 완료했습니다!',
+            selectBank: '⚠️ 은행 계좌를 선택해 주세요.',
+            validAmount: '⚠️ 0보다 큰 유효한 금액을 입력해 주세요.',
+            insufficientBalance: '❌ 잔액이 부족합니다. 잔액은',
+            withdrawalSuccess: '✅ {bank}로 {amount} 출금이 완료되었습니다.',
+            registerSuccess: '✅ "{username}" 계정이 생성되었습니다! {amount} 환영 보너스.',
+            loginSuccess: '🔓 다시 오신 것을 환영합니다, {username}!',
+            logoutSuccess: '👋 로그아웃되었습니다.',
+            comenzarSuccess: '🚀 새 작업을 시작했습니다! +{amount}',
+            recargarSuccess: '📥 충전이 완료되었습니다! +{amount}',
+            goToWithdraw: '📤 출금하려면 "내 정보" 섹션으로 이동하세요.'
+        },
+        fr: {
+            appTitle: '✨ Votre centre commercial en ligne ✨',
+            registerTitle: '📝 Créer un compte',
+            loginTitle: '🔐 Se connecter',
+            phoneLabel: '📱 Numéro de téléphone',
+            countryLabel: '🌍 Code pays',
+            usernameLabel: '👤 Nom d\'utilisateur',
+            passwordLabel: '🔒 Mot de passe',
+            registerBtn: '✅ S\'inscrire',
+            loginBtn: '🚪 Se connecter',
+            switchToLogin: 'Vous avez déjà un compte ?',
+            switchToRegister: 'Vous n\'avez pas de compte ?',
+            loginIdentifierLabel: '👤 Utilisateur ou téléphone',
+            loginPasswordLabel: '🔒 Mot de passe',
+            greeting: 'Bonjour',
+            balanceLabel: '💰 Solde',
+            incomeLabel: '📈 Revenu total',
+            comenzarBtn: '🚀 COMMENCER',
+            recargarBtn: '📥 RECHARGER',
+            retirarBtn: '📤 RETIRER',
+            welcomeTitle: 'Bienvenue sur Shein !',
+            welcomeSubtitle: 'Des milliers de personnes nous font confiance dans le monde entier.',
+            statUsers: 'Utilisateurs actifs',
+            statTransactions: 'Transactions',
+            statCountries: 'Pays',
+            badgeSeguro: '100% Sécurisé',
+            badgeVerificado: 'Vérifié',
+            badgeEstrellas: '4.9/5 Étoiles',
+            badgeProtegido: 'Protégé',
+            badgeLider: 'Leader du marché',
+            badgePagos: 'Paiements rapides',
+            quote1: '"Shein est la meilleure plateforme pour acheter et vendre. 100% fiable !"',
+            quote2: '"J\'ai reçu mes paiements à temps. Excellent service."',
+            garantiasTitle: '🛡️ Nos Garanties',
+            garantia1: '✅ 100% de transparence',
+            garantia2: '✅ Support 24/7',
+            garantia3: '✅ Retraits en 24 heures',
+            garantia4: '✅ Données protégées',
+            garantia5: '✅ Pas de commissions cachées',
+            garantia6: '✅ Sécurité bancaire',
+            vipOrdersTitle: '📦 Commandes VIP',
+            vipOrdersSubtitle: 'Complétez des commandes pour gagner des commissions. Chaque commande vous rapproche de votre prochain niveau VIP !',
+            configTitle: '⚙️ Configuration',
+            addBankBtn: '➕ Ajouter un compte bancaire',
+            addBankTitle: '🏦 Ajouter un compte bancaire',
+            bankNameLabel: '🏛️ Nom de la banque',
+            accountNumberLabel: '🔢 Numéro de compte',
+            accountHolderLabel: '👤 Titulaire du compte',
+            cciLabel: '🔢 CCI (Code Interbancaire)',
+            confirmBtn: '✅ Confirmer',
+            cancelBtn: '❌ Annuler',
+            langLabel: '🌐 Langue',
+            currencyLabel: '💰 Monnaie',
+            noBanks: 'Aucun compte bancaire enregistré.',
+            contratoTitle: '📄 Contrat',
+            contratoText: 'Conditions générales de Shein. Lisez attentivement avant d\'accepter.',
+            contratoItem1: '📌 Shein s\'engage à fournir un service sécurisé et transparent.',
+            contratoItem2: '📌 Les retraits sont traités dans les 24 heures.',
+            contratoItem3: '📌 Les données personnelles sont protégées par notre politique de confidentialité.',
+            trabajoTitle: '💼 Travail',
+            trabajoSubtitle: 'Trouvez des opportunités de travail chez Shein.',
+            trabajoItem1: '📱 Marketing Digital',
+            trabajoItem1Desc: 'Gagnez de l\'argent en promouvant des produits.',
+            trabajoItem2: '💻 Service Client',
+            trabajoItem2Desc: 'Aidez nos utilisateurs avec leurs questions.',
+            trabajoItem3: '📊 Analyste de Données',
+            trabajoItem3Desc: 'Analysez le comportement des utilisateurs.',
+            miTitle: '👤 Mon Profil',
+            memberSince: '📅 Membre depuis',
+            profileBalance: '💰 Solde',
+            profileVip: '⭐ Niveau VIP',
+            misBancos: '🏦 Mes Comptes Bancaires',
+            addBankMi: '➕ Ajouter un compte bancaire',
+            withdrawalTitle: '📤 Effectuer un Retrait',
+            withdrawBankLabel: '🏛️ Sélectionnez votre compte bancaire',
+            withdrawAmountLabel: '💰 Montant à retirer',
+            confirmWithdrawal: '✅ Confirmer le Retrait',
+            historyTitle: '📋 Historique des Retraits',
+            noHistory: 'Aucun retrait effectué.',
+            navInicio: 'Accueil',
+            navOrdenes: 'Commandes',
+            navContrato: 'Contrat',
+            navTrabajo: 'Travail',
+            navMi: 'Mon',
+            logout: 'Se déconnecter',
+            regError: '⚠️ Veuillez remplir tous les champs.',
+            loginError: '❌ Utilisateur/téléphone ou mot de passe incorrect.',
+            orderCompleted: 'Commande terminée dans',
+            earned: 'Gagné',
+            completedAll: '🎉 Félicitations ! Vous avez terminé',
+            andEarned: 'et gagné',
+            unlocked: '🔓 {level} a été débloqué !',
+            notUnlocked: '❌ Ce niveau VIP n\'est pas encore débloqué.',
+            alreadyCompleted: '✅ Vous avez déjà terminé toutes les commandes de ce niveau !',
+            selectBank: '⚠️ Veuillez sélectionner un compte bancaire.',
+            validAmount: '⚠️ Veuillez entrer un montant valide supérieur à 0.',
+            insufficientBalance: '❌ Solde insuffisant. Votre solde est de',
+            withdrawalSuccess: '✅ Retrait de {amount} vers {bank} effectué avec succès.',
+            registerSuccess: '✅ Compte "{username}" créé avec succès ! {amount} de bienvenue.',
+            loginSuccess: '🔓 Bon retour, {username} !',
+            logoutSuccess: '👋 Vous vous êtes déconnecté avec succès.',
+            comenzarSuccess: '🚀 Vous avez commencé un nouveau travail ! +{amount}',
+            recargarSuccess: '📥 Recharge réussie ! +{amount}',
+            goToWithdraw: '📤 Allez à la section "Mon" pour effectuer votre retrait.'
+        },
+        de: {
+            appTitle: '✨ Ihr Online-Einkaufszentrum ✨',
+            registerTitle: '📝 Konto erstellen',
+            loginTitle: '🔐 Anmelden',
+            phoneLabel: '📱 Telefonnummer',
+            countryLabel: '🌍 Ländercode',
+            usernameLabel: '👤 Benutzername',
+            passwordLabel: '🔒 Passwort',
+            registerBtn: '✅ Registrieren',
+            loginBtn: '🚪 Anmelden',
+            switchToLogin: 'Bereits ein Konto?',
+            switchToRegister: 'Noch kein Konto?',
+            loginIdentifierLabel: '👤 Benutzername oder Telefon',
+            loginPasswordLabel: '🔒 Passwort',
+            greeting: 'Hallo',
+            balanceLabel: '💰 Guthaben',
+            incomeLabel: '📈 Gesamteinnahmen',
+            comenzarBtn: '🚀 STARTEN',
+            recargarBtn: '📥 AUFLADEN',
+            retirarBtn: '📤 AUSZAHLEN',
+            welcomeTitle: 'Willkommen bei Shein!',
+            welcomeSubtitle: 'Tausende von Menschen weltweit vertrauen uns.',
+            statUsers: 'Aktive Nutzer',
+            statTransactions: 'Transaktionen',
+            statCountries: 'Länder',
+            badgeSeguro: '100% Sicher',
+            badgeVerificado: 'Verifiziert',
+            badgeEstrellas: '4.9/5 Sterne',
+            badgeProtegido: 'Geschützt',
+            badgeLider: 'Marktführer',
+            badgePagos: 'Schnelle Zahlungen',
+            quote1: '"Shein ist die beste Plattform zum Kaufen und Verkaufen. 100% zuverlässig!"',
+            quote2: '"Ich habe meine Zahlungen pünktlich erhalten. Hervorragender Service."',
+            garantiasTitle: '🛡️ Unsere Garantien',
+            garantia1: '✅ 100% Transparenz',
+            garantia2: '✅ 24/7 Support',
+            garantia3: '✅ Auszahlungen innerhalb von 24 Stunden',
+            garantia4: '✅ Geschützte Daten',
+            garantia5: '✅ Keine versteckten Gebühren',
+            garantia6: '✅ Banksicherheit',
+            vipOrdersTitle: '📦 VIP-Bestellungen',
+            vipOrdersSubtitle: 'Schließen Sie Bestellungen ab, um Provisionen zu verdienen. Jede Bestellung bringt Sie Ihrem nächsten VIP-Level näher!',
+            configTitle: '⚙️ Einstellungen',
+            addBankBtn: '➕ Bankkonto hinzufügen',
+            addBankTitle: '🏦 Bankkonto hinzufügen',
+            bankNameLabel: '🏛️ Bankname',
+            accountNumberLabel: '🔢 Kontonummer',
+            accountHolderLabel: '👤 Kontoinhaber',
+            cciLabel: '🔢 CCI (Interbankencode)',
+            confirmBtn: '✅ Bestätigen',
+            cancelBtn: '❌ Abbrechen',
+            langLabel: '🌐 Sprache',
+            currencyLabel: '💰 Währung',
+            noBanks: 'Keine Bankkonten registriert.',
+            contratoTitle: '📄 Vertrag',
+            contratoText: 'Allgemeine Geschäftsbedingungen von Shein. Bitte lesen Sie sorgfältig, bevor Sie zustimmen.',
+            contratoItem1: '📌 Shein verpflichtet sich, einen sicheren und transparenten Service zu bieten.',
+            contratoItem2: '📌 Auszahlungen werden innerhalb von 24 Stunden bearbeitet.',
+            contratoItem3: '📌 Personenbezogene Daten werden gemäß unserer Datenschutzrichtlinie geschützt.',
+            trabajoTitle: '💼 Arbeit',
+            trabajoSubtitle: 'Finden Sie Arbeitsmöglichkeiten bei Shein.',
+            trabajoItem1: '📱 Digitales Marketing',
+            trabajoItem1Desc: 'Verdienen Sie Geld durch die Werbung für Produkte.',
+            trabajoItem2: '💻 Kundenservice',
+            trabajoItem2Desc: 'Helfen Sie unseren Nutzern bei ihren Anfragen.',
+            trabajoItem3: '📊 Datenanalyst',
+            trabajoItem3Desc: 'Analysieren Sie das Nutzerverhalten.',
+            miTitle: '👤 Mein Profil',
+            memberSince: '📅 Mitglied seit',
+            profileBalance: '💰 Guthaben',
+            profileVip: '⭐ VIP-Level',
+            misBancos: '🏦 Meine Bankkonten',
+            addBankMi: '➕ Bankkonto hinzufügen',
+            withdrawalTitle: '📤 Auszahlung vornehmen',
+            withdrawBankLabel: '🏛️ Wählen Sie Ihr Bankkonto',
+            withdrawAmountLabel: '💰 Auszuzahlender Betrag',
+            confirmWithdrawal: '✅ Auszahlung bestätigen',
+            historyTitle: '📋 Auszahlungsverlauf',
+            noHistory: 'Keine Auszahlungen getätigt.',
+            navInicio: 'Startseite',
+            navOrdenes: 'Bestellungen',
+            navContrato: 'Vertrag',
+            navTrabajo: 'Arbeit',
+            navMi: 'Mein',
+            logout: 'Abmelden',
+            regError: '⚠️ Bitte füllen Sie alle Felder aus.',
+            loginError: '❌ Benutzername/Telefon oder Passwort falsch.',
+            orderCompleted: 'Bestellung abgeschlossen in',
+            earned: 'Verdient',
+            completedAll: '🎉 Herzlichen Glückwunsch! Sie haben',
+            andEarned: 'abgeschlossen und',
+            unlocked: '🔓 {level} wurde freigeschaltet!',
+            notUnlocked: '❌ Dieses VIP-Level ist noch nicht freigeschaltet.',
+            alreadyCompleted: '✅ Sie haben bereits alle Bestellungen für dieses Level abgeschlossen!',
+            selectBank: '⚠️ Bitte wählen Sie ein Bankkonto aus.',
+            validAmount: '⚠️ Bitte geben Sie einen gültigen Betrag größer als 0 ein.',
+            insufficientBalance: '❌ Nicht genügend Guthaben. Ihr Guthaben beträgt',
+            withdrawalSuccess: '✅ Auszahlung von {amount} an {bank} erfolgreich abgeschlossen.',
+            registerSuccess: '✅ Konto "{username}" erfolgreich erstellt! {amount} Willkommensbonus.',
+            loginSuccess: '🔓 Willkommen zurück, {username}!',
+            logoutSuccess: '👋 Sie haben sich erfolgreich abgemeldet.',
+            comenzarSuccess: '🚀 Sie haben einen neuen Job gestartet! +{amount}',
+            recargarSuccess: '📥 Aufladung erfolgreich! +{amount}',
+            goToWithdraw: '📤 Gehen Sie zum Bereich "Mein", um Ihre Auszahlung vorzunehmen.'
+        },
+        pt: {
+            appTitle: '✨ Seu centro comercial online ✨',
+            registerTitle: '📝 Criar conta',
+            loginTitle: '🔐 Entrar',
+            phoneLabel: '📱 Número de telefone',
+            countryLabel: '🌍 Código do país',
+            usernameLabel: '👤 Nome de usuário',
+            passwordLabel: '🔒 Senha',
+            registerBtn: '✅ Registrar',
+            loginBtn: '🚪 Entrar',
+            switchToLogin: 'Já tem uma conta?',
+            switchToRegister: 'Não tem uma conta?',
+            loginIdentifierLabel: '👤 Usuário ou telefone',
+            loginPasswordLabel: '🔒 Senha',
+            greeting: 'Olá',
+            balanceLabel: '💰 Saldo',
+            incomeLabel: '📈 Renda total',
+            comenzarBtn: '🚀 COMEÇAR',
+            recargarBtn: '📥 RECARREGAR',
+            retirarBtn: '📤 RETIRAR',
+            welcomeTitle: 'Bem-vindo ao Shein!',
+            welcomeSubtitle: 'Milhares de pessoas confiam em nós em todo o mundo.',
+            statUsers: 'Usuários ativos',
+            statTransactions: 'Transações',
+            statCountries: 'Países',
+            badgeSeguro: '100% Seguro',
+            badgeVerificado: 'Verificado',
+            badgeEstrellas: '4.9/5 Estrelas',
+            badgeProtegido: 'Protegido',
+            badgeLider: 'Líder de mercado',
+            badgePagos: 'Pagamentos rápidos',
+            quote1: '"Shein é a melhor plataforma para comprar e vender. 100% confiável!"',
+            quote2: '"Recebi meus pagamentos no prazo. Excelente serviço."',
+            garantiasTitle: '🛡️ Nossas Garantias',
+            garantia1: '✅ 100% de transparência',
+            garantia2: '✅ Suporte 24/7',
+            garantia3: '✅ Retiradas em 24 horas',
+            garantia4: '✅ Dados protegidos',
+            garantia5: '✅ Sem comissões ocultas',
+            garantia6: '✅ Segurança bancária',
+            vipOrdersTitle: '📦 Pedidos VIP',
+            vipOrdersSubtitle: 'Complete pedidos para ganhar comissões. Cada pedido o aproxima do seu próximo nível VIP!',
+            configTitle: '⚙️ Configuração',
+            addBankBtn: '➕ Adicionar conta bancária',
+            addBankTitle: '🏦 Adicionar conta bancária',
+            bankNameLabel: '🏛️ Nome do banco',
+            accountNumberLabel: '🔢 Número da conta',
+            accountHolderLabel: '👤 Titular da conta',
+            cciLabel: '🔢 CCI (Código Interbancário)',
+            confirmBtn: '✅ Confirmar',
+            cancelBtn: '❌ Cancelar',
+            langLabel: '🌐 Idioma',
+            currencyLabel: '💰 Moeda',
+            noBanks: 'Nenhuma conta bancária registrada.',
+            contratoTitle: '📄 Contrato',
+            contratoText: 'Termos e condições da Shein. Leia atentamente antes de aceitar.',
+            contratoItem1: '📌 A Shein se compromete a fornecer um serviço seguro e transparente.',
+            contratoItem2: '📌 As retiradas são processadas em até 24 horas.',
+            contratoItem3: '📌 Os dados pessoais são protegidos pela nossa política de privacidade.',
+            trabajoTitle: '💼 Trabalho',
+            trabajoSubtitle: 'Encontre oportunidades de trabalho na Shein.',
+            trabajoItem1: '📱 Marketing Digital',
+            trabajoItem1Desc: 'Ganhe dinheiro promovendo produtos.',
+            trabajoItem2: '💻 Atendimento ao Cliente',
+            trabajoItem2Desc: 'Ajude nossos usuários com suas perguntas.',
+            trabajoItem3: '📊 Analista de Dados',
+            trabajoItem3Desc: 'Analise o comportamento dos usuários.',
+            miTitle: '👤 Meu Perfil',
+            memberSince: '📅 Membro desde',
+            profileBalance: '💰 Saldo',
+            profileVip: '⭐ Nível VIP',
+            misBancos: '🏦 Minhas Contas Bancárias',
+            addBankMi: '➕ Adicionar conta bancária',
+            withdrawalTitle: '📤 Fazer Retirada',
+            withdrawBankLabel: '🏛️ Selecione sua conta bancária',
+            withdrawAmountLabel: '💰 Valor a retirar',
+            confirmWithdrawal: '✅ Confirmar Retirada',
+            historyTitle: '📋 Histórico de Retiradas',
+            noHistory: 'Nenhuma retirada realizada.',
+            navInicio: 'Início',
+            navOrdenes: 'Pedidos',
+            navContrato: 'Contrato',
+            navTrabajo: 'Trabalho',
+            navMi: 'Meu',
+            logout: 'Sair',
+            regError: '⚠️ Por favor, preencha todos os campos.',
+            loginError: '❌ Usuário/telefone ou senha incorretos.',
+            orderCompleted: 'Pedido concluído em',
+            earned: 'Ganhou',
+            completedAll: '🎉 Parabéns! Você concluiu',
+            andEarned: 'e ganhou',
+            unlocked: '🔓 {level} foi desbloqueado!',
+            notUnlocked: '❌ Este nível VIP ainda não foi desbloqueado.',
+            alreadyCompleted: '✅ Você já concluiu todos os pedidos deste nível!',
+            selectBank: '⚠️ Por favor, selecione uma conta bancária.',
+            validAmount: '⚠️ Por favor, insira um valor válido maior que 0.',
+            insufficientBalance: '❌ Saldo insuficiente. Seu saldo é',
+            withdrawalSuccess: '✅ Retirada de {amount} para {bank} concluída com sucesso.',
+            registerSuccess: '✅ Conta "{username}" criada com sucesso! {amount} de boas-vindas.',
+            loginSuccess: '🔓 Bem-vindo de volta, {username}!',
+            logoutSuccess: '👋 Você saiu com sucesso.',
+            comenzarSuccess: '🚀 Você começou um novo trabalho! +{amount}',
+            recargarSuccess: '📥 Recarga bem-sucedida! +{amount}',
+            goToWithdraw: '📤 Vá para a seção "Meu" para fazer sua retirada.'
+        },
+        ru: {
+            appTitle: '✨ Ваш онлайн-торговый центр ✨',
+            registerTitle: '📝 Создать аккаунт',
+            loginTitle: '🔐 Войти',
+            phoneLabel: '📱 Номер телефона',
+            countryLabel: '🌍 Код страны',
+            usernameLabel: '👤 Имя пользователя',
+            passwordLabel: '🔒 Пароль',
+            registerBtn: '✅ Зарегистрироваться',
+            loginBtn: '🚪 Войти',
+            switchToLogin: 'Уже есть аккаунт?',
+            switchToRegister: 'Нет аккаунта?',
+            loginIdentifierLabel: '👤 Имя пользователя или телефон',
+            loginPasswordLabel: '🔒 Пароль',
+            greeting: 'Здравствуйте',
+            balanceLabel: '💰 Баланс',
+            incomeLabel: '📈 Общий доход',
+            comenzarBtn: '🚀 НАЧАТЬ',
+            recargarBtn: '📥 ПОПОЛНИТЬ',
+            retirarBtn: '📤 ВЫВЕСТИ',
+            welcomeTitle: 'Добро пожаловать в Shein!',
+            welcomeSubtitle: 'Тысячи людей по всему миру доверяют нам.',
+            statUsers: 'Активные пользователи',
+            statTransactions: 'Транзакции',
+            statCountries: 'Страны',
+            badgeSeguro: '100% Безопасно',
+            badgeVerificado: 'Проверено',
+            badgeEstrellas: '4.9/5 Звезд',
+            badgeProtegido: 'Защищено',
+            badgeLider: 'Лидер рынка',
+            badgePagos: 'Быстрые платежи',
+            quote1: '"Shein - лучшая платформа для покупки и продажи. 100% надежно!"',
+            quote2: '"Я получил свои платежи вовремя. Отличный сервис."',
+            garantiasTitle: '🛡️ Наши гарантии',
+            garantia1: '✅ 100% прозрачность',
+            garantia2: '✅ Поддержка 24/7',
+            garantia3: '✅ Вывод средств в течение 24 часов',
+            garantia4: '✅ Защита данных',
+            garantia5: '✅ Без скрытых комиссий',
+            garantia6: '✅ Банковская безопасность',
+            vipOrdersTitle: '📦 VIP-заказы',
+            vipOrdersSubtitle: 'Завершайте заказы, чтобы зарабатывать комиссионные. Каждый заказ приближает вас к следующему VIP-уровню!',
+            configTitle: '⚙️ Настройки',
+            addBankBtn: '➕ Добавить банковский счет',
+            addBankTitle: '🏦 Добавить банковский счет',
+            bankNameLabel: '🏛️ Название банка',
+            accountNumberLabel: '🔢 Номер счета',
+            accountHolderLabel: '👤 Владелец счета',
+            cciLabel: '🔢 CCI (Межбанковский код)',
+            confirmBtn: '✅ Подтвердить',
+            cancelBtn: '❌ Отмена',
+            langLabel: '🌐 Язык',
+            currencyLabel: '💰 Валюта',
+            noBanks: 'Нет зарегистрированных банковских счетов.',
+            contratoTitle: '📄 Контракт',
+            contratoText: 'Условия использования Shein. Пожалуйста, внимательно прочитайте перед принятием.',
+            contratoItem1: '📌 Shein обязуется предоставлять безопасный и прозрачный сервис.',
+            contratoItem2: '📌 Вывод средств обрабатывается в течение 24 часов.',
+            contratoItem3: '📌 Личные данные защищены нашей политикой конфиденциальности.',
+            trabajoTitle: '💼 Работа',
+            trabajoSubtitle: 'Найдите возможности для работы в Shein.',
+            trabajoItem1: '📱 Цифровой маркетинг',
+            trabajoItem1Desc: 'Зарабатывайте деньги, продвигая продукты.',
+            trabajoItem2: '💻 Обслуживание клиентов',
+            trabajoItem2Desc: 'Помогайте нашим пользователям с их вопросами.',
+            trabajoItem3: '📊 Аналитик данных',
+            trabajoItem3Desc: 'Анализируйте поведение пользователей.',
+            miTitle: '👤 Мой профиль',
+            memberSince: '📅 Участник с',
+            profileBalance: '💰 Баланс',
+            profileVip: '⭐ VIP-уровень',
+            misBancos: '🏦 Мои банковские счета',
+            addBankMi: '➕ Добавить банковский счет',
+            withdrawalTitle: '📤 Вывести средства',
+            withdrawBankLabel: '🏛️ Выберите банковский счет',
+            withdrawAmountLabel: '💰 Сумма для вывода',
+            confirmWithdrawal: '✅ Подтвердить вывод',
+            historyTitle: '📋 История выводов',
+            noHistory: 'Выводов не было.',
+            navInicio: 'Главная',
+            navOrdenes: 'Заказы',
+            navContrato: 'Контракт',
+            navTrabajo: 'Работа',
+            navMi: 'Мой',
+            logout: 'Выйти',
+            regError: '⚠️ Пожалуйста, заполните все поля.',
+            loginError: '❌ Неверное имя пользователя/телефон или пароль.',
+            orderCompleted: 'Заказ завершен в',
+            earned: 'Заработано',
+            completedAll: '🎉 Поздравляем! Вы завершили',
+            andEarned: 'и заработали',
+            unlocked: '🔓 {level} разблокирован!',
+            notUnlocked: '❌ Этот VIP-уровень еще не разблокирован.',
+            alreadyCompleted: '✅ Вы уже завершили все заказы для этого уровня!',
+            selectBank: '⚠️ Пожалуйста, выберите банковский счет.',
+            validAmount: '⚠️ Пожалуйста, введите действительную сумму больше 0.',
+            insufficientBalance: '❌ Недостаточно средств. Ваш баланс',
+            withdrawalSuccess: '✅ Вывод {amount} на {bank} успешно завершен.',
+            registerSuccess: '✅ Аккаунт "{username}" успешно создан! {amount} приветственный бонус.',
+            loginSuccess: '🔓 С возвращением, {username}!',
+            logoutSuccess: '👋 Вы успешно вышли.',
+            comenzarSuccess: '🚀 Вы начали новую работу! +{amount}',
+            recargarSuccess: '📥 Пополнение успешно! +{amount}',
+            goToWithdraw: '📤 Перейдите в раздел "Мой", чтобы вывести средства.'
         }
     };
 
@@ -1756,7 +2403,13 @@
         'PEN': 'S/',
         'USD': '$',
         'EUR': '€',
-        'MMK': 'K'
+        'MMK': 'K',
+        'JPY': '¥',
+        'KRW': '₩',
+        'GBP': '£',
+        'CNY': '¥',
+        'BRL': 'R$',
+        'RUB': '₽'
     };
 
     let currentLang = 'es';
@@ -1801,16 +2454,16 @@
         document.querySelector('.label-username').textContent = t.usernameLabel;
         document.querySelector('.label-password').textContent = t.passwordLabel;
         document.querySelector('.btn-register').textContent = t.registerBtn;
-        document.querySelector('.switch-to-login').innerHTML = t.switchToLogin + ' <strong>' + (lang === 'es' ? 'Iniciar sesión' : lang === 'en' ? 'Login' : lang === 'my' ? 'ဝင်ရောက်ရန်' : '登录') + '</strong>';
+        document.querySelector('.switch-to-login').innerHTML = t.switchToLogin + ' <strong>' + (lang === 'es' ? 'Iniciar sesión' : lang === 'en' ? 'Login' : lang === 'my' ? 'ဝင်ရောက်ရန်' : lang === 'zh' ? '登录' : lang === 'ja' ? 'ログイン' : lang === 'ko' ? '로그인' : lang === 'fr' ? 'Se connecter' : lang === 'de' ? 'Anmelden' : lang === 'pt' ? 'Entrar' : 'Войти') + '</strong>';
 
         // Login
         document.querySelector('.login-title').textContent = t.loginTitle;
         document.querySelector('.label-login-identifier').textContent = t.loginIdentifierLabel;
         document.querySelector('.label-login-password').textContent = t.loginPasswordLabel;
         document.querySelector('.btn-login').textContent = t.loginBtn;
-        document.querySelector('.switch-to-register').innerHTML = t.switchToRegister + ' <strong>' + (lang === 'es' ? 'Regístrate aquí' : lang === 'en' ? 'Register here' : lang === 'my' ? 'ဒီမှာမှတ်ပုံတင်ပါ' : '在此注册') + '</strong>';
+        document.querySelector('.switch-to-register').innerHTML = t.switchToRegister + ' <strong>' + (lang === 'es' ? 'Regístrate aquí' : lang === 'en' ? 'Register here' : lang === 'my' ? 'ဒီမှာမှတ်ပုံတင်ပါ' : lang === 'zh' ? '在此注册' : lang === 'ja' ? 'こちらで登録' : lang === 'ko' ? '여기서 등록' : lang === 'fr' ? "S'inscrire ici" : lang === 'de' ? 'Hier registrieren' : lang === 'pt' ? 'Registre-se aqui' : 'Зарегистрироваться здесь') + '</strong>';
 
-        // Dashboard Greeting
+        // Dashboard
         document.querySelector('.greeting-text').textContent = t.greeting;
         document.querySelector('.label-balance').textContent = t.balanceLabel;
         document.querySelector('.label-income').textContent = t.incomeLabel;
@@ -1913,12 +2566,6 @@
     function updateCurrencyDisplay() {
         const symbol = currencySymbols[currentCurrency] || 'S/';
         document.getElementById('currentCurrencyDisplay').textContent = currentCurrency;
-        
-        // Update all currency displays
-        const balanceElements = document.querySelectorAll('#displayBalance, #profileBalance, .amount.green, .amount.orange');
-        const incomeElements = document.querySelectorAll('#totalIncome');
-        
-        // We'll update actual values in updateDashboard
     }
 
     function formatCurrency(amount) {
@@ -1927,7 +2574,7 @@
     }
 
     // ============================================================
-    //  ESTADO GLOBAL
+    //  ESTADO GLOBAL (User Data)
     // ============================================================
     let userData = {
         username: '',
@@ -1985,12 +2632,10 @@
             const div = document.createElement('div');
             div.className = 'vip-item';
             const statusClass = vip.active ? 'activo' : 'inactivo';
-            const t = translations[currentLang];
-            const statusText = vip.active ? '✅ Activo' : '⏳ No disponible';
-            // We'll use the translated version
+            const statusText = vip.active ? '✅ ' + (currentLang === 'es' ? 'Activo' : currentLang === 'en' ? 'Active' : currentLang === 'my' ? 'အသက်သွင်းပြီး' : currentLang === 'zh' ? '已激活' : currentLang === 'ja' ? 'アクティブ' : currentLang === 'ko' ? '활성화됨' : currentLang === 'fr' ? 'Actif' : currentLang === 'de' ? 'Aktiv' : currentLang === 'pt' ? 'Ativo' : 'Активен') : '⏳ ' + (currentLang === 'es' ? 'No disponible' : currentLang === 'en' ? 'Not available' : currentLang === 'my' ? 'မရရှိသေး' : currentLang === 'zh' ? '不可用' : currentLang === 'ja' ? '利用不可' : currentLang === 'ko' ? '사용 불가' : currentLang === 'fr' ? 'Non disponible' : currentLang === 'de' ? 'Nicht verfügbar' : currentLang === 'pt' ? 'Indisponível' : 'Недоступен');
             div.innerHTML = `
                 <span class="vip-name">${vip.name}</span>
-                <span class="vip-status ${statusClass}">${vip.active ? '✅ ' + (currentLang === 'es' ? 'Activo' : currentLang === 'en' ? 'Active' : currentLang === 'my' ? 'အသက်သွင်းပြီး' : '已激活') : '⏳ ' + (currentLang === 'es' ? 'No disponible' : currentLang === 'en' ? 'Not available' : currentLang === 'my' ? 'မရရှိသေး' : '不可用')}</span>
+                <span class="vip-status ${statusClass}">${statusText}</span>
             `;
             container.appendChild(div);
         });
@@ -2018,11 +2663,11 @@
                     div.innerHTML = `
                         <div class="bank-info">
                             <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
-                            <div><strong>${currentLang === 'es' ? 'Cuenta' : currentLang === 'en' ? 'Account' : currentLang === 'my' ? 'အကောင့်' : '账户'}:</strong> ${account.accountNumber}</div>
-                            <div><strong>${currentLang === 'es' ? 'Titular' : currentLang === 'en' ? 'Holder' : currentLang === 'my' ? 'ပိုင်ရှင်' : '持有人'}:</strong> ${account.accountHolder}</div>
+                            <div><strong>${currentLang === 'es' ? 'Cuenta' : currentLang === 'en' ? 'Account' : currentLang === 'my' ? 'အကောင့်' : currentLang === 'zh' ? '账户' : currentLang === 'ja' ? '口座' : currentLang === 'ko' ? '계좌' : currentLang === 'fr' ? 'Compte' : currentLang === 'de' ? 'Konto' : currentLang === 'pt' ? 'Conta' : 'Счет'}:</strong> ${account.accountNumber}</div>
+                            <div><strong>${currentLang === 'es' ? 'Titular' : currentLang === 'en' ? 'Holder' : currentLang === 'my' ? 'ပိုင်ရှင်' : currentLang === 'zh' ? '持有人' : currentLang === 'ja' ? '名義人' : currentLang === 'ko' ? '소유자' : currentLang === 'fr' ? 'Titulaire' : currentLang === 'de' ? 'Inhaber' : currentLang === 'pt' ? 'Titular' : 'Владелец'}:</strong> ${account.accountHolder}</div>
                             <div><strong>CCI:</strong> ${account.cci}</div>
                         </div>
-                        <button class="delete-btn" onclick="deleteBankAccount(${index})" title="${currentLang === 'es' ? 'Eliminar' : currentLang === 'en' ? 'Delete' : currentLang === 'my' ? 'ဖျက်ရန်' : '删除'}">✕</button>
+                        <button class="delete-btn" onclick="deleteBankAccount(${index})" title="${currentLang === 'es' ? 'Eliminar' : currentLang === 'en' ? 'Delete' : currentLang === 'my' ? 'ဖျက်ရန်' : currentLang === 'zh' ? '删除' : currentLang === 'ja' ? '削除' : currentLang === 'ko' ? '삭제' : currentLang === 'fr' ? 'Supprimer' : currentLang === 'de' ? 'Löschen' : currentLang === 'pt' ? 'Excluir' : 'Удалить'}">✕</button>
                     `;
                     container.appendChild(div);
                 });
@@ -2045,11 +2690,11 @@
                     div.innerHTML = `
                         <div class="bank-info">
                             <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
-                            <div><strong>${currentLang === 'es' ? 'Cuenta' : currentLang === 'en' ? 'Account' : currentLang === 'my' ? 'အကောင့်' : '账户'}:</strong> ${account.accountNumber}</div>
-                            <div><strong>${currentLang === 'es' ? 'Titular' : currentLang === 'en' ? 'Holder' : currentLang === 'my' ? 'ပိုင်ရှင်' : '持有人'}:</strong> ${account.accountHolder}</div>
+                            <div><strong>${currentLang === 'es' ? 'Cuenta' : currentLang === 'en' ? 'Account' : currentLang === 'my' ? 'အကောင့်' : currentLang === 'zh' ? '账户' : currentLang === 'ja' ? '口座' : currentLang === 'ko' ? '계좌' : currentLang === 'fr' ? 'Compte' : currentLang === 'de' ? 'Konto' : currentLang === 'pt' ? 'Conta' : 'Счет'}:</strong> ${account.accountNumber}</div>
+                            <div><strong>${currentLang === 'es' ? 'Titular' : currentLang === 'en' ? 'Holder' : currentLang === 'my' ? 'ပိုင်ရှင်' : currentLang === 'zh' ? '持有人' : currentLang === 'ja' ? '名義人' : currentLang === 'ko' ? '소유자' : currentLang === 'fr' ? 'Titulaire' : currentLang === 'de' ? 'Inhaber' : currentLang === 'pt' ? 'Titular' : 'Владелец'}:</strong> ${account.accountHolder}</div>
                             <div><strong>CCI:</strong> ${account.cci}</div>
                         </div>
-                        <button class="delete-btn" onclick="deleteBankAccount(${index})" title="${currentLang === 'es' ? 'Eliminar' : currentLang === 'en' ? 'Delete' : currentLang === 'my' ? 'ဖျက်ရန်' : '删除'}">✕</button>
+                        <button class="delete-btn" onclick="deleteBankAccount(${index})" title="${currentLang === 'es' ? 'Eliminar' : currentLang === 'en' ? 'Delete' : currentLang === 'my' ? 'ဖျက်ရန်' : currentLang === 'zh' ? '删除' : currentLang === 'ja' ? '削除' : currentLang === 'ko' ? '삭제' : currentLang === 'fr' ? 'Supprimer' : currentLang === 'de' ? 'Löschen' : currentLang === 'pt' ? 'Excluir' : 'Удалить'}">✕</button>
                     `;
                     containerMi.appendChild(div);
                 });
@@ -2065,7 +2710,7 @@
         if (!select) return;
         const t = translations[currentLang];
         
-        select.innerHTML = `<option value="">-- ${currentLang === 'es' ? 'Selecciona un banco' : currentLang === 'en' ? 'Select a bank' : currentLang === 'my' ? 'ဘဏ်တစ်ခုရွေးပါ' : '选择银行'} --</option>`;
+        select.innerHTML = `<option value="">-- ${currentLang === 'es' ? 'Selecciona un banco' : currentLang === 'en' ? 'Select a bank' : currentLang === 'my' ? 'ဘဏ်တစ်ခုရွေးပါ' : currentLang === 'zh' ? '选择银行' : currentLang === 'ja' ? '銀行を選択' : currentLang === 'ko' ? '은행 선택' : currentLang === 'fr' ? 'Sélectionnez une banque' : currentLang === 'de' ? 'Wählen Sie eine Bank' : currentLang === 'pt' ? 'Selecione um banco' : 'Выберите банк'} --</option>`;
         
         userData.bankAccounts.forEach((account, index) => {
             const option = document.createElement('option');
@@ -2084,7 +2729,7 @@
             const bank = userData.bankAccounts[idx];
             document.getElementById('selectedBankName').textContent = bank.bankName;
             document.getElementById('selectedBankDetails').textContent = 
-                `${currentLang === 'es' ? 'Cuenta' : currentLang === 'en' ? 'Account' : currentLang === 'my' ? 'အကောင့်' : '账户'}: ${bank.accountNumber} | ${currentLang === 'es' ? 'Titular' : currentLang === 'en' ? 'Holder' : currentLang === 'my' ? 'ပိုင်ရှင်' : '持有人'}: ${bank.accountHolder}`;
+                `${currentLang === 'es' ? 'Cuenta' : currentLang === 'en' ? 'Account' : currentLang === 'my' ? 'အကောင့်' : currentLang === 'zh' ? '账户' : currentLang === 'ja' ? '口座' : currentLang === 'ko' ? '계좌' : currentLang === 'fr' ? 'Compte' : currentLang === 'de' ? 'Konto' : currentLang === 'pt' ? 'Conta' : 'Счет'}: ${bank.accountNumber} | ${currentLang === 'es' ? 'Titular' : currentLang === 'en' ? 'Holder' : currentLang === 'my' ? 'ပိုင်ရှင်' : currentLang === 'zh' ? '持有人' : currentLang === 'ja' ? '名義人' : currentLang === 'ko' ? '소유자' : currentLang === 'fr' ? 'Titulaire' : currentLang === 'de' ? 'Inhaber' : currentLang === 'pt' ? 'Titular' : 'Владелец'}: ${bank.accountHolder}`;
             display.classList.remove('hidden');
         };
     }
@@ -2115,7 +2760,7 @@
                 </div>
                 <div style="text-align:right;">
                     <div class="amount-info">${formatCurrency(-item.amount)}</div>
-                    <div class="status-success">✅ ${currentLang === 'es' ? 'Completado' : currentLang === 'en' ? 'Completed' : currentLang === 'my' ? 'ပြီးဆုံးပြီ' : '已完成'}</div>
+                    <div class="status-success">✅ ${currentLang === 'es' ? 'Completado' : currentLang === 'en' ? 'Completed' : currentLang === 'my' ? 'ပြီးဆုံးပြီ' : currentLang === 'zh' ? '已完成' : currentLang === 'ja' ? '完了' : currentLang === 'ko' ? '완료됨' : currentLang === 'fr' ? 'Terminé' : currentLang === 'de' ? 'Abgeschlossen' : currentLang === 'pt' ? 'Concluído' : 'Завершено'}</div>
                 </div>
             `;
             container.appendChild(div);
@@ -2149,7 +2794,7 @@
                     isUnlocked = true;
                     order.isUnlocked = true;
                 } else {
-                    lockReason = `🔒 ${currentLang === 'es' ? 'Requiere completar' : currentLang === 'en' ? 'Requires completing' : currentLang === 'my' ? 'ပြီးဆုံးရန် လိုအပ်သည်' : '需要完成'} ${req.level} (${req.requiredOrders} ${currentLang === 'es' ? 'órdenes' : currentLang === 'en' ? 'orders' : currentLang === 'my' ? 'အမှာစာ' : '订单'})`;
+                    lockReason = `🔒 ${currentLang === 'es' ? 'Requiere completar' : currentLang === 'en' ? 'Requires completing' : currentLang === 'my' ? 'ပြီးဆုံးရန် လိုအပ်သည်' : currentLang === 'zh' ? '需要完成' : currentLang === 'ja' ? '完了が必要' : currentLang === 'ko' ? '완료 필요' : currentLang === 'fr' ? 'Nécessite de terminer' : currentLang === 'de' ? 'Erfordert das Abschließen' : currentLang === 'pt' ? 'Requer conclusão' : 'Требуется завершение'} ${req.level} (${req.requiredOrders} ${currentLang === 'es' ? 'órdenes' : currentLang === 'en' ? 'orders' : currentLang === 'my' ? 'အမှာစာ' : currentLang === 'zh' ? '订单' : currentLang === 'ja' ? '注文' : currentLang === 'ko' ? '주문' : currentLang === 'fr' ? 'commandes' : currentLang === 'de' ? 'Bestellungen' : currentLang === 'pt' ? 'pedidos' : 'заказов'})`;
                 }
             }
 
@@ -2162,13 +2807,13 @@
             
             let buttonHtml = '';
             if (isComplete) {
-                buttonHtml = `<button class="btn btn-sm btn-vip completed" disabled>✅ ${currentLang === 'es' ? 'Completado' : currentLang === 'en' ? 'Completed' : currentLang === 'my' ? 'ပြီးဆုံးပြီ' : '已完成'}</button>`;
+                buttonHtml = `<button class="btn btn-sm btn-vip completed" disabled>✅ ${currentLang === 'es' ? 'Completado' : currentLang === 'en' ? 'Completed' : currentLang === 'my' ? 'ပြီးဆုံးပြီ' : currentLang === 'zh' ? '已完成' : currentLang === 'ja' ? '完了' : currentLang === 'ko' ? '완료됨' : currentLang === 'fr' ? 'Terminé' : currentLang === 'de' ? 'Abgeschlossen' : currentLang === 'pt' ? 'Concluído' : 'Завершено'}</button>`;
             } else if (!isUnlocked) {
-                buttonHtml = `<button class="btn btn-sm btn-vip locked" disabled>${lockReason || '🔒 ' + (currentLang === 'es' ? 'Bloqueado' : currentLang === 'en' ? 'Locked' : currentLang === 'my' ? 'ပိတ်ထားသည်' : '已锁定')}</button>`;
+                buttonHtml = `<button class="btn btn-sm btn-vip locked" disabled>${lockReason || '🔒 ' + (currentLang === 'es' ? 'Bloqueado' : currentLang === 'en' ? 'Locked' : currentLang === 'my' ? 'ပိတ်ထားသည်' : currentLang === 'zh' ? '已锁定' : currentLang === 'ja' ? 'ロック済み' : currentLang === 'ko' ? '잠김' : currentLang === 'fr' ? 'Verrouillé' : currentLang === 'de' ? 'Gesperrt' : currentLang === 'pt' ? 'Bloqueado' : 'Заблокировано')}</button>`;
             } else {
                 buttonHtml = `
                     <button class="btn btn-sm btn-vip" onclick="completeVIPOrder('${key}')">
-                        📦 ${currentLang === 'es' ? 'Completar Orden' : currentLang === 'en' ? 'Complete Order' : currentLang === 'my' ? 'အမှာစာပြီးအောင်လုပ်ရန်' : '完成订单'}
+                        📦 ${currentLang === 'es' ? 'Completar Orden' : currentLang === 'en' ? 'Complete Order' : currentLang === 'my' ? 'အမှာစာပြီးအောင်လုပ်ရန်' : currentLang === 'zh' ? '完成订单' : currentLang === 'ja' ? '注文を完了' : currentLang === 'ko' ? '주문 완료' : currentLang === 'fr' ? 'Terminer la commande' : currentLang === 'de' ? 'Bestellung abschließen' : currentLang === 'pt' ? 'Concluir pedido' : 'Завершить заказ'}
                     </button>
                 `;
             }
@@ -2179,9 +2824,9 @@
                 <div class="vip-info">
                     <div class="vip-title">${order.level}</div>
                     <div class="vip-details">
-                        ${currentLang === 'es' ? 'Ordenes' : currentLang === 'en' ? 'Orders' : currentLang === 'my' ? 'အမှာစာ' : '订单'}: ${order.completedOrders}/${order.totalOrders}
-                        ${isUnlocked ? `| 💰 ${currentLang === 'es' ? 'Inversión' : currentLang === 'en' ? 'Investment' : currentLang === 'my' ? 'ရင်းနှီးငွေ' : '投资'}: ${formatCurrency(order.baseInvestment)}` : ''}
-                        ${isUnlocked ? `| 📈 ${currentLang === 'es' ? 'Comisión' : currentLang === 'en' ? 'Commission' : currentLang === 'my' ? 'ကော်မရှင်' : '佣金'}: ${(order.commissionRate * 100)}%` : ''}
+                        ${currentLang === 'es' ? 'Ordenes' : currentLang === 'en' ? 'Orders' : currentLang === 'my' ? 'အမှာစာ' : currentLang === 'zh' ? '订单' : currentLang === 'ja' ? '注文' : currentLang === 'ko' ? '주문' : currentLang === 'fr' ? 'Commandes' : currentLang === 'de' ? 'Bestellungen' : currentLang === 'pt' ? 'Pedidos' : 'Заказы'}: ${order.completedOrders}/${order.totalOrders}
+                        ${isUnlocked ? `| 💰 ${currentLang === 'es' ? 'Inversión' : currentLang === 'en' ? 'Investment' : currentLang === 'my' ? 'ရင်းနှီးငွေ' : currentLang === 'zh' ? '投资' : currentLang === 'ja' ? '投資' : currentLang === 'ko' ? '투자' : currentLang === 'fr' ? 'Investissement' : currentLang === 'de' ? 'Investition' : currentLang === 'pt' ? 'Investimento' : 'Инвестиция'}: ${formatCurrency(order.baseInvestment)}` : ''}
+                        ${isUnlocked ? `| 📈 ${currentLang === 'es' ? 'Comisión' : currentLang === 'en' ? 'Commission' : currentLang === 'my' ? 'ကော်မရှင်' : currentLang === 'zh' ? '佣金' : currentLang === 'ja' ? 'コミッション' : currentLang === 'ko' ? '수수료' : currentLang === 'fr' ? 'Commission' : currentLang === 'de' ? 'Provision' : currentLang === 'pt' ? 'Comissão' : 'Комиссия'}: ${(order.commissionRate * 100)}%` : ''}
                     </div>
                     <div class="vip-progress">
                         <div class="progress-bar" style="width: ${Math.min(progress, 100)}%;"></div>
@@ -2189,7 +2834,7 @@
                 </div>
                 <div class="vip-actions">
                     <div class="order-count">${order.completedOrders}/${order.totalOrders}</div>
-                    ${isUnlocked ? `<div class="commission-info">💰 ${formatCurrency(commission)} ${currentLang === 'es' ? 'por orden' : currentLang === 'en' ? 'per order' : currentLang === 'my' ? 'တစ်ခုလျှင်' : '每订单'}</div>` : ''}
+                    ${isUnlocked ? `<div class="commission-info">💰 ${formatCurrency(commission)} ${currentLang === 'es' ? 'por orden' : currentLang === 'en' ? 'per order' : currentLang === 'my' ? 'တစ်ခုလျှင်' : currentLang === 'zh' ? '每订单' : currentLang === 'ja' ? 'ご注文あたり' : currentLang === 'ko' ? '주문당' : currentLang === 'fr' ? 'par commande' : currentLang === 'de' ? 'pro Bestellung' : currentLang === 'pt' ? 'por pedido' : 'за заказ'}</div>` : ''}
                     ${buttonHtml}
                 </div>
             `;
@@ -2289,7 +2934,7 @@
     }
 
     // ============================================================
-    //  BANK ACCOUNT FUNCTIONS (Config Page)
+    //  BANK ACCOUNT FUNCTIONS
     // ============================================================
     function toggleBankForm() {
         const form = document.getElementById('bankFormContainer');
@@ -2312,7 +2957,7 @@
         const t = translations[currentLang];
 
         if (!bankName || !accountNumber || !accountHolder || !cci) {
-            showMessage('⚠️ ' + (currentLang === 'es' ? 'Por favor, completa todos los campos del banco.' : currentLang === 'en' ? 'Please fill in all bank fields.' : currentLang === 'my' ? 'ကျေးဇူးပြု၍ ဘဏ်အကွက်အားလုံးကို ဖြည့်ပါ။' : '请填写所有银行字段。'), false);
+            showMessage('⚠️ ' + (currentLang === 'es' ? 'Por favor, completa todos los campos del banco.' : currentLang === 'en' ? 'Please fill in all bank fields.' : currentLang === 'my' ? 'ကျေးဇူးပြု၍ ဘဏ်အကွက်အားလုံးကို ဖြည့်ပါ။' : currentLang === 'zh' ? '请填写所有银行字段。' : currentLang === 'ja' ? 'すべての銀行項目を入力してください。' : currentLang === 'ko' ? '모든 은행 필드를 입력해 주세요.' : currentLang === 'fr' ? 'Veuillez remplir tous les champs de la banque.' : currentLang === 'de' ? 'Bitte füllen Sie alle Bankfelder aus.' : currentLang === 'pt' ? 'Por favor, preencha todos os campos do banco.' : 'Пожалуйста, заполните все банковские поля.'), false);
             return;
         }
 
@@ -2325,12 +2970,9 @@
 
         renderBankAccounts();
         toggleBankForm();
-        showMessage(`✅ ${currentLang === 'es' ? 'Cuenta bancaria' : currentLang === 'en' ? 'Bank account' : currentLang === 'my' ? 'ဘဏ်အကောင့်' : '银行账户'} "${bankName}" ${currentLang === 'es' ? 'agregada con éxito.' : currentLang === 'en' ? 'added successfully.' : currentLang === 'my' ? 'အောင်မြင်စွာထည့်သွင်းပြီးပါပြီ။' : '添加成功。'}`, true);
+        showMessage(`✅ ${currentLang === 'es' ? 'Cuenta bancaria' : currentLang === 'en' ? 'Bank account' : currentLang === 'my' ? 'ဘဏ်အကောင့်' : currentLang === 'zh' ? '银行账户' : currentLang === 'ja' ? '銀行口座' : currentLang === 'ko' ? '은행 계좌' : currentLang === 'fr' ? 'Compte bancaire' : currentLang === 'de' ? 'Bankkonto' : currentLang === 'pt' ? 'Conta bancária' : 'Банковский счет'} "${bankName}" ${currentLang === 'es' ? 'agregada con éxito.' : currentLang === 'en' ? 'added successfully.' : currentLang === 'my' ? 'အောင်မြင်စွာထည့်သွင်းပြီးပါပြီ။' : currentLang === 'zh' ? '添加成功。' : currentLang === 'ja' ? '追加に成功しました。' : currentLang === 'ko' ? '추가되었습니다.' : currentLang === 'fr' ? 'ajouté avec succès.' : currentLang === 'de' ? 'erfolgreich hinzugefügt.' : currentLang === 'pt' ? 'adicionada com sucesso.' : 'успешно добавлен.'}`, true);
     }
 
-    // ============================================================
-    //  BANK ACCOUNT FUNCTIONS (Mi Page)
-    // ============================================================
     function toggleBankFormMi() {
         const form = document.getElementById('bankFormContainerMi');
         if (!form) return;
@@ -2352,7 +2994,7 @@
         const t = translations[currentLang];
 
         if (!bankName || !accountNumber || !accountHolder || !cci) {
-            showMessage('⚠️ ' + (currentLang === 'es' ? 'Por favor, completa todos los campos del banco.' : currentLang === 'en' ? 'Please fill in all bank fields.' : currentLang === 'my' ? 'ကျေးဇူးပြု၍ ဘဏ်အကွက်အားလုံးကို ဖြည့်ပါ။' : '请填写所有银行字段。'), false);
+            showMessage('⚠️ ' + (currentLang === 'es' ? 'Por favor, completa todos los campos del banco.' : currentLang === 'en' ? 'Please fill in all bank fields.' : currentLang === 'my' ? 'ကျေးဇူးပြု၍ ဘဏ်အကွက်အားလုံးကို ဖြည့်ပါ။' : currentLang === 'zh' ? '请填写所有银行字段。' : currentLang === 'ja' ? 'すべての銀行項目を入力してください。' : currentLang === 'ko' ? '모든 은행 필드를 입력해 주세요.' : currentLang === 'fr' ? 'Veuillez remplir tous les champs de la banque.' : currentLang === 'de' ? 'Bitte füllen Sie alle Bankfelder aus.' : currentLang === 'pt' ? 'Por favor, preencha todos os campos do banco.' : 'Пожалуйста, заполните все банковские поля.'), false);
             return;
         }
 
@@ -2365,17 +3007,17 @@
 
         renderBankAccounts();
         toggleBankFormMi();
-        showMessage(`✅ ${currentLang === 'es' ? 'Cuenta bancaria' : currentLang === 'en' ? 'Bank account' : currentLang === 'my' ? 'ဘဏ်အကောင့်' : '银行账户'} "${bankName}" ${currentLang === 'es' ? 'agregada con éxito.' : currentLang === 'en' ? 'added successfully.' : currentLang === 'my' ? 'အောင်မြင်စွာထည့်သွင်းပြီးပါပြီ။' : '添加成功。'}`, true);
+        showMessage(`✅ ${currentLang === 'es' ? 'Cuenta bancaria' : currentLang === 'en' ? 'Bank account' : currentLang === 'my' ? 'ဘဏ်အကောင့်' : currentLang === 'zh' ? '银行账户' : currentLang === 'ja' ? '銀行口座' : currentLang === 'ko' ? '은행 계좌' : currentLang === 'fr' ? 'Compte bancaire' : currentLang === 'de' ? 'Bankkonto' : currentLang === 'pt' ? 'Conta bancária' : 'Банковский счет'} "${bankName}" ${currentLang === 'es' ? 'agregada con éxito.' : currentLang === 'en' ? 'added successfully.' : currentLang === 'my' ? 'အောင်မြင်စွာထည့်သွင်းပြီးပါပြီ။' : currentLang === 'zh' ? '添加成功。' : currentLang === 'ja' ? '追加に成功しました。' : currentLang === 'ko' ? '추가되었습니다.' : currentLang === 'fr' ? 'ajouté avec succès.' : currentLang === 'de' ? 'erfolgreich hinzugefügt.' : currentLang === 'pt' ? 'adicionada com sucesso.' : 'успешно добавлен.'}`, true);
     }
 
     function deleteBankAccount(index) {
         const t = translations[currentLang];
-        if (confirm(currentLang === 'es' ? '¿Estás seguro de eliminar esta cuenta bancaria?' : currentLang === 'en' ? 'Are you sure you want to delete this bank account?' : currentLang === 'my' ? 'ဤဘဏ်အကောင့်ကို ဖျက်ရန် သေချာပါသလား။' : '确定要删除此银行账户吗？')) {
+        if (confirm(currentLang === 'es' ? '¿Estás seguro de eliminar esta cuenta bancaria?' : currentLang === 'en' ? 'Are you sure you want to delete this bank account?' : currentLang === 'my' ? 'ဤဘဏ်အကောင့်ကို ဖျက်ရန် သေချာပါသလား။' : currentLang === 'zh' ? '确定要删除此银行账户吗？' : currentLang === 'ja' ? 'この銀行口座を削除してもよろしいですか？' : currentLang === 'ko' ? '이 은행 계좌를 삭제하시겠습니까?' : currentLang === 'fr' ? 'Êtes-vous sûr de vouloir supprimer ce compte bancaire ?' : currentLang === 'de' ? 'Sind Sie sicher, dass Sie dieses Bankkonto löschen möchten?' : currentLang === 'pt' ? 'Tem certeza que deseja excluir esta conta bancária?' : 'Вы уверены, что хотите удалить этот банковский счет?')) {
             const deleted = userData.bankAccounts[index];
             userData.bankAccounts.splice(index, 1);
             renderBankAccounts();
             updateWithdrawBankSelect();
-            showMessage(`🗑️ ${currentLang === 'es' ? 'Cuenta' : currentLang === 'en' ? 'Account' : currentLang === 'my' ? 'အကောင့်' : '账户'} "${deleted.bankName}" ${currentLang === 'es' ? 'eliminada.' : currentLang === 'en' ? 'deleted.' : currentLang === 'my' ? 'ဖျက်ပြီးပါပြီ။' : '已删除。'}`, true);
+            showMessage(`🗑️ ${currentLang === 'es' ? 'Cuenta' : currentLang === 'en' ? 'Account' : currentLang === 'my' ? 'အကောင့်' : currentLang === 'zh' ? '账户' : currentLang === 'ja' ? '口座' : currentLang === 'ko' ? '계좌' : currentLang === 'fr' ? 'Compte' : currentLang === 'de' ? 'Konto' : currentLang === 'pt' ? 'Conta' : 'Счет'} "${deleted.bankName}" ${currentLang === 'es' ? 'eliminada.' : currentLang === 'en' ? 'deleted.' : currentLang === 'my' ? 'ဖျက်ပြီးပါပြီ။' : currentLang === 'zh' ? '已删除。' : currentLang === 'ja' ? '削除されました。' : currentLang === 'ko' ? '삭제되었습니다.' : currentLang === 'fr' ? 'supprimé.' : currentLang === 'de' ? 'gelöscht.' : currentLang === 'pt' ? 'excluída.' : 'удален.'}`, true);
         }
     }
 
@@ -2409,7 +3051,7 @@
         userData.retiroCount += 1;
 
         const now = new Date();
-        const dateStr = now.toLocaleDateString(currentLang === 'es' ? 'es-ES' : currentLang === 'my' ? 'my-MM' : 'en-US', {
+        const dateStr = now.toLocaleDateString(currentLang === 'es' ? 'es-ES' : currentLang === 'my' ? 'my-MM' : currentLang === 'ja' ? 'ja-JP' : currentLang === 'ko' ? 'ko-KR' : currentLang === 'fr' ? 'fr-FR' : currentLang === 'de' ? 'de-DE' : currentLang === 'pt' ? 'pt-BR' : currentLang === 'ru' ? 'ru-RU' : 'en-US', {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
@@ -2421,7 +3063,7 @@
             bankName: selectedBank.bankName,
             amount: amount,
             date: dateStr,
-            status: currentLang === 'es' ? 'Completado' : currentLang === 'en' ? 'Completed' : currentLang === 'my' ? 'ပြီးဆုံးပြီ' : '已完成'
+            status: currentLang === 'es' ? 'Completado' : currentLang === 'en' ? 'Completed' : currentLang === 'my' ? 'ပြီးဆုံးပြီ' : currentLang === 'zh' ? '已完成' : currentLang === 'ja' ? '完了' : currentLang === 'ko' ? '완료됨' : currentLang === 'fr' ? 'Terminé' : currentLang === 'de' ? 'Abgeschlossen' : currentLang === 'pt' ? 'Concluído' : 'Завершено'
         });
 
         updateDashboard();
@@ -2578,7 +3220,6 @@
         document.getElementById('regError').style.display = 'none';
         document.getElementById('loginError').style.display = 'none';
         
-        // Set default language and currency
         document.getElementById('languageSwitcher').value = 'es';
         document.getElementById('currencySwitcher').value = 'PEN';
         currentLang = 'es';
