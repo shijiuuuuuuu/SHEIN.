@@ -49,6 +49,53 @@
             font-size: 0.9rem;
         }
 
+        /* ========== TOP BAR ========== */
+        .top-bar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+            flex-wrap: wrap;
+        }
+
+        .top-bar .switcher-group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #f8f9fa;
+            padding: 3px 8px 3px 5px;
+            border-radius: 25px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .top-bar .switcher-group .icon {
+            font-size: 1rem;
+        }
+
+        .top-bar .switcher-group select {
+            padding: 4px 6px;
+            border: none;
+            background: transparent;
+            font-size: 0.7rem;
+            cursor: pointer;
+            outline: none;
+            color: #2d3436;
+            font-weight: 500;
+            max-width: 110px;
+        }
+
+        .top-bar .switcher-group select:hover {
+            color: #ff6b6b;
+        }
+
+        .top-bar .switcher-group select option {
+            font-size: 0.75rem;
+        }
+
+        /* ========== FORMULARIOS ========== */
         .form-group {
             margin-bottom: 16px;
         }
@@ -126,6 +173,14 @@
 
         .btn-warning:hover {
             background: #f9ca24;
+        }
+
+        .btn-primary {
+            background: #0984e3;
+        }
+
+        .btn-primary:hover {
+            background: #0652DD;
         }
 
         .hidden {
@@ -251,6 +306,129 @@
             margin-top: 0;
         }
 
+        /* ========== VIP ORDERS ========== */
+        .vip-order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .vip-order-item:last-child {
+            border-bottom: none;
+        }
+
+        .vip-order-item .vip-info {
+            flex: 1;
+        }
+
+        .vip-order-item .vip-info .vip-title {
+            font-weight: 700;
+            color: #2d3436;
+            font-size: 1.05rem;
+        }
+
+        .vip-order-item .vip-info .vip-details {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .vip-order-item .vip-info .vip-progress {
+            margin-top: 4px;
+            background: #dfe6e9;
+            border-radius: 10px;
+            height: 6px;
+            width: 100%;
+            max-width: 150px;
+            overflow: hidden;
+        }
+
+        .vip-order-item .vip-info .vip-progress .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .vip-order-item .vip-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+
+        .vip-order-item .vip-actions .order-count {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .vip-order-item .vip-actions .commission-info {
+            font-size: 0.75rem;
+            color: #00b894;
+            font-weight: 600;
+        }
+
+        .vip-section {
+            background: #fafafa;
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-top: 15px;
+            border: 1px solid #eee;
+        }
+
+        .vip-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 5px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .vip-item:last-child {
+            border-bottom: none;
+        }
+
+        .vip-name {
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .vip-status.activo {
+            color: #00b894;
+        }
+
+        .vip-status.inactivo {
+            color: #b2bec3;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .info-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+
+        .info-item .number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3436;
+        }
+
+        .info-item .label {
+            font-size: 0.7rem;
+            color: #888;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
         /* ========== ID DISPLAY ========== */
         .user-id-display {
             background: linear-gradient(135deg, #2d3436, #636e72);
@@ -291,7 +469,7 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
-        /* ========== BANK ACCOUNT ========== */
+        /* ========== BANK ACCOUNT CARD ========== */
         .bank-account-card {
             background: #f8f9fa;
             border-radius: 12px;
@@ -305,6 +483,10 @@
 
         .bank-account-card .bank-info {
             font-size: 0.9rem;
+        }
+
+        .bank-account-card .bank-info strong {
+            color: #2d3436;
         }
 
         .bank-account-card .bank-info .bank-name {
@@ -337,6 +519,15 @@
             border: 1px solid #eee;
         }
 
+        .bank-form .form-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .bank-form .form-row .form-group {
+            flex: 1;
+        }
+
         /* ========== WITHDRAWAL SECTION ========== */
         .withdrawal-section {
             background: #f8f9fa;
@@ -359,6 +550,16 @@
             border: 1px solid #ddd;
         }
 
+        .withdrawal-section .selected-bank .bank-label {
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        .withdrawal-section .selected-bank .bank-value {
+            font-weight: 600;
+            color: #2d3436;
+        }
+
         .withdrawal-history {
             margin-top: 15px;
         }
@@ -377,6 +578,22 @@
         .withdrawal-history .history-item .amount-info {
             font-weight: 700;
             color: #d63031;
+        }
+
+        .withdrawal-history .history-item .bank-info {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .withdrawal-history .history-item .date-info {
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        .withdrawal-history .history-item .status-success {
+            color: #00b894;
+            font-weight: 600;
+            font-size: 0.85rem;
         }
 
         /* ========== PROFILE ========== */
@@ -427,6 +644,28 @@
             color: #2d3436;
         }
 
+        /* ========== SECTION HEADERS ========== */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .section-header h3 {
+            color: #2d3436;
+        }
+
+        .section-header .badge-count {
+            background: #6c5ce7;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
         /* ========== BOTTOM NAV ========== */
         .bottom-nav {
             display: flex;
@@ -466,6 +705,145 @@
             display: block;
         }
 
+        /* ========== ORDER MODAL ========== */
+        .order-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeInOverlay 0.3s ease;
+        }
+
+        .order-modal-overlay.show {
+            display: flex;
+        }
+
+        @keyframes fadeInOverlay {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .order-modal {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            animation: modalPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .order-modal .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 5px;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .order-modal .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 5px;
+        }
+
+        .order-modal .modal-subtitle {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .order-modal .modal-product {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .order-modal .modal-product .product-icon {
+            font-size: 3rem;
+        }
+
+        .order-modal .modal-product .product-name {
+            font-weight: 600;
+            color: #2d3436;
+            font-size: 1.1rem;
+        }
+
+        .order-modal .modal-product .product-price {
+            color: #00b894;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .order-modal .modal-commission {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            border-radius: 15px;
+            padding: 12px;
+            margin: 10px 0;
+        }
+
+        .order-modal .modal-commission .commission-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .order-modal .modal-commission .commission-amount {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .order-modal .modal-close-btn {
+            margin-top: 15px;
+            padding: 10px 30px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .order-modal .modal-close-btn:hover {
+            background: #e55a5a;
+            transform: scale(1.02);
+        }
+
         /* ========== RESPONSIVE ========== */
         @media (max-width: 500px) {
             .container {
@@ -480,12 +858,51 @@
                 flex-direction: column;
             }
 
-            .profile-card .detail-grid {
-                grid-template-columns: 1fr;
+            .info-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+
+            .info-item .number {
+                font-size: 1.2rem;
             }
 
             .app-header h1 {
                 font-size: 2rem;
+            }
+
+            .bank-form .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .profile-card .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .vip-order-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .vip-order-item .vip-actions {
+                align-items: flex-start;
+                width: 100%;
+            }
+
+            .vip-order-item .vip-actions .btn {
+                width: 100%;
+            }
+
+            .top-bar {
+                justify-content: center;
+                gap: 5px;
+            }
+
+            .top-bar .switcher-group select {
+                max-width: 80px;
+                font-size: 0.65rem;
             }
 
             .user-id-display {
@@ -493,12 +910,46 @@
                 gap: 8px;
                 justify-content: center;
             }
+
+            .order-modal {
+                padding: 20px;
+            }
+
+            .order-modal .modal-title {
+                font-size: 1.2rem;
+            }
+
+            .order-modal .modal-commission .commission-amount {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="container" id="appContainer">
+
+        <!-- ===== TOP BAR: LANGUAGE & CURRENCY SWITCHER ===== -->
+        <div class="top-bar">
+            <div class="switcher-group">
+                <span class="icon">🌐</span>
+                <select id="languageSwitcher" onchange="changeLanguage(this.value)">
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="en">🇬🇧 English</option>
+                    <option value="my">🇲🇲 မြန်မာ</option>
+                    <option value="zh">🇨🇳 中文</option>
+                </select>
+            </div>
+            <div class="switcher-group">
+                <span class="icon">💰</span>
+                <select id="currencySwitcher" onchange="changeCurrency(this.value)">
+                    <option value="PEN">S/ (PEN)</option>
+                    <option value="USD">$ (USD)</option>
+                    <option value="EUR">€ (EUR)</option>
+                    <option value="MMK">K (MMK)</option>
+                </select>
+            </div>
+        </div>
 
         <!-- ===== HEADER ===== -->
         <div class="app-header">
@@ -603,8 +1054,33 @@
                 <button class="btn btn-outline btn-retirar" onclick="handleRetirar()">📤 RETIRAR</button>
             </div>
 
+            <!-- ===== VIP ORDERS PAGE ===== -->
+            <div id="vipOrdersPage" class="page-section active">
+                <div class="section-header">
+                    <h3 class="vip-orders-title">📦 Órdenes VIP</h3>
+                    <span class="badge-count">6 Niveles</span>
+                </div>
+                <p class="vip-orders-subtitle" style="color:#888; font-size:0.85rem; margin-bottom:10px;">
+                    Completa órdenes para ganar comisiones. ¡Cada orden te acerca a tu próximo nivel VIP!
+                </p>
+
+                <div id="vipOrdersContainer">
+                    <!-- Generado por JavaScript -->
+                </div>
+
+                <!-- ===== ORDER HISTORY ===== -->
+                <div class="order-history-section">
+                    <h4>📋 Historial de órdenes</h4>
+                    <div id="orderHistoryList">
+                        <div style="text-align:center; padding:10px; color:#888; font-size:0.85rem;">
+                            No hay órdenes completadas aún.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- ===== MI PAGE ===== -->
-            <div id="miPage" class="page-section active">
+            <div id="miPage" class="page-section">
                 <h3 class="mi-title" style="color:#2d3436; margin-top:10px;">👤 Mi Perfil</h3>
 
                 <div class="user-id-display">
@@ -634,7 +1110,7 @@
                     </div>
                 </div>
 
-                <!-- ===== BANCOS ===== -->
+                <!-- ===== BANCOS EN MI PAGE ===== -->
                 <div style="margin-top:15px;">
                     <div class="section-header">
                         <h4 class="mis-bancos-title" style="color:#2d3436;">🏦 Mis Cuentas Bancarias</h4>
@@ -729,7 +1205,10 @@
 
             <!-- ===== BOTTOM NAV ===== -->
             <div class="bottom-nav">
-                <div class="nav-item active" onclick="switchPage('miPage', this)">
+                <div class="nav-item active" onclick="switchPage('vipOrdersPage', this)">
+                    <span class="icon">📦</span> <span class="nav-ordenes">Órdenes</span>
+                </div>
+                <div class="nav-item" onclick="switchPage('miPage', this)">
                     <span class="icon">👤</span> <span class="nav-mi">Mi</span>
                 </div>
             </div>
@@ -737,6 +1216,32 @@
             <button class="btn btn-outline btn-logout" onclick="handleLogout()" style="margin-top:15px;">
                 🚪 <span class="logout-text">Cerrar sesión</span>
             </button>
+        </div>
+
+        <!-- ===== ORDER COMPLETED MODAL ===== -->
+        <div class="order-modal-overlay" id="orderModal">
+            <div class="order-modal">
+                <div class="modal-icon">🎉</div>
+                <div class="modal-title">¡Orden Completada!</div>
+                <div class="modal-subtitle">Has completado una orden exitosamente</div>
+
+                <div class="modal-product" id="modalProduct">
+                    <div class="product-icon" id="modalProductIcon">📱</div>
+                    <div class="product-name" id="modalProductName">Smartphone X</div>
+                    <div class="product-price" id="modalProductPrice">S/ 299.00</div>
+                </div>
+
+                <div class="modal-commission">
+                    <div class="commission-label">💰 Comisión ganada</div>
+                    <div class="commission-amount" id="modalCommission">S/ 3.00</div>
+                </div>
+
+                <div style="font-size:0.85rem; color:#888; margin-top:5px;" id="modalOrderCount">
+                    Orden #1 de 12 completada
+                </div>
+
+                <button class="modal-close-btn" onclick="closeOrderModal()">✅ ¡Excelente!</button>
+            </div>
         </div>
 
         <div id="infoMessage" class="success-msg hidden"></div>
@@ -747,6 +1252,43 @@
         //  STORAGE KEY - MISMA CLAVE QUE ADMIN PANEL
         // ============================================================
         const STORAGE_KEY = 'shein_admin_data';
+
+        // ============================================================
+        //  PRODUCTOS ALEATORIOS
+        // ============================================================
+        const productos = [
+            { icon: '📱', name: 'Smartphone X Pro', price: 299.00 },
+            { icon: '💻', name: 'Laptop Ultra 15"', price: 499.00 },
+            { icon: '🎧', name: 'Audífonos Bluetooth', price: 29.99 },
+            { icon: '⌚', name: 'Smartwatch Series 5', price: 89.00 },
+            { icon: '📷', name: 'Cámara Digital 4K', price: 199.00 },
+            { icon: '🎮', name: 'Consola de Videojuegos', price: 149.00 },
+            { icon: '📺', name: 'TV Smart 50"', price: 399.00 },
+            { icon: '🔊', name: 'Altavoz Bluetooth', price: 39.99 },
+            { icon: '💍', name: 'Anillo de Oro 18k', price: 159.00 },
+            { icon: '👟', name: 'Zapatillas Deportivas', price: 69.00 },
+            { icon: '👗', name: 'Vestido de Moda', price: 45.00 },
+            { icon: '🧥', name: 'Chaqueta de Cuero', price: 89.00 },
+            { icon: '💄', name: 'Set de Maquillaje', price: 25.00 },
+            { icon: '🏠', name: 'Decoración para Hogar', price: 15.00 },
+            { icon: '📚', name: 'Libro Best Seller', price: 12.00 }
+        ];
+
+        let orderHistory = [];
+        let orderCounter = 0;
+
+        // ============================================================
+        //  CURRENCY SYMBOLS
+        // ============================================================
+        const currencySymbols = {
+            'PEN': 'S/',
+            'USD': '$',
+            'EUR': '€',
+            'MMK': 'K'
+        };
+
+        let currentLang = 'es';
+        let currentCurrency = 'PEN';
 
         // ============================================================
         //  USER DATA
@@ -771,8 +1313,417 @@
             frozen: false,
             registrationDate: '',
             ipAddress: '',
-            history: []
+            history: [],
+            vipOrders: {
+                vip1: { level: 'VIP 1', totalOrders: 12, completedOrders: 0, commissionRate: 0.30, isUnlocked: true,
+                    isCompleted: false, baseInvestment: 10.00 },
+                vip2: { level: 'VIP 2', totalOrders: 20, completedOrders: 0, commissionRate: 0.35, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 25.00, unlockRequirement: { level: 'VIP 1', requiredOrders: 12 } },
+                vip3: { level: 'VIP 3', totalOrders: 30, completedOrders: 0, commissionRate: 0.40, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 50.00, unlockRequirement: { level: 'VIP 2', requiredOrders: 20 } },
+                vip4: { level: 'VIP 4', totalOrders: 40, completedOrders: 0, commissionRate: 0.45, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 100.00, unlockRequirement: { level: 'VIP 3', requiredOrders: 30 } },
+                vip5: { level: 'VIP 5', totalOrders: 50, completedOrders: 0, commissionRate: 0.50, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 200.00, unlockRequirement: { level: 'VIP 4', requiredOrders: 40 } },
+                vip6: { level: 'VIP 6', totalOrders: 60, completedOrders: 0, commissionRate: 0.55, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 500.00, unlockRequirement: { level: 'VIP 5', requiredOrders: 50 } }
+            },
+            vipLevels: {
+                vip1: { name: 'VIP 1', active: true },
+                vip2: { name: 'VIP 2', active: false },
+                vip3: { name: 'VIP 3', active: false },
+                vip4: { name: 'VIP 4', active: false },
+                vip5: { name: 'VIP 5', active: false },
+                vip6: { name: 'VIP 6', active: false }
+            }
         };
+
+        // ============================================================
+        //  LANGUAGE & CURRENCY FUNCTIONS
+        // ============================================================
+        const translations = {
+            es: {
+                appTitle: '✨ Tu centro comercial online ✨',
+                registerTitle: '📝 Crear cuenta',
+                loginTitle: '🔐 Iniciar sesión',
+                phoneLabel: '📱 Número de teléfono',
+                countryLabel: '🌍 Código de país',
+                usernameLabel: '👤 Nombre de usuario',
+                passwordLabel: '🔒 Contraseña',
+                registerBtn: '✅ Registrarse',
+                loginBtn: '🚪 Iniciar sesión',
+                switchToLogin: '¿Ya tienes cuenta?',
+                switchToRegister: '¿No tienes cuenta?',
+                loginIdentifierLabel: '👤 Usuario o teléfono',
+                loginPasswordLabel: '🔒 Contraseña',
+                greeting: 'Hola',
+                balanceLabel: '💰 Saldo',
+                incomeLabel: '📈 Ingresos totales',
+                comenzarBtn: '🚀 COMENZAR',
+                recargarBtn: '📥 RECARGAR',
+                retirarBtn: '📤 RETIRAR',
+                vipOrdersTitle: '📦 Órdenes VIP',
+                vipOrdersSubtitle: 'Completa órdenes para ganar comisiones. ¡Cada orden te acerca a tu próximo nivel VIP!',
+                miTitle: '👤 Mi Perfil',
+                memberSince: '📅 Miembro desde',
+                profileBalance: '💰 Saldo',
+                profileVip: '⭐ Nivel VIP',
+                misBancos: '🏦 Mis Cuentas Bancarias',
+                addBankMi: '➕ Agregar cuenta bancaria',
+                withdrawalTitle: '📤 Realizar Retiro',
+                withdrawBankLabel: '🏛️ Selecciona tu cuenta bancaria',
+                withdrawAmountLabel: '💰 Monto a retirar',
+                confirmWithdrawal: '✅ Confirmar Retiro',
+                historyTitle: '📋 Historial de Retiros',
+                noHistory: 'No hay retiros realizados.',
+                navOrdenes: 'Órdenes',
+                navMi: 'Mi',
+                logout: 'Cerrar sesión',
+                regError: '⚠️ Por favor, completa todos los campos.',
+                loginError: '❌ Usuario o contraseña incorrectos.',
+                noOrders: 'No hay órdenes completadas aún.',
+                orderHistory: '📋 Historial de órdenes',
+                orderCompleted: 'Orden completada en',
+                earned: 'Ganaste',
+                completedAll: '🎉 ¡Felicidades! Has completado',
+                andEarned: 'y ganado',
+                unlocked: '🔓 ¡{level} ha sido desbloqueado!',
+                notUnlocked: '❌ Este nivel VIP no está desbloqueado aún.',
+                alreadyCompleted: '✅ ¡Ya has completado todas las órdenes de este nivel!',
+                selectBank: '⚠️ Por favor, selecciona una cuenta bancaria.',
+                validAmount: '⚠️ Por favor, ingresa un monto válido mayor a 0.',
+                insufficientBalance: '❌ Saldo insuficiente. Tu saldo es',
+                withdrawalSuccess: '✅ Retiro de {amount} a {bank} completado con éxito.',
+                registerSuccess: '✅ ¡Cuenta "{username}" creada con éxito! {amount} de bienvenida.',
+                loginSuccess: '🔓 ¡Bienvenido de nuevo, {username}!',
+                logoutSuccess: '👋 Has cerrado sesión correctamente.',
+                comenzarSuccess: '🚀 ¡Has comenzado un nuevo trabajo! +{amount}',
+                recargarSuccess: '📥 ¡Recarga exitosa! +{amount}',
+                goToWithdraw: '📤 Ve a la sección "Mi" para realizar tu retiro.',
+                userIdLabel: '🆔 ID de usuario',
+                copyBtn: '📋 Copiar',
+                copied: '✅ ID copiado al portapapeles',
+                orderCompletedTitle: '¡Orden Completada!',
+                orderCompletedSub: 'Has completado una orden exitosamente',
+                orderCount: 'Orden #{count} de {total} completada',
+                noOrdersHistory: 'No hay órdenes completadas aún.',
+                orderHistoryLabel: '📋 Historial de órdenes',
+                requiresCompleting: 'Requiere completar',
+                orders: 'órdenes',
+                completed: 'Completado',
+                locked: 'Bloqueado',
+                completeOrder: 'Completar Orden',
+                investment: 'Inversión',
+                commission: 'Comisión',
+                perOrder: 'por orden'
+            },
+            en: {
+                appTitle: '✨ Your online shopping center ✨',
+                registerTitle: '📝 Create account',
+                loginTitle: '🔐 Login',
+                phoneLabel: '📱 Phone number',
+                countryLabel: '🌍 Country code',
+                usernameLabel: '👤 Username',
+                passwordLabel: '🔒 Password',
+                registerBtn: '✅ Register',
+                loginBtn: '🚪 Login',
+                switchToLogin: 'Already have an account?',
+                switchToRegister: "Don't have an account?",
+                loginIdentifierLabel: '👤 Username or phone',
+                loginPasswordLabel: '🔒 Password',
+                greeting: 'Hello',
+                balanceLabel: '💰 Balance',
+                incomeLabel: '📈 Total income',
+                comenzarBtn: '🚀 START',
+                recargarBtn: '📥 RECHARGE',
+                retirarBtn: '📤 WITHDRAW',
+                vipOrdersTitle: '📦 VIP Orders',
+                vipOrdersSubtitle: 'Complete orders to earn commissions. Each order brings you closer to your next VIP level!',
+                miTitle: '👤 My Profile',
+                memberSince: '📅 Member since',
+                profileBalance: '💰 Balance',
+                profileVip: '⭐ VIP Level',
+                misBancos: '🏦 My Bank Accounts',
+                addBankMi: '➕ Add bank account',
+                withdrawalTitle: '📤 Make Withdrawal',
+                withdrawBankLabel: '🏛️ Select your bank account',
+                withdrawAmountLabel: '💰 Amount to withdraw',
+                confirmWithdrawal: '✅ Confirm Withdrawal',
+                historyTitle: '📋 Withdrawal History',
+                noHistory: 'No withdrawals made.',
+                navOrdenes: 'Orders',
+                navMi: 'My',
+                logout: 'Logout',
+                regError: '⚠️ Please fill in all fields.',
+                loginError: '❌ Incorrect username/phone or password.',
+                noOrders: 'No orders completed yet.',
+                orderHistory: '📋 Order History',
+                orderCompleted: 'Order completed in',
+                earned: 'Earned',
+                completedAll: '🎉 Congratulations! You have completed',
+                andEarned: 'and earned',
+                unlocked: '🔓 {level} has been unlocked!',
+                notUnlocked: '❌ This VIP level is not unlocked yet.',
+                alreadyCompleted: '✅ You have already completed all orders for this level!',
+                selectBank: '⚠️ Please select a bank account.',
+                validAmount: '⚠️ Please enter a valid amount greater than 0.',
+                insufficientBalance: '❌ Insufficient balance. Your balance is',
+                withdrawalSuccess: '✅ Withdrawal of {amount} to {bank} completed successfully.',
+                registerSuccess: '✅ Account "{username}" created successfully! {amount} welcome bonus.',
+                loginSuccess: '🔓 Welcome back, {username}!',
+                logoutSuccess: '👋 You have logged out successfully.',
+                comenzarSuccess: '🚀 You have started a new job! +{amount}',
+                recargarSuccess: '📥 Recharge successful! +{amount}',
+                goToWithdraw: '📤 Go to the "My" section to make your withdrawal.',
+                userIdLabel: '🆔 User ID',
+                copyBtn: '📋 Copy',
+                copied: '✅ ID copied to clipboard',
+                orderCompletedTitle: 'Order Completed!',
+                orderCompletedSub: 'You have successfully completed an order',
+                orderCount: 'Order #{count} of {total} completed',
+                noOrdersHistory: 'No orders completed yet.',
+                orderHistoryLabel: '📋 Order History',
+                requiresCompleting: 'Requires completing',
+                orders: 'orders',
+                completed: 'Completed',
+                locked: 'Locked',
+                completeOrder: 'Complete Order',
+                investment: 'Investment',
+                commission: 'Commission',
+                perOrder: 'per order'
+            },
+            my: {
+                appTitle: '✨ သင့်အွန်လိုင်းစျေးဝယ်စင်တာ ✨',
+                registerTitle: '📝 အကောင့်ဖွင့်ရန်',
+                loginTitle: '🔐 ဝင်ရောက်ရန်',
+                phoneLabel: '📱 ဖုန်းနံပါတ်',
+                countryLabel: '🌍 နိုင်ငံကုဒ်',
+                usernameLabel: '👤 အသုံးပြုသူအမည်',
+                passwordLabel: '🔒 စကားဝှက်',
+                registerBtn: '✅ မှတ်ပုံတင်ရန်',
+                loginBtn: '🚪 ဝင်ရောက်ရန်',
+                switchToLogin: 'အကောင့်ရှိပြီးသားလား?',
+                switchToRegister: 'အကောင့်မရှိသေးဘူးလား?',
+                loginIdentifierLabel: '👤 အသုံးပြုသူအမည် သို့မဟုတ် ဖုန်းနံပါတ်',
+                loginPasswordLabel: '🔒 စကားဝှက်',
+                greeting: 'မင်္ဂလာပါ',
+                balanceLabel: '💰 လက်ကျန်ငွေ',
+                incomeLabel: '📈 စုစုပေါင်းဝင်ငွေ',
+                comenzarBtn: '🚀 စတင်ရန်',
+                recargarBtn: '📥 ငွေဖြည့်ရန်',
+                retirarBtn: '📤 ငွေထုတ်ရန်',
+                vipOrdersTitle: '📦 VIP အမှာစာများ',
+                vipOrdersSubtitle: 'ကော်မရှင်ရရန် အမှာစာများကို ပြီးအောင်လုပ်ပါ။ အမှာစာတိုင်းသည် သင့်အား နောက် VIP အဆင့်သို့ ပို့ဆောင်ပေးသည်။',
+                miTitle: '👤 ကျွန်ုပ်၏ ပရိုဖိုင်',
+                memberSince: '📅 အဖွဲ့ဝင်ဖြစ်ကတည်းက',
+                profileBalance: '💰 လက်ကျန်ငွေ',
+                profileVip: '⭐ VIP အဆင့်',
+                misBancos: '🏦 ကျွန်ုပ်၏ ဘဏ်အကောင့်များ',
+                addBankMi: '➕ ဘဏ်အကောင့်ထည့်ရန်',
+                withdrawalTitle: '📤 ငွေထုတ်ရန်',
+                withdrawBankLabel: '🏛️ သင့်ဘဏ်အကောင့်ကိုရွေးပါ',
+                withdrawAmountLabel: '💰 ထုတ်ချင်သောပမာဏ',
+                confirmWithdrawal: '✅ ငွေထုတ်ရန်အတည်ပြုပါ',
+                historyTitle: '📋 ငွေထုတ်မှတ်တမ်း',
+                noHistory: 'ငွေထုတ်ခြင်းမရှိသေးပါ။',
+                navOrdenes: 'အမှာစာများ',
+                navMi: 'ကျွန်ုပ်',
+                logout: 'ထွက်ရန်',
+                regError: '⚠️ ကျေးဇူးပြု၍ အားလုံးဖြည့်ပါ။',
+                loginError: '❌ အသုံးပြုသူအမည်/ဖုန်းနံပါတ် သို့မဟုတ် စကားဝှက် မှားနေပါသည်။',
+                noOrders: 'အမှာစာများ မပြီးသေးပါ။',
+                orderHistory: '📋 အမှာစာမှတ်တမ်း',
+                orderCompleted: 'တွင် အမှာစာပြီးဆုံးပါပြီ',
+                earned: 'ရရှိငွေ',
+                completedAll: '🎉 ဂုဏ်ယူပါတယ်! သင်',
+                andEarned: 'ပြီးဆုံးပြီး',
+                unlocked: '🔓 {level} ကို ဖွင့်လှစ်လိုက်ပါပြီ!',
+                notUnlocked: '❌ ဤ VIP အဆင့်ကို မဖွင့်ရသေးပါ။',
+                alreadyCompleted: '✅ ဤအဆင့်အတွက် အမှာစာများအားလုံးကို ပြီးဆုံးပြီးဖြစ်ပါသည်။',
+                selectBank: '⚠️ ကျေးဇူးပြု၍ ဘဏ်အကောင့်တစ်ခုကို ရွေးပါ။',
+                validAmount: '⚠️ ကျေးဇူးပြု၍ ၀ ထက်ကြီးသော ပမာဏကို ရိုက်ထည့်ပါ။',
+                insufficientBalance: '❌ လက်ကျန်မလုံလောက်ပါ။ သင့်လက်ကျန်မှာ',
+                withdrawalSuccess: '✅ {bank} သို့ {amount} ငွေထုတ်ခြင်း အောင်မြင်ပါပြီ။',
+                registerSuccess: '✅ "{username}" အကောင့်ကို အောင်မြင်စွာဖွင့်လှစ်ပြီး {amount} ကြိုဆိုငွေ ရရှိပါပြီ။',
+                loginSuccess: '🔓 ပြန်လည်ကြိုဆိုပါတယ် {username}!',
+                logoutSuccess: '👋 အကောင့်မှ အောင်မြင်စွာ ထွက်ပြီးပါပြီ။',
+                comenzarSuccess: '🚀 အလုပ်အသစ်စတင်ပြီပါပြီ! +{amount}',
+                recargarSuccess: '📥 ငွေဖြည့်ခြင်း အောင်မြင်ပါပြီ! +{amount}',
+                goToWithdraw: '📤 ငွေထုတ်ရန် "ကျွန်ုပ်" ကဏ္ဍသို့ သွားပါ။',
+                userIdLabel: '🆔 အသုံးပြုသူ ID',
+                copyBtn: '📋 ကူးယူရန်',
+                copied: '✅ ID ကို ကလစ်ဘုတ်သို့ ကူးယူပြီးပါပြီ',
+                orderCompletedTitle: 'အမှာစာ ပြီးဆုံးပါပြီ!',
+                orderCompletedSub: 'အမှာစာကို အောင်မြင်စွာ ပြီးဆုံးပါပြီ',
+                orderCount: 'အမှာစာ #{count} မှ {total} ပြီးဆုံးပါပြီ',
+                noOrdersHistory: 'အမှာစာများ မပြီးသေးပါ။',
+                orderHistoryLabel: '📋 အမှာစာမှတ်တမ်း',
+                requiresCompleting: 'ပြီးဆုံးရန် လိုအပ်သည်',
+                orders: 'အမှာစာ',
+                completed: 'ပြီးဆုံးပြီ',
+                locked: 'ပိတ်ထားသည်',
+                completeOrder: 'အမှာစာပြီးအောင်လုပ်ရန်',
+                investment: 'ရင်းနှီးငွေ',
+                commission: 'ကော်မရှင်',
+                perOrder: 'တစ်ခုလျှင်'
+            },
+            zh: {
+                appTitle: '✨ 您的在线购物中心 ✨',
+                registerTitle: '📝 创建账户',
+                loginTitle: '🔐 登录',
+                phoneLabel: '📱 电话号码',
+                countryLabel: '🌍 国家代码',
+                usernameLabel: '👤 用户名',
+                passwordLabel: '🔒 密码',
+                registerBtn: '✅ 注册',
+                loginBtn: '🚪 登录',
+                switchToLogin: '已有账户？',
+                switchToRegister: '没有账户？',
+                loginIdentifierLabel: '👤 用户名或电话',
+                loginPasswordLabel: '🔒 密码',
+                greeting: '你好',
+                balanceLabel: '💰 余额',
+                incomeLabel: '📈 总收入',
+                comenzarBtn: '🚀 开始',
+                recargarBtn: '📥 充值',
+                retirarBtn: '📤 提现',
+                vipOrdersTitle: '📦 VIP 订单',
+                vipOrdersSubtitle: '完成订单赚取佣金。每个订单都让您更接近下一个VIP级别！',
+                miTitle: '👤 我的资料',
+                memberSince: '📅 加入日期',
+                profileBalance: '💰 余额',
+                profileVip: '⭐ VIP 级别',
+                misBancos: '🏦 我的银行账户',
+                addBankMi: '➕ 添加银行账户',
+                withdrawalTitle: '📤 提现',
+                withdrawBankLabel: '🏛️ 选择您的银行账户',
+                withdrawAmountLabel: '💰 提现金额',
+                confirmWithdrawal: '✅ 确认提现',
+                historyTitle: '📋 提现记录',
+                noHistory: '没有提现记录。',
+                navOrdenes: '订单',
+                navMi: '我的',
+                logout: '退出',
+                regError: '⚠️ 请填写所有字段。',
+                loginError: '❌ 用户名/电话或密码错误。',
+                noOrders: '没有完成的订单。',
+                orderHistory: '📋 订单历史',
+                orderCompleted: '订单完成于',
+                earned: '赚取',
+                completedAll: '🎉 恭喜！您已完成',
+                andEarned: '并赚取',
+                unlocked: '🔓 {level} 已解锁！',
+                notUnlocked: '❌ 此VIP级别尚未解锁。',
+                alreadyCompleted: '✅ 您已完成此级别的所有订单！',
+                selectBank: '⚠️ 请选择银行账户。',
+                validAmount: '⚠️ 请输入大于0的有效金额。',
+                insufficientBalance: '❌ 余额不足。您的余额是',
+                withdrawalSuccess: '✅ 向 {bank} 提现 {amount} 成功。',
+                registerSuccess: '✅ 账户 "{username}" 创建成功！获得 {amount} 欢迎奖励。',
+                loginSuccess: '🔓 欢迎回来，{username}！',
+                logoutSuccess: '👋 您已成功退出。',
+                comenzarSuccess: '🚀 您已开始新工作！+{amount}',
+                recargarSuccess: '📥 充值成功！+{amount}',
+                goToWithdraw: '📤 请前往"我的"部分进行提现。',
+                userIdLabel: '🆔 用户ID',
+                copyBtn: '📋 复制',
+                copied: '✅ ID已复制到剪贴板',
+                orderCompletedTitle: '订单完成！',
+                orderCompletedSub: '您已成功完成订单',
+                orderCount: '订单 #{count} / {total} 已完成',
+                noOrdersHistory: '还没有完成的订单。',
+                orderHistoryLabel: '📋 订单历史',
+                requiresCompleting: '需要完成',
+                orders: '订单',
+                completed: '已完成',
+                locked: '已锁定',
+                completeOrder: '完成订单',
+                investment: '投资',
+                commission: '佣金',
+                perOrder: '每订单'
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            applyTranslations(lang);
+            updateDashboard();
+            renderVIPOrders();
+            renderBankAccounts();
+            updateWithdrawBankSelect();
+            renderWithdrawalHistory();
+        }
+
+        function changeCurrency(currency) {
+            currentCurrency = currency;
+            updateDashboard();
+            renderVIPOrders();
+            renderBankAccounts();
+            updateWithdrawBankSelect();
+            renderWithdrawalHistory();
+        }
+
+        function applyTranslations(lang) {
+            const t = translations[lang] || translations.es;
+
+            document.querySelector('.header-subtitle').textContent = t.appTitle;
+            document.querySelector('.register-title').textContent = t.registerTitle;
+            document.querySelector('.login-title').textContent = t.loginTitle;
+            document.querySelector('.label-phone').textContent = t.phoneLabel;
+            document.querySelector('.label-country').textContent = t.countryLabel;
+            document.querySelector('.label-username').textContent = t.usernameLabel;
+            document.querySelector('.label-password').textContent = t.passwordLabel;
+            document.querySelector('.btn-register').textContent = t.registerBtn;
+            document.querySelector('.btn-login').textContent = t.loginBtn;
+            document.querySelector('.label-login-identifier').textContent = t.loginIdentifierLabel;
+            document.querySelector('.label-login-password').textContent = t.loginPasswordLabel;
+            document.querySelector('.switch-to-login').innerHTML = t.switchToLogin + ' <strong>Iniciar sesión</strong>';
+            document.querySelector('.switch-to-register').innerHTML = t.switchToRegister +
+            ' <strong>Regístrate aquí</strong>';
+            document.querySelector('.greeting-text').textContent = t.greeting;
+            document.querySelector('.label-balance').textContent = t.balanceLabel;
+            document.querySelector('.label-income').textContent = t.incomeLabel;
+            document.querySelector('.btn-comenzar').textContent = t.comenzarBtn;
+            document.querySelector('.btn-recargar').textContent = t.recargarBtn;
+            document.querySelector('.btn-retirar').textContent = t.retirarBtn;
+            document.querySelector('.vip-orders-title').textContent = t.vipOrdersTitle;
+            document.querySelector('.vip-orders-subtitle').textContent = t.vipOrdersSubtitle;
+            document.querySelector('.mi-title').textContent = t.miTitle;
+            document.querySelector('.label-member-since').textContent = t.memberSince;
+            document.querySelector('.label-profile-balance').textContent = t.profileBalance;
+            document.querySelector('.label-profile-vip').textContent = t.profileVip;
+            document.querySelector('.mis-bancos-title').textContent = t.misBancos;
+            document.querySelector('.btn-add-bank-mi').textContent = t.addBankMi;
+            document.querySelector('.add-bank-mi-title').textContent = t.addBankTitle || '🏦 Agregar cuenta bancaria';
+            document.querySelector('.label-bank-name-mi').textContent = t.bankNameLabel || '🏛️ Nombre del banco';
+            document.querySelector('.label-account-number-mi').textContent = t.accountNumberLabel || '🔢 Número de cuenta';
+            document.querySelector('.label-account-holder-mi').textContent = t.accountHolderLabel || '👤 Titular de la cuenta';
+            document.querySelector('.label-cci-mi').textContent = t.cciLabel || '🔢 CCI / IBAN';
+            document.querySelector('.btn-confirm-bank-mi').textContent = t.confirmBtn || '✅ Confirmar';
+            document.querySelector('.btn-cancel-bank-mi').textContent = t.cancelBtn || '❌ Cancelar';
+            document.querySelector('.withdrawal-title').textContent = t.withdrawalTitle;
+            document.querySelector('.label-withdraw-bank').textContent = t.withdrawBankLabel;
+            document.querySelector('.label-withdraw-amount').textContent = t.withdrawAmountLabel;
+            document.querySelector('.btn-confirm-withdrawal').textContent = t.confirmWithdrawal;
+            document.querySelector('.history-title').textContent = t.historyTitle;
+            document.querySelector('.nav-ordenes').textContent = t.navOrdenes;
+            document.querySelector('.nav-mi').textContent = t.navMi;
+            document.querySelector('.logout-text').textContent = t.logout;
+            document.getElementById('regError').textContent = t.regError;
+            document.getElementById('loginError').textContent = t.loginError;
+            document.querySelector('.order-history-section h4').textContent = t.orderHistoryLabel || '📋 Historial de órdenes';
+            document.querySelector('.modal-title').textContent = t.orderCompletedTitle || '¡Orden Completada!';
+            document.querySelector('.modal-subtitle').textContent = t.orderCompletedSub ||
+            'Has completado una orden exitosamente';
+            document.querySelector('.modal-close-btn').textContent = '✅ ' + (t.completed || '¡Excelente!');
+            document.querySelectorAll('.id-label').forEach(el => el.textContent = t.userIdLabel || '🆔 ID de usuario');
+            document.querySelectorAll('.id-copy').forEach(el => el.textContent = t.copyBtn || '📋 Copiar');
+        }
+
+        function formatCurrency(amount) {
+            const symbol = currencySymbols[currentCurrency] || 'S/';
+            return `${symbol} ${(amount || 0).toFixed(2)}`;
+        }
 
         // ============================================================
         //  LOAD / SAVE FUNCTIONS - CON LOCAL STORAGE
@@ -782,12 +1733,18 @@
             if (stored) {
                 try {
                     const data = JSON.parse(stored);
-                    // Buscar usuario actual por ID
                     if (data.currentUserId) {
                         const found = data.users.find(u => u.userId === data.currentUserId);
                         if (found) {
                             Object.assign(userData, found);
                             userData.isLoggedIn = true;
+                            // Also restore VIP orders data
+                            if (found.vipOrders) {
+                                Object.assign(userData.vipOrders, found.vipOrders);
+                            }
+                            if (found.vipLevels) {
+                                Object.assign(userData.vipLevels, found.vipLevels);
+                            }
                         }
                     }
                     console.log('✅ Datos de usuario cargados:', userData.username);
@@ -801,11 +1758,10 @@
             let allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
             if (!allData.users) allData.users = [];
 
-            // Actualizar o agregar usuario actual
-            const userIndex = allData.users.findIndex(u => u.userId === userData.userId);
             const userCopy = JSON.parse(JSON.stringify(userData));
             delete userCopy.isLoggedIn;
 
+            const userIndex = allData.users.findIndex(u => u.userId === userData.userId);
             if (userIndex >= 0) {
                 allData.users[userIndex] = userCopy;
             } else if (userData.userId) {
@@ -829,6 +1785,7 @@
             document.getElementById('loginForm').classList.add('active');
             document.getElementById('regError').style.display = 'none';
             document.getElementById('loginError').style.display = 'none';
+            applyTranslations(currentLang);
         }
 
         function showRegister() {
@@ -838,6 +1795,7 @@
             document.getElementById('registerForm').classList.add('active');
             document.getElementById('regError').style.display = 'none';
             document.getElementById('loginError').style.display = 'none';
+            applyTranslations(currentLang);
         }
 
         function showMessage(text, isSuccess = true) {
@@ -866,7 +1824,8 @@
         function copyUserId() {
             const userId = document.getElementById('userIdDisplay').textContent;
             navigator.clipboard.writeText(userId).then(() => {
-                showMessage('✅ ID copiado al portapapeles', true);
+                const t = translations[currentLang] || translations.es;
+                showMessage(t.copied || '✅ ID copiado al portapapeles', true);
             }).catch(() => {
                 const userIdEl = document.getElementById('userIdDisplay');
                 const range = document.createRange();
@@ -874,12 +1833,9 @@
                 window.getSelection().removeAllRanges();
                 window.getSelection().addRange(range);
                 document.execCommand('copy');
-                showMessage('✅ ID copiado al portapapeles', true);
+                const t = translations[currentLang] || translations.es;
+                showMessage(t.copied || '✅ ID copiado al portapapeles', true);
             });
-        }
-
-        function formatCurrency(amount) {
-            return `S/ ${(amount || 0).toFixed(2)}`;
         }
 
         // ============================================================
@@ -890,6 +1846,7 @@
             const countryCode = document.getElementById('regCountryCode').value;
             const username = document.getElementById('regUsername').value.trim();
             const password = document.getElementById('regPassword').value.trim();
+            const t = translations[currentLang] || translations.es;
 
             if (!phone || !username || !password) {
                 document.getElementById('regError').style.display = 'block';
@@ -898,7 +1855,6 @@
                 document.getElementById('regError').style.display = 'none';
             }
 
-            // ✅ Generar ID único
             userData.userId = generateUserId();
             userData.username = username;
             userData.phone = phone;
@@ -919,8 +1875,17 @@
             userData.frozen = false;
             userData.registrationDate = new Date().toLocaleString('es-ES');
             userData.ipAddress = getRandomIP();
+            orderHistory = [];
+            orderCounter = 0;
 
-            // ✅ Guardar en Local Storage
+            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
+            vipKeys.forEach((key, index) => {
+                userData.vipOrders[key].completedOrders = 0;
+                userData.vipOrders[key].isCompleted = false;
+                userData.vipOrders[key].isUnlocked = (index === 0);
+                userData.vipLevels[key].active = (index === 0);
+            });
+
             saveUserData();
 
             document.getElementById('registerForm').classList.remove('active');
@@ -933,14 +1898,16 @@
             document.getElementById('miUserId').textContent = userData.userId;
 
             updateDashboard();
-            showMessage(`✅ ¡Cuenta "${username}" creada con éxito! ${formatCurrency(10.00)} de bienvenida.`, true);
+            renderVIPOrders();
+            showMessage(t.registerSuccess.replace('{username}', username).replace('{amount}', formatCurrency(10.00)),
+            true);
         }
 
         function handleLogin() {
             const identifier = document.getElementById('loginIdentifier').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
+            const t = translations[currentLang] || translations.es;
 
-            // ✅ Cargar todos los usuarios del Local Storage
             const allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
             const users = allData.users || [];
 
@@ -953,6 +1920,8 @@
                 document.getElementById('loginError').style.display = 'none';
                 Object.assign(userData, found);
                 userData.isLoggedIn = true;
+                if (found.vipOrders) Object.assign(userData.vipOrders, found.vipOrders);
+                if (found.vipLevels) Object.assign(userData.vipLevels, found.vipLevels);
 
                 document.getElementById('registerForm').classList.remove('active');
                 document.getElementById('registerForm').classList.add('hidden');
@@ -964,21 +1933,246 @@
                 document.getElementById('miUserId').textContent = userData.userId;
 
                 updateDashboard();
-                showMessage(`🔓 ¡Bienvenido de nuevo, ${userData.username}!`, true);
+                renderVIPOrders();
+                showMessage(t.loginSuccess.replace('{username}', userData.username), true);
             } else {
                 document.getElementById('loginError').style.display = 'block';
-                showMessage('❌ Usuario o contraseña incorrectos.', false);
+                showMessage(t.loginError || '❌ Usuario o contraseña incorrectos.', false);
             }
         }
 
         function handleLogout() {
+            const t = translations[currentLang] || translations.es;
             userData.isLoggedIn = false;
             document.getElementById('dashboard').classList.add('hidden');
             document.getElementById('registerForm').classList.remove('hidden');
             document.getElementById('registerForm').classList.add('active');
             document.getElementById('loginForm').classList.remove('active');
             document.getElementById('loginForm').classList.add('hidden');
-            showMessage('👋 Has cerrado sesión correctamente.', true);
+            showMessage(t.logoutSuccess || '👋 Has cerrado sesión correctamente.', true);
+            applyTranslations(currentLang);
+        }
+
+        // ============================================================
+        //  VIP ORDERS SYSTEM
+        // ============================================================
+        function renderVIPOrders() {
+            const container = document.getElementById('vipOrdersContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            const t = translations[currentLang] || translations.es;
+
+            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
+
+            vipKeys.forEach(key => {
+                const order = userData.vipOrders[key];
+                const progress = (order.completedOrders / order.totalOrders) * 100;
+                const isComplete = order.completedOrders >= order.totalOrders;
+
+                let isUnlocked = order.isUnlocked;
+                let lockReason = '';
+
+                if (!isUnlocked && order.unlockRequirement) {
+                    const req = order.unlockRequirement;
+                    const reqKey = req.level.toLowerCase().replace(' ', '');
+                    const reqOrder = userData.vipOrders[reqKey];
+                    if (reqOrder && reqOrder.completedOrders >= req.requiredOrders) {
+                        isUnlocked = true;
+                        order.isUnlocked = true;
+                    } else {
+                        lockReason =
+                            `🔒 ${t.requiresCompleting || 'Requiere completar'} ${req.level} (${req.requiredOrders} ${t.orders || 'órdenes'})`;
+                    }
+                }
+
+                if (isUnlocked && !userData.vipLevels[key].active) {
+                    userData.vipLevels[key].active = true;
+                }
+
+                const div = document.createElement('div');
+                div.className = 'vip-order-item';
+
+                let buttonHtml = '';
+                if (isComplete) {
+                    buttonHtml =
+                        `<button class="btn btn-sm btn-vip completed" disabled>✅ ${t.completed || 'Completado'}</button>`;
+                } else if (!isUnlocked) {
+                    buttonHtml =
+                        `<button class="btn btn-sm btn-vip locked" disabled>${lockReason || '🔒 ' + (t.locked || 'Bloqueado')}</button>`;
+                } else {
+                    buttonHtml = `
+                                <button class="btn btn-sm btn-vip" onclick="completeVIPOrder('${key}')">
+                                    📦 ${t.completeOrder || 'Completar Orden'}
+                                </button>
+                            `;
+                }
+
+                const commission = order.baseInvestment * order.commissionRate;
+
+                div.innerHTML = `
+                            <div class="vip-info">
+                                <div class="vip-title">${order.level}</div>
+                                <div class="vip-details">
+                                    ${t.orders || 'Ordenes'}: ${order.completedOrders}/${order.totalOrders}
+                                    ${isUnlocked ? `| 💰 ${t.investment || 'Inversión'}: ${formatCurrency(order.baseInvestment)}` : ''}
+                                    ${isUnlocked ? `| 📈 ${t.commission || 'Comisión'}: ${(order.commissionRate * 100)}%` : ''}
+                                </div>
+                                <div class="vip-progress">
+                                    <div class="progress-bar" style="width: ${Math.min(progress, 100)}%;"></div>
+                                </div>
+                            </div>
+                            <div class="vip-actions">
+                                <div class="order-count">${order.completedOrders}/${order.totalOrders}</div>
+                                ${isUnlocked ? `<div class="commission-info">💰 ${formatCurrency(commission)} ${t.perOrder || 'por orden'}</div>` : ''}
+                                ${buttonHtml}
+                            </div>
+                        `;
+                container.appendChild(div);
+            });
+
+            renderOrderHistory();
+        }
+
+        function getRandomProduct() {
+            return productos[Math.floor(Math.random() * productos.length)];
+        }
+
+        function showOrderModal(product, commission, completedCount, totalCount) {
+            document.getElementById('modalProductIcon').textContent = product.icon;
+            document.getElementById('modalProductName').textContent = product.name;
+            document.getElementById('modalProductPrice').textContent = formatCurrency(product.price);
+            document.getElementById('modalCommission').textContent = formatCurrency(commission);
+
+            const t = translations[currentLang] || translations.es;
+            document.getElementById('modalOrderCount').textContent =
+                t.orderCount.replace('{count}', completedCount).replace('{total}', totalCount) ||
+                `Orden #${completedCount} de ${totalCount} completada`;
+
+            document.getElementById('orderModal').classList.add('show');
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.remove('show');
+        }
+
+        function renderOrderHistory() {
+            const container = document.getElementById('orderHistoryList');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const t = translations[currentLang] || translations.es;
+
+            if (orderHistory.length === 0) {
+                container.innerHTML = `
+                            <div style="text-align:center; padding:10px; color:#888; font-size:0.85rem;">
+                                ${t.noOrders || 'No hay órdenes completadas aún.'}
+                            </div>
+                        `;
+                return;
+            }
+
+            const history = [...orderHistory].reverse();
+            history.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'order-history-item';
+                div.innerHTML = `
+                            <div>
+                                <span class="product-name">${item.icon} ${item.product}</span>
+                                <div class="order-time">${item.time}</div>
+                            </div>
+                            <div>
+                                <span class="order-earned">+${formatCurrency(item.commission)}</span>
+                            </div>
+                        `;
+                container.appendChild(div);
+            });
+        }
+
+        function completeVIPOrder(vipKey) {
+            const order = userData.vipOrders[vipKey];
+            const t = translations[currentLang] || translations.es;
+
+            if (!order.isUnlocked) {
+                showMessage(t.notUnlocked || '❌ Este nivel VIP no está desbloqueado aún.', false);
+                return;
+            }
+
+            if (order.completedOrders >= order.totalOrders) {
+                showMessage(t.alreadyCompleted || '✅ ¡Ya has completado todas las órdenes de este nivel!', true);
+                return;
+            }
+
+            const product = getRandomProduct();
+            const commission = order.baseInvestment * order.commissionRate;
+
+            order.completedOrders += 1;
+            orderCounter += 1;
+
+            userData.balance += commission;
+            userData.totalIncome += commission;
+            userData.totalOrders += 1;
+
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('es-ES', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            orderHistory.push({
+                icon: product.icon,
+                product: product.name,
+                commission: commission,
+                time: timeStr,
+                vipLevel: order.level
+            });
+
+            if (!userData.history) userData.history = [];
+            userData.history.push({
+                action: `Orden ${order.level}`,
+                amount: commission,
+                date: now.toLocaleString('es-ES')
+            });
+
+            saveUserData();
+
+            showOrderModal(product, commission, order.completedOrders, order.totalOrders);
+
+            if (order.completedOrders >= order.totalOrders) {
+                order.isCompleted = true;
+                setTimeout(() => {
+                    showMessage(
+                        `${t.completedAll || '🎉 ¡Felicidades! Has completado'} ${order.level} ${t.andEarned || 'y ganado'} ${formatCurrency(commission)}!`,
+                        true);
+
+                    const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
+                    const currentIndex = vipKeys.indexOf(vipKey);
+                    if (currentIndex < vipKeys.length - 1) {
+                        const nextKey = vipKeys[currentIndex + 1];
+                        const nextOrder = userData.vipOrders[nextKey];
+                        if (nextOrder && !nextOrder.isUnlocked) {
+                            const req = nextOrder.unlockRequirement;
+                            const reqKey = req.level.toLowerCase().replace(' ', '');
+                            const reqOrder = userData.vipOrders[reqKey];
+                            if (reqOrder && reqOrder.completedOrders >= req.requiredOrders) {
+                                nextOrder.isUnlocked = true;
+                                userData.vipLevels[nextKey].active = true;
+                                saveUserData();
+                                showMessage(t.unlocked.replace('{level}', nextOrder.level), true);
+                            }
+                        }
+                    }
+                    renderVIPOrders();
+                    updateDashboard();
+                }, 500);
+            } else {
+                setTimeout(() => {
+                    showMessage(
+                        `✅ ${t.orderCompleted || 'Orden completada en'} ${order.level}. ${t.earned || 'Ganaste'} ${formatCurrency(commission)}! (${order.completedOrders}/${order.totalOrders})`,
+                        true);
+                    renderVIPOrders();
+                    updateDashboard();
+                }, 500);
+            }
         }
 
         // ============================================================
@@ -1004,6 +2198,7 @@
             renderBankAccounts();
             updateWithdrawBankSelect();
             renderWithdrawalHistory();
+            applyTranslations(currentLang);
         }
 
         function renderBankAccounts() {
@@ -1118,6 +2313,7 @@
                 document.getElementById('bankAccountHolderMi').value = '';
                 document.getElementById('bankCCIMi').value = '';
             }
+            applyTranslations(currentLang);
         }
 
         function saveBankAccountMi() {
@@ -1164,20 +2360,22 @@
             const select = document.getElementById('withdrawBankSelect');
             const amountInput = document.getElementById('withdrawAmount');
             const amount = parseFloat(amountInput.value);
+            const t = translations[currentLang] || translations.es;
 
             const bankIndex = parseInt(select.value);
             if (isNaN(bankIndex) || bankIndex < 0 || bankIndex >= (userData.bankAccounts || []).length) {
-                showMessage('⚠️ Por favor, selecciona una cuenta bancaria.', false);
+                showMessage(t.selectBank || '⚠️ Por favor, selecciona una cuenta bancaria.', false);
                 return;
             }
 
             if (isNaN(amount) || amount <= 0) {
-                showMessage('⚠️ Por favor, ingresa un monto válido mayor a 0.', false);
+                showMessage(t.validAmount || '⚠️ Por favor, ingresa un monto válido mayor a 0.', false);
                 return;
             }
 
             if (amount > userData.balance) {
-                showMessage(`❌ Saldo insuficiente. Tu saldo es ${formatCurrency(userData.balance)}`, false);
+                showMessage(`${t.insufficientBalance || '❌ Saldo insuficiente. Tu saldo es'} ${formatCurrency(userData.balance)}`,
+                    false);
                 return;
             }
 
@@ -1214,13 +2412,15 @@
             updateWithdrawBankSelect();
             renderWithdrawalHistory();
             amountInput.value = '';
-            showMessage(`✅ Retiro de ${formatCurrency(amount)} a ${selectedBank.bankName} completado con éxito.`, true);
+            showMessage(t.withdrawalSuccess.replace('{amount}', formatCurrency(amount)).replace('{bank}', selectedBank
+                .bankName), true);
         }
 
         // ============================================================
         //  DASHBOARD BUTTONS
         // ============================================================
         function handleComenzar() {
+            const t = translations[currentLang] || translations.es;
             userData.balance += 5;
             userData.totalIncome += 5;
             userData.trabajoCount += 1;
@@ -1232,10 +2432,11 @@
             });
             saveUserData();
             updateDashboard();
-            showMessage(`🚀 ¡Has comenzado un nuevo trabajo! +${formatCurrency(5)}`, true);
+            showMessage(t.comenzarSuccess.replace('{amount}', formatCurrency(5)), true);
         }
 
         function handleRecargar() {
+            const t = translations[currentLang] || translations.es;
             userData.balance += 10;
             userData.recargaCount += 1;
             if (!userData.history) userData.history = [];
@@ -1246,13 +2447,21 @@
             });
             saveUserData();
             updateDashboard();
-            showMessage(`📥 ¡Recarga exitosa! +${formatCurrency(10)}`, true);
+            showMessage(t.recargarSuccess.replace('{amount}', formatCurrency(10)), true);
         }
 
         function handleRetirar() {
-            showMessage('📤 Ve a la sección "Mi" para realizar tu retiro.', true);
+            const t = translations[currentLang] || translations.es;
+            const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+            if (navItems.length > 1) {
+                switchPage('miPage', navItems[1]);
+            }
+            showMessage(t.goToWithdraw || '📤 Ve a la sección "Mi" para realizar tu retiro.', true);
         }
 
+        // ============================================================
+        //  SWITCH PAGE
+        // ============================================================
         function switchPage(pageId, element) {
             const pages = document.querySelectorAll('.page-section');
             pages.forEach(p => p.classList.remove('active'));
@@ -1264,9 +2473,13 @@
                 element.classList.add('active');
             }
 
+            if (pageId === 'vipOrdersPage') {
+                renderVIPOrders();
+            }
             if (pageId === 'miPage') {
                 updateDashboard();
             }
+            applyTranslations(currentLang);
         }
 
         // ============================================================
@@ -1275,7 +2488,12 @@
         window.onload = function() {
             loadUserData();
 
-            // Check if user is already logged in
+            // Set default language and currency
+            document.getElementById('languageSwitcher').value = 'es';
+            document.getElementById('currencySwitcher').value = 'PEN';
+            currentLang = 'es';
+            currentCurrency = 'PEN';
+
             if (userData.isLoggedIn && userData.userId) {
                 document.getElementById('registerForm').classList.remove('active');
                 document.getElementById('registerForm').classList.add('hidden');
@@ -1287,6 +2505,7 @@
                 document.getElementById('miUserId').textContent = userData.userId;
 
                 updateDashboard();
+                renderVIPOrders();
             } else {
                 document.getElementById('registerForm').classList.remove('hidden');
                 document.getElementById('registerForm').classList.add('active');
@@ -1297,8 +2516,16 @@
 
             document.getElementById('regError').style.display = 'none';
             document.getElementById('loginError').style.display = 'none';
+            applyTranslations('es');
 
-            console.log('🛒 Shein Platform cargado correctamente');
+            // Close modal on overlay click
+            document.getElementById('orderModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeOrderModal();
+                }
+            });
+
+            console.log('🛒 Shein Platform v3.0 cargado correctamente');
             console.log('🔑 Storage Key:', STORAGE_KEY);
             console.log('👤 Usuario:', userData.username || 'No logueado');
             console.log('🆔 User ID:', userData.userId || 'N/A');
