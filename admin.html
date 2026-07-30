@@ -1,51 +1,17 @@
 <!DOCTYPE html>
-<html lang="es" id="htmlRoot">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shein - Admin Panel v3.0</title>
+    <title>Shein - Admin Panel (Supabase)</title>
+    
+    <!-- ===== SUPABASE SDK ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
     <style>
         /* ============================================================
-           ROOT VARIABLES
-           ============================================================ */
-        :root {
-            --bg-primary: #f0f2f5;
-            --bg-secondary: #ffffff;
-            --bg-card: #f8f9fa;
-            --text-primary: #2d3436;
-            --text-secondary: #888;
-            --border-color: #e8e8e8;
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            --shadow-hover: 0 15px 50px rgba(0, 0, 0, 0.15);
-            --radius: 16px;
-            --radius-sm: 10px;
-            --radius-lg: 20px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --primary: #ff6b6b;
-            --primary-hover: #e55a5a;
-            --success: #00b894;
-            --success-hover: #00a381;
-            --danger: #d63031;
-            --danger-hover: #c0392b;
-            --warning: #fdcb6e;
-            --warning-hover: #f9ca24;
-            --purple: #6c5ce7;
-            --blue: #0984e3;
-        }
-
-        [data-theme="dark"] {
-            --bg-primary: #0a0a1a;
-            --bg-secondary: #1a1a2e;
-            --bg-card: #16213e;
-            --text-primary: #ffffff;
-            --text-secondary: #b2bec3;
-            --border-color: #2d3436;
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            --shadow-hover: 0 15px 50px rgba(0, 0, 0, 0.6);
-        }
-
-        /* ============================================================
-           RESET Y ESTILOS BASE
+           ESTILOS COMPLETOS
            ============================================================ */
         * {
             box-sizing: border-box;
@@ -55,97 +21,66 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            background: #f0f2f5;
+            color: #2d3436;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 20px;
-            transition: var(--transition);
         }
 
         .container {
-            background: var(--bg-secondary);
+            background: #ffffff;
             padding: 25px 30px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow);
-            max-width: 1200px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            max-width: 1100px;
             width: 100%;
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
+            border: 1px solid #e8e8e8;
         }
 
-        /* ============================================================
-           SCROLLBAR
-           ============================================================ */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-hover);
-        }
-
-        /* ============================================================
-           HEADER
-           ============================================================ */
         .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2px solid var(--border-color);
+            border-bottom: 2px solid #f0f0f0;
             flex-wrap: wrap;
             gap: 10px;
         }
 
-        .admin-header .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
         .admin-header .logo h1 {
-            color: var(--primary);
+            color: #ff6b6b;
             font-size: 1.8rem;
             letter-spacing: 1px;
         }
 
         .admin-header .logo span {
-            color: var(--text-secondary);
+            color: #888;
             font-size: 0.8rem;
         }
 
-        .admin-header .logo .version {
-            background: var(--purple);
+        .admin-header .logo .badge-cloud {
+            background: #0984e3;
             color: white;
-            padding: 2px 10px;
+            padding: 2px 12px;
             border-radius: 20px;
             font-size: 0.6rem;
             font-weight: 600;
+            margin-left: 8px;
         }
 
         .admin-header .user-info {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
         .admin-header .user-info .badge {
-            background: var(--success);
+            background: #00b894;
             padding: 4px 15px;
             border-radius: 20px;
             font-size: 0.7rem;
@@ -153,14 +88,37 @@
             color: #fff;
         }
 
+        .admin-header .user-info .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            color: #888;
+            padding: 4px 12px;
+            background: #f8f9fa;
+            border-radius: 20px;
+        }
+
+        .admin-header .user-info .sync-status .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            background: #00b894;
+        }
+
+        .admin-header .user-info .sync-status .dot.offline {
+            background: #d63031;
+        }
+
         .btn {
             padding: 8px 18px;
             border: none;
-            border-radius: var(--radius-sm);
+            border-radius: 10px;
             font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            transition: 0.3s;
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -168,55 +126,55 @@
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-        }
-
-        .btn-outline:hover {
-            background: var(--bg-card);
-            border-color: var(--primary);
-            color: var(--text-primary);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
         .btn-primary {
-            background: var(--primary);
+            background: #ff6b6b;
             color: white;
         }
 
         .btn-primary:hover {
-            background: var(--primary-hover);
+            background: #e55a5a;
         }
 
         .btn-success {
-            background: var(--success);
+            background: #00b894;
             color: white;
         }
 
         .btn-success:hover {
-            background: var(--success-hover);
+            background: #00a381;
         }
 
         .btn-danger {
-            background: var(--danger);
+            background: #d63031;
             color: white;
         }
 
         .btn-danger:hover {
-            background: var(--danger-hover);
+            background: #c0392b;
         }
 
         .btn-warning {
-            background: var(--warning);
+            background: #fdcb6e;
             color: #2d3436;
         }
 
         .btn-warning:hover {
-            background: var(--warning-hover);
+            background: #f9ca24;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #ddd;
+            color: #888;
+        }
+
+        .btn-outline:hover {
+            background: #f8f9fa;
+            border-color: #ff6b6b;
+            color: #2d3436;
         }
 
         .btn-sm {
@@ -224,156 +182,48 @@
             font-size: 0.7rem;
         }
 
-        .btn-purple {
-            background: var(--purple);
-            color: white;
-        }
-
-        .btn-purple:hover {
-            background: #5a4bd1;
-        }
-
-        .btn-blue {
-            background: var(--blue);
-            color: white;
-        }
-
-        .btn-blue:hover {
-            background: #0652DD;
-        }
-
-        /* ============================================================
-           THEME TOGGLE
-           ============================================================ */
-        .theme-toggle {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
-            padding: 4px;
-            display: flex;
-            gap: 4px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .theme-toggle .toggle-btn {
-            padding: 4px 12px;
-            border: none;
-            border-radius: 20px;
-            background: transparent;
-            color: var(--text-secondary);
-            font-size: 0.7rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .theme-toggle .toggle-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* ============================================================
-           STATS CARDS
-           ============================================================ */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stat-card {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 18px 20px;
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .stat-card .stat-icon {
-            font-size: 1.8rem;
-            margin-bottom: 5px;
-        }
-
-        .stat-card .stat-number {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .stat-card .stat-label {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .stat-card .stat-change {
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-top: 5px;
-        }
-
-        .stat-card .stat-change.up {
-            color: var(--success);
-        }
-
-        .stat-card .stat-change.down {
-            color: var(--danger);
-        }
-
-        /* ============================================================
-           TABS
-           ============================================================ */
+        /* ===== TABS ===== */
         .admin-tabs {
             display: flex;
             gap: 5px;
-            background: var(--bg-card);
-            border-radius: var(--radius);
+            background: #f8f9fa;
+            border-radius: 15px;
             padding: 5px;
             margin-bottom: 20px;
             flex-wrap: wrap;
-            border: 1px solid var(--border-color);
+            border: 1px solid #e8e8e8;
         }
 
         .admin-tabs .tab-btn {
             flex: 1;
-            padding: 10px 14px;
+            padding: 10px 12px;
             border: none;
-            border-radius: var(--radius-sm);
+            border-radius: 12px;
             background: transparent;
-            color: var(--text-secondary);
+            color: #888;
             font-weight: 600;
             font-size: 0.8rem;
             cursor: pointer;
-            transition: var(--transition);
+            transition: 0.3s;
             min-width: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
         }
 
         .admin-tabs .tab-btn.active {
-            background: var(--primary);
+            background: #ff6b6b;
             color: white;
             box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
         }
 
         .admin-tabs .tab-btn:hover:not(.active) {
-            color: var(--text-primary);
+            color: #2d3436;
             background: rgba(0, 0, 0, 0.05);
         }
 
-        /* ============================================================
-           PANELS
-           ============================================================ */
+        .admin-tabs .tab-btn .icon {
+            margin-right: 5px;
+        }
+
+        /* ===== PANELS ===== */
         .panel {
             display: none;
             animation: fadeSlide 0.4s ease;
@@ -395,7 +245,7 @@
         }
 
         .panel-title {
-            color: var(--text-primary);
+            color: #2d3436;
             font-size: 1.1rem;
             margin-bottom: 15px;
             display: flex;
@@ -404,17 +254,14 @@
         }
 
         .panel-title .count {
-            background: var(--bg-card);
+            background: #f0f2f5;
             padding: 2px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
+            color: #888;
         }
 
-        /* ============================================================
-           SEARCH BOX
-           ============================================================ */
+        /* ===== SEARCH ===== */
         .search-box {
             display: flex;
             gap: 10px;
@@ -425,33 +272,27 @@
         .search-box input {
             flex: 1;
             padding: 12px 18px;
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius-sm);
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
             font-size: 1rem;
             outline: none;
-            transition: var(--transition);
-            background: var(--bg-card);
-            color: var(--text-primary);
+            transition: 0.3s;
+            background: #fafafa;
+            color: #2d3436;
             min-width: 200px;
         }
 
         .search-box input:focus {
-            border-color: var(--primary);
+            border-color: #ff6b6b;
             box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
         }
 
-        .search-box input::placeholder {
-            color: var(--text-secondary);
-        }
-
-        /* ============================================================
-           USER RESULT CARD
-           ============================================================ */
+        /* ===== USER RESULT ===== */
         .user-result-card {
-            background: var(--bg-card);
-            border-radius: var(--radius);
+            background: #f8f9fa;
+            border-radius: 16px;
             padding: 20px;
-            border: 2px solid var(--border-color);
+            border: 2px solid #e8e8e8;
             margin-bottom: 20px;
             display: none;
             animation: fadeSlide 0.5s ease;
@@ -469,17 +310,17 @@
             gap: 10px;
             margin-bottom: 15px;
             padding-bottom: 15px;
-            border-bottom: 2px solid var(--border-color);
+            border-bottom: 2px solid #e8e8e8;
         }
 
         .user-result-card .user-header .user-name {
             font-size: 1.3rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: #2d3436;
         }
 
         .user-result-card .user-header .user-id-badge {
-            background: var(--purple);
+            background: #6c5ce7;
             padding: 4px 14px;
             border-radius: 20px;
             font-size: 0.85rem;
@@ -496,18 +337,15 @@
         }
 
         .user-result-card .user-header .user-status-badge.active {
-            background: var(--success);
+            background: #00b894;
             color: white;
         }
 
         .user-result-card .user-header .user-status-badge.frozen {
-            background: var(--danger);
+            background: #d63031;
             color: white;
         }
 
-        /* ============================================================
-           USER INFO GRID
-           ============================================================ */
         .user-info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -516,51 +354,43 @@
         }
 
         .user-info-grid .info-item {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-sm);
+            background: white;
+            border-radius: 12px;
             padding: 12px;
-            border: 1px solid var(--border-color);
+            border: 1px solid #e8e8e8;
         }
 
         .user-info-grid .info-item .label {
             font-size: 0.6rem;
-            color: var(--text-secondary);
+            color: #888;
             text-transform: uppercase;
             font-weight: 600;
-            letter-spacing: 0.5px;
         }
 
         .user-info-grid .info-item .value {
             font-size: 1rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: #2d3436;
             margin-top: 3px;
-            word-break: break-all;
         }
 
         .user-info-grid .info-item .value.green {
-            color: var(--success);
+            color: #00b894;
         }
-
         .user-info-grid .info-item .value.purple {
-            color: var(--purple);
+            color: #6c5ce7;
         }
-
         .user-info-grid .info-item .value.orange {
-            color: var(--warning);
+            color: #fdcb6e;
         }
-
         .user-info-grid .info-item .value.red {
-            color: var(--danger);
+            color: #d63031;
         }
-
         .user-info-grid .info-item .value.blue {
-            color: var(--blue);
+            color: #0984e3;
         }
 
-        /* ============================================================
-           USER ACTIONS
-           ============================================================ */
+        /* ===== USER ACTIONS ===== */
         .user-actions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -569,22 +399,22 @@
         }
 
         .user-actions-grid .action-group {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-sm);
+            background: white;
+            border-radius: 12px;
             padding: 12px;
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
+            border: 1px solid #e8e8e8;
+            transition: 0.3s;
         }
 
         .user-actions-grid .action-group:hover {
-            border-color: var(--primary);
+            border-color: #ff6b6b;
             box-shadow: 0 2px 10px rgba(255, 107, 107, 0.1);
         }
 
         .user-actions-grid .action-group .action-label {
             font-size: 0.7rem;
             font-weight: 600;
-            color: var(--text-secondary);
+            color: #888;
             text-transform: uppercase;
             margin-bottom: 6px;
             display: block;
@@ -598,17 +428,18 @@
         .user-actions-grid .action-group .input-group input {
             flex: 1;
             padding: 6px 10px;
-            border: 1px solid var(--border-color);
+            border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 0.8rem;
             outline: none;
-            background: var(--bg-card);
-            color: var(--text-primary);
+            background: #fafafa;
+            color: #2d3436;
             min-width: 60px;
         }
 
         .user-actions-grid .action-group .input-group input:focus {
-            border-color: var(--primary);
+            border-color: #ff6b6b;
+            background: #fff;
         }
 
         .user-actions-grid .action-group .btn {
@@ -618,33 +449,31 @@
             font-size: 0.7rem;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            transition: 0.3s;
             width: auto;
             white-space: nowrap;
         }
 
-        /* ============================================================
-           BANK ACCOUNTS
-           ============================================================ */
+        /* ===== BANK ===== */
         .bank-section {
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 2px solid var(--border-color);
+            border-top: 2px solid #e8e8e8;
         }
 
         .bank-section .bank-title {
             font-weight: 600;
             font-size: 0.9rem;
-            color: var(--text-primary);
+            color: #2d3436;
             margin-bottom: 10px;
         }
 
         .bank-item {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-sm);
+            background: white;
+            border-radius: 10px;
             padding: 10px 15px;
             margin: 6px 0;
-            border: 1px solid var(--border-color);
+            border: 1px solid #e8e8e8;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -658,16 +487,16 @@
 
         .bank-item .bank-info .bank-name {
             font-weight: 700;
-            color: var(--primary);
+            color: #ff6b6b;
         }
 
         .bank-item .bank-info .bank-details {
-            color: var(--text-secondary);
+            color: #888;
             font-size: 0.75rem;
         }
 
         .bank-item .bank-badge {
-            background: var(--success);
+            background: #00b894;
             color: white;
             padding: 2px 12px;
             border-radius: 20px;
@@ -678,91 +507,34 @@
         .no-banks {
             text-align: center;
             padding: 15px;
-            color: var(--text-secondary);
+            color: #888;
             font-size: 0.85rem;
-            background: var(--bg-card);
-            border-radius: var(--radius-sm);
+            background: #f8f9fa;
+            border-radius: 10px;
         }
 
-        /* ============================================================
-           NOT FOUND
-           ============================================================ */
-        .not-found {
-            text-align: center;
-            padding: 30px;
-            color: var(--text-secondary);
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            border: 2px dashed var(--border-color);
-            display: none;
-        }
-
-        .not-found.show {
-            display: block;
-        }
-
-        .not-found .icon {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        /* ============================================================
-           MESSAGE
-           ============================================================ */
-        .message {
-            padding: 10px 15px;
-            border-radius: var(--radius-sm);
-            margin: 10px 0;
-            display: none;
-            font-size: 0.9rem;
-        }
-
-        .message.success {
-            display: block;
-            background: rgba(0, 184, 148, 0.15);
-            border: 1px solid var(--success);
-            color: var(--success);
-        }
-
-        .message.error {
-            display: block;
-            background: rgba(214, 48, 49, 0.15);
-            border: 1px solid var(--danger);
-            color: var(--danger);
-        }
-
-        .message.info {
-            display: block;
-            background: rgba(9, 132, 227, 0.15);
-            border: 1px solid var(--blue);
-            color: var(--blue);
-        }
-
-        /* ============================================================
-           USER LIST
-           ============================================================ */
+        /* ===== USER LIST ===== */
         .user-list-container {
             max-height: 500px;
             overflow-y: auto;
         }
 
         .user-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-sm);
+            background: #f8f9fa;
+            border-radius: 12px;
             padding: 12px 15px;
             margin: 8px 0;
-            border: 1px solid var(--border-color);
+            border: 1px solid #e8e8e8;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 8px;
-            transition: var(--transition);
+            transition: 0.3s;
         }
 
         .user-card:hover {
-            background: var(--bg-secondary);
-            border-color: var(--primary);
+            background: #f0f2f5;
         }
 
         .user-card .user-info {
@@ -771,17 +543,17 @@
 
         .user-card .user-info .name {
             font-weight: 600;
-            color: var(--text-primary);
+            color: #2d3436;
         }
 
         .user-card .user-info .details {
             font-size: 0.8rem;
-            color: var(--text-secondary);
+            color: #888;
         }
 
         .user-card .user-balance {
             font-weight: 700;
-            color: var(--success);
+            color: #00b894;
             font-size: 1.1rem;
         }
 
@@ -793,12 +565,12 @@
         }
 
         .user-card .user-status.active {
-            background: var(--success);
+            background: #00b894;
             color: white;
         }
 
         .user-card .user-status.frozen {
-            background: var(--danger);
+            background: #d63031;
             color: white;
         }
 
@@ -814,72 +586,57 @@
             width: auto;
         }
 
-        /* ============================================================
-           ORDER CONFIG
-           ============================================================ */
-        .order-config {
-            background: var(--bg-card);
-            border-radius: var(--radius-sm);
-            padding: 15px;
-            margin: 8px 0;
-            border: 1px solid var(--border-color);
+        /* ===== MESSAGE ===== */
+        .message {
+            padding: 10px 15px;
+            border-radius: 12px;
+            margin: 10px 0;
+            display: none;
+            font-size: 0.9rem;
         }
 
-        .order-config .order-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
+        .message.success {
+            display: block;
+            background: #e0f7f1;
+            border: 1px solid #00b894;
+            color: #00a381;
         }
 
-        .order-config .order-header .level {
-            font-weight: 700;
-            color: var(--purple);
+        .message.error {
+            display: block;
+            background: #ffeaa7;
+            border: 1px solid #d63031;
+            color: #c0392b;
         }
 
-        .order-config .order-header .status {
-            font-size: 0.75rem;
-            padding: 2px 12px;
-            border-radius: 20px;
-            background: var(--bg-secondary);
+        .message.info {
+            display: block;
+            background: #dfe6e9;
+            border: 1px solid #0984e3;
+            color: #0652DD;
         }
 
-        .order-config .order-header .status.active {
-            background: var(--success);
-            color: white;
+        /* ===== NOT FOUND ===== */
+        .not-found {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 2px dashed #ddd;
+            display: none;
         }
 
-        .order-config .order-header .status.locked {
-            background: var(--bg-card);
-            color: var(--text-secondary);
+        .not-found.show {
+            display: block;
         }
 
-        .order-config .order-controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
+        .not-found .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
         }
 
-        .order-config .order-controls input {
-            width: 80px;
-            padding: 6px 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 0.85rem;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-        }
-
-        .order-config .order-controls .btn {
-            width: auto;
-            padding: 6px 16px;
-            font-size: 0.8rem;
-        }
-
-        /* ============================================================
-           LOGIN OVERLAY
-           ============================================================ */
+        /* ===== LOGIN ===== */
         .login-overlay {
             position: fixed;
             top: 0;
@@ -887,7 +644,7 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -899,23 +656,23 @@
         }
 
         .login-box {
-            background: var(--bg-secondary);
+            background: #ffffff;
             padding: 40px;
-            border-radius: var(--radius-lg);
+            border-radius: 25px;
             max-width: 380px;
             width: 100%;
-            box-shadow: var(--shadow-hover);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
         }
 
         .login-box h2 {
             text-align: center;
-            color: var(--primary);
+            color: #ff6b6b;
             margin-bottom: 5px;
         }
 
         .login-box p {
             text-align: center;
-            color: var(--text-secondary);
+            color: #888;
             font-size: 0.85rem;
             margin-bottom: 20px;
         }
@@ -925,7 +682,7 @@
         }
 
         .login-box .form-group label {
-            color: var(--text-secondary);
+            color: #555;
             font-weight: 600;
             font-size: 0.85rem;
             display: block;
@@ -935,17 +692,18 @@
         .login-box .form-group input {
             width: 100%;
             padding: 10px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
+            border: 1px solid #ddd;
+            border-radius: 12px;
             font-size: 0.95rem;
             outline: none;
-            transition: var(--transition);
-            background: var(--bg-card);
-            color: var(--text-primary);
+            transition: 0.3s;
+            background: #fafafa;
+            color: #2d3436;
         }
 
         .login-box .form-group input:focus {
-            border-color: var(--primary);
+            border-color: #ff6b6b;
+            background: #fff;
         }
 
         .login-box .btn {
@@ -955,34 +713,25 @@
 
         .login-box .login-hint {
             text-align: center;
-            color: var(--text-secondary);
+            color: #aaa;
             font-size: 0.7rem;
             margin-top: 10px;
         }
 
-        /* ============================================================
-           RESPONSIVE
-           ============================================================ */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .container {
                 padding: 18px;
             }
-
             .user-info-grid {
                 grid-template-columns: 1fr 1fr;
             }
-
             .user-actions-grid {
                 grid-template-columns: 1fr 1fr;
             }
-
             .admin-header {
                 flex-direction: column;
                 align-items: flex-start;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
             }
         }
 
@@ -990,74 +739,46 @@
             .container {
                 padding: 15px;
             }
-
             .admin-tabs .tab-btn {
                 font-size: 0.65rem;
                 padding: 6px 4px;
                 min-width: 45px;
             }
-
             .admin-tabs .tab-btn .tab-label {
                 display: none;
             }
-
             .search-box {
                 flex-direction: column;
             }
-
             .search-box .btn {
                 width: 100%;
             }
-
             .user-info-grid {
                 grid-template-columns: 1fr;
             }
-
             .user-actions-grid {
                 grid-template-columns: 1fr;
             }
-
             .user-actions-grid .action-group .input-group {
                 flex-direction: column;
             }
-
             .user-actions-grid .action-group .input-group .btn {
                 width: 100%;
             }
-
             .user-result-card .user-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
-
             .user-card {
                 flex-direction: column;
                 align-items: stretch;
             }
-
             .user-card .user-actions {
                 justify-content: center;
             }
-
             .login-box {
                 padding: 25px;
                 margin: 20px;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .admin-tabs .tab-btn {
-                font-size: 0.55rem;
-                padding: 4px 3px;
-                min-width: 35px;
-            }
-
-            .admin-tabs .tab-btn .icon {
-                font-size: 0.8rem;
             }
         }
     </style>
@@ -1095,45 +816,17 @@
             <div class="logo">
                 <div>
                     <h1>🛠️ Shein Admin</h1>
-                    <span>Panel de control avanzado</span>
+                    <span>Panel de control - Supabase Cloud</span>
                 </div>
-                <span class="version">v3.0</span>
+                <span class="badge-cloud">☁️ Connected</span>
             </div>
             <div class="user-info">
-                <div class="theme-toggle">
-                    <button class="toggle-btn active" onclick="setTheme('light')">☀️</button>
-                    <button class="toggle-btn" onclick="setTheme('dark')">🌙</button>
+                <div class="sync-status">
+                    <span class="dot" id="syncDot"></span>
+                    <span id="syncText">Sincronizado</span>
                 </div>
                 <span class="badge">🔒 Sesión activa</span>
                 <button class="btn btn-outline btn-sm" onclick="adminLogout()">🚪 Cerrar sesión</button>
-            </div>
-        </div>
-
-        <!-- ===== STATS ===== -->
-        <div class="stats-grid" id="statsGrid">
-            <div class="stat-card">
-                <div class="stat-icon">👥</div>
-                <div class="stat-number" id="statUsers">0</div>
-                <div class="stat-label">Usuarios registrados</div>
-                <div class="stat-change up">↑ <span id="statUsersChange">0</span>% esta semana</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">💰</div>
-                <div class="stat-number" id="statBalance">S/ 0.00</div>
-                <div class="stat-label">Balance total</div>
-                <div class="stat-change up">↑ <span id="statBalanceChange">0</span>% esta semana</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">📦</div>
-                <div class="stat-number" id="statOrders">0</div>
-                <div class="stat-label">Órdenes completadas</div>
-                <div class="stat-change up">↑ <span id="statOrdersChange">0</span>% esta semana</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">🏦</div>
-                <div class="stat-number" id="statBanks">0</div>
-                <div class="stat-label">Cuentas bancarias</div>
-                <div class="stat-change up">↑ <span id="statBanksChange">0</span>% esta semana</div>
             </div>
         </div>
 
@@ -1147,17 +840,13 @@
                 <span class="icon">🔍</span>
                 <span class="tab-label">Buscar</span>
             </button>
-            <button class="tab-btn" onclick="switchTab('orders', this)">
-                <span class="icon">📦</span>
-                <span class="tab-label">Órdenes</span>
+            <button class="tab-btn" onclick="switchTab('add', this)">
+                <span class="icon">➕</span>
+                <span class="tab-label">Agregar</span>
             </button>
             <button class="tab-btn" onclick="switchTab('settings', this)">
                 <span class="icon">⚙️</span>
                 <span class="tab-label">Ajustes</span>
-            </button>
-            <button class="tab-btn" onclick="switchTab('analytics', this)">
-                <span class="icon">📊</span>
-                <span class="tab-label">Analytics</span>
             </button>
         </div>
 
@@ -1172,9 +861,11 @@
                 <span>👥 Usuarios Registrados</span>
                 <span class="count" id="userCount">0</span>
             </div>
-            <div class="user-list-container" id="userListContainer">
+            <div class="user-list-container">
                 <div id="userList">
-                    <!-- Generado por JavaScript -->
+                    <div style="text-align:center; padding:30px; color:#888;">
+                        <p>⏳ Cargando usuarios desde Supabase...</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1189,22 +880,21 @@
             </div>
 
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Ej: 8732294 o 938218405 o username">
+                <input type="text" id="searchInput" placeholder="Ej: 8732294 o 938218405">
                 <button class="btn btn-primary" onclick="searchUser()">🔍 Buscar</button>
                 <button class="btn btn-outline" onclick="clearSearch()">🗑️ Limpiar</button>
             </div>
 
             <div class="not-found" id="notFound">
                 <div class="icon">🔍</div>
-                <p>No se encontró ningún usuario con este ID, teléfono o usuario.</p>
-                <p style="font-size:0.8rem; color:var(--text-secondary);">Verifica que los datos sean correctos</p>
+                <p>No se encontró ningún usuario en la nube.</p>
             </div>
 
             <div class="user-result-card" id="userResultCard">
                 <div class="user-header">
                     <div>
                         <span class="user-name" id="resultUserName">Usuario</span>
-                        <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;" id="resultUserPhone">📱 +51 938218405</div>
+                        <div style="font-size:0.8rem; color:#888; margin-top:2px;" id="resultUserPhone">📱 +51 938218405</div>
                     </div>
                     <div style="display:flex; gap:8px; flex-wrap:wrap;">
                         <span class="user-id-badge" id="resultUserId">🆔 8732294</span>
@@ -1288,25 +978,55 @@
                     </div>
                 </div>
 
-                <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap; border-top:1px solid var(--border-color); padding-top:15px;">
+                <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap; border-top:1px solid #e8e8e8; padding-top:15px;">
                     <button class="btn btn-primary btn-sm" onclick="resultViewFullDetails()" style="width:auto;">👁️ Ver detalles</button>
                     <button class="btn btn-warning btn-sm" onclick="resultViewHistory()" style="width:auto;">📋 Historial</button>
-                    <button class="btn btn-outline btn-sm" onclick="clearSearch()" style="width:auto;">🗑️ Limpiar</button>
-                    <span style="font-size:0.7rem; color:var(--text-secondary); margin-left:auto; align-self:center;">🔄 Datos en tiempo real</span>
+                    <button class="btn btn-danger btn-sm" onclick="resultDeleteUser()" style="width:auto;">🗑️ Eliminar</button>
+                    <span style="font-size:0.7rem; color:#888; margin-left:auto; align-self:center;">☁️ Supabase</span>
                 </div>
             </div>
         </div>
 
         <!-- ============================================================
-        PANEL: ORDERS
+        PANEL: ADD USER
         ============================================================ -->
-        <div id="panelOrders" class="panel">
+        <div id="panelAdd" class="panel">
             <div class="panel-title">
-                <span>📦 Configuración de Órdenes VIP</span>
-                <span class="count">6 Niveles</span>
+                <span>➕ Agregar Nuevo Usuario</span>
+                <span class="count">Crear cuenta</span>
             </div>
-            <div id="orderConfigList">
-                <!-- Generado por JavaScript -->
+
+            <div style="background:#f8f9fa; border-radius:12px; padding:20px; border:1px solid #e8e8e8;">
+                <div class="form-group" style="margin-bottom:14px;">
+                    <label style="font-weight:600; font-size:0.85rem; color:#555;">👤 Nombre de usuario</label>
+                    <input type="text" id="newUsername" placeholder="Ej: nuevo_usuario" style="width:100%; padding:10px 15px; border:1px solid #ddd; border-radius:10px; font-size:0.95rem; outline:none; background:#fafafa;">
+                </div>
+
+                <div class="form-group" style="margin-bottom:14px;">
+                    <label style="font-weight:600; font-size:0.85rem; color:#555;">📱 Teléfono</label>
+                    <input type="text" id="newPhone" placeholder="Ej: 987654321" style="width:100%; padding:10px 15px; border:1px solid #ddd; border-radius:10px; font-size:0.95rem; outline:none; background:#fafafa;">
+                </div>
+
+                <div class="form-group" style="margin-bottom:14px;">
+                    <label style="font-weight:600; font-size:0.85rem; color:#555;">🔒 Contraseña</label>
+                    <input type="text" id="newPassword" placeholder="Mínimo 6 caracteres" style="width:100%; padding:10px 15px; border:1px solid #ddd; border-radius:10px; font-size:0.95rem; outline:none; background:#fafafa;">
+                </div>
+
+                <div class="form-group" style="margin-bottom:14px;">
+                    <label style="font-weight:600; font-size:0.85rem; color:#555;">🌍 País</label>
+                    <select id="newCountry" style="width:100%; padding:10px 15px; border:1px solid #ddd; border-radius:10px; font-size:0.95rem; outline:none; background:#fafafa;">
+                        <option value="Perú">Perú</option>
+                        <option value="Colombia">Colombia</option>
+                        <option value="México">México</option>
+                        <option value="Chile">Chile</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="España">España</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-success" onclick="addNewUser()" style="width:100%; padding:12px; font-size:1rem;">
+                    ➕ Crear Usuario
+                </button>
             </div>
         </div>
 
@@ -1316,242 +1036,63 @@
         <div id="panelSettings" class="panel">
             <div class="panel-title">
                 <span>⚙️ Ajustes del Sistema</span>
-                <span class="count">Configuración</span>
+                <span class="count">Configuración Cloud</span>
             </div>
 
-            <div style="background:var(--bg-card); border-radius:var(--radius-sm); padding:15px; margin:10px 0; border:1px solid var(--border-color);">
-                <h4 style="color:var(--purple); margin-bottom:10px;">🔑 Cambiar Contraseña de Usuario</h4>
-                <div class="form-group" style="margin-bottom:10px;">
-                    <label style="font-size:0.8rem; color:var(--text-secondary);">👤 Seleccionar usuario</label>
-                    <select id="passwordUserSelect" style="width:100%; padding:8px 12px; border:1px solid var(--border-color); border-radius:8px; background:var(--bg-secondary); color:var(--text-primary);">
-                        <option value="">-- Selecciona un usuario --</option>
-                    </select>
+            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
+                <h4 style="color:#0984e3; margin-bottom:10px;">☁️ Estado de la conexión</h4>
+                <div id="connectionStatus" style="display:flex; align-items:center; gap:10px; padding:10px; background:white; border-radius:10px;">
+                    <span id="connDot" style="width:12px; height:12px; border-radius:50%; background:#00b894; display:inline-block;"></span>
+                    <span id="connText">Conectado a Supabase</span>
                 </div>
-                <div class="form-group" style="margin-bottom:10px;">
-                    <label style="font-size:0.8rem; color:var(--text-secondary);">🔒 Nueva contraseña</label>
-                    <input type="text" id="newPassword" placeholder="Nueva contraseña (mínimo 6 caracteres)" style="width:100%; padding:8px 12px; border:1px solid var(--border-color); border-radius:8px; background:var(--bg-secondary); color:var(--text-primary);">
-                </div>
-                <button class="btn btn-warning" onclick="adminResetPassword()" style="width:auto;">🔄 Cambiar Contraseña</button>
             </div>
 
-            <div style="background:var(--bg-card); border-radius:var(--radius-sm); padding:15px; margin:10px 0; border:1px solid var(--border-color);">
-                <h4 style="color:var(--danger); margin-bottom:10px;">⚠️ Acciones Peligrosas</h4>
-                <button class="btn btn-danger" onclick="adminClearAllData()" style="width:auto; margin-bottom:8px;">🗑️ Eliminar todos los datos</button>
-                <p style="color:var(--text-secondary); font-size:0.75rem;">⚠️ Esta acción eliminará todos los usuarios y datos. ¡No se puede deshacer!</p>
-            </div>
-
-            <div style="background:var(--bg-card); border-radius:var(--radius-sm); padding:15px; margin:10px 0; border:1px solid var(--border-color);">
-                <h4 style="color:var(--success); margin-bottom:10px;">📊 Estadísticas del Sistema</h4>
+            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
+                <h4 style="color:#00b894; margin-bottom:10px;">📊 Estadísticas</h4>
                 <div id="adminStats">
-                    <p>👥 <span id="statUsers2">0</span> usuarios registrados</p>
-                    <p>💰 <span id="statTotalBalance2">S/ 0.00</span> balance total</p>
-                    <p>📦 <span id="statOrders2">0</span> órdenes completadas</p>
-                    <p>🏦 <span id="statBanks2">0</span> cuentas bancarias vinculadas</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================================================
-        PANEL: ANALYTICS
-        ============================================================ -->
-        <div id="panelAnalytics" class="panel">
-            <div class="panel-title">
-                <span>📊 Analytics</span>
-                <span class="count">Estadísticas detalladas</span>
-            </div>
-
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:10px 0;">
-                <div style="background:var(--bg-card); border-radius:var(--radius-sm); padding:15px; border:1px solid var(--border-color);">
-                    <h4 style="color:var(--text-primary); margin-bottom:10px;">📈 Usuarios por día</h4>
-                    <div id="dailyUsersChart" style="height:150px; display:flex; align-items:flex-end; gap:8px; padding-top:10px;">
-                        <!-- Generado por JavaScript -->
-                    </div>
-                </div>
-                <div style="background:var(--bg-card); border-radius:var(--radius-sm); padding:15px; border:1px solid var(--border-color);">
-                    <h4 style="color:var(--text-primary); margin-bottom:10px;">💰 Ingresos por día</h4>
-                    <div id="dailyIncomeChart" style="height:150px; display:flex; align-items:flex-end; gap:8px; padding-top:10px;">
-                        <!-- Generado por JavaScript -->
-                    </div>
+                    <p>👥 <span id="statUsers">0</span> usuarios registrados</p>
+                    <p>💰 <span id="statTotalBalance">S/ 0.00</span> balance total</p>
                 </div>
             </div>
 
-            <div style="background:var(--bg-card); border-radius:var(--radius-sm); padding:15px; border:1px solid var(--border-color); margin-top:10px;">
-                <h4 style="color:var(--text-primary); margin-bottom:10px;">📋 Resumen General</h4>
-                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
-                    <div style="text-align:center; padding:10px; background:var(--bg-secondary); border-radius:8px;">
-                        <div style="font-size:0.7rem; color:var(--text-secondary);">Total Usuarios</div>
-                        <div style="font-size:1.5rem; font-weight:700; color:var(--primary);" id="analyticsUsers">0</div>
-                    </div>
-                    <div style="text-align:center; padding:10px; background:var(--bg-secondary); border-radius:8px;">
-                        <div style="font-size:0.7rem; color:var(--text-secondary);">Balance Total</div>
-                        <div style="font-size:1.5rem; font-weight:700; color:var(--success);" id="analyticsBalance">S/ 0.00</div>
-                    </div>
-                    <div style="text-align:center; padding:10px; background:var(--bg-secondary); border-radius:8px;">
-                        <div style="font-size:0.7rem; color:var(--text-secondary);">Órdenes</div>
-                        <div style="font-size:1.5rem; font-weight:700; color:var(--purple);" id="analyticsOrders">0</div>
-                    </div>
-                </div>
+            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
+                <h4 style="color:#d63031; margin-bottom:10px;">⚠️ Acciones Peligrosas</h4>
+                <button class="btn btn-danger" onclick="adminClearAllData()" style="margin-bottom:8px;">🗑️ Eliminar todos los datos</button>
+                <p style="color:#888; font-size:0.75rem;">⚠️ Esta acción eliminará TODOS los usuarios de la nube.</p>
             </div>
         </div>
 
         <!-- ===== FOOTER ===== -->
-        <div style="text-align:center; margin-top:20px; padding-top:15px; border-top:1px solid var(--border-color); font-size:0.7rem; color:var(--text-secondary);">
-            Shein Admin Panel v3.0 | © 2026 Todos los derechos reservados
+        <div style="text-align:center; margin-top:20px; padding-top:15px; border-top:1px solid #e8e8e8; font-size:0.7rem; color:#888;">
+            Shein Admin Panel v3.0 (Supabase) | © 2026
         </div>
     </div>
 
     <!-- ============================================================
-    JAVASCRIPT
+    JAVASCRIPT - SUPABASE
     ============================================================ -->
     <script>
         // ============================================================
-        //  STORAGE KEY
+        //  🔥 SUPABASE CONFIGURATION
+        //  👇 REPLACE WITH YOUR SUPABASE CREDENTIALS
         // ============================================================
-        const STORAGE_KEY = 'shein_admin_data';
+        const SUPABASE_URL = "https://avoalfrzwftqmoedmfwt.supabase.co";
+        const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY_HERE"; // 🔑 Reemplaza con tu clave
+
+        // ============================================================
+        //  INIT SUPABASE
+        // ============================================================
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // ============================================================
         //  ADMIN DATA
         // ============================================================
         let adminData = {
-            users: [],
             adminPassword: 'admin123',
-            currentUserId: null,
-            defaultOrders: {
-                vip1: { totalOrders: 12, commissionRate: 0.30 },
-                vip2: { totalOrders: 20, commissionRate: 0.35 },
-                vip3: { totalOrders: 30, commissionRate: 0.40 },
-                vip4: { totalOrders: 40, commissionRate: 0.45 },
-                vip5: { totalOrders: 50, commissionRate: 0.50 },
-                vip6: { totalOrders: 60, commissionRate: 0.55 }
-            }
+            users: []
         };
 
-        let currentSearchUserIndex = -1;
-
-        // ============================================================
-        //  THEME
-        // ============================================================
-        function setTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
-            document.querySelectorAll('.theme-toggle .toggle-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.textContent.includes(theme === 'dark' ? '🌙' : '☀️'));
-            });
-            localStorage.setItem('shein_theme', theme);
-        }
-
-        function loadTheme() {
-            const saved = localStorage.getItem('shein_theme') || 'light';
-            setTheme(saved);
-        }
-
-        // ============================================================
-        //  LOAD / SAVE
-        // ============================================================
-        function loadAdminData() {
-            const stored = localStorage.getItem(STORAGE_KEY);
-
-            if (stored) {
-                try {
-                    const parsed = JSON.parse(stored);
-                    adminData.users = parsed.users || [];
-                    adminData.adminPassword = parsed.adminPassword || 'admin123';
-                    adminData.currentUserId = parsed.currentUserId || null;
-                    adminData.defaultOrders = parsed.defaultOrders || {
-                        vip1: { totalOrders: 12, commissionRate: 0.30 },
-                        vip2: { totalOrders: 20, commissionRate: 0.35 },
-                        vip3: { totalOrders: 30, commissionRate: 0.40 },
-                        vip4: { totalOrders: 40, commissionRate: 0.45 },
-                        vip5: { totalOrders: 50, commissionRate: 0.50 },
-                        vip6: { totalOrders: 60, commissionRate: 0.55 }
-                    };
-                } catch (e) {
-                    console.error('Error al cargar datos:', e);
-                    adminData.users = [];
-                }
-            }
-
-            if (!adminData.users) adminData.users = [];
-            if (adminData.users.length === 0) {
-                createExampleUsers();
-                saveAdminData();
-            }
-        }
-
-        function createExampleUsers() {
-            adminData.users = [{
-                username: 'hghvbcvhg',
-                phone: '85258252512',
-                password: 'demo123',
-                balance: 10.00,
-                totalIncome: 0,
-                userId: '8732294',
-                country: 'Perú',
-                language: 'Español',
-                vipLevel: 'VIP 1',
-                totalOrders: 0,
-                frozen: false,
-                registrationDate: '2026-07-30 14:30',
-                ipAddress: '190.236.26.127',
-                bankAccounts: [],
-                history: [
-                    { action: 'Registro', amount: 10, date: '2026-07-30 14:30' }
-                ]
-            }, {
-                username: 'Jhostynjose',
-                phone: '938218405',
-                password: 'demo123',
-                balance: 1011.72,
-                totalIncome: 465.72,
-                userId: '1776174',
-                country: 'Perú',
-                language: 'Español',
-                vipLevel: 'VIP 1',
-                totalOrders: 20,
-                frozen: false,
-                registrationDate: '2026-07-23 11:30',
-                ipAddress: '190.236.26.127',
-                bankAccounts: [
-                    { bankName: 'Banco BBVA', accountNumber: '453215', accountHolder: 'Jhostynjose', cci: '5412456' },
-                    { bankName: 'Banco de Crédito (BCP)', accountNumber: '789012', accountHolder: 'Jhostynjose',
-                        cci: '9876543' }
-                ],
-                history: [
-                    { action: 'Depósito', amount: 50, date: '2026-07-23 10:00' },
-                    { action: 'Retiro', amount: 20, date: '2026-07-22 15:30' },
-                    { action: 'Comisión VIP 1', amount: 15, date: '2026-07-21 09:00' }
-                ]
-            }, {
-                username: 'test_user',
-                phone: '912345678',
-                password: 'test123',
-                balance: 15.00,
-                totalIncome: 5.00,
-                userId: '7654321',
-                country: 'Colombia',
-                language: 'Español',
-                vipLevel: 'VIP 1',
-                totalOrders: 3,
-                frozen: false,
-                registrationDate: '2026-07-22 14:20',
-                ipAddress: '192.168.1.100',
-                bankAccounts: [
-                    { bankName: 'Banco Interbank', accountNumber: '123456', accountHolder: 'Test User', cci: '1234567' }
-                ],
-                history: [
-                    { action: 'Depósito', amount: 10, date: '2026-07-22 12:00' }
-                ]
-            }];
-        }
-
-        function saveAdminData() {
-            const data = {
-                users: adminData.users,
-                adminPassword: adminData.adminPassword,
-                currentUserId: adminData.currentUserId,
-                defaultOrders: adminData.defaultOrders
-            };
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        }
+        let currentSearchUserId = null;
 
         // ============================================================
         //  LOGIN / LOGOUT
@@ -1565,8 +1106,9 @@
                 errorEl.style.display = 'none';
                 document.getElementById('loginOverlay').classList.add('hidden');
                 document.getElementById('adminPanel').style.display = 'block';
-                renderAll();
-                showMessage('✅ Sesión iniciada correctamente', 'success');
+                loadUsers();
+                showMessage('✅ Sesión iniciada - Conectado a Supabase', 'success');
+                updateSyncStatus(true);
             } else {
                 errorEl.style.display = 'block';
                 errorEl.textContent = '❌ Usuario o contraseña incorrectos';
@@ -1579,160 +1121,75 @@
         }
 
         // ============================================================
-        //  HELPERS
+        //  SYNC STATUS
         // ============================================================
-        function showMessage(text, type = 'info') {
-            const el = document.getElementById('adminMessage');
-            el.textContent = text;
-            el.className = 'message ' + type;
-            el.style.display = 'block';
-            setTimeout(() => {
-                el.style.display = 'none';
-            }, 4000);
-        }
-
-        function formatCurrency(amount) {
-            return `S/ ${(amount || 0).toFixed(2)}`;
-        }
-
-        function getCurrentDate() {
-            return new Date().toLocaleString('es-ES');
-        }
-
-        function generateUserId() {
-            let id = '';
-            for (let i = 0; i < 7; i++) {
-                id += Math.floor(Math.random() * 10);
+        function updateSyncStatus(online) {
+            const dot = document.getElementById('syncDot');
+            const text = document.getElementById('syncText');
+            if (online) {
+                dot.className = 'dot';
+                text.textContent = 'Sincronizado';
+                document.getElementById('connDot').style.background = '#00b894';
+                document.getElementById('connText').textContent = 'Conectado a Supabase';
+            } else {
+                dot.className = 'dot offline';
+                text.textContent = 'Desconectado';
+                document.getElementById('connDot').style.background = '#d63031';
+                document.getElementById('connText').textContent = 'Desconectado';
             }
-            return id;
-        }
-
-        function getRandomIP() {
-            return `${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
         }
 
         // ============================================================
-        //  RENDER ALL
+        //  LOAD USERS FROM SUPABASE
         // ============================================================
-        function renderAll() {
-            renderUsers();
-            renderOrderConfigs();
-            renderPasswordSelects();
-            renderStats();
-            renderAnalytics();
+        async function loadUsers() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('users')
+                    .select('*')
+                    .order('id', { ascending: false });
+
+                if (error) {
+                    console.error('❌ Error loading users:', error);
+                    showMessage('❌ Error al cargar usuarios: ' + error.message, 'error');
+                    updateSyncStatus(false);
+                    return;
+                }
+
+                adminData.users = data || [];
+                renderUsers(adminData.users);
+                renderStats(adminData.users);
+                updateSyncStatus(true);
+                console.log('✅ Users loaded:', adminData.users.length);
+
+            } catch (err) {
+                console.error('❌ Error:', err);
+                showMessage('❌ Error de conexión con Supabase', 'error');
+                updateSyncStatus(false);
+            }
         }
 
         // ============================================================
-        //  STATS
+        //  RENDER USERS
         // ============================================================
-        function renderStats() {
-            const users = adminData.users || [];
-            const totalBalance = users.reduce((sum, u) => sum + (u.balance || 0), 0);
-            const totalOrders = users.reduce((sum, u) => sum + (u.totalOrders || 0), 0);
-            const totalBanks = users.reduce((sum, u) => sum + (u.bankAccounts ? u.bankAccounts.length : 0), 0);
-
-            document.getElementById('statUsers').textContent = users.length;
-            document.getElementById('statBalance').textContent = formatCurrency(totalBalance);
-            document.getElementById('statOrders').textContent = totalOrders;
-            document.getElementById('statBanks').textContent = totalBanks;
-
-            document.getElementById('statUsers2').textContent = users.length;
-            document.getElementById('statTotalBalance2').textContent = formatCurrency(totalBalance);
-            document.getElementById('statOrders2').textContent = totalOrders;
-            document.getElementById('statBanks2').textContent = totalBanks;
-        }
-
-        // ============================================================
-        //  ANALYTICS
-        // ============================================================
-        function renderAnalytics() {
-            const users = adminData.users || [];
-            const totalBalance = users.reduce((sum, u) => sum + (u.balance || 0), 0);
-            const totalOrders = users.reduce((sum, u) => sum + (u.totalOrders || 0), 0);
-
-            document.getElementById('analyticsUsers').textContent = users.length;
-            document.getElementById('analyticsBalance').textContent = formatCurrency(totalBalance);
-            document.getElementById('analyticsOrders').textContent = totalOrders;
-
-            // Daily users chart
-            const chartContainer = document.getElementById('dailyUsersChart');
-            chartContainer.innerHTML = '';
-            const days = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
-            const values = days.map(() => Math.floor(Math.random() * 5) + 1);
-            const maxVal = Math.max(...values, 1);
-
-            days.forEach((day, i) => {
-                const height = (values[i] / maxVal) * 120;
-                const div = document.createElement('div');
-                div.style.cssText = `
-                            display:flex;
-                            flex-direction:column;
-                            align-items:center;
-                            flex:1;
-                            height:100%;
-                            justify-content:flex-end;
-                        `;
-                div.innerHTML = `
-                            <div style="width:100%; height:${height}px; background:var(--primary); border-radius:4px 4px 0 0; min-height:10px; transition:var(--transition);"></div>
-                            <span style="font-size:0.6rem; color:var(--text-secondary); margin-top:4px;">${day}</span>
-                            <span style="font-size:0.5rem; color:var(--text-secondary);">${values[i]}</span>
-                        `;
-                chartContainer.appendChild(div);
-            });
-
-            // Daily income chart
-            const incomeContainer = document.getElementById('dailyIncomeChart');
-            incomeContainer.innerHTML = '';
-            const incomeValues = days.map(() => Math.floor(Math.random() * 50) + 5);
-            const maxIncome = Math.max(...incomeValues, 1);
-
-            days.forEach((day, i) => {
-                const height = (incomeValues[i] / maxIncome) * 120;
-                const div = document.createElement('div');
-                div.style.cssText = `
-                            display:flex;
-                            flex-direction:column;
-                            align-items:center;
-                            flex:1;
-                            height:100%;
-                            justify-content:flex-end;
-                        `;
-                div.innerHTML = `
-                            <div style="width:100%; height:${height}px; background:var(--success); border-radius:4px 4px 0 0; min-height:10px; transition:var(--transition);"></div>
-                            <span style="font-size:0.6rem; color:var(--text-secondary); margin-top:4px;">${day}</span>
-                            <span style="font-size:0.5rem; color:var(--text-secondary);">S/${incomeValues[i]}</span>
-                        `;
-                incomeContainer.appendChild(div);
-            });
-        }
-
-        // ============================================================
-        //  USERS LIST
-        // ============================================================
-        function renderUsers() {
+        function renderUsers(users) {
             const container = document.getElementById('userList');
             const count = document.getElementById('userCount');
             container.innerHTML = '';
 
-            const users = adminData.users || [];
-            count.textContent = users.length;
-
-            if (users.length === 0) {
+            if (!users || users.length === 0) {
                 container.innerHTML = `
-                            <div style="text-align:center; padding:30px; color:var(--text-secondary); background:var(--bg-card); border-radius:var(--radius-sm);">
-                                <p style="font-size:1.2rem; margin-bottom:10px;">👥 No hay usuarios registrados aún.</p>
-                                <p style="font-size:0.85rem; color:var(--text-secondary);">
-                                    💡 Regístrate en la plataforma principal o usa el botón de abajo.
-                                </p>
-                                <button class="btn btn-primary btn-sm" onclick="addDemoUser()" style="margin-top:10px; width:auto;">
-                                    ➕ Agregar usuario de prueba
-                                </button>
+                            <div style="text-align:center; padding:30px; color:#888; background:#f8f9fa; border-radius:12px;">
+                                No hay usuarios registrados en la nube.
                             </div>
                         `;
+                count.textContent = '0';
                 return;
             }
 
-            users.forEach((user, index) => {
+            count.textContent = users.length;
+
+            users.forEach((user) => {
                 const div = document.createElement('div');
                 div.className = 'user-card';
                 const statusClass = user.frozen ? 'frozen' : 'active';
@@ -1741,207 +1198,123 @@
                 div.innerHTML = `
                             <div class="user-info">
                                 <div class="name">👤 ${user.username || 'Usuario'}</div>
-                                <div class="details">📱 ${user.phone || 'Sin teléfono'} | 🆔 ${user.userId || 'N/A'} | 🌐 ${user.ipAddress || 'N/A'}</div>
+                                <div class="details">📱 ${user.phone || 'Sin teléfono'} | 🆔 ${user.user_id || 'N/A'}</div>
                             </div>
-                            <div class="user-balance">${formatCurrency(user.balance || 0)}</div>
+                            <div class="user-balance">S/ ${(user.balance || 0).toFixed(2)}</div>
                             <span class="user-status ${statusClass}">${statusText}</span>
                             <div class="user-actions">
-                                <button class="btn btn-success btn-sm" onclick="adminSetBalance(${index}, 10)">+10</button>
-                                <button class="btn btn-danger btn-sm" onclick="adminSetBalance(${index}, -5)">-5</button>
-                                <button class="btn btn-warning btn-sm" onclick="adminViewUser(${index})">👁️</button>
+                                <button class="btn btn-success btn-sm" onclick="updateBalance('${user.user_id}', 10)">+10</button>
+                                <button class="btn btn-danger btn-sm" onclick="updateBalance('${user.user_id}', -5)">-5</button>
+                                <button class="btn btn-warning btn-sm" onclick="viewUserDetails('${user.user_id}')">👁️</button>
                             </div>
                         `;
                 container.appendChild(div);
             });
         }
 
-        function addDemoUser() {
-            const newUser = {
-                username: 'demo_' + Math.floor(Math.random() * 1000),
-                phone: '9' + Math.floor(Math.random() * 900000000 + 100000000),
-                password: 'demo123',
-                balance: 10.00,
-                totalIncome: 0,
-                userId: generateUserId(),
-                country: 'Perú',
-                language: 'Español',
-                vipLevel: 'VIP 1',
-                totalOrders: 0,
-                frozen: false,
-                registrationDate: getCurrentDate(),
-                ipAddress: getRandomIP(),
-                bankAccounts: [],
-                history: [
-                    { action: 'Registro', amount: 10, date: getCurrentDate() }
-                ]
-            };
-
-            adminData.users.push(newUser);
-            saveAdminData();
-            renderAll();
-            showMessage(`✅ Usuario "${newUser.username}" agregado correctamente`, 'success');
-        }
-
         // ============================================================
-        //  USER ACTIONS
+        //  UPDATE BALANCE
         // ============================================================
-        function adminSetBalance(index, amount) {
-            if (index < 0 || index >= adminData.users.length) {
-                showMessage('❌ Usuario no encontrado', 'error');
-                return;
-            }
-            const user = adminData.users[index];
-            user.balance = (user.balance || 0) + amount;
-            if (user.balance < 0) user.balance = 0;
+        async function updateBalance(userId, amount) {
+            try {
+                // Primero obtener el usuario actual
+                const { data: userData, error: fetchError } = await supabaseClient
+                    .from('users')
+                    .select('balance')
+                    .eq('user_id', userId)
+                    .single();
 
-            if (!user.history) user.history = [];
-            user.history.push({
-                action: amount > 0 ? 'Depósito (Admin)' : 'Retiro (Admin)',
-                amount: amount,
-                date: getCurrentDate()
-            });
-
-            saveAdminData();
-            renderAll();
-
-            if (window._currentUserIndex === index) {
-                displayUserResult(index);
-            }
-
-            showMessage(`✅ ${amount > 0 ? '+' : ''}${formatCurrency(amount)} aplicado a ${user.username}`, 'success');
-        }
-
-        function adminViewUser(index) {
-            if (index < 0 || index >= adminData.users.length) {
-                showMessage('❌ Usuario no encontrado', 'error');
-                return;
-            }
-            const user = adminData.users[index];
-            showMessage(`
-                        👤 ${user.username} | 📱 ${user.phone || 'N/A'} | 💰 ${formatCurrency(user.balance)} | 🆔 ${user.userId || 'N/A'} | 🌐 ${user.ipAddress || 'N/A'}
-                    `, 'info');
-        }
-
-        // ============================================================
-        //  ORDERS CONFIG
-        // ============================================================
-        function renderOrderConfigs() {
-            const container = document.getElementById('orderConfigList');
-            container.innerHTML = '';
-
-            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
-            const vipNames = ['VIP 1', 'VIP 2', 'VIP 3', 'VIP 4', 'VIP 5', 'VIP 6'];
-
-            vipKeys.forEach((key, index) => {
-                const config = adminData.defaultOrders[key] || { totalOrders: (index + 1) * 10, commissionRate: 0.30 +
-                        (index * 0.05) };
-                const isUnlocked = index === 0;
-
-                const div = document.createElement('div');
-                div.className = 'order-config';
-                div.innerHTML = `
-                            <div class="order-header">
-                                <span class="level">${vipNames[index]}</span>
-                                <span class="status ${isUnlocked ? 'active' : 'locked'}">${isUnlocked ? '✅ Activo' : '🔒 Bloqueado'}</span>
-                            </div>
-                            <div class="order-controls">
-                                <div style="flex:1;">
-                                    <label style="font-size:0.7rem; color:var(--text-secondary);">Órdenes requeridas</label>
-                                    <input type="number" id="orderTotal_${key}" value="${config.totalOrders}" min="1" max="200">
-                                </div>
-                                <div style="flex:1;">
-                                    <label style="font-size:0.7rem; color:var(--text-secondary);">Comisión (%)</label>
-                                    <input type="number" id="orderRate_${key}" value="${(config.commissionRate * 100).toFixed(0)}" min="5" max="100">
-                                </div>
-                                <button class="btn btn-primary btn-sm" onclick="adminUpdateOrder('${key}')" style="margin-top:6px;">💾 Guardar</button>
-                            </div>
-                        `;
-                container.appendChild(div);
-            });
-        }
-
-        function adminUpdateOrder(vipKey) {
-            const totalInput = document.getElementById(`orderTotal_${vipKey}`);
-            const rateInput = document.getElementById(`orderRate_${vipKey}`);
-
-            const totalOrders = parseInt(totalInput.value);
-            const commissionRate = parseFloat(rateInput.value) / 100;
-
-            if (isNaN(totalOrders) || totalOrders < 1) {
-                showMessage('❌ Ingresa un número válido de órdenes', 'error');
-                return;
-            }
-
-            if (isNaN(commissionRate) || commissionRate < 0.05 || commissionRate > 1) {
-                showMessage('❌ Ingresa una comisión válida (5-100%)', 'error');
-                return;
-            }
-
-            adminData.defaultOrders[vipKey] = {
-                totalOrders: totalOrders,
-                commissionRate: commissionRate
-            };
-
-            saveAdminData();
-            renderAll();
-            showMessage(`✅ Configuración de ${vipKey.toUpperCase()} actualizada`, 'success');
-        }
-
-        // ============================================================
-        //  PASSWORD SELECTS
-        // ============================================================
-        function renderPasswordSelects() {
-            const select = document.getElementById('passwordUserSelect');
-            select.innerHTML = '<option value="">-- Selecciona un usuario --</option>';
-
-            adminData.users.forEach((user, index) => {
-                const option = document.createElement('option');
-                option.value = index;
-                option.textContent = `${user.username || 'Usuario'} (${user.userId || 'N/A'})`;
-                select.appendChild(option);
-            });
-        }
-
-        function adminResetPassword() {
-            const select = document.getElementById('passwordUserSelect');
-            const newPass = document.getElementById('newPassword').value.trim();
-
-            const idx = parseInt(select.value);
-            if (isNaN(idx) || idx < 0 || idx >= adminData.users.length) {
-                showMessage('❌ Selecciona un usuario válido', 'error');
-                return;
-            }
-
-            if (newPass.length < 6) {
-                showMessage('❌ La contraseña debe tener al menos 6 caracteres', 'error');
-                return;
-            }
-
-            const user = adminData.users[idx];
-            user.password = newPass;
-            saveAdminData();
-            document.getElementById('newPassword').value = '';
-            showMessage(`✅ Contraseña de ${user.username} actualizada`, 'success');
-        }
-
-        // ============================================================
-        //  DANGER ZONE
-        // ============================================================
-        function adminClearAllData() {
-            if (confirm('⚠️ ¿Estás seguro de eliminar TODOS los datos de usuarios? ¡Esta acción no se puede deshacer!')) {
-                if (confirm('⚠️ Confirmación final: ¿Estás absolutamente seguro?')) {
-                    adminData.users = [];
-                    saveAdminData();
-                    renderAll();
-                    showMessage('🗑️ Todos los datos han sido eliminados', 'error');
+                if (fetchError) {
+                    showMessage('❌ Error al obtener usuario', 'error');
+                    return;
                 }
+
+                const currentBalance = userData.balance || 0;
+                const newBalance = Math.max(0, currentBalance + amount);
+
+                const { error } = await supabaseClient
+                    .from('users')
+                    .update({ balance: newBalance })
+                    .eq('user_id', userId);
+
+                if (error) {
+                    showMessage('❌ Error al actualizar balance: ' + error.message, 'error');
+                    return;
+                }
+
+                showMessage(`✅ ${amount > 0 ? '+' : ''}S/ ${Math.abs(amount).toFixed(2)} aplicado correctamente`, 'success');
+                loadUsers();
+
+            } catch (err) {
+                showMessage('❌ Error: ' + err.message, 'error');
             }
         }
 
         // ============================================================
-        //  SEARCH
+        //  VIEW USER DETAILS
         // ============================================================
-        function searchUser() {
+        async function viewUserDetails(userId) {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('users')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .single();
+
+                if (error) {
+                    showMessage('❌ Error al obtener usuario', 'error');
+                    return;
+                }
+
+                const banks = data.bank_accounts || [];
+                let banksInfo = 'No hay bancos vinculados';
+                if (banks.length > 0) {
+                    banksInfo = banks.map(b =>
+                        `  🏛️ ${b.bankName || 'Banco'}\n     🔢 ${b.accountNumber || 'N/A'}\n     👤 ${b.accountHolder || 'N/A'}`
+                    ).join('\n\n');
+                }
+
+                const history = data.history || [];
+                let historyInfo = 'No hay historial';
+                if (history.length > 0) {
+                    historyInfo = history.map((h, i) =>
+                        `  ${i+1}. ${h.action || 'Acción'} - S/ ${(h.amount || 0).toFixed(2)}`
+                    ).join('\n');
+                }
+
+                alert(`
+                📋 DETALLES DEL USUARIO
+                ════════════════════════════
+
+                👤 Usuario: ${data.username}
+                🆔 ID: ${data.user_id}
+                📱 Teléfono: ${data.phone}
+                🌐 IP: ${data.ip_address || 'N/A'}
+                🌍 País: ${data.country || 'Perú'}
+                📅 Registro: ${data.registration_date || 'N/A'}
+
+                💰 Saldo: S/ ${(data.balance || 0).toFixed(2)}
+                📈 Ingresos: S/ ${(data.total_income || 0).toFixed(2)}
+                ⭐ VIP: ${data.vip_level || 'VIP 1'}
+                📦 Órdenes: ${data.total_orders || 0}
+                🔒 Estado: ${data.frozen ? 'Congelado' : 'Activo'}
+
+                🏦 CUENTAS BANCARIAS:
+                ${banksInfo}
+
+                📜 HISTORIAL:
+                ${historyInfo}
+                `);
+
+            } catch (err) {
+                showMessage('❌ Error: ' + err.message, 'error');
+            }
+        }
+
+        // ============================================================
+        //  SEARCH USER
+        // ============================================================
+        async function searchUser() {
             const searchTerm = document.getElementById('searchInput').value.trim();
             const resultCard = document.getElementById('userResultCard');
             const notFound = document.getElementById('notFound');
@@ -1951,45 +1324,48 @@
                 return;
             }
 
-            let foundIndex = -1;
+            try {
+                const { data, error } = await supabaseClient
+                    .from('users')
+                    .select('*')
+                    .or(`user_id.eq.${searchTerm},phone.eq.${searchTerm},username.eq.${searchTerm}`);
 
-            adminData.users.forEach((user, index) => {
-                if (user.userId === searchTerm ||
-                    user.phone === searchTerm ||
-                    user.username === searchTerm ||
-                    user.username.toLowerCase().includes(searchTerm.toLowerCase())) {
-                    foundIndex = index;
+                if (error) {
+                    showMessage('❌ Error al buscar: ' + error.message, 'error');
+                    return;
                 }
-            });
 
-            if (foundIndex === -1) {
-                resultCard.classList.remove('show');
-                notFound.classList.add('show');
-                showMessage(`❌ No se encontró usuario con: ${searchTerm}`, 'error');
-                return;
+                if (!data || data.length === 0) {
+                    resultCard.classList.remove('show');
+                    notFound.classList.add('show');
+                    showMessage('❌ No se encontró usuario', 'error');
+                    return;
+                }
+
+                notFound.classList.remove('show');
+                currentSearchUserId = data[0].user_id;
+                displayUserResult(data[0]);
+                resultCard.classList.add('show');
+                showMessage(`✅ Usuario encontrado: ${data[0].username}`, 'success');
+
+            } catch (err) {
+                showMessage('❌ Error: ' + err.message, 'error');
             }
-
-            notFound.classList.remove('show');
-            currentSearchUserIndex = foundIndex;
-            displayUserResult(foundIndex);
-            resultCard.classList.add('show');
-            showMessage(`✅ Usuario encontrado: ${adminData.users[foundIndex].username}`, 'success');
         }
 
-        function displayUserResult(index) {
-            const user = adminData.users[index];
+        function displayUserResult(user) {
             if (!user) return;
 
             document.getElementById('resultUserName').textContent = user.username || 'Usuario';
-            document.getElementById('resultUserId').textContent = `🆔 ${user.userId || 'N/A'}`;
+            document.getElementById('resultUserId').textContent = `🆔 ${user.user_id || 'N/A'}`;
             document.getElementById('resultUserPhone').textContent = `📱 ${user.phone || '+51 987654321'}`;
-            document.getElementById('resultUserBalance').textContent = formatCurrency(user.balance || 0);
-            document.getElementById('resultUserIncome').textContent = formatCurrency(user.totalIncome || 0);
-            document.getElementById('resultUserVip').textContent = user.vipLevel || 'VIP 1';
+            document.getElementById('resultUserBalance').textContent = `S/ ${(user.balance || 0).toFixed(2)}`;
+            document.getElementById('resultUserIncome').textContent = `S/ ${(user.total_income || 0).toFixed(2)}`;
+            document.getElementById('resultUserVip').textContent = user.vip_level || 'VIP 1';
             document.getElementById('resultUserCountry').textContent = user.country || 'Perú';
-            document.getElementById('resultUserDate').textContent = user.registrationDate || getCurrentDate();
-            document.getElementById('resultUserOrders').textContent = user.totalOrders || 0;
-            document.getElementById('resultUserIP').textContent = user.ipAddress || '190.236.26.127';
+            document.getElementById('resultUserDate').textContent = user.registration_date || 'N/A';
+            document.getElementById('resultUserOrders').textContent = user.total_orders || 0;
+            document.getElementById('resultUserIP').textContent = user.ip_address || 'N/A';
 
             const statusEl = document.getElementById('resultUserStatus');
             const badgeEl = document.getElementById('resultStatusBadge');
@@ -2006,14 +1382,14 @@
             }
 
             renderBankAccounts(user);
-            window._currentUserIndex = index;
+            window._currentUserId = user.user_id;
         }
 
         function renderBankAccounts(user) {
             const container = document.getElementById('bankListContainer');
             container.innerHTML = '';
 
-            const banks = user.bankAccounts || [];
+            const banks = user.bank_accounts || [];
 
             if (banks.length === 0) {
                 container.innerHTML = `
@@ -2033,7 +1409,6 @@
                                 <div class="bank-details">
                                     ${bank.accountNumber ? '🔢 ' + bank.accountNumber : ''}
                                     ${bank.accountHolder ? ' | 👤 ' + bank.accountHolder : ''}
-                                    ${bank.cci ? ' | CCI: ' + bank.cci : ''}
                                 </div>
                             </div>
                             <span class="bank-badge">✅ Vinculado</span>
@@ -2046,26 +1421,26 @@
             document.getElementById('searchInput').value = '';
             document.getElementById('userResultCard').classList.remove('show');
             document.getElementById('notFound').classList.remove('show');
-            currentSearchUserIndex = -1;
-            window._currentUserIndex = -1;
+            currentSearchUserId = null;
+            window._currentUserId = null;
             showMessage('🧹 Búsqueda limpiada', 'info');
         }
 
         // ============================================================
-        //  RESULT ACTIONS
+        //  SEARCH RESULT ACTIONS
         // ============================================================
-        function getCurrentUser() {
-            const idx = window._currentUserIndex;
-            if (idx === undefined || idx < 0 || idx >= adminData.users.length) {
+        function getCurrentUserId() {
+            const id = window._currentUserId;
+            if (!id) {
                 showMessage('❌ No hay usuario seleccionado', 'error');
                 return null;
             }
-            return adminData.users[idx];
+            return id;
         }
 
-        function resultAddBalance() {
-            const user = getCurrentUser();
-            if (!user) return;
+        async function resultAddBalance() {
+            const userId = getCurrentUserId();
+            if (!userId) return;
 
             const amountInput = document.getElementById('resultAddAmount');
             const amount = parseFloat(amountInput.value);
@@ -2075,26 +1450,15 @@
                 return;
             }
 
-            user.balance = (user.balance || 0) + amount;
-
-            if (!user.history) user.history = [];
-            user.history.push({
-                action: 'Depósito (Admin)',
-                amount: amount,
-                date: getCurrentDate()
-            });
-
-            saveAdminData();
-            displayUserResult(window._currentUserIndex);
-            renderAll();
-
+            await updateBalance(userId, amount);
             amountInput.value = '';
-            showMessage(`✅ Agregado ${formatCurrency(amount)} a ${user.username}`, 'success');
+            // Recargar el resultado
+            await searchUser();
         }
 
-        function resultSubtractBalance() {
-            const user = getCurrentUser();
-            if (!user) return;
+        async function resultSubtractBalance() {
+            const userId = getCurrentUserId();
+            if (!userId) return;
 
             const amountInput = document.getElementById('resultSubtractAmount');
             const amount = parseFloat(amountInput.value);
@@ -2104,31 +1468,14 @@
                 return;
             }
 
-            if ((user.balance || 0) < amount) {
-                showMessage(`❌ Saldo insuficiente. Saldo actual: ${formatCurrency(user.balance)}`, 'error');
-                return;
-            }
-
-            user.balance = (user.balance || 0) - amount;
-
-            if (!user.history) user.history = [];
-            user.history.push({
-                action: 'Retiro (Admin)',
-                amount: -amount,
-                date: getCurrentDate()
-            });
-
-            saveAdminData();
-            displayUserResult(window._currentUserIndex);
-            renderAll();
-
+            await updateBalance(userId, -amount);
             amountInput.value = '';
-            showMessage(`✅ Retirado ${formatCurrency(amount)} de ${user.username}`, 'success');
+            await searchUser();
         }
 
-        function resultResetPassword() {
-            const user = getCurrentUser();
-            if (!user) return;
+        async function resultResetPassword() {
+            const userId = getCurrentUserId();
+            if (!userId) return;
 
             const passInput = document.getElementById('resultNewPassword');
             const newPass = passInput.value.trim();
@@ -2138,107 +1485,242 @@
                 return;
             }
 
-            user.password = newPass;
-            saveAdminData();
-            passInput.value = '';
-            showMessage(`✅ Contraseña de ${user.username} actualizada`, 'success');
+            try {
+                const { error } = await supabaseClient
+                    .from('users')
+                    .update({ password: newPass })
+                    .eq('user_id', userId);
+
+                if (error) {
+                    showMessage('❌ Error: ' + error.message, 'error');
+                    return;
+                }
+
+                passInput.value = '';
+                showMessage('✅ Contraseña actualizada correctamente', 'success');
+                await searchUser();
+
+            } catch (err) {
+                showMessage('❌ Error: ' + err.message, 'error');
+            }
         }
 
-        function resultFreezeAccount() {
-            const user = getCurrentUser();
-            if (!user) return;
+        async function resultFreezeAccount() {
+            const userId = getCurrentUserId();
+            if (!userId) return;
 
-            if (user.frozen) {
-                showMessage('⚠️ La cuenta ya está congelada', 'info');
-                return;
+            try {
+                const { error } = await supabaseClient
+                    .from('users')
+                    .update({ frozen: true })
+                    .eq('user_id', userId);
+
+                if (error) {
+                    showMessage('❌ Error: ' + error.message, 'error');
+                    return;
+                }
+
+                showMessage('🔒 Cuenta congelada correctamente', 'success');
+                await searchUser();
+
+            } catch (err) {
+                showMessage('❌ Error: ' + err.message, 'error');
             }
-
-            user.frozen = true;
-            saveAdminData();
-            displayUserResult(window._currentUserIndex);
-            renderAll();
-            showMessage(`🔒 Cuenta de ${user.username} congelada`, 'success');
         }
 
-        function resultUnfreezeAccount() {
-            const user = getCurrentUser();
-            if (!user) return;
+        async function resultUnfreezeAccount() {
+            const userId = getCurrentUserId();
+            if (!userId) return;
 
-            if (!user.frozen) {
-                showMessage('⚠️ La cuenta no está congelada', 'info');
-                return;
+            try {
+                const { error } = await supabaseClient
+                    .from('users')
+                    .update({ frozen: false })
+                    .eq('user_id', userId);
+
+                if (error) {
+                    showMessage('❌ Error: ' + error.message, 'error');
+                    return;
+                }
+
+                showMessage('🔓 Cuenta descongelada correctamente', 'success');
+                await searchUser();
+
+            } catch (err) {
+                showMessage('❌ Error: ' + err.message, 'error');
             }
-
-            user.frozen = false;
-            saveAdminData();
-            displayUserResult(window._currentUserIndex);
-            renderAll();
-            showMessage(`🔓 Cuenta de ${user.username} descongelada`, 'success');
         }
 
         function resultViewFullDetails() {
-            const user = getCurrentUser();
-            if (!user) return;
-
-            let banksInfo = 'No hay bancos vinculados';
-            if (user.bankAccounts && user.bankAccounts.length > 0) {
-                banksInfo = user.bankAccounts.map(b =>
-                    `  🏛️ ${b.bankName || 'Banco'}\n     🔢 ${b.accountNumber || 'N/A'}\n     👤 ${b.accountHolder || 'N/A'}\n     CCI: ${b.cci || 'N/A'}`
-                ).join('\n\n');
-            }
-
-            let historyInfo = 'No hay historial';
-            if (user.history && user.history.length > 0) {
-                historyInfo = user.history.map((h, i) =>
-                    `  ${i+1}. ${h.action} - ${formatCurrency(h.amount)} (${h.date})`
-                ).join('\n');
-            }
-
-            let details = `
-            📋 DETALLES COMPLETOS DEL USUARIO
-            ═══════════════════════════════════
-
-            👤 Usuario: ${user.username}
-            🆔 ID: ${user.userId}
-            📱 Teléfono: ${user.phone}
-            🌐 IP: ${user.ipAddress || 'N/A'}
-            🌍 País: ${user.country || 'Perú'}
-            📅 Registro: ${user.registrationDate || getCurrentDate()}
-
-            💰 Saldo: ${formatCurrency(user.balance)}
-            📈 Ingresos totales: ${formatCurrency(user.totalIncome || 0)}
-            ⭐ Nivel VIP: ${user.vipLevel || 'VIP 1'}
-            📦 Órdenes: ${user.totalOrders || 0}
-            🔒 Estado: ${user.frozen ? 'Congelado' : 'Activo'}
-
-            🏦 CUENTAS BANCARIAS:
-            ${banksInfo}
-
-            📜 HISTORIAL:
-            ${historyInfo}
-            `;
-
-            alert(details);
+            const userId = getCurrentUserId();
+            if (!userId) return;
+            viewUserDetails(userId);
         }
 
         function resultViewHistory() {
-            const user = getCurrentUser();
-            if (!user) return;
+            const userId = getCurrentUserId();
+            if (!userId) return;
 
+            // Buscar el usuario en la lista actual
+            const user = adminData.users.find(u => u.user_id === userId);
+            if (!user) {
+                showMessage('❌ Usuario no encontrado', 'error');
+                return;
+            }
+
+            const history = user.history || [];
             let historyText = 'No hay historial disponible';
-            if (user.history && user.history.length > 0) {
-                historyText = user.history.map((h, i) =>
-                    `  ${i+1}. ${h.action} - ${formatCurrency(h.amount)} (${h.date})`
+            if (history.length > 0) {
+                historyText = history.map((h, i) =>
+                    `  ${i+1}. ${h.action || 'Acción'} - S/ ${(h.amount || 0).toFixed(2)}`
                 ).join('\n');
             }
 
-            alert(`📋 HISTORIAL DE ${(user.username || 'Usuario').toUpperCase()}\n\n` +
-                `💰 Saldo actual: ${formatCurrency(user.balance)}\n` +
-                `📈 Ingresos totales: ${formatCurrency(user.totalIncome || 0)}\n` +
-                `📦 Órdenes: ${user.totalOrders || 0}\n` +
-                `⭐ VIP: ${user.vipLevel || 'VIP 1'}\n` +
-                `🔒 Estado: ${user.frozen ? 'Congelado' : 'Activo'}\n\n` +
-                `📜 HISTORIAL DE TRANSACCIONES:\n${historyText}`);
+            alert(`📋 HISTORIAL DE ${user.username.toUpperCase()}\n\n` +
+                `💰 Saldo actual: S/ ${(user.balance || 0).toFixed(2)}\n` +
+                `📈 Ingresos: S/ ${(user.total_income || 0).toFixed(2)}\n` +
+                `📦 Órdenes: ${user.total_orders || 0}\n\n` +
+                `📜 HISTORIAL:\n${historyText}`);
+        }
+
+        async function resultDeleteUser() {
+            const userId = getCurrentUserId();
+            if (!userId) return;
+
+            if (!confirm('⚠️ ¿Estás seguro de eliminar este usuario? ¡Esta acción no se puede deshacer!')) {
+                return;
+            }
+
+            try {
+                const { error } = await supabaseClient
+                    .from('users')
+                    .delete()
+                    .eq('user_id', userId);
+
+                if (error) {
+                    showMessage('❌ Error al eliminar: ' + error.message, 'error');
+                    return;
+                }
+
+                showMessage('🗑️ Usuario eliminado correctamente', 'success');
+                clearSearch();
+                loadUsers();
+
+            } catch (err) {
+                showMessage('❌ Error: ' + err.message, 'error');
+            }
+        }
+
+        // ============================================================
+        //  ADD NEW USER
+        // ============================================================
+        async function addNewUser() {
+            const username = document.getElementById('newUsername').value.trim();
+            const phone = document.getElementById('newPhone').value.trim();
+            const password = document.getElementById('newPassword').value.trim();
+            const country = document.getElementById('newCountry').value;
+
+            if (!username || !phone || !password) {
+                showMessage('⚠️ Completa todos los campos obligatorios', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('⚠️ La contraseña debe tener al menos 6 caracteres', 'error');
+                return;
+            }
+
+            // Generar ID único de 7 dígitos
+            const userId = String(Math.floor(Math.random() * 9000000 + 1000000));
+
+            const newUser = {
+                username: username,
+                phone: phone,
+                password: password,
+                user_id: userId,
+                country: country,
+                balance: 10.00,
+                total_income: 0,
+                vip_level: 'VIP 1',
+                total_orders: 0,
+                frozen: false,
+                registration_date: new Date().toISOString(),
+                ip_address: '192.168.1.100',
+                bank_accounts: [],
+                history: []
+            };
+
+            try {
+                const { error } = await supabaseClient
+                    .from('users')
+                    .insert([newUser]);
+
+                if (error) {
+                    showMessage('❌ Error al crear usuario: ' + error.message, 'error');
+                    return;
+                }
+
+                showMessage(`✅ Usuario "${username}" creado con éxito! ID: ${userId}`, 'success');
+                loadUsers();
+
+                // Limpiar formulario
+                document.getElementById('newUsername').value = '';
+                document.getElementById('newPhone').value = '';
+                document.getElementById('newPassword').value = '';
+
+            } catch (err) {
+                showMessage('❌ Error: ' + err.message, 'error');
+            }
+        }
+
+        // ============================================================
+        //  STATS
+        // ============================================================
+        function renderStats(users) {
+            const totalUsers = users ? users.length : 0;
+            const totalBalance = users ? users.reduce((sum, u) => sum + (u.balance || 0), 0) : 0;
+
+            document.getElementById('statUsers').textContent = totalUsers;
+            document.getElementById('statTotalBalance').textContent = `S/ ${totalBalance.toFixed(2)}`;
+        }
+
+        // ============================================================
+        //  DANGER ZONE
+        // ============================================================
+        async function adminClearAllData() {
+            if (!confirm('⚠️ ¿Estás seguro de eliminar TODOS los datos de la nube?')) return;
+            if (!confirm('⚠️ Confirmación final: ¿Estás absolutamente seguro?')) return;
+
+            try {
+                const { error } = await supabaseClient
+                    .from('users')
+                    .delete()
+                    .neq('id', 0);
+
+                if (error) {
+                    showMessage('❌ Error: ' + error.message, 'error');
+                    return;
+                }
+
+                showMessage('🗑️ Todos los datos eliminados de la nube', 'error');
+                loadUsers();
+
+            } catch (err) {
+                showMessage('❌ Error: ' + err.message, 'error');
+            }
+        }
+
+        // ============================================================
+        //  MESSAGE
+        // ============================================================
+        function showMessage(text, type = 'info') {
+            const el = document.getElementById('adminMessage');
+            el.textContent = text;
+            el.className = 'message ' + type;
+            el.style.display = 'block';
+            setTimeout(() => {
+                el.style.display = 'none';
+            }, 4000);
         }
 
         // ============================================================
@@ -2256,32 +1738,42 @@
             const panelMap = {
                 'users': 'panelUsers',
                 'search': 'panelSearch',
-                'orders': 'panelOrders',
-                'settings': 'panelSettings',
-                'analytics': 'panelAnalytics'
+                'add': 'panelAdd',
+                'settings': 'panelSettings'
             };
 
             document.getElementById(panelMap[tabId]).classList.add('active');
 
-            if (tabId === 'users') renderUsers();
-            if (tabId === 'orders') renderOrderConfigs();
-            if (tabId === 'settings') {
-                renderPasswordSelects();
-                renderStats();
-            }
-            if (tabId === 'analytics') renderAnalytics();
+            if (tabId === 'users') loadUsers();
         }
 
         // ============================================================
         //  INIT
         // ============================================================
-        loadTheme();
-        loadAdminData();
+        console.log('🛠️ Shein Admin Panel v3.0 (Supabase)');
+        console.log('☁️ Conectando a Supabase...');
+        console.log('📋 URL:', SUPABASE_URL);
 
-        console.log('🛠️ Shein Admin Panel v3.0 cargado correctamente');
-        console.log('👥 Usuarios:', adminData.users.length);
-        console.log('🔑 Contraseña admin:', adminData.adminPassword);
-        console.log('📋 IDs disponibles:', adminData.users.map(u => u.userId).join(', '));
+        // Verificar conexión
+        (async function checkConnection() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('users')
+                    .select('count')
+                    .limit(1);
+
+                if (error) {
+                    console.log('⚠️ Error de conexión:', error.message);
+                    updateSyncStatus(false);
+                } else {
+                    console.log('✅ Conectado a Supabase');
+                    updateSyncStatus(true);
+                }
+            } catch (err) {
+                console.log('⚠️ Error de conexión:', err.message);
+                updateSyncStatus(false);
+            }
+        })();
     </script>
 
 </body>
