@@ -1,11 +1,52 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shein - Admin Panel</title>
+    <title>Shein - Admin Panel v3.0</title>
     <style>
-        /* ========== RESET Y ESTILOS BASE ========== */
+        /* ============================================================
+           ROOT VARIABLES
+           ============================================================ */
+        :root {
+            --bg-primary: #f0f2f5;
+            --bg-secondary: #ffffff;
+            --bg-card: #f8f9fa;
+            --text-primary: #2d3436;
+            --text-secondary: #888;
+            --border-color: #e8e8e8;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 15px 50px rgba(0, 0, 0, 0.15);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-lg: 20px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary: #ff6b6b;
+            --primary-hover: #e55a5a;
+            --success: #00b894;
+            --success-hover: #00a381;
+            --danger: #d63031;
+            --danger-hover: #c0392b;
+            --warning: #fdcb6e;
+            --warning-hover: #f9ca24;
+            --purple: #6c5ce7;
+            --blue: #0984e3;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0a1a;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16213e;
+            --text-primary: #ffffff;
+            --text-secondary: #b2bec3;
+            --border-color: #2d3436;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            --shadow-hover: 0 15px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        /* ============================================================
+           RESET Y ESTILOS BASE
+           ============================================================ */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -14,55 +55,97 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f2f5;
-            color: #2d3436;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 20px;
+            transition: var(--transition);
         }
 
         .container {
-            background: #ffffff;
+            background: var(--bg-secondary);
             padding: 25px 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            max-width: 1100px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            max-width: 1200px;
             width: 100%;
-            border: 1px solid #e8e8e8;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
         }
 
+        /* ============================================================
+           SCROLLBAR
+           ============================================================ */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-hover);
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
         .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid var(--border-color);
             flex-wrap: wrap;
             gap: 10px;
         }
 
+        .admin-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .admin-header .logo h1 {
-            color: #ff6b6b;
+            color: var(--primary);
             font-size: 1.8rem;
             letter-spacing: 1px;
         }
 
         .admin-header .logo span {
-            color: #888;
+            color: var(--text-secondary);
             font-size: 0.8rem;
+        }
+
+        .admin-header .logo .version {
+            background: var(--purple);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            font-weight: 600;
         }
 
         .admin-header .user-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .admin-header .user-info .badge {
-            background: #00b894;
+            background: var(--success);
             padding: 4px 15px;
             border-radius: 20px;
             font-size: 0.7rem;
@@ -70,66 +153,227 @@
             color: #fff;
         }
 
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #ddd;
-            color: #888;
-            padding: 6px 16px;
-            border-radius: 10px;
-            font-size: 0.8rem;
+        .btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.3s;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
         }
 
         .btn-outline:hover {
-            background: #f8f9fa;
-            border-color: #ff6b6b;
+            background: var(--bg-card);
+            border-color: var(--primary);
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: var(--success-hover);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: var(--danger-hover);
+        }
+
+        .btn-warning {
+            background: var(--warning);
             color: #2d3436;
         }
 
-        /* ========== TABS ========== */
+        .btn-warning:hover {
+            background: var(--warning-hover);
+        }
+
+        .btn-sm {
+            padding: 4px 12px;
+            font-size: 0.7rem;
+        }
+
+        .btn-purple {
+            background: var(--purple);
+            color: white;
+        }
+
+        .btn-purple:hover {
+            background: #5a4bd1;
+        }
+
+        .btn-blue {
+            background: var(--blue);
+            color: white;
+        }
+
+        .btn-blue:hover {
+            background: #0652DD;
+        }
+
+        /* ============================================================
+           THEME TOGGLE
+           ============================================================ */
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 4px;
+            display: flex;
+            gap: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle .toggle-btn {
+            padding: 4px 12px;
+            border: none;
+            border-radius: 20px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle .toggle-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ============================================================
+           STATS CARDS
+           ============================================================ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-card .stat-icon {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card .stat-change {
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .stat-card .stat-change.up {
+            color: var(--success);
+        }
+
+        .stat-card .stat-change.down {
+            color: var(--danger);
+        }
+
+        /* ============================================================
+           TABS
+           ============================================================ */
         .admin-tabs {
             display: flex;
             gap: 5px;
-            background: #f8f9fa;
-            border-radius: 15px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
             padding: 5px;
             margin-bottom: 20px;
             flex-wrap: wrap;
-            border: 1px solid #e8e8e8;
+            border: 1px solid var(--border-color);
         }
 
         .admin-tabs .tab-btn {
             flex: 1;
-            padding: 10px 12px;
+            padding: 10px 14px;
             border: none;
-            border-radius: 12px;
+            border-radius: var(--radius-sm);
             background: transparent;
-            color: #888;
+            color: var(--text-secondary);
             font-weight: 600;
             font-size: 0.8rem;
             cursor: pointer;
-            transition: 0.3s;
-            min-width: 80px;
+            transition: var(--transition);
+            min-width: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         .admin-tabs .tab-btn.active {
-            background: #ff6b6b;
+            background: var(--primary);
             color: white;
             box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
         }
 
         .admin-tabs .tab-btn:hover:not(.active) {
-            color: #2d3436;
+            color: var(--text-primary);
             background: rgba(0, 0, 0, 0.05);
         }
 
-        .admin-tabs .tab-btn .icon {
-            margin-right: 5px;
-        }
-
-        /* ========== PANELS ========== */
+        /* ============================================================
+           PANELS
+           ============================================================ */
         .panel {
             display: none;
             animation: fadeSlide 0.4s ease;
@@ -151,7 +395,7 @@
         }
 
         .panel-title {
-            color: #2d3436;
+            color: var(--text-primary);
             font-size: 1.1rem;
             margin-bottom: 15px;
             display: flex;
@@ -160,14 +404,17 @@
         }
 
         .panel-title .count {
-            background: #f0f2f5;
+            background: var(--bg-card);
             padding: 2px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
-            color: #888;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
         }
 
-        /* ========== SEARCH BOX ========== */
+        /* ============================================================
+           SEARCH BOX
+           ============================================================ */
         .search-box {
             display: flex;
             gap: 10px;
@@ -178,85 +425,33 @@
         .search-box input {
             flex: 1;
             padding: 12px 18px;
-            border: 2px solid #e8e8e8;
-            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
             font-size: 1rem;
             outline: none;
-            transition: 0.3s;
-            background: #fafafa;
-            color: #2d3436;
+            transition: var(--transition);
+            background: var(--bg-card);
+            color: var(--text-primary);
             min-width: 200px;
         }
 
         .search-box input:focus {
-            border-color: #ff6b6b;
+            border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
-            background: #fff;
         }
 
         .search-box input::placeholder {
-            color: #aaa;
+            color: var(--text-secondary);
         }
 
-        .search-box .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            width: auto;
-        }
-
-        .btn-primary {
-            background: #ff6b6b;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #e55a5a;
-        }
-
-        .btn-success {
-            background: #00b894;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #00a381;
-        }
-
-        .btn-danger {
-            background: #d63031;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #c0392b;
-        }
-
-        .btn-warning {
-            background: #fdcb6e;
-            color: #2d3436;
-        }
-
-        .btn-warning:hover {
-            background: #f9ca24;
-        }
-
-        .btn-sm {
-            padding: 6px 14px;
-            font-size: 0.75rem;
-            width: auto;
-        }
-
-        /* ========== USER RESULT CARD ========== */
+        /* ============================================================
+           USER RESULT CARD
+           ============================================================ */
         .user-result-card {
-            background: #f8f9fa;
-            border-radius: 16px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
             padding: 20px;
-            border: 2px solid #e8e8e8;
+            border: 2px solid var(--border-color);
             margin-bottom: 20px;
             display: none;
             animation: fadeSlide 0.5s ease;
@@ -274,17 +469,17 @@
             gap: 10px;
             margin-bottom: 15px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #e8e8e8;
+            border-bottom: 2px solid var(--border-color);
         }
 
         .user-result-card .user-header .user-name {
             font-size: 1.3rem;
             font-weight: 700;
-            color: #2d3436;
+            color: var(--text-primary);
         }
 
         .user-result-card .user-header .user-id-badge {
-            background: #6c5ce7;
+            background: var(--purple);
             padding: 4px 14px;
             border-radius: 20px;
             font-size: 0.85rem;
@@ -301,33 +496,35 @@
         }
 
         .user-result-card .user-header .user-status-badge.active {
-            background: #00b894;
+            background: var(--success);
             color: white;
         }
 
         .user-result-card .user-header .user-status-badge.frozen {
-            background: #d63031;
+            background: var(--danger);
             color: white;
         }
 
-        /* ========== USER INFO GRID ========== */
+        /* ============================================================
+           USER INFO GRID
+           ============================================================ */
         .user-info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 12px;
             margin-bottom: 15px;
         }
 
         .user-info-grid .info-item {
-            background: white;
-            border-radius: 12px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
             padding: 12px;
-            border: 1px solid #e8e8e8;
+            border: 1px solid var(--border-color);
         }
 
         .user-info-grid .info-item .label {
             font-size: 0.6rem;
-            color: #888;
+            color: var(--text-secondary);
             text-transform: uppercase;
             font-weight: 600;
             letter-spacing: 0.5px;
@@ -336,32 +533,34 @@
         .user-info-grid .info-item .value {
             font-size: 1rem;
             font-weight: 700;
-            color: #2d3436;
+            color: var(--text-primary);
             margin-top: 3px;
             word-break: break-all;
         }
 
         .user-info-grid .info-item .value.green {
-            color: #00b894;
+            color: var(--success);
         }
 
         .user-info-grid .info-item .value.purple {
-            color: #6c5ce7;
+            color: var(--purple);
         }
 
         .user-info-grid .info-item .value.orange {
-            color: #fdcb6e;
+            color: var(--warning);
         }
 
         .user-info-grid .info-item .value.red {
-            color: #d63031;
+            color: var(--danger);
         }
 
         .user-info-grid .info-item .value.blue {
-            color: #0984e3;
+            color: var(--blue);
         }
 
-        /* ========== USER ACTIONS ========== */
+        /* ============================================================
+           USER ACTIONS
+           ============================================================ */
         .user-actions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -370,22 +569,22 @@
         }
 
         .user-actions-grid .action-group {
-            background: white;
-            border-radius: 12px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
             padding: 12px;
-            border: 1px solid #e8e8e8;
-            transition: 0.3s;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
         }
 
         .user-actions-grid .action-group:hover {
-            border-color: #ff6b6b;
+            border-color: var(--primary);
             box-shadow: 0 2px 10px rgba(255, 107, 107, 0.1);
         }
 
         .user-actions-grid .action-group .action-label {
             font-size: 0.7rem;
             font-weight: 600;
-            color: #888;
+            color: var(--text-secondary);
             text-transform: uppercase;
             margin-bottom: 6px;
             display: block;
@@ -399,18 +598,17 @@
         .user-actions-grid .action-group .input-group input {
             flex: 1;
             padding: 6px 10px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 0.8rem;
             outline: none;
-            background: #fafafa;
-            color: #2d3436;
+            background: var(--bg-card);
+            color: var(--text-primary);
             min-width: 60px;
         }
 
         .user-actions-grid .action-group .input-group input:focus {
-            border-color: #ff6b6b;
-            background: #fff;
+            border-color: var(--primary);
         }
 
         .user-actions-grid .action-group .btn {
@@ -420,31 +618,33 @@
             font-size: 0.7rem;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.3s;
+            transition: var(--transition);
             width: auto;
             white-space: nowrap;
         }
 
-        /* ========== BANK ACCOUNTS ========== */
+        /* ============================================================
+           BANK ACCOUNTS
+           ============================================================ */
         .bank-section {
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 2px solid #e8e8e8;
+            border-top: 2px solid var(--border-color);
         }
 
         .bank-section .bank-title {
             font-weight: 600;
             font-size: 0.9rem;
-            color: #2d3436;
+            color: var(--text-primary);
             margin-bottom: 10px;
         }
 
         .bank-item {
-            background: white;
-            border-radius: 10px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
             padding: 10px 15px;
             margin: 6px 0;
-            border: 1px solid #e8e8e8;
+            border: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -458,16 +658,16 @@
 
         .bank-item .bank-info .bank-name {
             font-weight: 700;
-            color: #ff6b6b;
+            color: var(--primary);
         }
 
         .bank-item .bank-info .bank-details {
-            color: #888;
+            color: var(--text-secondary);
             font-size: 0.75rem;
         }
 
         .bank-item .bank-badge {
-            background: #00b894;
+            background: var(--success);
             color: white;
             padding: 2px 12px;
             border-radius: 20px;
@@ -478,20 +678,22 @@
         .no-banks {
             text-align: center;
             padding: 15px;
-            color: #888;
+            color: var(--text-secondary);
             font-size: 0.85rem;
-            background: #f8f9fa;
-            border-radius: 10px;
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
         }
 
-        /* ========== NOT FOUND ========== */
+        /* ============================================================
+           NOT FOUND
+           ============================================================ */
         .not-found {
             text-align: center;
             padding: 30px;
-            color: #888;
-            background: #f8f9fa;
-            border-radius: 12px;
-            border: 2px dashed #ddd;
+            color: var(--text-secondary);
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 2px dashed var(--border-color);
             display: none;
         }
 
@@ -504,10 +706,12 @@
             margin-bottom: 10px;
         }
 
-        /* ========== MESSAGE ========== */
+        /* ============================================================
+           MESSAGE
+           ============================================================ */
         .message {
             padding: 10px 15px;
-            border-radius: 12px;
+            border-radius: var(--radius-sm);
             margin: 10px 0;
             display: none;
             font-size: 0.9rem;
@@ -515,42 +719,50 @@
 
         .message.success {
             display: block;
-            background: #e0f7f1;
-            border: 1px solid #00b894;
-            color: #00a381;
+            background: rgba(0, 184, 148, 0.15);
+            border: 1px solid var(--success);
+            color: var(--success);
         }
 
         .message.error {
             display: block;
-            background: #ffeaa7;
-            border: 1px solid #d63031;
-            color: #c0392b;
+            background: rgba(214, 48, 49, 0.15);
+            border: 1px solid var(--danger);
+            color: var(--danger);
         }
 
         .message.info {
             display: block;
-            background: #dfe6e9;
-            border: 1px solid #0984e3;
-            color: #0652DD;
+            background: rgba(9, 132, 227, 0.15);
+            border: 1px solid var(--blue);
+            color: var(--blue);
         }
 
-        /* ========== USER LIST ========== */
+        /* ============================================================
+           USER LIST
+           ============================================================ */
+        .user-list-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
         .user-card {
-            background: #f8f9fa;
-            border-radius: 12px;
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
             padding: 12px 15px;
             margin: 8px 0;
-            border: 1px solid #e8e8e8;
+            border: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 8px;
-            transition: 0.3s;
+            transition: var(--transition);
         }
 
         .user-card:hover {
-            background: #f0f2f5;
+            background: var(--bg-secondary);
+            border-color: var(--primary);
         }
 
         .user-card .user-info {
@@ -559,17 +771,17 @@
 
         .user-card .user-info .name {
             font-weight: 600;
-            color: #2d3436;
+            color: var(--text-primary);
         }
 
         .user-card .user-info .details {
             font-size: 0.8rem;
-            color: #888;
+            color: var(--text-secondary);
         }
 
         .user-card .user-balance {
             font-weight: 700;
-            color: #00b894;
+            color: var(--success);
             font-size: 1.1rem;
         }
 
@@ -581,12 +793,12 @@
         }
 
         .user-card .user-status.active {
-            background: #00b894;
+            background: var(--success);
             color: white;
         }
 
         .user-card .user-status.frozen {
-            background: #d63031;
+            background: var(--danger);
             color: white;
         }
 
@@ -602,13 +814,15 @@
             width: auto;
         }
 
-        /* ========== ORDER MANAGEMENT ========== */
+        /* ============================================================
+           ORDER CONFIG
+           ============================================================ */
         .order-config {
-            background: #f8f9fa;
-            border-radius: 12px;
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
             padding: 15px;
             margin: 8px 0;
-            border: 1px solid #e8e8e8;
+            border: 1px solid var(--border-color);
         }
 
         .order-config .order-header {
@@ -620,24 +834,24 @@
 
         .order-config .order-header .level {
             font-weight: 700;
-            color: #6c5ce7;
+            color: var(--purple);
         }
 
         .order-config .order-header .status {
             font-size: 0.75rem;
             padding: 2px 12px;
             border-radius: 20px;
-            background: #f0f2f5;
+            background: var(--bg-secondary);
         }
 
         .order-config .order-header .status.active {
-            background: #00b894;
+            background: var(--success);
             color: white;
         }
 
         .order-config .order-header .status.locked {
-            background: #dfe6e9;
-            color: #636e72;
+            background: var(--bg-card);
+            color: var(--text-secondary);
         }
 
         .order-config .order-controls {
@@ -650,8 +864,11 @@
         .order-config .order-controls input {
             width: 80px;
             padding: 6px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             font-size: 0.85rem;
-            background: #fff;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
         }
 
         .order-config .order-controls .btn {
@@ -660,7 +877,9 @@
             font-size: 0.8rem;
         }
 
-        /* ========== LOGIN OVERLAY ========== */
+        /* ============================================================
+           LOGIN OVERLAY
+           ============================================================ */
         .login-overlay {
             position: fixed;
             top: 0;
@@ -668,7 +887,7 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -680,23 +899,23 @@
         }
 
         .login-box {
-            background: #ffffff;
+            background: var(--bg-secondary);
             padding: 40px;
-            border-radius: 25px;
+            border-radius: var(--radius-lg);
             max-width: 380px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-hover);
         }
 
         .login-box h2 {
             text-align: center;
-            color: #ff6b6b;
+            color: var(--primary);
             margin-bottom: 5px;
         }
 
         .login-box p {
             text-align: center;
-            color: #888;
+            color: var(--text-secondary);
             font-size: 0.85rem;
             margin-bottom: 20px;
         }
@@ -706,7 +925,7 @@
         }
 
         .login-box .form-group label {
-            color: #555;
+            color: var(--text-secondary);
             font-weight: 600;
             font-size: 0.85rem;
             display: block;
@@ -716,18 +935,17 @@
         .login-box .form-group input {
             width: 100%;
             padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
             font-size: 0.95rem;
             outline: none;
-            transition: 0.3s;
-            background: #fafafa;
-            color: #2d3436;
+            transition: var(--transition);
+            background: var(--bg-card);
+            color: var(--text-primary);
         }
 
         .login-box .form-group input:focus {
-            border-color: #ff6b6b;
-            background: #fff;
+            border-color: var(--primary);
         }
 
         .login-box .btn {
@@ -735,7 +953,16 @@
             margin-top: 10px;
         }
 
-        /* ========== RESPONSIVE ========== */
+        .login-box .login-hint {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            margin-top: 10px;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
         @media (max-width: 768px) {
             .container {
                 padding: 18px;
@@ -753,6 +980,10 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         @media (max-width: 500px) {
@@ -763,7 +994,11 @@
             .admin-tabs .tab-btn {
                 font-size: 0.65rem;
                 padding: 6px 4px;
-                min-width: 50px;
+                min-width: 45px;
+            }
+
+            .admin-tabs .tab-btn .tab-label {
+                display: none;
             }
 
             .search-box {
@@ -808,12 +1043,30 @@
                 padding: 25px;
                 margin: 20px;
             }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .admin-tabs .tab-btn {
+                font-size: 0.55rem;
+                padding: 4px 3px;
+                min-width: 35px;
+            }
+
+            .admin-tabs .tab-btn .icon {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== LOGIN OVERLAY ===== -->
+    <!-- ============================================================
+    LOGIN OVERLAY
+    ============================================================ -->
     <div class="login-overlay" id="loginOverlay">
         <div class="login-box">
             <h2>🔐 Admin Panel</h2>
@@ -828,82 +1081,133 @@
             </div>
             <div id="loginError" class="message error" style="display:none;">❌ Usuario o contraseña incorrectos</div>
             <button class="btn btn-primary" onclick="adminLogin()">🚪 Ingresar</button>
-            <p style="text-align:center; color:#aaa; font-size:0.7rem; margin-top:10px;">Usuario: admin | Contraseña: admin123</p>
+            <div class="login-hint">Usuario: admin | Contraseña: admin123</div>
         </div>
     </div>
 
-    <!-- ===== ADMIN PANEL ===== -->
+    <!-- ============================================================
+    ADMIN PANEL
+    ============================================================ -->
     <div class="container" id="adminPanel" style="display:none;">
 
         <!-- ===== HEADER ===== -->
         <div class="admin-header">
             <div class="logo">
-                <h1>🛠️ Shein Admin</h1>
-                <span>Panel de control - Gestión de usuarios</span>
+                <div>
+                    <h1>🛠️ Shein Admin</h1>
+                    <span>Panel de control avanzado</span>
+                </div>
+                <span class="version">v3.0</span>
             </div>
             <div class="user-info">
+                <div class="theme-toggle">
+                    <button class="toggle-btn active" onclick="setTheme('light')">☀️</button>
+                    <button class="toggle-btn" onclick="setTheme('dark')">🌙</button>
+                </div>
                 <span class="badge">🔒 Sesión activa</span>
-                <button class="btn-outline" onclick="adminLogout()">🚪 Cerrar sesión</button>
+                <button class="btn btn-outline btn-sm" onclick="adminLogout()">🚪 Cerrar sesión</button>
+            </div>
+        </div>
+
+        <!-- ===== STATS ===== -->
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number" id="statUsers">0</div>
+                <div class="stat-label">Usuarios registrados</div>
+                <div class="stat-change up">↑ <span id="statUsersChange">0</span>% esta semana</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-number" id="statBalance">S/ 0.00</div>
+                <div class="stat-label">Balance total</div>
+                <div class="stat-change up">↑ <span id="statBalanceChange">0</span>% esta semana</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📦</div>
+                <div class="stat-number" id="statOrders">0</div>
+                <div class="stat-label">Órdenes completadas</div>
+                <div class="stat-change up">↑ <span id="statOrdersChange">0</span>% esta semana</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏦</div>
+                <div class="stat-number" id="statBanks">0</div>
+                <div class="stat-label">Cuentas bancarias</div>
+                <div class="stat-change up">↑ <span id="statBanksChange">0</span>% esta semana</div>
             </div>
         </div>
 
         <!-- ===== TABS ===== -->
         <div class="admin-tabs">
             <button class="tab-btn active" onclick="switchTab('users', this)">
-                <span class="icon">👥</span> Usuarios
+                <span class="icon">👥</span>
+                <span class="tab-label">Usuarios</span>
             </button>
             <button class="tab-btn" onclick="switchTab('search', this)">
-                <span class="icon">🔍</span> Buscar por ID
+                <span class="icon">🔍</span>
+                <span class="tab-label">Buscar</span>
             </button>
             <button class="tab-btn" onclick="switchTab('orders', this)">
-                <span class="icon">📦</span> Órdenes
+                <span class="icon">📦</span>
+                <span class="tab-label">Órdenes</span>
             </button>
             <button class="tab-btn" onclick="switchTab('settings', this)">
-                <span class="icon">⚙️</span> Ajustes
+                <span class="icon">⚙️</span>
+                <span class="tab-label">Ajustes</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('analytics', this)">
+                <span class="icon">📊</span>
+                <span class="tab-label">Analytics</span>
             </button>
         </div>
 
         <!-- ===== MESSAGE ===== -->
         <div id="adminMessage" class="message"></div>
 
-        <!-- ===== PANEL: USERS ===== -->
+        <!-- ============================================================
+        PANEL: USERS
+        ============================================================ -->
         <div id="panelUsers" class="panel active">
             <div class="panel-title">
                 <span>👥 Usuarios Registrados</span>
                 <span class="count" id="userCount">0</span>
             </div>
-            <div id="userList">
-                <!-- Generado por JavaScript -->
+            <div class="user-list-container" id="userListContainer">
+                <div id="userList">
+                    <!-- Generado por JavaScript -->
+                </div>
             </div>
         </div>
 
-        <!-- ===== PANEL: SEARCH ===== -->
+        <!-- ============================================================
+        PANEL: SEARCH
+        ============================================================ -->
         <div id="panelSearch" class="panel">
             <div class="panel-title">
-                <span>🔍 Buscar Usuario por ID o Teléfono</span>
-                <span class="count">Ingresa el ID o teléfono</span>
+                <span>🔍 Buscar Usuario</span>
+                <span class="count">ID, teléfono o usuario</span>
             </div>
 
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Ej: 8019398 o 938218405">
+                <input type="text" id="searchInput" placeholder="Ej: 8732294 o 938218405 o username">
                 <button class="btn btn-primary" onclick="searchUser()">🔍 Buscar</button>
                 <button class="btn btn-outline" onclick="clearSearch()">🗑️ Limpiar</button>
             </div>
 
             <div class="not-found" id="notFound">
                 <div class="icon">🔍</div>
-                <p>No se encontró ningún usuario con este ID o teléfono.</p>
-                <p style="font-size:0.8rem; color:#aaa;">Verifica que el ID sea correcto (7 dígitos) o el teléfono</p>
+                <p>No se encontró ningún usuario con este ID, teléfono o usuario.</p>
+                <p style="font-size:0.8rem; color:var(--text-secondary);">Verifica que los datos sean correctos</p>
             </div>
 
             <div class="user-result-card" id="userResultCard">
                 <div class="user-header">
                     <div>
                         <span class="user-name" id="resultUserName">Usuario</span>
-                        <div style="font-size:0.8rem; color:#888; margin-top:2px;" id="resultUserPhone">📱 +51 938218405</div>
+                        <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;" id="resultUserPhone">📱 +51 938218405</div>
                     </div>
                     <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                        <span class="user-id-badge" id="resultUserId">🆔 8019398</span>
+                        <span class="user-id-badge" id="resultUserId">🆔 8732294</span>
                         <span class="user-status-badge active" id="resultStatusBadge">✅ Activo</span>
                     </div>
                 </div>
@@ -914,11 +1218,11 @@
                         <div class="value green" id="resultUserBalance">S/ 0.00</div>
                     </div>
                     <div class="info-item">
-                        <div class="label">📈 Ingresos totales</div>
+                        <div class="label">📈 Ingresos</div>
                         <div class="value orange" id="resultUserIncome">S/ 0.00</div>
                     </div>
                     <div class="info-item">
-                        <div class="label">⭐ Nivel VIP</div>
+                        <div class="label">⭐ VIP</div>
                         <div class="value purple" id="resultUserVip">VIP 1</div>
                     </div>
                     <div class="info-item">
@@ -934,7 +1238,7 @@
                         <div class="value red" id="resultUserOrders">0</div>
                     </div>
                     <div class="info-item">
-                        <div class="label">🌐 IP Address</div>
+                        <div class="label">🌐 IP</div>
                         <div class="value blue" id="resultUserIP">190.236.26.127</div>
                     </div>
                     <div class="info-item">
@@ -977,24 +1281,25 @@
                     </div>
                 </div>
 
-                <!-- ===== BANK ACCOUNTS ===== -->
                 <div class="bank-section">
                     <div class="bank-title">🏦 Cuentas bancarias vinculadas</div>
                     <div id="bankListContainer">
-                        <!-- Generado por JavaScript -->
+                        <div class="no-banks">No hay cuentas bancarias vinculadas.</div>
                     </div>
                 </div>
 
-                <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap; border-top:1px solid #e8e8e8; padding-top:15px;">
+                <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap; border-top:1px solid var(--border-color); padding-top:15px;">
                     <button class="btn btn-primary btn-sm" onclick="resultViewFullDetails()" style="width:auto;">👁️ Ver detalles</button>
                     <button class="btn btn-warning btn-sm" onclick="resultViewHistory()" style="width:auto;">📋 Historial</button>
                     <button class="btn btn-outline btn-sm" onclick="clearSearch()" style="width:auto;">🗑️ Limpiar</button>
-                    <span style="font-size:0.7rem; color:#888; margin-left:auto; align-self:center;">🔄 Datos en tiempo real</span>
+                    <span style="font-size:0.7rem; color:var(--text-secondary); margin-left:auto; align-self:center;">🔄 Datos en tiempo real</span>
                 </div>
             </div>
         </div>
 
-        <!-- ===== PANEL: ORDERS ===== -->
+        <!-- ============================================================
+        PANEL: ORDERS
+        ============================================================ -->
         <div id="panelOrders" class="panel">
             <div class="panel-title">
                 <span>📦 Configuración de Órdenes VIP</span>
@@ -1005,48 +1310,102 @@
             </div>
         </div>
 
-        <!-- ===== PANEL: SETTINGS ===== -->
+        <!-- ============================================================
+        PANEL: SETTINGS
+        ============================================================ -->
         <div id="panelSettings" class="panel">
             <div class="panel-title">
                 <span>⚙️ Ajustes del Sistema</span>
                 <span class="count">Configuración</span>
             </div>
 
-            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
-                <h4 style="color:#6c5ce7; margin-bottom:10px;">🔑 Cambiar Contraseña de Usuario</h4>
-                <div class="form-group">
-                    <label>👤 Seleccionar usuario</label>
-                    <select id="passwordUserSelect">
+            <div style="background:var(--bg-card); border-radius:var(--radius-sm); padding:15px; margin:10px 0; border:1px solid var(--border-color);">
+                <h4 style="color:var(--purple); margin-bottom:10px;">🔑 Cambiar Contraseña de Usuario</h4>
+                <div class="form-group" style="margin-bottom:10px;">
+                    <label style="font-size:0.8rem; color:var(--text-secondary);">👤 Seleccionar usuario</label>
+                    <select id="passwordUserSelect" style="width:100%; padding:8px 12px; border:1px solid var(--border-color); border-radius:8px; background:var(--bg-secondary); color:var(--text-primary);">
                         <option value="">-- Selecciona un usuario --</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>🔒 Nueva contraseña</label>
-                    <input type="text" id="newPassword" placeholder="Nueva contraseña (mínimo 6 caracteres)">
+                <div class="form-group" style="margin-bottom:10px;">
+                    <label style="font-size:0.8rem; color:var(--text-secondary);">🔒 Nueva contraseña</label>
+                    <input type="text" id="newPassword" placeholder="Nueva contraseña (mínimo 6 caracteres)" style="width:100%; padding:8px 12px; border:1px solid var(--border-color); border-radius:8px; background:var(--bg-secondary); color:var(--text-primary);">
                 </div>
-                <button class="btn btn-warning" onclick="adminResetPassword()">🔄 Cambiar Contraseña</button>
+                <button class="btn btn-warning" onclick="adminResetPassword()" style="width:auto;">🔄 Cambiar Contraseña</button>
             </div>
 
-            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
-                <h4 style="color:#d63031; margin-bottom:10px;">⚠️ Acciones Peligrosas</h4>
-                <button class="btn btn-danger" onclick="adminClearAllData()" style="margin-bottom:8px;">🗑️ Eliminar todos los datos</button>
-                <p style="color:#888; font-size:0.75rem;">⚠️ Esta acción eliminará todos los usuarios y datos. ¡No se puede deshacer!</p>
+            <div style="background:var(--bg-card); border-radius:var(--radius-sm); padding:15px; margin:10px 0; border:1px solid var(--border-color);">
+                <h4 style="color:var(--danger); margin-bottom:10px;">⚠️ Acciones Peligrosas</h4>
+                <button class="btn btn-danger" onclick="adminClearAllData()" style="width:auto; margin-bottom:8px;">🗑️ Eliminar todos los datos</button>
+                <p style="color:var(--text-secondary); font-size:0.75rem;">⚠️ Esta acción eliminará todos los usuarios y datos. ¡No se puede deshacer!</p>
             </div>
 
-            <div style="background:#f8f9fa; border-radius:12px; padding:15px; margin:10px 0; border:1px solid #e8e8e8;">
-                <h4 style="color:#00b894; margin-bottom:10px;">📊 Estadísticas</h4>
+            <div style="background:var(--bg-card); border-radius:var(--radius-sm); padding:15px; margin:10px 0; border:1px solid var(--border-color);">
+                <h4 style="color:var(--success); margin-bottom:10px;">📊 Estadísticas del Sistema</h4>
                 <div id="adminStats">
-                    <p>👥 <span id="statUsers">0</span> usuarios registrados</p>
-                    <p>💰 <span id="statTotalBalance">S/ 0.00</span> balance total</p>
-                    <p>📦 <span id="statOrders">0</span> órdenes completadas</p>
+                    <p>👥 <span id="statUsers2">0</span> usuarios registrados</p>
+                    <p>💰 <span id="statTotalBalance2">S/ 0.00</span> balance total</p>
+                    <p>📦 <span id="statOrders2">0</span> órdenes completadas</p>
+                    <p>🏦 <span id="statBanks2">0</span> cuentas bancarias vinculadas</p>
                 </div>
             </div>
         </div>
+
+        <!-- ============================================================
+        PANEL: ANALYTICS
+        ============================================================ -->
+        <div id="panelAnalytics" class="panel">
+            <div class="panel-title">
+                <span>📊 Analytics</span>
+                <span class="count">Estadísticas detalladas</span>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:10px 0;">
+                <div style="background:var(--bg-card); border-radius:var(--radius-sm); padding:15px; border:1px solid var(--border-color);">
+                    <h4 style="color:var(--text-primary); margin-bottom:10px;">📈 Usuarios por día</h4>
+                    <div id="dailyUsersChart" style="height:150px; display:flex; align-items:flex-end; gap:8px; padding-top:10px;">
+                        <!-- Generado por JavaScript -->
+                    </div>
+                </div>
+                <div style="background:var(--bg-card); border-radius:var(--radius-sm); padding:15px; border:1px solid var(--border-color);">
+                    <h4 style="color:var(--text-primary); margin-bottom:10px;">💰 Ingresos por día</h4>
+                    <div id="dailyIncomeChart" style="height:150px; display:flex; align-items:flex-end; gap:8px; padding-top:10px;">
+                        <!-- Generado por JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div style="background:var(--bg-card); border-radius:var(--radius-sm); padding:15px; border:1px solid var(--border-color); margin-top:10px;">
+                <h4 style="color:var(--text-primary); margin-bottom:10px;">📋 Resumen General</h4>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+                    <div style="text-align:center; padding:10px; background:var(--bg-secondary); border-radius:8px;">
+                        <div style="font-size:0.7rem; color:var(--text-secondary);">Total Usuarios</div>
+                        <div style="font-size:1.5rem; font-weight:700; color:var(--primary);" id="analyticsUsers">0</div>
+                    </div>
+                    <div style="text-align:center; padding:10px; background:var(--bg-secondary); border-radius:8px;">
+                        <div style="font-size:0.7rem; color:var(--text-secondary);">Balance Total</div>
+                        <div style="font-size:1.5rem; font-weight:700; color:var(--success);" id="analyticsBalance">S/ 0.00</div>
+                    </div>
+                    <div style="text-align:center; padding:10px; background:var(--bg-secondary); border-radius:8px;">
+                        <div style="font-size:0.7rem; color:var(--text-secondary);">Órdenes</div>
+                        <div style="font-size:1.5rem; font-weight:700; color:var(--purple);" id="analyticsOrders">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <div style="text-align:center; margin-top:20px; padding-top:15px; border-top:1px solid var(--border-color); font-size:0.7rem; color:var(--text-secondary);">
+            Shein Admin Panel v3.0 | © 2026 Todos los derechos reservados
+        </div>
     </div>
 
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
     <script>
         // ============================================================
-        //  STORAGE KEY - MISMA CLAVE PARA FRONTEND Y BACKEND
+        //  STORAGE KEY
         // ============================================================
         const STORAGE_KEY = 'shein_admin_data';
 
@@ -1070,19 +1429,30 @@
         let currentSearchUserIndex = -1;
 
         // ============================================================
-        //  ✅ LOAD FUNCTIONS - CON LOCAL STORAGE
+        //  THEME
+        // ============================================================
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
+            document.querySelectorAll('.theme-toggle .toggle-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.includes(theme === 'dark' ? '🌙' : '☀️'));
+            });
+            localStorage.setItem('shein_theme', theme);
+        }
+
+        function loadTheme() {
+            const saved = localStorage.getItem('shein_theme') || 'light';
+            setTheme(saved);
+        }
+
+        // ============================================================
+        //  LOAD / SAVE
         // ============================================================
         function loadAdminData() {
             const stored = localStorage.getItem(STORAGE_KEY);
-            
-            console.log('📁🔑 STORAGE_KEY:', STORAGE_KEY);
-            console.log('📦 Datos almacenados en Local Storage:', stored);
-            
+
             if (stored) {
                 try {
                     const parsed = JSON.parse(stored);
-                    
-                    // ✅ Cargar usuarios correctamente
                     adminData.users = parsed.users || [];
                     adminData.adminPassword = parsed.adminPassword || 'admin123';
                     adminData.currentUserId = parsed.currentUserId || null;
@@ -1094,101 +1464,83 @@
                         vip5: { totalOrders: 50, commissionRate: 0.50 },
                         vip6: { totalOrders: 60, commissionRate: 0.55 }
                     };
-                    
-                    console.log('✅ Datos cargados correctamente');
-                    console.log('👥 Usuarios encontrados:', adminData.users.length);
-                    console.log('📋 Lista de usuarios:', adminData.users.map(u => ({ 
-                        username: u.username, 
-                        userId: u.userId, 
-                        phone: u.phone,
-                        balance: u.balance 
-                    })));
-                    
                 } catch (e) {
-                    console.error('❌ Error al cargar datos:', e);
+                    console.error('Error al cargar datos:', e);
                     adminData.users = [];
-                    adminData.adminPassword = 'admin123';
                 }
-            } else {
-                console.log('📁 No hay datos en Local Storage. Creando datos de ejemplo...');
-                adminData.users = [];
-                adminData.adminPassword = 'admin123';
-                // Crear datos de ejemplo
+            }
+
+            if (!adminData.users) adminData.users = [];
+            if (adminData.users.length === 0) {
                 createExampleUsers();
                 saveAdminData();
             }
-            
-            if (!adminData.users) adminData.users = [];
         }
 
         function createExampleUsers() {
-            adminData.users = [
-                {
-                    username: 'hghvbcvhg',
-                    phone: '85258252512',
-                    password: 'demo123',
-                    balance: 10.00,
-                    totalIncome: 0,
-                    userId: '8732294',
-                    country: 'Perú',
-                    language: 'Español',
-                    vipLevel: 'VIP 1',
-                    totalOrders: 0,
-                    frozen: false,
-                    registrationDate: '2026-07-30 14:30',
-                    ipAddress: '190.236.26.127',
-                    bankAccounts: [],
-                    history: [
-                        { action: 'Registro', amount: 10, date: '2026-07-30 14:30' }
-                    ]
-                },
-                {
-                    username: 'Jhostynjose',
-                    phone: '938218405',
-                    password: 'demo123',
-                    balance: 1011.72,
-                    totalIncome: 465.72,
-                    userId: '1776174',
-                    country: 'Perú',
-                    language: 'Español',
-                    vipLevel: 'VIP 1',
-                    totalOrders: 20,
-                    frozen: false,
-                    registrationDate: '2026-07-23 11:30',
-                    ipAddress: '190.236.26.127',
-                    bankAccounts: [
-                        { bankName: 'Banco BBVA', accountNumber: '453215', accountHolder: 'Jhostynjose', cci: '5412456' },
-                        { bankName: 'Banco de Crédito (BCP)', accountNumber: '789012', accountHolder: 'Jhostynjose', cci: '9876543' }
-                    ],
-                    history: [
-                        { action: 'Depósito', amount: 50, date: '2026-07-23 10:00' },
-                        { action: 'Retiro', amount: 20, date: '2026-07-22 15:30' },
-                        { action: 'Comisión VIP 1', amount: 15, date: '2026-07-21 09:00' }
-                    ]
-                },
-                {
-                    username: 'test_user',
-                    phone: '912345678',
-                    password: 'test123',
-                    balance: 15.00,
-                    totalIncome: 5.00,
-                    userId: '7654321',
-                    country: 'Colombia',
-                    language: 'Español',
-                    vipLevel: 'VIP 1',
-                    totalOrders: 3,
-                    frozen: false,
-                    registrationDate: '2026-07-22 14:20',
-                    ipAddress: '192.168.1.100',
-                    bankAccounts: [
-                        { bankName: 'Banco Interbank', accountNumber: '123456', accountHolder: 'Test User', cci: '1234567' }
-                    ],
-                    history: [
-                        { action: 'Depósito', amount: 10, date: '2026-07-22 12:00' }
-                    ]
-                }
-            ];
-            console.log('📝 Usuarios de ejemplo creados:', adminData.users.length);
+            adminData.users = [{
+                username: 'hghvbcvhg',
+                phone: '85258252512',
+                password: 'demo123',
+                balance: 10.00,
+                totalIncome: 0,
+                userId: '8732294',
+                country: 'Perú',
+                language: 'Español',
+                vipLevel: 'VIP 1',
+                totalOrders: 0,
+                frozen: false,
+                registrationDate: '2026-07-30 14:30',
+                ipAddress: '190.236.26.127',
+                bankAccounts: [],
+                history: [
+                    { action: 'Registro', amount: 10, date: '2026-07-30 14:30' }
+                ]
+            }, {
+                username: 'Jhostynjose',
+                phone: '938218405',
+                password: 'demo123',
+                balance: 1011.72,
+                totalIncome: 465.72,
+                userId: '1776174',
+                country: 'Perú',
+                language: 'Español',
+                vipLevel: 'VIP 1',
+                totalOrders: 20,
+                frozen: false,
+                registrationDate: '2026-07-23 11:30',
+                ipAddress: '190.236.26.127',
+                bankAccounts: [
+                    { bankName: 'Banco BBVA', accountNumber: '453215', accountHolder: 'Jhostynjose', cci: '5412456' },
+                    { bankName: 'Banco de Crédito (BCP)', accountNumber: '789012', accountHolder: 'Jhostynjose',
+                        cci: '9876543' }
+                ],
+                history: [
+                    { action: 'Depósito', amount: 50, date: '2026-07-23 10:00' },
+                    { action: 'Retiro', amount: 20, date: '2026-07-22 15:30' },
+                    { action: 'Comisión VIP 1', amount: 15, date: '2026-07-21 09:00' }
+                ]
+            }, {
+                username: 'test_user',
+                phone: '912345678',
+                password: 'test123',
+                balance: 15.00,
+                totalIncome: 5.00,
+                userId: '7654321',
+                country: 'Colombia',
+                language: 'Español',
+                vipLevel: 'VIP 1',
+                totalOrders: 3,
+                frozen: false,
+                registrationDate: '2026-07-22 14:20',
+                ipAddress: '192.168.1.100',
+                bankAccounts: [
+                    { bankName: 'Banco Interbank', accountNumber: '123456', accountHolder: 'Test User', cci: '1234567' }
+                ],
+                history: [
+                    { action: 'Depósito', amount: 10, date: '2026-07-22 12:00' }
+                ]
+            }];
         }
 
         function saveAdminData() {
@@ -1199,7 +1551,6 @@
                 defaultOrders: adminData.defaultOrders
             };
             localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-            console.log('💾 Datos guardados:', adminData.users.length, 'usuarios');
         }
 
         // ============================================================
@@ -1214,7 +1565,7 @@
                 errorEl.style.display = 'none';
                 document.getElementById('loginOverlay').classList.add('hidden');
                 document.getElementById('adminPanel').style.display = 'block';
-                renderAdminPanel();
+                renderAll();
                 showMessage('✅ Sesión iniciada correctamente', 'success');
             } else {
                 errorEl.style.display = 'block';
@@ -1228,7 +1579,7 @@
         }
 
         // ============================================================
-        //  HELPER FUNCTIONS
+        //  HELPERS
         // ============================================================
         function showMessage(text, type = 'info') {
             const el = document.getElementById('adminMessage');
@@ -1245,42 +1596,139 @@
         }
 
         function getCurrentDate() {
-            const now = new Date();
-            return now.toLocaleString('es-ES');
+            return new Date().toLocaleString('es-ES');
+        }
+
+        function generateUserId() {
+            let id = '';
+            for (let i = 0; i < 7; i++) {
+                id += Math.floor(Math.random() * 10);
+            }
+            return id;
+        }
+
+        function getRandomIP() {
+            return `${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
         }
 
         // ============================================================
-        //  RENDER FUNCTIONS
+        //  RENDER ALL
         // ============================================================
-        function renderAdminPanel() {
+        function renderAll() {
             renderUsers();
             renderOrderConfigs();
             renderPasswordSelects();
             renderStats();
+            renderAnalytics();
         }
 
+        // ============================================================
+        //  STATS
+        // ============================================================
+        function renderStats() {
+            const users = adminData.users || [];
+            const totalBalance = users.reduce((sum, u) => sum + (u.balance || 0), 0);
+            const totalOrders = users.reduce((sum, u) => sum + (u.totalOrders || 0), 0);
+            const totalBanks = users.reduce((sum, u) => sum + (u.bankAccounts ? u.bankAccounts.length : 0), 0);
+
+            document.getElementById('statUsers').textContent = users.length;
+            document.getElementById('statBalance').textContent = formatCurrency(totalBalance);
+            document.getElementById('statOrders').textContent = totalOrders;
+            document.getElementById('statBanks').textContent = totalBanks;
+
+            document.getElementById('statUsers2').textContent = users.length;
+            document.getElementById('statTotalBalance2').textContent = formatCurrency(totalBalance);
+            document.getElementById('statOrders2').textContent = totalOrders;
+            document.getElementById('statBanks2').textContent = totalBanks;
+        }
+
+        // ============================================================
+        //  ANALYTICS
+        // ============================================================
+        function renderAnalytics() {
+            const users = adminData.users || [];
+            const totalBalance = users.reduce((sum, u) => sum + (u.balance || 0), 0);
+            const totalOrders = users.reduce((sum, u) => sum + (u.totalOrders || 0), 0);
+
+            document.getElementById('analyticsUsers').textContent = users.length;
+            document.getElementById('analyticsBalance').textContent = formatCurrency(totalBalance);
+            document.getElementById('analyticsOrders').textContent = totalOrders;
+
+            // Daily users chart
+            const chartContainer = document.getElementById('dailyUsersChart');
+            chartContainer.innerHTML = '';
+            const days = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+            const values = days.map(() => Math.floor(Math.random() * 5) + 1);
+            const maxVal = Math.max(...values, 1);
+
+            days.forEach((day, i) => {
+                const height = (values[i] / maxVal) * 120;
+                const div = document.createElement('div');
+                div.style.cssText = `
+                            display:flex;
+                            flex-direction:column;
+                            align-items:center;
+                            flex:1;
+                            height:100%;
+                            justify-content:flex-end;
+                        `;
+                div.innerHTML = `
+                            <div style="width:100%; height:${height}px; background:var(--primary); border-radius:4px 4px 0 0; min-height:10px; transition:var(--transition);"></div>
+                            <span style="font-size:0.6rem; color:var(--text-secondary); margin-top:4px;">${day}</span>
+                            <span style="font-size:0.5rem; color:var(--text-secondary);">${values[i]}</span>
+                        `;
+                chartContainer.appendChild(div);
+            });
+
+            // Daily income chart
+            const incomeContainer = document.getElementById('dailyIncomeChart');
+            incomeContainer.innerHTML = '';
+            const incomeValues = days.map(() => Math.floor(Math.random() * 50) + 5);
+            const maxIncome = Math.max(...incomeValues, 1);
+
+            days.forEach((day, i) => {
+                const height = (incomeValues[i] / maxIncome) * 120;
+                const div = document.createElement('div');
+                div.style.cssText = `
+                            display:flex;
+                            flex-direction:column;
+                            align-items:center;
+                            flex:1;
+                            height:100%;
+                            justify-content:flex-end;
+                        `;
+                div.innerHTML = `
+                            <div style="width:100%; height:${height}px; background:var(--success); border-radius:4px 4px 0 0; min-height:10px; transition:var(--transition);"></div>
+                            <span style="font-size:0.6rem; color:var(--text-secondary); margin-top:4px;">${day}</span>
+                            <span style="font-size:0.5rem; color:var(--text-secondary);">S/${incomeValues[i]}</span>
+                        `;
+                incomeContainer.appendChild(div);
+            });
+        }
+
+        // ============================================================
+        //  USERS LIST
+        // ============================================================
         function renderUsers() {
             const container = document.getElementById('userList');
             const count = document.getElementById('userCount');
             container.innerHTML = '';
-            
+
             const users = adminData.users || [];
             count.textContent = users.length;
 
             if (users.length === 0) {
                 container.innerHTML = `
-                    <div style="text-align:center; padding:30px; color:#888; background:#f8f9fa; border-radius:12px;">
-                        <p style="font-size:1.2rem; margin-bottom:10px;">👥 No hay usuarios registrados aún.</p>
-                        <p style="font-size:0.85rem; color:#aaa;">
-                            💡 Regístrate en la plataforma principal 
-                            <br>
-                            <span style="color:#ff6b6b;">(index.html)</span> o usa el botón de abajo.
-                        </p>
-                        <button class="btn btn-primary btn-sm" onclick="addDemoUser()" style="margin-top:10px; width:auto;">
-                            ➕ Agregar usuario de prueba
-                        </button>
-                    </div>
-                `;
+                            <div style="text-align:center; padding:30px; color:var(--text-secondary); background:var(--bg-card); border-radius:var(--radius-sm);">
+                                <p style="font-size:1.2rem; margin-bottom:10px;">👥 No hay usuarios registrados aún.</p>
+                                <p style="font-size:0.85rem; color:var(--text-secondary);">
+                                    💡 Regístrate en la plataforma principal o usa el botón de abajo.
+                                </p>
+                                <button class="btn btn-primary btn-sm" onclick="addDemoUser()" style="margin-top:10px; width:auto;">
+                                    ➕ Agregar usuario de prueba
+                                </button>
+                            </div>
+                        `;
                 return;
             }
 
@@ -1291,81 +1739,22 @@
                 const statusText = user.frozen ? '🔒 Congelado' : '✅ Activo';
 
                 div.innerHTML = `
-                    <div class="user-info">
-                        <div class="name">👤 ${user.username || 'Usuario'}</div>
-                        <div class="details">📱 ${user.phone || 'Sin teléfono'} | 🆔 ${user.userId || 'N/A'} | 🌐 ${user.ipAddress || 'N/A'}</div>
-                    </div>
-                    <div class="user-balance">${formatCurrency(user.balance || 0)}</div>
-                    <span class="user-status ${statusClass}">${statusText}</span>
-                    <div class="user-actions">
-                        <button class="btn btn-success btn-sm" onclick="adminSetBalance(${index}, 10)">+10</button>
-                        <button class="btn btn-danger btn-sm" onclick="adminSetBalance(${index}, -5)">-5</button>
-                        <button class="btn btn-warning btn-sm" onclick="adminViewUser(${index})">👁️</button>
-                    </div>
-                `;
+                            <div class="user-info">
+                                <div class="name">👤 ${user.username || 'Usuario'}</div>
+                                <div class="details">📱 ${user.phone || 'Sin teléfono'} | 🆔 ${user.userId || 'N/A'} | 🌐 ${user.ipAddress || 'N/A'}</div>
+                            </div>
+                            <div class="user-balance">${formatCurrency(user.balance || 0)}</div>
+                            <span class="user-status ${statusClass}">${statusText}</span>
+                            <div class="user-actions">
+                                <button class="btn btn-success btn-sm" onclick="adminSetBalance(${index}, 10)">+10</button>
+                                <button class="btn btn-danger btn-sm" onclick="adminSetBalance(${index}, -5)">-5</button>
+                                <button class="btn btn-warning btn-sm" onclick="adminViewUser(${index})">👁️</button>
+                            </div>
+                        `;
                 container.appendChild(div);
             });
         }
 
-        function renderOrderConfigs() {
-            const container = document.getElementById('orderConfigList');
-            container.innerHTML = '';
-
-            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
-            const vipNames = ['VIP 1', 'VIP 2', 'VIP 3', 'VIP 4', 'VIP 5', 'VIP 6'];
-
-            vipKeys.forEach((key, index) => {
-                const config = adminData.defaultOrders[key] || { totalOrders: (index + 1) * 10, commissionRate: 0.30 + (index * 0.05) };
-                const isUnlocked = index === 0;
-
-                const div = document.createElement('div');
-                div.className = 'order-config';
-                div.innerHTML = `
-                    <div class="order-header">
-                        <span class="level">${vipNames[index]}</span>
-                        <span class="status ${isUnlocked ? 'active' : 'locked'}">${isUnlocked ? '✅ Activo' : '🔒 Bloqueado'}</span>
-                    </div>
-                    <div class="order-controls">
-                        <div style="flex:1;">
-                            <label style="font-size:0.7rem; color:#888;">Órdenes requeridas</label>
-                            <input type="number" id="orderTotal_${key}" value="${config.totalOrders}" min="1" max="200">
-                        </div>
-                        <div style="flex:1;">
-                            <label style="font-size:0.7rem; color:#888;">Comisión (%)</label>
-                            <input type="number" id="orderRate_${key}" value="${(config.commissionRate * 100).toFixed(0)}" min="5" max="100">
-                        </div>
-                        <button class="btn btn-primary btn-sm" onclick="adminUpdateOrder('${key}')" style="margin-top:6px;">💾 Guardar</button>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function renderPasswordSelects() {
-            const select = document.getElementById('passwordUserSelect');
-            select.innerHTML = '<option value="">-- Selecciona un usuario --</option>';
-
-            adminData.users.forEach((user, index) => {
-                const option = document.createElement('option');
-                option.value = index;
-                option.textContent = `${user.username || 'Usuario'} (${user.userId || 'N/A'})`;
-                select.appendChild(option);
-            });
-        }
-
-        function renderStats() {
-            const totalUsers = adminData.users.length;
-            const totalBalance = adminData.users.reduce((sum, u) => sum + (u.balance || 0), 0);
-            const totalOrders = adminData.users.reduce((sum, u) => sum + (u.totalOrders || 0), 0);
-
-            document.getElementById('statUsers').textContent = totalUsers;
-            document.getElementById('statTotalBalance').textContent = formatCurrency(totalBalance);
-            document.getElementById('statOrders').textContent = totalOrders;
-        }
-
-        // ============================================================
-        //  USER LIST ACTIONS
-        // ============================================================
         function addDemoUser() {
             const newUser = {
                 username: 'demo_' + Math.floor(Math.random() * 1000),
@@ -1373,26 +1762,29 @@
                 password: 'demo123',
                 balance: 10.00,
                 totalIncome: 0,
-                userId: String(Math.floor(Math.random() * 9000000 + 1000000)),
+                userId: generateUserId(),
                 country: 'Perú',
                 language: 'Español',
                 vipLevel: 'VIP 1',
                 totalOrders: 0,
                 frozen: false,
                 registrationDate: getCurrentDate(),
-                ipAddress: '192.168.' + Math.floor(Math.random() * 255) + '.' + Math.floor(Math.random() * 255),
+                ipAddress: getRandomIP(),
                 bankAccounts: [],
                 history: [
                     { action: 'Registro', amount: 10, date: getCurrentDate() }
                 ]
             };
-            
+
             adminData.users.push(newUser);
             saveAdminData();
-            renderAdminPanel();
+            renderAll();
             showMessage(`✅ Usuario "${newUser.username}" agregado correctamente`, 'success');
         }
 
+        // ============================================================
+        //  USER ACTIONS
+        // ============================================================
         function adminSetBalance(index, amount) {
             if (index < 0 || index >= adminData.users.length) {
                 showMessage('❌ Usuario no encontrado', 'error');
@@ -1410,12 +1802,12 @@
             });
 
             saveAdminData();
+            renderAll();
 
             if (window._currentUserIndex === index) {
                 displayUserResult(index);
             }
 
-            renderAdminPanel();
             showMessage(`✅ ${amount > 0 ? '+' : ''}${formatCurrency(amount)} aplicado a ${user.username}`, 'success');
         }
 
@@ -1431,7 +1823,123 @@
         }
 
         // ============================================================
-        //  ✅ SEARCH FUNCTIONS - BUSCAR POR ID
+        //  ORDERS CONFIG
+        // ============================================================
+        function renderOrderConfigs() {
+            const container = document.getElementById('orderConfigList');
+            container.innerHTML = '';
+
+            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
+            const vipNames = ['VIP 1', 'VIP 2', 'VIP 3', 'VIP 4', 'VIP 5', 'VIP 6'];
+
+            vipKeys.forEach((key, index) => {
+                const config = adminData.defaultOrders[key] || { totalOrders: (index + 1) * 10, commissionRate: 0.30 +
+                        (index * 0.05) };
+                const isUnlocked = index === 0;
+
+                const div = document.createElement('div');
+                div.className = 'order-config';
+                div.innerHTML = `
+                            <div class="order-header">
+                                <span class="level">${vipNames[index]}</span>
+                                <span class="status ${isUnlocked ? 'active' : 'locked'}">${isUnlocked ? '✅ Activo' : '🔒 Bloqueado'}</span>
+                            </div>
+                            <div class="order-controls">
+                                <div style="flex:1;">
+                                    <label style="font-size:0.7rem; color:var(--text-secondary);">Órdenes requeridas</label>
+                                    <input type="number" id="orderTotal_${key}" value="${config.totalOrders}" min="1" max="200">
+                                </div>
+                                <div style="flex:1;">
+                                    <label style="font-size:0.7rem; color:var(--text-secondary);">Comisión (%)</label>
+                                    <input type="number" id="orderRate_${key}" value="${(config.commissionRate * 100).toFixed(0)}" min="5" max="100">
+                                </div>
+                                <button class="btn btn-primary btn-sm" onclick="adminUpdateOrder('${key}')" style="margin-top:6px;">💾 Guardar</button>
+                            </div>
+                        `;
+                container.appendChild(div);
+            });
+        }
+
+        function adminUpdateOrder(vipKey) {
+            const totalInput = document.getElementById(`orderTotal_${vipKey}`);
+            const rateInput = document.getElementById(`orderRate_${vipKey}`);
+
+            const totalOrders = parseInt(totalInput.value);
+            const commissionRate = parseFloat(rateInput.value) / 100;
+
+            if (isNaN(totalOrders) || totalOrders < 1) {
+                showMessage('❌ Ingresa un número válido de órdenes', 'error');
+                return;
+            }
+
+            if (isNaN(commissionRate) || commissionRate < 0.05 || commissionRate > 1) {
+                showMessage('❌ Ingresa una comisión válida (5-100%)', 'error');
+                return;
+            }
+
+            adminData.defaultOrders[vipKey] = {
+                totalOrders: totalOrders,
+                commissionRate: commissionRate
+            };
+
+            saveAdminData();
+            renderAll();
+            showMessage(`✅ Configuración de ${vipKey.toUpperCase()} actualizada`, 'success');
+        }
+
+        // ============================================================
+        //  PASSWORD SELECTS
+        // ============================================================
+        function renderPasswordSelects() {
+            const select = document.getElementById('passwordUserSelect');
+            select.innerHTML = '<option value="">-- Selecciona un usuario --</option>';
+
+            adminData.users.forEach((user, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${user.username || 'Usuario'} (${user.userId || 'N/A'})`;
+                select.appendChild(option);
+            });
+        }
+
+        function adminResetPassword() {
+            const select = document.getElementById('passwordUserSelect');
+            const newPass = document.getElementById('newPassword').value.trim();
+
+            const idx = parseInt(select.value);
+            if (isNaN(idx) || idx < 0 || idx >= adminData.users.length) {
+                showMessage('❌ Selecciona un usuario válido', 'error');
+                return;
+            }
+
+            if (newPass.length < 6) {
+                showMessage('❌ La contraseña debe tener al menos 6 caracteres', 'error');
+                return;
+            }
+
+            const user = adminData.users[idx];
+            user.password = newPass;
+            saveAdminData();
+            document.getElementById('newPassword').value = '';
+            showMessage(`✅ Contraseña de ${user.username} actualizada`, 'success');
+        }
+
+        // ============================================================
+        //  DANGER ZONE
+        // ============================================================
+        function adminClearAllData() {
+            if (confirm('⚠️ ¿Estás seguro de eliminar TODOS los datos de usuarios? ¡Esta acción no se puede deshacer!')) {
+                if (confirm('⚠️ Confirmación final: ¿Estás absolutamente seguro?')) {
+                    adminData.users = [];
+                    saveAdminData();
+                    renderAll();
+                    showMessage('🗑️ Todos los datos han sido eliminados', 'error');
+                }
+            }
+        }
+
+        // ============================================================
+        //  SEARCH
         // ============================================================
         function searchUser() {
             const searchTerm = document.getElementById('searchInput').value.trim();
@@ -1439,15 +1947,17 @@
             const notFound = document.getElementById('notFound');
 
             if (!searchTerm) {
-                showMessage('⚠️ Ingresa un ID o número de teléfono', 'error');
+                showMessage('⚠️ Ingresa un ID, teléfono o usuario', 'error');
                 return;
             }
 
             let foundIndex = -1;
 
             adminData.users.forEach((user, index) => {
-                // ✅ Buscar por ID (exacto) o por teléfono o username
-                if (user.userId === searchTerm || user.phone === searchTerm || user.username === searchTerm) {
+                if (user.userId === searchTerm ||
+                    user.phone === searchTerm ||
+                    user.username === searchTerm ||
+                    user.username.toLowerCase().includes(searchTerm.toLowerCase())) {
                     foundIndex = index;
                 }
             });
@@ -1455,7 +1965,7 @@
             if (foundIndex === -1) {
                 resultCard.classList.remove('show');
                 notFound.classList.add('show');
-                showMessage(`❌ No se encontró usuario con ID: ${searchTerm}`, 'error');
+                showMessage(`❌ No se encontró usuario con: ${searchTerm}`, 'error');
                 return;
             }
 
@@ -1463,7 +1973,7 @@
             currentSearchUserIndex = foundIndex;
             displayUserResult(foundIndex);
             resultCard.classList.add('show');
-            showMessage(`✅ Usuario encontrado: ${adminData.users[foundIndex].username} (ID: ${adminData.users[foundIndex].userId})`, 'success');
+            showMessage(`✅ Usuario encontrado: ${adminData.users[foundIndex].username}`, 'success');
         }
 
         function displayUserResult(index) {
@@ -1576,8 +2086,7 @@
 
             saveAdminData();
             displayUserResult(window._currentUserIndex);
-            renderUsers();
-            renderStats();
+            renderAll();
 
             amountInput.value = '';
             showMessage(`✅ Agregado ${formatCurrency(amount)} a ${user.username}`, 'success');
@@ -1611,8 +2120,7 @@
 
             saveAdminData();
             displayUserResult(window._currentUserIndex);
-            renderUsers();
-            renderStats();
+            renderAll();
 
             amountInput.value = '';
             showMessage(`✅ Retirado ${formatCurrency(amount)} de ${user.username}`, 'success');
@@ -1648,7 +2156,7 @@
             user.frozen = true;
             saveAdminData();
             displayUserResult(window._currentUserIndex);
-            renderUsers();
+            renderAll();
             showMessage(`🔒 Cuenta de ${user.username} congelada`, 'success');
         }
 
@@ -1664,7 +2172,7 @@
             user.frozen = false;
             saveAdminData();
             displayUserResult(window._currentUserIndex);
-            renderUsers();
+            renderAll();
             showMessage(`🔓 Cuenta de ${user.username} descongelada`, 'success');
         }
 
@@ -1734,75 +2242,6 @@
         }
 
         // ============================================================
-        //  ADMIN ORDER MANAGEMENT
-        // ============================================================
-        function adminUpdateOrder(vipKey) {
-            const totalInput = document.getElementById(`orderTotal_${vipKey}`);
-            const rateInput = document.getElementById(`orderRate_${vipKey}`);
-
-            const totalOrders = parseInt(totalInput.value);
-            const commissionRate = parseFloat(rateInput.value) / 100;
-
-            if (isNaN(totalOrders) || totalOrders < 1) {
-                showMessage('❌ Ingresa un número válido de órdenes', 'error');
-                return;
-            }
-
-            if (isNaN(commissionRate) || commissionRate < 0.05 || commissionRate > 1) {
-                showMessage('❌ Ingresa una comisión válida (5-100%)', 'error');
-                return;
-            }
-
-            adminData.defaultOrders[vipKey] = {
-                totalOrders: totalOrders,
-                commissionRate: commissionRate
-            };
-
-            saveAdminData();
-            renderAdminPanel();
-            showMessage(`✅ Configuración de ${vipKey.toUpperCase()} actualizada`, 'success');
-        }
-
-        // ============================================================
-        //  ADMIN PASSWORD RESET
-        // ============================================================
-        function adminResetPassword() {
-            const select = document.getElementById('passwordUserSelect');
-            const newPass = document.getElementById('newPassword').value.trim();
-
-            const idx = parseInt(select.value);
-            if (isNaN(idx) || idx < 0 || idx >= adminData.users.length) {
-                showMessage('❌ Selecciona un usuario válido', 'error');
-                return;
-            }
-
-            if (newPass.length < 6) {
-                showMessage('❌ La contraseña debe tener al menos 6 caracteres', 'error');
-                return;
-            }
-
-            const user = adminData.users[idx];
-            user.password = newPass;
-            saveAdminData();
-            document.getElementById('newPassword').value = '';
-            showMessage(`✅ Contraseña de ${user.username} actualizada`, 'success');
-        }
-
-        // ============================================================
-        //  DANGER ZONE
-        // ============================================================
-        function adminClearAllData() {
-            if (confirm('⚠️ ¿Estás seguro de eliminar TODOS los datos de usuarios? ¡Esta acción no se puede deshacer!')) {
-                if (confirm('⚠️ Confirmación final: ¿Estás absolutamente seguro?')) {
-                    adminData.users = [];
-                    saveAdminData();
-                    renderAdminPanel();
-                    showMessage('🗑️ Todos los datos han sido eliminados', 'error');
-                }
-            }
-        }
-
-        // ============================================================
         //  TAB SWITCHING
         // ============================================================
         function switchTab(tabId, element) {
@@ -1818,7 +2257,8 @@
                 'users': 'panelUsers',
                 'search': 'panelSearch',
                 'orders': 'panelOrders',
-                'settings': 'panelSettings'
+                'settings': 'panelSettings',
+                'analytics': 'panelAnalytics'
             };
 
             document.getElementById(panelMap[tabId]).classList.add('active');
@@ -1829,21 +2269,17 @@
                 renderPasswordSelects();
                 renderStats();
             }
+            if (tabId === 'analytics') renderAnalytics();
         }
 
         // ============================================================
         //  INIT
         // ============================================================
+        loadTheme();
         loadAdminData();
 
-        // Si no hay usuarios, crear datos de ejemplo
-        if (adminData.users.length === 0) {
-            createExampleUsers();
-            saveAdminData();
-        }
-
-        console.log('🛠️ Admin Panel cargado correctamente');
-        console.log('👥 Total de usuarios:', adminData.users.length);
+        console.log('🛠️ Shein Admin Panel v3.0 cargado correctamente');
+        console.log('👥 Usuarios:', adminData.users.length);
         console.log('🔑 Contraseña admin:', adminData.adminPassword);
         console.log('📋 IDs disponibles:', adminData.users.map(u => u.userId).join(', '));
     </script>
