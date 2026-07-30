@@ -1,0 +1,3586 @@
+<!DOCTYPE html>
+<html lang="es" id="htmlRoot">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shein - Centro Comercial</title>
+
+    <!-- ===== SUPABASE SDK ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
+    <style>
+        /* ============================================================
+           RESET Y ESTILOS BASE
+           ============================================================ */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 580px;
+            width: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .app-header h1 {
+            color: #ff6b6b;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+        }
+
+        .app-header p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .app-header .badge-cloud {
+            background: #0984e3;
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 3px;
+        }
+
+        /* ============================================================
+           TOP BAR
+           ============================================================ */
+        .top-bar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+            flex-wrap: wrap;
+        }
+
+        .top-bar .switcher-group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #f8f9fa;
+            padding: 3px 8px 3px 5px;
+            border-radius: 25px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .top-bar .switcher-group .icon {
+            font-size: 1rem;
+        }
+
+        .top-bar .switcher-group select {
+            padding: 4px 6px;
+            border: none;
+            background: transparent;
+            font-size: 0.7rem;
+            cursor: pointer;
+            outline: none;
+            color: #2d3436;
+            font-weight: 500;
+            max-width: 110px;
+        }
+
+        .top-bar .switcher-group select:hover {
+            color: #ff6b6b;
+        }
+
+        .top-bar .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            color: #888;
+            padding: 3px 10px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            border: 1px solid #e8e8e8;
+        }
+
+        .top-bar .sync-status .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            background: #00b894;
+        }
+
+        .top-bar .sync-status .dot.offline {
+            background: #d63031;
+        }
+
+        /* ============================================================
+           FORMULARIOS
+           ============================================================ */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+            background: #fafafa;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+            background: white;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 8px;
+        }
+
+        .btn:hover {
+            background-color: #e55a5a;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        .btn-outline:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-success {
+            background: #00b894;
+        }
+
+        .btn-success:hover {
+            background: #00a381;
+        }
+
+        .btn-warning {
+            background: #fdcb6e;
+            color: #2d3436;
+        }
+
+        .btn-warning:hover {
+            background: #f9ca24;
+        }
+
+        .btn-primary {
+            background: #0984e3;
+        }
+
+        .btn-primary:hover {
+            background: #0652DD;
+        }
+
+        .btn-vip {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+        }
+
+        .btn-vip:hover {
+            background: linear-gradient(135deg, #5a4bd1, #8c7fe6);
+        }
+
+        .btn-vip.completed {
+            background: linear-gradient(135deg, #00b894, #55efc4);
+            color: white;
+        }
+
+        .btn-vip.locked {
+            background: linear-gradient(135deg, #636e72, #b2bec3);
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .btn-sm {
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            width: auto;
+            margin-top: 0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .switch-link {
+            text-align: center;
+            margin-top: 15px;
+            color: #0984e3;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .switch-link:hover {
+            text-decoration: underline;
+        }
+
+        .error-msg {
+            color: #d63031;
+            font-size: 0.85rem;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: #ffeaa7;
+            display: none;
+            margin-top: 5px;
+        }
+
+        .success-msg {
+            color: #00b894;
+            font-size: 0.95rem;
+            text-align: center;
+            padding: 10px;
+            background: #e0f7f1;
+            border-radius: 12px;
+            margin: 10px 0;
+        }
+
+        /* ============================================================
+           AUTH SECTION
+           ============================================================ */
+        .auth-form {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-form h2 {
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        /* ============================================================
+           DASHBOARD
+           ============================================================ */
+        .user-greeting {
+            font-size: 1.2rem;
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .user-greeting span {
+            color: #ff6b6b;
+            font-weight: 700;
+        }
+
+        .balance-cards {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .balance-card {
+            flex: 1;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+
+        .balance-card .label {
+            font-size: 0.8rem;
+            color: #888;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .balance-card .amount {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #2d3436;
+        }
+
+        .balance-card .amount.green {
+            color: #00b894;
+        }
+
+        .balance-card .amount.orange {
+            color: #fdcb6e;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .action-buttons .btn {
+            flex: 1;
+            margin-top: 0;
+        }
+
+        /* ============================================================
+           ID DISPLAY
+           ============================================================ */
+        .user-id-display {
+            background: linear-gradient(135deg, #2d3436, #636e72);
+            border-radius: 12px;
+            padding: 12px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .user-id-display .id-label {
+            color: #b2bec3;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .user-id-display .id-value {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .user-id-display .id-copy {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .user-id-display .id-copy:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ============================================================
+           VIP ORDERS
+           ============================================================ */
+        .vip-order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .vip-order-item:last-child {
+            border-bottom: none;
+        }
+
+        .vip-order-item .vip-info {
+            flex: 1;
+        }
+
+        .vip-order-item .vip-info .vip-title {
+            font-weight: 700;
+            color: #2d3436;
+            font-size: 1.05rem;
+        }
+
+        .vip-order-item .vip-info .vip-details {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .vip-order-item .vip-info .vip-progress {
+            margin-top: 4px;
+            background: #dfe6e9;
+            border-radius: 10px;
+            height: 6px;
+            width: 100%;
+            max-width: 150px;
+            overflow: hidden;
+        }
+
+        .vip-order-item .vip-info .vip-progress .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .vip-order-item .vip-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+
+        .vip-order-item .vip-actions .order-count {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .vip-order-item .vip-actions .commission-info {
+            font-size: 0.75rem;
+            color: #00b894;
+            font-weight: 600;
+        }
+
+        .vip-section {
+            background: #fafafa;
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-top: 15px;
+            border: 1px solid #eee;
+        }
+
+        .vip-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 5px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .vip-item:last-child {
+            border-bottom: none;
+        }
+
+        .vip-name {
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .vip-status.activo {
+            color: #00b894;
+        }
+
+        .vip-status.inactivo {
+            color: #b2bec3;
+        }
+
+        /* ============================================================
+           BANK ACCOUNT
+           ============================================================ */
+        .bank-account-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bank-account-card .bank-info {
+            font-size: 0.9rem;
+        }
+
+        .bank-account-card .bank-info .bank-name {
+            color: #ff6b6b;
+            font-weight: 700;
+        }
+
+        .bank-account-card .delete-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .bank-account-card .delete-btn:hover {
+            background: #e55a5a;
+            transform: scale(1.1);
+        }
+
+        .bank-form {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #eee;
+        }
+
+        /* ============================================================
+           WITHDRAWAL
+           ============================================================ */
+        .withdrawal-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #eee;
+        }
+
+        .withdrawal-section h4 {
+            color: #2d3436;
+            margin-bottom: 10px;
+        }
+
+        .withdrawal-section .selected-bank {
+            background: white;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+        }
+
+        .withdrawal-history {
+            margin-top: 15px;
+        }
+
+        .withdrawal-history .history-item {
+            background: white;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .withdrawal-history .history-item .amount-info {
+            font-weight: 700;
+            color: #d63031;
+        }
+
+        /* ============================================================
+           PROFILE
+           ============================================================ */
+        .profile-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .profile-card .avatar {
+            font-size: 4rem;
+        }
+
+        .profile-card .name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d3436;
+        }
+
+        .profile-card .phone {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .profile-card .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .profile-card .detail-grid .detail-item {
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .profile-card .detail-grid .detail-item .detail-label {
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .profile-card .detail-grid .detail-item .detail-value {
+            font-weight: 700;
+            color: #2d3436;
+        }
+
+        /* ============================================================
+           SECTION HEADERS
+           ============================================================ */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .section-header h3 {
+            color: #2d3436;
+        }
+
+        .section-header .badge-count {
+            background: #6c5ce7;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* ============================================================
+           BOTTOM NAV
+           ============================================================ */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 8px 5px;
+        }
+
+        .bottom-nav .nav-item {
+            text-align: center;
+            cursor: pointer;
+            color: #888;
+            transition: 0.3s;
+            font-size: 0.7rem;
+            padding: 6px 8px;
+            border-radius: 10px;
+            flex: 1;
+        }
+
+        .bottom-nav .nav-item:hover {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.08);
+        }
+
+        .bottom-nav .nav-item .icon {
+            font-size: 1.3rem;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .bottom-nav .nav-item.active {
+            color: #ff6b6b;
+            font-weight: 600;
+            background: rgba(255, 107, 107, 0.12);
+        }
+
+        /* ============================================================
+           PAGE SECTIONS
+           ============================================================ */
+        .page-section {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* ============================================================
+           INICIO PAGE
+           ============================================================ */
+        .inicio-page {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .inicio-page .hero-icon {
+            font-size: 4rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .inicio-page .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .inicio-page .stat-box {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-radius: 15px;
+            padding: 15px 10px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .inicio-page .stat-box:nth-child(2) {
+            animation-delay: 0.3s;
+            background: linear-gradient(135deg, #00b894, #00a381);
+        }
+
+        .inicio-page .stat-box:nth-child(3) {
+            animation-delay: 0.6s;
+            background: linear-gradient(135deg, #fdcb6e, #f9ca24);
+            color: #2d3436;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .inicio-page .stat-box .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .inicio-page .stat-box .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .inicio-page .trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .inicio-page .trust-badge {
+            background: #f0f2f5;
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #2d3436;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .inicio-page .trust-badge:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        .inicio-page .trust-badge:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        .inicio-page .trust-badge:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+        .inicio-page .trust-badge:nth-child(4) {
+            animation-delay: 0.7s;
+        }
+        .inicio-page .trust-badge:nth-child(5) {
+            animation-delay: 0.9s;
+        }
+        .inicio-page .trust-badge:nth-child(6) {
+            animation-delay: 1.1s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .inicio-page .testimonial {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #ff6b6b;
+            text-align: left;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .inicio-page .testimonial .quote {
+            font-style: italic;
+            color: #555;
+        }
+
+        .inicio-page .testimonial .author {
+            font-weight: 600;
+            color: #2d3436;
+            margin-top: 5px;
+        }
+
+        .inicio-page .testimonial .stars {
+            color: #fdcb6e;
+            font-size: 1.1rem;
+        }
+
+        /* ============================================================
+           CONTRATO PAGE
+           ============================================================ */
+        .contrato-page {
+            padding: 5px 0;
+        }
+
+        .contrato-page .contrato-hero {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .contrato-page .contrato-hero .hero-icon {
+            font-size: 3rem;
+            margin-bottom: 5px;
+        }
+
+        .contrato-page .contrato-hero h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .contrato-page .contrato-hero p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .contrato-page .contrato-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #6c5ce7;
+        }
+
+        .contrato-page .contrato-section h4 {
+            color: #2d3436;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .contrato-page .contrato-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contrato-page .contrato-section ul li {
+            padding: 5px 0;
+            font-size: 0.85rem;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contrato-page .contrato-section ul li .check {
+            color: #00b894;
+            font-weight: 700;
+        }
+
+        .contrato-page .contrato-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .contrato-page .contrato-grid .grid-item {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+
+        .contrato-page .contrato-grid .grid-item:hover {
+            border-color: #6c5ce7;
+            transform: translateY(-2px);
+        }
+
+        .contrato-page .contrato-grid .grid-item .icon {
+            font-size: 1.8rem;
+        }
+
+        .contrato-page .contrato-grid .grid-item .title {
+            font-weight: 600;
+            color: #2d3436;
+            font-size: 0.85rem;
+        }
+
+        .contrato-page .contrato-grid .grid-item .desc {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        .contrato-page .contrato-badge {
+            display: inline-block;
+            background: #00b894;
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .contrato-page .contrato-badge.gold {
+            background: #fdcb6e;
+            color: #2d3436;
+        }
+
+        .contrato-page .contrato-badge.blue {
+            background: #0984e3;
+            color: white;
+        }
+
+        .contrato-page .contrato-badge.purple {
+            background: #6c5ce7;
+            color: white;
+        }
+
+        .contrato-page .contrato-badge.red {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        /* ============================================================
+           TRABAJO PAGE
+           ============================================================ */
+        .trabajo-page {
+            padding: 10px 0;
+        }
+
+        .trabajo-page .trabajo-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #00b894;
+            transition: 0.3s;
+        }
+
+        .trabajo-page .trabajo-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .trabajo-page .trabajo-card .trabajo-title {
+            font-weight: 700;
+            color: #2d3436;
+            font-size: 1rem;
+        }
+
+        .trabajo-page .trabajo-card .trabajo-desc {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .trabajo-page .trabajo-card .trabajo-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        /* ============================================================
+           ORDER MODAL
+           ============================================================ */
+        .order-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeInOverlay 0.3s ease;
+        }
+
+        .order-modal-overlay.show {
+            display: flex;
+        }
+
+        @keyframes fadeInOverlay {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .order-modal {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            animation: modalPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .order-modal .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 5px;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .order-modal .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 5px;
+        }
+
+        .order-modal .modal-subtitle {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .order-modal .modal-product {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .order-modal .modal-product .product-icon {
+            font-size: 3rem;
+        }
+
+        .order-modal .modal-product .product-name {
+            font-weight: 600;
+            color: #2d3436;
+            font-size: 1.1rem;
+        }
+
+        .order-modal .modal-product .product-price {
+            color: #00b894;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .order-modal .modal-commission {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            border-radius: 15px;
+            padding: 12px;
+            margin: 10px 0;
+        }
+
+        .order-modal .modal-commission .commission-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .order-modal .modal-commission .commission-amount {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .order-modal .modal-close-btn {
+            margin-top: 15px;
+            padding: 10px 30px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .order-modal .modal-close-btn:hover {
+            background: #e55a5a;
+            transform: scale(1.02);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 500px) {
+            .container {
+                padding: 18px;
+            }
+
+            .balance-cards {
+                flex-direction: column;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .profile-card .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .app-header h1 {
+                font-size: 2rem;
+            }
+
+            .user-id-display {
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: center;
+            }
+
+            .vip-order-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .vip-order-item .vip-actions {
+                align-items: flex-start;
+                width: 100%;
+            }
+
+            .vip-order-item .vip-actions .btn {
+                width: 100%;
+            }
+
+            .top-bar {
+                justify-content: center;
+                gap: 5px;
+            }
+
+            .top-bar .switcher-group select {
+                max-width: 80px;
+                font-size: 0.65rem;
+            }
+
+            .order-modal {
+                padding: 20px;
+            }
+
+            .order-modal .modal-title {
+                font-size: 1.2rem;
+            }
+
+            .order-modal .modal-commission .commission-amount {
+                font-size: 1.5rem;
+            }
+
+            .bottom-nav .nav-item {
+                font-size: 0.6rem;
+                padding: 4px 4px;
+            }
+
+            .bottom-nav .nav-item .icon {
+                font-size: 1.1rem;
+            }
+
+            .contrato-page .contrato-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .inicio-page .stat-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+
+            .inicio-page .stat-box .stat-number {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .bottom-nav .nav-item {
+                font-size: 0.5rem;
+                padding: 3px 2px;
+            }
+            .bottom-nav .nav-item .icon {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="appContainer">
+
+        <!-- ===== TOP BAR ===== -->
+        <div class="top-bar">
+            <div class="switcher-group">
+                <span class="icon">🌐</span>
+                <select id="languageSwitcher" onchange="changeLanguage(this.value)">
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="en">🇬🇧 English</option>
+                    <option value="my">🇲🇲 မြန်မာ</option>
+                    <option value="zh">🇨🇳 中文</option>
+                </select>
+            </div>
+            <div class="switcher-group">
+                <span class="icon">💰</span>
+                <select id="currencySwitcher" onchange="changeCurrency(this.value)">
+                    <option value="PEN">S/ (PEN)</option>
+                    <option value="USD">$ (USD)</option>
+                    <option value="EUR">€ (EUR)</option>
+                    <option value="MMK">K (MMK)</option>
+                </select>
+            </div>
+            <div class="sync-status" id="syncStatus">
+                <span class="dot" id="syncDot"></span>
+                <span id="syncText">Sincronizado</span>
+            </div>
+        </div>
+
+        <!-- ===== HEADER ===== -->
+        <div class="app-header">
+            <h1>Shein</h1>
+            <p class="header-subtitle">✨ Tu centro comercial online ✨</p>
+            <span class="badge-cloud">☁️ Supabase Cloud</span>
+        </div>
+
+        <!-- ===== REGISTER FORM ===== -->
+        <div id="registerForm" class="auth-form active">
+            <h2 class="register-title">📝 Crear cuenta</h2>
+
+            <div class="form-group">
+                <label class="label-phone">📱 Número de teléfono</label>
+                <input type="tel" id="regPhone" placeholder="Ej: 987654321">
+            </div>
+
+            <div class="form-group">
+                <label class="label-country">🌍 Código de país</label>
+                <select id="regCountryCode">
+                    <option value="+51">+51 (Perú)</option>
+                    <option value="+95">+95 (Myanmar)</option>
+                    <option value="+1">+1 (USA)</option>
+                    <option value="+44">+44 (UK)</option>
+                    <option value="+86">+86 (China)</option>
+                    <option value="+34">+34 (España)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="label-username">👤 Nombre de usuario</label>
+                <input type="text" id="regUsername" placeholder="Ej: shein_user">
+            </div>
+
+            <div class="form-group">
+                <label class="label-password">🔒 Contraseña</label>
+                <input type="password" id="regPassword" placeholder="Mínimo 6 caracteres">
+            </div>
+
+            <div id="regError" class="error-msg">⚠️ Por favor, completa todos los campos.</div>
+
+            <button class="btn btn-register" onclick="handleRegister()">✅ Registrarse</button>
+
+            <div class="switch-link switch-to-login" onclick="showLogin()">
+                ¿Ya tienes cuenta? <strong>Iniciar sesión</strong>
+            </div>
+        </div>
+
+        <!-- ===== LOGIN FORM ===== -->
+        <div id="loginForm" class="auth-form hidden">
+            <h2 class="login-title">🔐 Iniciar sesión</h2>
+
+            <div class="form-group">
+                <label class="label-login-identifier">👤 Usuario o teléfono</label>
+                <input type="text" id="loginIdentifier" placeholder="Usuario o número de teléfono">
+            </div>
+
+            <div class="form-group">
+                <label class="label-login-password">🔒 Contraseña</label>
+                <input type="password" id="loginPassword" placeholder="Tu contraseña">
+            </div>
+
+            <div id="loginError" class="error-msg">❌ Usuario o contraseña incorrectos.</div>
+
+            <button class="btn btn-login" onclick="handleLogin()">🚪 Iniciar sesión</button>
+
+            <div class="switch-link switch-to-register" onclick="showRegister()">
+                ¿No tienes cuenta? <strong>Regístrate aquí</strong>
+            </div>
+        </div>
+
+        <!-- ===== DASHBOARD ===== -->
+        <div id="dashboard" class="hidden">
+
+            <!-- ===== USER ID DISPLAY ===== -->
+            <div class="user-id-display">
+                <span class="id-label">🆔 ID de usuario</span>
+                <span class="id-value" id="userIdDisplay">1234567</span>
+                <button class="id-copy" onclick="copyUserId()">📋 Copiar</button>
+            </div>
+
+            <div class="user-greeting">
+                👋 <span class="greeting-text">Hola</span>, <span id="displayUsername">Usuario</span>
+            </div>
+
+            <div class="balance-cards">
+                <div class="balance-card">
+                    <div class="label label-balance">💰 Saldo</div>
+                    <div class="amount green" id="displayBalance">S/ 10.00</div>
+                </div>
+                <div class="balance-card">
+                    <div class="label label-income">📈 Ingresos totales</div>
+                    <div class="amount orange" id="totalIncome">S/ 0</div>
+                </div>
+            </div>
+
+            <button class="btn btn-success btn-comenzar" onclick="handleComenzar()" style="margin-bottom:10px;">
+                🚀 COMENZAR
+            </button>
+
+            <div class="action-buttons">
+                <button class="btn btn-warning btn-recargar" onclick="handleRecargar()">📥 RECARGAR</button>
+                <button class="btn btn-outline btn-retirar" onclick="handleRetirar()">📤 RETIRAR</button>
+            </div>
+
+            <!-- ============================================================
+            PAGE SECTIONS (5 Pages)
+            ============================================================ -->
+
+            <!-- ===== INICIO PAGE ===== -->
+            <div id="inicioPage" class="page-section active">
+                <div class="inicio-page">
+                    <div class="hero-icon">🌍</div>
+                    <h3 class="welcome-title" style="color:#2d3436; margin:10px 0;">¡Bienvenido a Shein!</h3>
+                    <p class="welcome-subtitle" style="color:#888; font-size:0.9rem;">Miles de personas confían en nosotros en todo el mundo.</p>
+
+                    <div class="stat-grid">
+                        <div class="stat-box">
+                            <div class="stat-number" id="globalUsers">2.5M</div>
+                            <div class="stat-label stat-users">Usuarios activos</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="globalTransactions">1.2M</div>
+                            <div class="stat-label stat-transactions">Transacciones</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="globalCountries">150+</div>
+                            <div class="stat-label stat-countries">Países</div>
+                        </div>
+                    </div>
+
+                    <div class="trust-badges">
+                        <span class="trust-badge">🔒 <span class="badge-seguro">100% Seguro</span></span>
+                        <span class="trust-badge">✅ <span class="badge-verificado">Verificado</span></span>
+                        <span class="trust-badge">⭐ <span class="badge-estrellas">4.9/5 Estrellas</span></span>
+                        <span class="trust-badge">🛡️ <span class="badge-protegido">Protegido</span></span>
+                        <span class="trust-badge">🏆 <span class="badge-lider">Líder del mercado</span></span>
+                        <span class="trust-badge">💳 <span class="badge-pagos">Pagos rápidos</span></span>
+                    </div>
+
+                    <div class="testimonial">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <div class="quote quote1">"Shein es la mejor plataforma para comprar y vender. ¡100% confiable!"</div>
+                        <div class="author">— María G. (Lima, Perú)</div>
+                    </div>
+
+                    <div class="testimonial">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <div class="quote quote2">"He recibido mis pagos a tiempo. Excelente servicio."</div>
+                        <div class="author">— Carlos R. (Bogotá, Colombia)</div>
+                    </div>
+
+                    <div style="background:#f0f2f5; border-radius:12px; padding:15px; margin:10px 0;">
+                        <h4 class="garantias-title" style="color:#2d3436;">🛡️ Nuestras Garantías</h4>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px; font-size:0.85rem; text-align:left;">
+                            <div class="garantia-item1">✅ 100% de transparencia</div>
+                            <div class="garantia-item2">✅ Soporte 24/7</div>
+                            <div class="garantia-item3">✅ Retiros en 24 horas</div>
+                            <div class="garantia-item4">✅ Datos protegidos</div>
+                            <div class="garantia-item5">✅ Sin comisiones ocultas</div>
+                            <div class="garantia-item6">✅ Seguridad bancaria</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== VIP ORDERS PAGE ===== -->
+            <div id="vipOrdersPage" class="page-section">
+                <div class="section-header">
+                    <h3 class="vip-orders-title">📦 Órdenes VIP</h3>
+                    <span class="badge-count">6 Niveles</span>
+                </div>
+                <p class="vip-orders-subtitle" style="color:#888; font-size:0.85rem; margin-bottom:10px;">
+                    Completa órdenes para ganar comisiones. ¡Cada orden te acerca a tu próximo nivel VIP!
+                </p>
+
+                <div id="vipOrdersContainer">
+                    <!-- Generado por JavaScript -->
+                </div>
+
+                <div class="order-history-section">
+                    <h4>📋 Historial de órdenes</h4>
+                    <div id="orderHistoryList">
+                        <div style="text-align:center; padding:10px; color:#888; font-size:0.85rem;">
+                            No hay órdenes completadas aún.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== CONTRATO PAGE ===== -->
+            <div id="contratoPage" class="page-section">
+                <div class="contrato-page">
+                    <div class="contrato-hero">
+                        <div class="hero-icon">📜</div>
+                        <h3 class="contrato-hero-title">Contrato de Confianza</h3>
+                        <p class="contrato-hero-sub">Tu seguridad es nuestra prioridad número uno</p>
+                    </div>
+
+                    <div class="user-id-display">
+                        <span class="id-label">🆔 ID de usuario</span>
+                        <span class="id-value" id="contratoUserId">1234567</span>
+                        <button class="id-copy" onclick="copyUserId()">📋 Copiar</button>
+                    </div>
+
+                    <div class="contrato-grid">
+                        <div class="grid-item">
+                            <div class="icon">🔒</div>
+                            <div class="title">Seguridad 100%</div>
+                            <div class="desc">Datos encriptados</div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="icon">⚡</div>
+                            <div class="title">Retiros Rápidos</div>
+                            <div class="desc">24 horas máximo</div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="icon">🛡️</div>
+                            <div class="title">Protección</div>
+                            <div class="desc">Contra fraudes</div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="icon">💎</div>
+                            <div class="title">Transparencia</div>
+                            <div class="desc">Sin comisiones ocultas</div>
+                        </div>
+                    </div>
+
+                    <div class="contrato-section">
+                        <h4>🛡️ Nuestras Garantías</h4>
+                        <ul>
+                            <li><span class="check">✅</span> 100% de transparencia en todas las transacciones</li>
+                            <li><span class="check">✅</span> Soporte al cliente 24/7 en múltiples idiomas</li>
+                            <li><span class="check">✅</span> Retiros procesados en un plazo máximo de 24 horas</li>
+                            <li><span class="check">✅</span> Datos personales protegidos bajo estrictas políticas</li>
+                            <li><span class="check">✅</span> Sin comisiones ocultas ni cargos adicionales</li>
+                            <li><span class="check">✅</span> Seguridad bancaria con encriptación avanzada</li>
+                        </ul>
+                    </div>
+
+                    <div class="contrato-section" style="border-left-color: #00b894;">
+                        <h4>🤝 Nuestros Compromisos</h4>
+                        <ul>
+                            <li><span class="check">✅</span> Cumplir con todas las normativas legales vigentes</li>
+                            <li><span class="check">✅</span> Garantizar la integridad de tus fondos</li>
+                            <li><span class="check">✅</span> Brindar una experiencia de usuario excepcional</li>
+                            <li><span class="check">✅</span> Actualizar constantemente nuestros sistemas de seguridad</li>
+                            <li><span class="check">✅</span> Escuchar y atender todas tus sugerencias</li>
+                        </ul>
+                    </div>
+
+                    <div class="contrato-section" style="border-left-color: #fdcb6e;">
+                        <h4>⭐ Beneficios Exclusivos</h4>
+                        <ul>
+                            <li><span class="check">✅</span> <strong>VIP 1:</strong> Comisiones del 30% en cada orden</li>
+                            <li><span class="check">✅</span> <strong>VIP 2:</strong> Comisiones del 35% + bonos adicionales</li>
+                            <li><span class="check">✅</span> <strong>VIP 3:</strong> Comisiones del 40% + acceso prioritario</li>
+                            <li><span class="check">✅</span> <strong>VIP 4:</strong> Comisiones del 45% + soporte premium</li>
+                            <li><span class="check">✅</span> <strong>VIP 5:</strong> Comisiones del 50% + retiros instantáneos</li>
+                            <li><span class="check">✅</span> <strong>VIP 6:</strong> Comisiones del 55% + beneficios exclusivos</li>
+                        </ul>
+                    </div>
+
+                    <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:10px 0;">
+                        <span class="contrato-badge">🔒 SSL Secure</span>
+                        <span class="contrato-badge gold">⭐ 4.9/5 Rating</span>
+                        <span class="contrato-badge blue">🏆 Líder 2026</span>
+                        <span class="contrato-badge purple">🛡️ Protegido</span>
+                        <span class="contrato-badge red">⚡ Rápido</span>
+                    </div>
+
+                    <div style="text-align:center; padding:10px; color:#888; font-size:0.8rem; border-top:1px solid #eee; margin-top:10px;">
+                        <p>© 2026 Shein - Todos los derechos reservados</p>
+                        <p style="font-size:0.7rem;">Versión 2.0 - Actualizado el 30 de julio de 2026</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== TRABAJO PAGE ===== -->
+            <div id="trabajoPage" class="page-section">
+                <div class="trabajo-page">
+                    <h3 style="color:#2d3436; margin-bottom:15px;">💼 Trabajo</h3>
+                    <p style="color:#888; margin-bottom:15px;">Encuentra oportunidades de trabajo en Shein.</p>
+
+                    <div class="trabajo-card" style="border-left-color: #00b894;">
+                        <div class="trabajo-title">
+                            <span class="trabajo-icon">📱</span> Marketing Digital
+                        </div>
+                        <div class="trabajo-desc">Gana dinero promocionando productos.</div>
+                    </div>
+
+                    <div class="trabajo-card" style="border-left-color: #fdcb6e;">
+                        <div class="trabajo-title">
+                            <span class="trabajo-icon">💻</span> Atención al Cliente
+                        </div>
+                        <div class="trabajo-desc">Ayuda a nuestros usuarios con sus consultas.</div>
+                    </div>
+
+                    <div class="trabajo-card" style="border-left-color: #ff6b6b;">
+                        <div class="trabajo-title">
+                            <span class="trabajo-icon">📊</span> Analista de Datos
+                        </div>
+                        <div class="trabajo-desc">Analiza el comportamiento de los usuarios.</div>
+                    </div>
+
+                    <div class="trabajo-card" style="border-left-color: #6c5ce7;">
+                        <div class="trabajo-title">
+                            <span class="trabajo-icon">🛒</span> Vendedor Online
+                        </div>
+                        <div class="trabajo-desc">Vende productos y gana comisiones.</div>
+                    </div>
+
+                    <div class="trabajo-card" style="border-left-color: #0984e3;">
+                        <div class="trabajo-title">
+                            <span class="trabajo-icon">📝</span> Redactor de Contenido
+                        </div>
+                        <div class="trabajo-desc">Crea contenido para nuestra plataforma.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== MI PAGE ===== -->
+            <div id="miPage" class="page-section">
+                <h3 class="mi-title" style="color:#2d3436; margin-top:10px;">👤 Mi Perfil</h3>
+
+                <div class="user-id-display">
+                    <span class="id-label">🆔 ID de usuario</span>
+                    <span class="id-value" id="miUserId">1234567</span>
+                    <button class="id-copy" onclick="copyUserId()">📋 Copiar</button>
+                </div>
+
+                <div class="profile-card">
+                    <div class="avatar">👤</div>
+                    <div class="name" id="profileUsername">Usuario</div>
+                    <div class="phone" id="profilePhone">+51 987654321</div>
+
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-label label-member-since">📅 Miembro desde</div>
+                            <div class="detail-value">2026</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label label-profile-balance">💰 Saldo</div>
+                            <div class="detail-value" id="profileBalance">S/ 10.00</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label label-profile-vip">⭐ Nivel VIP</div>
+                            <div class="detail-value" id="profileVip">VIP 1</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top:15px;">
+                    <div class="section-header">
+                        <h4 class="mis-bancos-title" style="color:#2d3436;">🏦 Mis Cuentas Bancarias</h4>
+                        <span class="badge-count" id="bankCountMi">0</span>
+                    </div>
+                    <div id="bankListMi"></div>
+                    <button class="btn btn-primary btn-add-bank-mi" onclick="toggleBankFormMi()" style="margin-top:5px; font-size:0.85rem; padding:8px;">
+                        ➕ Agregar cuenta bancaria
+                    </button>
+
+                    <div id="bankFormContainerMi" class="bank-form hidden">
+                        <h4 class="add-bank-mi-title" style="color:#2d3436; margin-bottom:10px;">🏦 Agregar cuenta bancaria</h4>
+
+                        <div class="form-group">
+                            <label class="label-bank-name-mi">🏛️ Nombre del banco</label>
+                            <select id="bankNameMi">
+                                <option value="">Selecciona un banco...</option>
+                                <option value="Banco de Crédito (BCP)">Banco de Crédito (BCP)</option>
+                                <option value="Banco BBVA">Banco BBVA</option>
+                                <option value="Banco Interbank">Banco Interbank</option>
+                                <option value="Banco Scotiabank">Banco Scotiabank</option>
+                                <option value="Banco Pichincha">Banco Pichincha</option>
+                                <option value="Banco Falabella">Banco Falabella</option>
+                                <option value="Banco Ripley">Banco Ripley</option>
+                                <option value="Banco GNB">Banco GNB</option>
+                                <option value="Banco Azteca">Banco Azteca</option>
+                                <option value="Banco Cencosud">Banco Cencosud</option>
+                                <option value="Banco Comercio">Banco Comercio</option>
+                                <option value="Banco Santander">Banco Santander</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="label-account-number-mi">🔢 Número de cuenta</label>
+                            <input type="text" id="bankAccountNumberMi" placeholder="Ej: 123-456-7890">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="label-account-holder-mi">👤 Titular de la cuenta</label>
+                            <input type="text" id="bankAccountHolderMi" placeholder="Nombre completo del titular">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="label-cci-mi">🔢 CCI (Código de Cuenta Interbancaria)</label>
+                            <input type="text" id="bankCCIMi" placeholder="Ej: 12345678901234567890">
+                        </div>
+
+                        <div style="display:flex; gap:10px; margin-top:5px;">
+                            <button class="btn btn-success btn-confirm-bank-mi" onclick="saveBankAccountMi()" style="flex:1;">✅ Confirmar</button>
+                            <button class="btn btn-outline btn-cancel-bank-mi" onclick="toggleBankFormMi()" style="flex:1;">❌ Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="withdrawal-section">
+                    <h4 class="withdrawal-title">📤 Realizar Retiro</h4>
+
+                    <div class="form-group">
+                        <label class="label-withdraw-bank">🏛️ Selecciona tu cuenta bancaria</label>
+                        <select id="withdrawBankSelect">
+                            <option value="">-- Ninguna cuenta registrada --</option>
+                        </select>
+                    </div>
+
+                    <div id="selectedBankDisplay" class="selected-bank hidden">
+                        <div class="bank-label">🏦 Banco seleccionado</div>
+                        <div class="bank-value" id="selectedBankName">-</div>
+                        <div style="font-size:0.85rem; color:#888;" id="selectedBankDetails">-</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label-withdraw-amount">💰 Monto a retirar</label>
+                        <input type="number" id="withdrawAmount" placeholder="Ej: 10.00" min="1" step="0.01">
+                    </div>
+
+                    <button class="btn btn-success btn-confirm-withdrawal" onclick="processWithdrawal()" style="margin-top:5px;">
+                        ✅ Confirmar Retiro
+                    </button>
+                </div>
+
+                <div class="withdrawal-history">
+                    <h4 class="history-title" style="color:#2d3436; margin-top:10px;">📋 Historial de Retiros</h4>
+                    <div id="withdrawalHistoryList">
+                        <div style="text-align:center; padding:15px; color:#888; font-size:0.9rem;">
+                            No hay retiros realizados.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== BOTTOM NAV (5 Pages) ===== -->
+            <div class="bottom-nav">
+                <div class="nav-item active" onclick="switchPage('inicioPage', this)">
+                    <span class="icon">🏠</span> <span class="nav-inicio">Inicio</span>
+                </div>
+                <div class="nav-item" onclick="switchPage('vipOrdersPage', this)">
+                    <span class="icon">📦</span> <span class="nav-ordenes">Órdenes</span>
+                </div>
+                <div class="nav-item" onclick="switchPage('contratoPage', this)">
+                    <span class="icon">📄</span> <span class="nav-contrato">Contrato</span>
+                </div>
+                <div class="nav-item" onclick="switchPage('trabajoPage', this)">
+                    <span class="icon">💼</span> <span class="nav-trabajo">Trabajo</span>
+                </div>
+                <div class="nav-item" onclick="switchPage('miPage', this)">
+                    <span class="icon">👤</span> <span class="nav-mi">Mi</span>
+                </div>
+            </div>
+
+            <button class="btn btn-outline btn-logout" onclick="handleLogout()" style="margin-top:15px;">
+                🚪 <span class="logout-text">Cerrar sesión</span>
+            </button>
+        </div>
+
+        <!-- ===== ORDER MODAL ===== -->
+        <div class="order-modal-overlay" id="orderModal">
+            <div class="order-modal">
+                <div class="modal-icon">🎉</div>
+                <div class="modal-title">¡Orden Completada!</div>
+                <div class="modal-subtitle">Has completado una orden exitosamente</div>
+
+                <div class="modal-product" id="modalProduct">
+                    <div class="product-icon" id="modalProductIcon">📱</div>
+                    <div class="product-name" id="modalProductName">Smartphone X</div>
+                    <div class="product-price" id="modalProductPrice">S/ 299.00</div>
+                </div>
+
+                <div class="modal-commission">
+                    <div class="commission-label">💰 Comisión ganada</div>
+                    <div class="commission-amount" id="modalCommission">S/ 3.00</div>
+                </div>
+
+                <div style="font-size:0.85rem; color:#888; margin-top:5px;" id="modalOrderCount">
+                    Orden #1 de 12 completada
+                </div>
+
+                <button class="modal-close-btn" onclick="closeOrderModal()">✅ ¡Excelente!</button>
+            </div>
+        </div>
+
+        <div id="infoMessage" class="success-msg hidden"></div>
+    </div>
+
+    <script>
+        // ============================================================
+        //  🔥 SUPABASE CONFIGURATION
+        //  👇 REPLACE WITH YOUR SUPABASE CREDENTIALS
+        // ============================================================
+        const SUPABASE_URL = "https://avoalfrzwftqmoedmfwt.supabase.co";
+        const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY_HERE"; // 🔑 Reemplaza con tu clave
+
+        // ============================================================
+        //  INIT SUPABASE
+        // ============================================================
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // ============================================================
+        //  PRODUCTOS ALEATORIOS
+        // ============================================================
+        const productos = [
+            { icon: '📱', name: 'Smartphone X Pro', price: 299.00 },
+            { icon: '💻', name: 'Laptop Ultra 15"', price: 499.00 },
+            { icon: '🎧', name: 'Audífonos Bluetooth', price: 29.99 },
+            { icon: '⌚', name: 'Smartwatch Series 5', price: 89.00 },
+            { icon: '📷', name: 'Cámara Digital 4K', price: 199.00 },
+            { icon: '🎮', name: 'Consola de Videojuegos', price: 149.00 },
+            { icon: '📺', name: 'TV Smart 50"', price: 399.00 },
+            { icon: '🔊', name: 'Altavoz Bluetooth', price: 39.99 },
+            { icon: '💍', name: 'Anillo de Oro 18k', price: 159.00 },
+            { icon: '👟', name: 'Zapatillas Deportivas', price: 69.00 },
+            { icon: '👗', name: 'Vestido de Moda', price: 45.00 },
+            { icon: '🧥', name: 'Chaqueta de Cuero', price: 89.00 },
+            { icon: '💄', name: 'Set de Maquillaje', price: 25.00 },
+            { icon: '🏠', name: 'Decoración para Hogar', price: 15.00 },
+            { icon: '📚', name: 'Libro Best Seller', price: 12.00 }
+        ];
+
+        let orderHistory = [];
+        let orderCounter = 0;
+
+        // ============================================================
+        //  CURRENCY SYMBOLS & TRANSLATIONS
+        // ============================================================
+        const currencySymbols = {
+            'PEN': 'S/',
+            'USD': '$',
+            'EUR': '€',
+            'MMK': 'K'
+        };
+
+        // ============================================================
+        //  TRANSLATIONS (Simplified)
+        // ============================================================
+        const translations = {
+            es: {
+                appTitle: '✨ Tu centro comercial online ✨',
+                registerTitle: '📝 Crear cuenta',
+                loginTitle: '🔐 Iniciar sesión',
+                phoneLabel: '📱 Número de teléfono',
+                countryLabel: '🌍 Código de país',
+                usernameLabel: '👤 Nombre de usuario',
+                passwordLabel: '🔒 Contraseña',
+                registerBtn: '✅ Registrarse',
+                loginBtn: '🚪 Iniciar sesión',
+                switchToLogin: '¿Ya tienes cuenta?',
+                switchToRegister: '¿No tienes cuenta?',
+                loginIdentifierLabel: '👤 Usuario o teléfono',
+                loginPasswordLabel: '🔒 Contraseña',
+                greeting: 'Hola',
+                balanceLabel: '💰 Saldo',
+                incomeLabel: '📈 Ingresos totales',
+                comenzarBtn: '🚀 COMENZAR',
+                recargarBtn: '📥 RECARGAR',
+                retirarBtn: '📤 RETIRAR',
+                welcomeTitle: '¡Bienvenido a Shein!',
+                welcomeSubtitle: 'Miles de personas confían en nosotros en todo el mundo.',
+                statUsers: 'Usuarios activos',
+                statTransactions: 'Transacciones',
+                statCountries: 'Países',
+                badgeSeguro: '100% Seguro',
+                badgeVerificado: 'Verificado',
+                badgeEstrellas: '4.9/5 Estrellas',
+                badgeProtegido: 'Protegido',
+                badgeLider: 'Líder del mercado',
+                badgePagos: 'Pagos rápidos',
+                quote1: '"Shein es la mejor plataforma para comprar y vender. ¡100% confiable!"',
+                quote2: '"He recibido mis pagos a tiempo. Excelente servicio."',
+                garantiasTitle: '🛡️ Nuestras Garantías',
+                garantia1: '✅ 100% de transparencia',
+                garantia2: '✅ Soporte 24/7',
+                garantia3: '✅ Retiros en 24 horas',
+                garantia4: '✅ Datos protegidos',
+                garantia5: '✅ Sin comisiones ocultas',
+                garantia6: '✅ Seguridad bancaria',
+                vipOrdersTitle: '📦 Órdenes VIP',
+                vipOrdersSubtitle: 'Completa órdenes para ganar comisiones. ¡Cada orden te acerca a tu próximo nivel VIP!',
+                miTitle: '👤 Mi Perfil',
+                memberSince: '📅 Miembro desde',
+                profileBalance: '💰 Saldo',
+                profileVip: '⭐ Nivel VIP',
+                misBancos: '🏦 Mis Cuentas Bancarias',
+                addBankMi: '➕ Agregar cuenta bancaria',
+                withdrawalTitle: '📤 Realizar Retiro',
+                withdrawBankLabel: '🏛️ Selecciona tu cuenta bancaria',
+                withdrawAmountLabel: '💰 Monto a retirar',
+                confirmWithdrawal: '✅ Confirmar Retiro',
+                historyTitle: '📋 Historial de Retiros',
+                noHistory: 'No hay retiros realizados.',
+                navInicio: 'Inicio',
+                navOrdenes: 'Órdenes',
+                navContrato: 'Contrato',
+                navTrabajo: 'Trabajo',
+                navMi: 'Mi',
+                logout: 'Cerrar sesión',
+                regError: '⚠️ Por favor, completa todos los campos.',
+                loginError: '❌ Usuario o contraseña incorrectos.',
+                noOrders: 'No hay órdenes completadas aún.',
+                orderHistory: '📋 Historial de órdenes',
+                orderCompleted: 'Orden completada en',
+                earned: 'Ganaste',
+                completedAll: '🎉 ¡Felicidades! Has completado',
+                andEarned: 'y ganado',
+                unlocked: '🔓 ¡{level} ha sido desbloqueado!',
+                notUnlocked: '❌ Este nivel VIP no está desbloqueado aún.',
+                alreadyCompleted: '✅ ¡Ya has completado todas las órdenes de este nivel!',
+                selectBank: '⚠️ Por favor, selecciona una cuenta bancaria.',
+                validAmount: '⚠️ Por favor, ingresa un monto válido mayor a 0.',
+                insufficientBalance: '❌ Saldo insuficiente. Tu saldo es',
+                withdrawalSuccess: '✅ Retiro de {amount} a {bank} completado con éxito.',
+                registerSuccess: '✅ ¡Cuenta "{username}" creada con éxito! {amount} de bienvenida.',
+                loginSuccess: '🔓 ¡Bienvenido de nuevo, {username}!',
+                logoutSuccess: '👋 Has cerrado sesión correctamente.',
+                comenzarSuccess: '🚀 ¡Has comenzado un nuevo trabajo! +{amount}',
+                recargarSuccess: '📥 ¡Recarga exitosa! +{amount}',
+                goToWithdraw: '📤 Ve a la sección "Mi" para realizar tu retiro.',
+                userIdLabel: '🆔 ID de usuario',
+                copyBtn: '📋 Copiar',
+                copied: '✅ ID copiado al portapapeles',
+                orderCompletedTitle: '¡Orden Completada!',
+                orderCompletedSub: 'Has completado una orden exitosamente',
+                orderCount: 'Orden #{count} de {total} completada',
+                noOrdersHistory: 'No hay órdenes completadas aún.',
+                orderHistoryLabel: '📋 Historial de órdenes',
+                requiresCompleting: 'Requiere completar',
+                orders: 'órdenes',
+                completed: 'Completado',
+                locked: 'Bloqueado',
+                completeOrder: 'Completar Orden',
+                investment: 'Inversión',
+                commission: 'Comisión',
+                perOrder: 'por orden',
+                contratoHeroTitle: 'Contrato de Confianza',
+                contratoHeroSub: 'Tu seguridad es nuestra prioridad número uno',
+                contratoGrid1: 'Seguridad 100%',
+                contratoGrid1Desc: 'Datos encriptados',
+                contratoGrid2: 'Retiros Rápidos',
+                contratoGrid2Desc: '24 horas máximo',
+                contratoGrid3: 'Protección',
+                contratoGrid3Desc: 'Contra fraudes',
+                contratoGrid4: 'Transparencia',
+                contratoGrid4Desc: 'Sin comisiones ocultas',
+                garantiasSection: '🛡️ Nuestras Garantías',
+                garantiaList1: '100% de transparencia en todas las transacciones',
+                garantiaList2: 'Soporte al cliente 24/7 en múltiples idiomas',
+                garantiaList3: 'Retiros procesados en un plazo máximo de 24 horas',
+                garantiaList4: 'Datos personales protegidos bajo estrictas políticas',
+                garantiaList5: 'Sin comisiones ocultas ni cargos adicionales',
+                garantiaList6: 'Seguridad bancaria con encriptación avanzada',
+                compromisosTitle: '🤝 Nuestros Compromisos',
+                compromiso1: 'Cumplir con todas las normativas legales vigentes',
+                compromiso2: 'Garantizar la integridad de tus fondos',
+                compromiso3: 'Brindar una experiencia de usuario excepcional',
+                compromiso4: 'Actualizar constantemente nuestros sistemas de seguridad',
+                compromiso5: 'Escuchar y atender todas tus sugerencias',
+                beneficiosTitle: '⭐ Beneficios Exclusivos',
+                beneficio1: 'VIP 1: Comisiones del 30% en cada orden',
+                beneficio2: 'VIP 2: Comisiones del 35% + bonos adicionales',
+                beneficio3: 'VIP 3: Comisiones del 40% + acceso prioritario',
+                beneficio4: 'VIP 4: Comisiones del 45% + soporte premium',
+                beneficio5: 'VIP 5: Comisiones del 50% + retiros instantáneos',
+                beneficio6: 'VIP 6: Comisiones del 55% + beneficios exclusivos',
+                trabajoTitle: '💼 Trabajo',
+                trabajoSubtitle: 'Encuentra oportunidades de trabajo en Shein.',
+                trabajoItem1: '📱 Marketing Digital',
+                trabajoItem1Desc: 'Gana dinero promocionando productos.',
+                trabajoItem2: '💻 Atención al Cliente',
+                trabajoItem2Desc: 'Ayuda a nuestros usuarios con sus consultas.',
+                trabajoItem3: '📊 Analista de Datos',
+                trabajoItem3Desc: 'Analiza el comportamiento de los usuarios.',
+                trabajoItem4: '🛒 Vendedor Online',
+                trabajoItem4Desc: 'Vende productos y gana comisiones.',
+                trabajoItem5: '📝 Redactor de Contenido',
+                trabajoItem5Desc: 'Crea contenido para nuestra plataforma.'
+            },
+            en: {
+                appTitle: '✨ Your online shopping center ✨',
+                registerTitle: '📝 Create account',
+                loginTitle: '🔐 Login',
+                phoneLabel: '📱 Phone number',
+                countryLabel: '🌍 Country code',
+                usernameLabel: '👤 Username',
+                passwordLabel: '🔒 Password',
+                registerBtn: '✅ Register',
+                loginBtn: '🚪 Login',
+                switchToLogin: 'Already have an account?',
+                switchToRegister: "Don't have an account?",
+                loginIdentifierLabel: '👤 Username or phone',
+                loginPasswordLabel: '🔒 Password',
+                greeting: 'Hello',
+                balanceLabel: '💰 Balance',
+                incomeLabel: '📈 Total income',
+                comenzarBtn: '🚀 START',
+                recargarBtn: '📥 RECHARGE',
+                retirarBtn: '📤 WITHDRAW',
+                welcomeTitle: 'Welcome to Shein!',
+                welcomeSubtitle: 'Thousands of people trust us worldwide.',
+                statUsers: 'Active Users',
+                statTransactions: 'Transactions',
+                statCountries: 'Countries',
+                badgeSeguro: '100% Secure',
+                badgeVerificado: 'Verified',
+                badgeEstrellas: '4.9/5 Stars',
+                badgeProtegido: 'Protected',
+                badgeLider: 'Market Leader',
+                badgePagos: 'Fast Payments',
+                quote1: '"Shein is the best platform to buy and sell. 100% reliable!"',
+                quote2: '"I have received my payments on time. Excellent service."',
+                garantiasTitle: '🛡️ Our Guarantees',
+                garantia1: '✅ 100% transparency',
+                garantia2: '✅ 24/7 Support',
+                garantia3: '✅ Withdrawals in 24 hours',
+                garantia4: '✅ Protected data',
+                garantia5: '✅ No hidden fees',
+                garantia6: '✅ Banking security',
+                vipOrdersTitle: '📦 VIP Orders',
+                vipOrdersSubtitle: 'Complete orders to earn commissions. Each order brings you closer to your next VIP level!',
+                miTitle: '👤 My Profile',
+                memberSince: '📅 Member since',
+                profileBalance: '💰 Balance',
+                profileVip: '⭐ VIP Level',
+                misBancos: '🏦 My Bank Accounts',
+                addBankMi: '➕ Add bank account',
+                withdrawalTitle: '📤 Make Withdrawal',
+                withdrawBankLabel: '🏛️ Select your bank account',
+                withdrawAmountLabel: '💰 Amount to withdraw',
+                confirmWithdrawal: '✅ Confirm Withdrawal',
+                historyTitle: '📋 Withdrawal History',
+                noHistory: 'No withdrawals made.',
+                navInicio: 'Home',
+                navOrdenes: 'Orders',
+                navContrato: 'Contract',
+                navTrabajo: 'Work',
+                navMi: 'My',
+                logout: 'Logout',
+                regError: '⚠️ Please fill in all fields.',
+                loginError: '❌ Incorrect username/phone or password.',
+                noOrders: 'No orders completed yet.',
+                orderHistory: '📋 Order History',
+                orderCompleted: 'Order completed in',
+                earned: 'Earned',
+                completedAll: '🎉 Congratulations! You have completed',
+                andEarned: 'and earned',
+                unlocked: '🔓 {level} has been unlocked!',
+                notUnlocked: '❌ This VIP level is not unlocked yet.',
+                alreadyCompleted: '✅ You have already completed all orders for this level!',
+                selectBank: '⚠️ Please select a bank account.',
+                validAmount: '⚠️ Please enter a valid amount greater than 0.',
+                insufficientBalance: '❌ Insufficient balance. Your balance is',
+                withdrawalSuccess: '✅ Withdrawal of {amount} to {bank} completed successfully.',
+                registerSuccess: '✅ Account "{username}" created successfully! {amount} welcome bonus.',
+                loginSuccess: '🔓 Welcome back, {username}!',
+                logoutSuccess: '👋 You have logged out successfully.',
+                comenzarSuccess: '🚀 You have started a new job! +{amount}',
+                recargarSuccess: '📥 Recharge successful! +{amount}',
+                goToWithdraw: '📤 Go to the "My" section to make your withdrawal.',
+                userIdLabel: '🆔 User ID',
+                copyBtn: '📋 Copy',
+                copied: '✅ ID copied to clipboard',
+                orderCompletedTitle: 'Order Completed!',
+                orderCompletedSub: 'You have successfully completed an order',
+                orderCount: 'Order #{count} of {total} completed',
+                noOrdersHistory: 'No orders completed yet.',
+                orderHistoryLabel: '📋 Order History',
+                requiresCompleting: 'Requires completing',
+                orders: 'orders',
+                completed: 'Completed',
+                locked: 'Locked',
+                completeOrder: 'Complete Order',
+                investment: 'Investment',
+                commission: 'Commission',
+                perOrder: 'per order',
+                contratoHeroTitle: 'Trust Contract',
+                contratoHeroSub: 'Your security is our number one priority',
+                contratoGrid1: '100% Security',
+                contratoGrid1Desc: 'Encrypted data',
+                contratoGrid2: 'Fast Withdrawals',
+                contratoGrid2Desc: '24 hours max',
+                contratoGrid3: 'Protection',
+                contratoGrid3Desc: 'Against fraud',
+                contratoGrid4: 'Transparency',
+                contratoGrid4Desc: 'No hidden fees',
+                garantiasSection: '🛡️ Our Guarantees',
+                garantiaList1: '100% transparency in all transactions',
+                garantiaList2: '24/7 customer support in multiple languages',
+                garantiaList3: 'Withdrawals processed within 24 hours maximum',
+                garantiaList4: 'Personal data protected under strict policies',
+                garantiaList5: 'No hidden fees or additional charges',
+                garantiaList6: 'Banking security with advanced encryption',
+                compromisosTitle: '🤝 Our Commitments',
+                compromiso1: 'Comply with all current legal regulations',
+                compromiso2: 'Guarantee the integrity of your funds',
+                compromiso3: 'Provide an exceptional user experience',
+                compromiso4: 'Constantly update our security systems',
+                compromiso5: 'Listen and attend to all your suggestions',
+                beneficiosTitle: '⭐ Exclusive Benefits',
+                beneficio1: 'VIP 1: 30% commission on each order',
+                beneficio2: 'VIP 2: 35% commission + additional bonuses',
+                beneficio3: 'VIP 3: 40% commission + priority access',
+                beneficio4: 'VIP 4: 45% commission + premium support',
+                beneficio5: 'VIP 5: 50% commission + instant withdrawals',
+                beneficio6: 'VIP 6: 55% commission + exclusive benefits',
+                trabajoTitle: '💼 Work',
+                trabajoSubtitle: 'Find job opportunities at Shein.',
+                trabajoItem1: '📱 Digital Marketing',
+                trabajoItem1Desc: 'Earn money promoting products.',
+                trabajoItem2: '💻 Customer Service',
+                trabajoItem2Desc: 'Help our users with their inquiries.',
+                trabajoItem3: '📊 Data Analyst',
+                trabajoItem3Desc: 'Analyze user behavior.',
+                trabajoItem4: '🛒 Online Seller',
+                trabajoItem4Desc: 'Sell products and earn commissions.',
+                trabajoItem5: '📝 Content Writer',
+                trabajoItem5Desc: 'Create content for our platform.'
+            },
+            my: {
+                appTitle: '✨ သင့်အွန်လိုင်းစျေးဝယ်စင်တာ ✨',
+                registerTitle: '📝 အကောင့်ဖွင့်ရန်',
+                loginTitle: '🔐 ဝင်ရောက်ရန်',
+                phoneLabel: '📱 ဖုန်းနံပါတ်',
+                countryLabel: '🌍 နိုင်ငံကုဒ်',
+                usernameLabel: '👤 အသုံးပြုသူအမည်',
+                passwordLabel: '🔒 စကားဝှက်',
+                registerBtn: '✅ မှတ်ပုံတင်ရန်',
+                loginBtn: '🚪 ဝင်ရောက်ရန်',
+                switchToLogin: 'အကောင့်ရှိပြီးသားလား?',
+                switchToRegister: 'အကောင့်မရှိသေးဘူးလား?',
+                loginIdentifierLabel: '👤 အသုံးပြုသူအမည် သို့မဟုတ် ဖုန်းနံပါတ်',
+                loginPasswordLabel: '🔒 စကားဝှက်',
+                greeting: 'မင်္ဂလာပါ',
+                balanceLabel: '💰 လက်ကျန်ငွေ',
+                incomeLabel: '📈 စုစုပေါင်းဝင်ငွေ',
+                comenzarBtn: '🚀 စတင်ရန်',
+                recargarBtn: '📥 ငွေဖြည့်ရန်',
+                retirarBtn: '📤 ငွေထုတ်ရန်',
+                welcomeTitle: 'Shein မှ ကြိုဆိုပါတယ်!',
+                welcomeSubtitle: 'ကမ္ဘာတစ်ဝန်းမှ လူထောင်ပေါင်းများစွာ ကျွန်ုပ်တို့ကို ယုံကြည်ကြသည်။',
+                statUsers: 'တက်ကြွသောအသုံးပြုသူများ',
+                statTransactions: 'ငွေပေးချေမှုများ',
+                statCountries: 'နိုင်ငံများ',
+                badgeSeguro: '၁၀၀% လုံခြုံသည်',
+                badgeVerificado: 'အတည်ပြုပြီး',
+                badgeEstrellas: '၄.၉/၅ ကြယ်ပွင့်',
+                badgeProtegido: 'ကာကွယ်ထားသည်',
+                badgeLider: 'စျေးကွက်ခေါင်းဆောင်',
+                badgePagos: 'အမြန်ငွေပေးချေမှု',
+                quote1: '"Shein သည် ဝယ်ရောင်းရန် အကောင်းဆုံးပလက်ဖောင်းဖြစ်သည်။ ၁၀၀% ယုံကြည်ရသည်!"',
+                quote2: '"ကျွန်ုပ်၏ငွေများကို အချိန်မှန်ရရှိပါသည်။ အကောင်းဆုံးဝန်ဆောင်မှုပါ။"',
+                garantiasTitle: '🛡️ ကျွန်ုပ်တို့၏ အာမခံချက်များ',
+                garantia1: '✅ ၁၀၀% ပွင့်လင်းမြင်သာမှု',
+                garantia2: '✅ ၂၄/၇ ပံ့ပိုးမှု',
+                garantia3: '✅ ၂၄ နာရီအတွင်း ငွေထုတ်ခြင်း',
+                garantia4: '✅ ကာကွယ်ထားသောဒေတာ',
+                garantia5: '✅ လျှို့ဝှက်ကောက်ခံမှုမရှိ',
+                garantia6: '✅ ဘဏ်လုံခြုံရေး',
+                vipOrdersTitle: '📦 VIP အမှာစာများ',
+                vipOrdersSubtitle: 'ကော်မရှင်ရရန် အမှာစာများကို ပြီးအောင်လုပ်ပါ။ အမှာစာတိုင်းသည် သင့်အား နောက် VIP အဆင့်သို့ ပို့ဆောင်ပေးသည်။',
+                miTitle: '👤 ကျွန်ုပ်၏ ပရိုဖိုင်',
+                memberSince: '📅 အဖွဲ့ဝင်ဖြစ်ကတည်းက',
+                profileBalance: '💰 လက်ကျန်ငွေ',
+                profileVip: '⭐ VIP အဆင့်',
+                misBancos: '🏦 ကျွန်ုပ်၏ ဘဏ်အကောင့်များ',
+                addBankMi: '➕ ဘဏ်အကောင့်ထည့်ရန်',
+                withdrawalTitle: '📤 ငွေထုတ်ရန်',
+                withdrawBankLabel: '🏛️ သင့်ဘဏ်အကောင့်ကိုရွေးပါ',
+                withdrawAmountLabel: '💰 ထုတ်ချင်သောပမာဏ',
+                confirmWithdrawal: '✅ ငွေထုတ်ရန်အတည်ပြုပါ',
+                historyTitle: '📋 ငွေထုတ်မှတ်တမ်း',
+                noHistory: 'ငွေထုတ်ခြင်းမရှိသေးပါ။',
+                navInicio: 'မူလစာမျက်နှာ',
+                navOrdenes: 'အမှာစာများ',
+                navContrato: 'စာချုပ်',
+                navTrabajo: 'အလုပ်',
+                navMi: 'ကျွန်ုပ်',
+                logout: 'ထွက်ရန်',
+                regError: '⚠️ ကျေးဇူးပြု၍ အားလုံးဖြည့်ပါ။',
+                loginError: '❌ အသုံးပြုသူအမည်/ဖုန်းနံပါတ် သို့မဟုတ် စကားဝှက် မှားနေပါသည်။',
+                noOrders: 'အမှာစာများ မပြီးသေးပါ။',
+                orderHistory: '📋 အမှာစာမှတ်တမ်း',
+                orderCompleted: 'တွင် အမှာစာပြီးဆုံးပါပြီ',
+                earned: 'ရရှိငွေ',
+                completedAll: '🎉 ဂုဏ်ယူပါတယ်! သင်',
+                andEarned: 'ပြီးဆုံးပြီး',
+                unlocked: '🔓 {level} ကို ဖွင့်လှစ်လိုက်ပါပြီ!',
+                notUnlocked: '❌ ဤ VIP အဆင့်ကို မဖွင့်ရသေးပါ။',
+                alreadyCompleted: '✅ ဤအဆင့်အတွက် အမှာစာများအားလုံးကို ပြီးဆုံးပြီးဖြစ်ပါသည်။',
+                selectBank: '⚠️ ကျေးဇူးပြု၍ ဘဏ်အကောင့်တစ်ခုကို ရွေးပါ။',
+                validAmount: '⚠️ ကျေးဇူးပြု၍ ၀ ထက်ကြီးသော ပမာဏကို ရိုက်ထည့်ပါ။',
+                insufficientBalance: '❌ လက်ကျန်မလုံလောက်ပါ။ သင့်လက်ကျန်မှာ',
+                withdrawalSuccess: '✅ {bank} သို့ {amount} ငွေထုတ်ခြင်း အောင်မြင်ပါပြီ။',
+                registerSuccess: '✅ "{username}" အကောင့်ကို အောင်မြင်စွာဖွင့်လှစ်ပြီး {amount} ကြိုဆိုငွေ ရရှိပါပြီ။',
+                loginSuccess: '🔓 ပြန်လည်ကြိုဆိုပါတယ် {username}!',
+                logoutSuccess: '👋 အကောင့်မှ အောင်မြင်စွာ ထွက်ပြီးပါပြီ။',
+                comenzarSuccess: '🚀 အလုပ်အသစ်စတင်ပြီပါပြီ! +{amount}',
+                recargarSuccess: '📥 ငွေဖြည့်ခြင်း အောင်မြင်ပါပြီ! +{amount}',
+                goToWithdraw: '📤 ငွေထုတ်ရန် "ကျွန်ုပ်" ကဏ္ဍသို့ သွားပါ။',
+                userIdLabel: '🆔 အသုံးပြုသူ ID',
+                copyBtn: '📋 ကူးယူရန်',
+                copied: '✅ ID ကို ကလစ်ဘုတ်သို့ ကူးယူပြီးပါပြီ',
+                orderCompletedTitle: 'အမှာစာ ပြီးဆုံးပါပြီ!',
+                orderCompletedSub: 'အမှာစာကို အောင်မြင်စွာ ပြီးဆုံးပါပြီ',
+                orderCount: 'အမှာစာ #{count} မှ {total} ပြီးဆုံးပါပြီ',
+                noOrdersHistory: 'အမှာစာများ မပြီးသေးပါ။',
+                orderHistoryLabel: '📋 အမှာစာမှတ်တမ်း',
+                requiresCompleting: 'ပြီးဆုံးရန် လိုအပ်သည်',
+                orders: 'အမှာစာ',
+                completed: 'ပြီးဆုံးပြီ',
+                locked: 'ပိတ်ထားသည်',
+                completeOrder: 'အမှာစာပြီးအောင်လုပ်ရန်',
+                investment: 'ရင်းနှီးငွေ',
+                commission: 'ကော်မရှင်',
+                perOrder: 'တစ်ခုလျှင်',
+                contratoHeroTitle: 'ယုံကြည်မှုစာချုပ်',
+                contratoHeroSub: 'သင့်လုံခြုံရေးသည် ကျွန်ုပ်တို့၏ နံပါတ်တစ်ဦးစားပေးဖြစ်သည်',
+                contratoGrid1: '၁၀၀% လုံခြုံရေး',
+                contratoGrid1Desc: 'ကုဒ်ဝှက်ထားသောဒေတာ',
+                contratoGrid2: 'အမြန်ငွေထုတ်ခြင်း',
+                contratoGrid2Desc: '၂၄ နာရီ အများဆုံး',
+                contratoGrid3: 'ကာကွယ်ရေး',
+                contratoGrid3Desc: 'လိမ်လည်မှုမှ',
+                contratoGrid4: 'ပွင့်လင်းမြင်သာမှု',
+                contratoGrid4Desc: 'လျှို့ဝှက်ကောက်ခံမှုမရှိ',
+                garantiasSection: '🛡️ ကျွန်ုပ်တို့၏ အာမခံချက်များ',
+                garantiaList1: 'ငွေပေးချေမှုအားလုံးတွင် ၁၀၀% ပွင့်လင်းမြင်သာမှု',
+                garantiaList2: 'ဘာသာစကားမျိုးစုံဖြင့် ၂၄/၇ ဖောက်သည်ပံ့ပိုးမှု',
+                garantiaList3: 'ငွေထုတ်ခြင်းကို ၂၄ နာရီအတွင်း ဆောင်ရွက်ပေးခြင်း',
+                garantiaList4: 'တင်းကျပ်သောမူဝါဒများဖြင့် ကိုယ်ရေးဒေတာကာကွယ်ခြင်း',
+                garantiaList5: 'လျှို့ဝှက်ကောက်ခံမှုများနှင့် အပိုကောက်ခံမှုများမရှိ',
+                garantiaList6: 'အဆင့်မြင့် ကုဒ်ဝှက်ခြင်းဖြင့် ဘဏ်လုံခြုံရေး',
+                compromisosTitle: '🤝 ကျွန်ုပ်တို့၏ ကတိများ',
+                compromiso1: 'လက်ရှိဥပဒေစည်းမျဉ်းအားလုံးကို လိုက်နာခြင်း',
+                compromiso2: 'သင့်ငွေများ၏ ခိုင်မာမှုကို အာမခံခြင်း',
+                compromiso3: 'ထူးခြားသော အသုံးပြုသူအတွေ့အကြုံကို ပေးအပ်ခြင်း',
+                compromiso4: 'လုံခြုံရေးစနစ်များကို အဆက်မပြတ် အပ်ဒိတ်လုပ်ခြင်း',
+                compromiso5: 'သင့်အကြံပြုချက်အားလုံးကို နားထောင်ပြီး ဆောင်ရွက်ခြင်း',
+                beneficiosTitle: '⭐ သီးသန့်အကျိုးခံစားခွင့်များ',
+                beneficio1: 'VIP 1: အမှာစာတိုင်းတွင် ၃၀% ကော်မရှင်',
+                beneficio2: 'VIP 2: ၃၅% ကော်မရှင် + အပိုဆုများ',
+                beneficio3: 'VIP 3: ၄၀% ကော်မရှင် + ဦးစားပေးဝင်ရောက်ခွင့်',
+                beneficio4: 'VIP 4: ၄၅% ကော်မရှင် + အဆင့်မြင့်ပံ့ပိုးမှု',
+                beneficio5: 'VIP 5: ၅၀% ကော်မရှင် + ချက်ချင်းငွေထုတ်ခြင်း',
+                beneficio6: 'VIP 6: ၅၅% ကော်မရှင် + သီးသန့်အကျိုးခံစားခွင့်များ',
+                trabajoTitle: '💼 အလုပ်',
+                trabajoSubtitle: 'Shein တွင် အလုပ်အကိုင်အခွင့်အလမ်းများကို ရှာဖွေပါ။',
+                trabajoItem1: '📱 ဒစ်ဂျစ်တယ်မားကတ်တင်း',
+                trabajoItem1Desc: 'ထုတ်ကုန်များကို ကြော်ငြာခြင်းဖြင့် ငွေရှာပါ။',
+                trabajoItem2: '💻 ဖောက်သည်ဝန်ဆောင်မှု',
+                trabajoItem2Desc: 'ကျွန်ုပ်တို့၏အသုံးပြုသူများကို အကူအညီပေးပါ။',
+                trabajoItem3: '📊 ဒေတာခွဲခြမ်းစိတ်ဖြာသူ',
+                trabajoItem3Desc: 'အသုံးပြုသူများ၏ အပြုအမူကို ခွဲခြမ်းစိတ်ဖြာပါ။',
+                trabajoItem4: '🛒 အွန်လိုင်းရောင်းချသူ',
+                trabajoItem4Desc: 'ထုတ်ကုန်များရောင်းချပြီး ကော်မရှင်ရယူပါ။',
+                trabajoItem5: '📝 အကြောင်းအရာရေးသားသူ',
+                trabajoItem5Desc: 'ကျွန်ုပ်တို့၏ပလက်ဖောင်းအတွက် အကြောင်းအရာများဖန်တီးပါ။'
+            },
+            zh: {
+                appTitle: '✨ 您的在线购物中心 ✨',
+                registerTitle: '📝 创建账户',
+                loginTitle: '🔐 登录',
+                phoneLabel: '📱 电话号码',
+                countryLabel: '🌍 国家代码',
+                usernameLabel: '👤 用户名',
+                passwordLabel: '🔒 密码',
+                registerBtn: '✅ 注册',
+                loginBtn: '🚪 登录',
+                switchToLogin: '已有账户？',
+                switchToRegister: '没有账户？',
+                loginIdentifierLabel: '👤 用户名或电话',
+                loginPasswordLabel: '🔒 密码',
+                greeting: '你好',
+                balanceLabel: '💰 余额',
+                incomeLabel: '📈 总收入',
+                comenzarBtn: '🚀 开始',
+                recargarBtn: '📥 充值',
+                retirarBtn: '📤 提现',
+                welcomeTitle: '欢迎来到 Shein！',
+                welcomeSubtitle: '全球有成千上万的人信任我们。',
+                statUsers: '活跃用户',
+                statTransactions: '交易',
+                statCountries: '国家',
+                badgeSeguro: '100% 安全',
+                badgeVerificado: '已验证',
+                badgeEstrellas: '4.9/5 星',
+                badgeProtegido: '受保护',
+                badgeLider: '市场领导者',
+                badgePagos: '快速支付',
+                quote1: '"Shein 是买卖的最佳平台。100% 可靠！"',
+                quote2: '"我按时收到了付款。服务很棒。"',
+                garantiasTitle: '🛡️ 我们的保障',
+                garantia1: '✅ 100% 透明',
+                garantia2: '✅ 24/7 支持',
+                garantia3: '✅ 24小时内提现',
+                garantia4: '✅ 数据保护',
+                garantia5: '✅ 无隐藏费用',
+                garantia6: '✅ 银行安全',
+                vipOrdersTitle: '📦 VIP 订单',
+                vipOrdersSubtitle: '完成订单赚取佣金。每个订单都让您更接近下一个VIP级别！',
+                miTitle: '👤 我的资料',
+                memberSince: '📅 加入日期',
+                profileBalance: '💰 余额',
+                profileVip: '⭐ VIP 级别',
+                misBancos: '🏦 我的银行账户',
+                addBankMi: '➕ 添加银行账户',
+                withdrawalTitle: '📤 提现',
+                withdrawBankLabel: '🏛️ 选择您的银行账户',
+                withdrawAmountLabel: '💰 提现金额',
+                confirmWithdrawal: '✅ 确认提现',
+                historyTitle: '📋 提现记录',
+                noHistory: '没有提现记录。',
+                navInicio: '首页',
+                navOrdenes: '订单',
+                navContrato: '合同',
+                navTrabajo: '工作',
+                navMi: '我的',
+                logout: '退出',
+                regError: '⚠️ 请填写所有字段。',
+                loginError: '❌ 用户名/电话或密码错误。',
+                noOrders: '没有完成的订单。',
+                orderHistory: '📋 订单历史',
+                orderCompleted: '订单完成于',
+                earned: '赚取',
+                completedAll: '🎉 恭喜！您已完成',
+                andEarned: '并赚取',
+                unlocked: '🔓 {level} 已解锁！',
+                notUnlocked: '❌ 此VIP级别尚未解锁。',
+                alreadyCompleted: '✅ 您已完成此级别的所有订单！',
+                selectBank: '⚠️ 请选择银行账户。',
+                validAmount: '⚠️ 请输入大于0的有效金额。',
+                insufficientBalance: '❌ 余额不足。您的余额是',
+                withdrawalSuccess: '✅ 向 {bank} 提现 {amount} 成功。',
+                registerSuccess: '✅ 账户 "{username}" 创建成功！获得 {amount} 欢迎奖励。',
+                loginSuccess: '🔓 欢迎回来，{username}！',
+                logoutSuccess: '👋 您已成功退出。',
+                comenzarSuccess: '🚀 您已开始新工作！+{amount}',
+                recargarSuccess: '📥 充值成功！+{amount}',
+                goToWithdraw: '📤 请前往"我的"部分进行提现。',
+                userIdLabel: '🆔 用户ID',
+                copyBtn: '📋 复制',
+                copied: '✅ ID已复制到剪贴板',
+                orderCompletedTitle: '订单完成！',
+                orderCompletedSub: '您已成功完成订单',
+                orderCount: '订单 #{count} / {total} 已完成',
+                noOrdersHistory: '还没有完成的订单。',
+                orderHistoryLabel: '📋 订单历史',
+                requiresCompleting: '需要完成',
+                orders: '订单',
+                completed: '已完成',
+                locked: '已锁定',
+                completeOrder: '完成订单',
+                investment: '投资',
+                commission: '佣金',
+                perOrder: '每订单',
+                contratoHeroTitle: '信任合同',
+                contratoHeroSub: '您的安全是我们的第一要务',
+                contratoGrid1: '100% 安全',
+                contratoGrid1Desc: '加密数据',
+                contratoGrid2: '快速提现',
+                contratoGrid2Desc: '最多24小时',
+                contratoGrid3: '保护',
+                contratoGrid3Desc: '防止欺诈',
+                contratoGrid4: '透明',
+                contratoGrid4Desc: '无隐藏费用',
+                garantiasSection: '🛡️ 我们的保障',
+                garantiaList1: '所有交易100%透明',
+                garantiaList2: '多语言24/7客户支持',
+                garantiaList3: '提现在24小时内处理',
+                garantiaList4: '严格政策下的个人数据保护',
+                garantiaList5: '无隐藏费用或额外收费',
+                garantiaList6: '高级加密的银行安全',
+                compromisosTitle: '🤝 我们的承诺',
+                compromiso1: '遵守所有现行法律法规',
+                compromiso2: '保证您资金的完整性',
+                compromiso3: '提供卓越的用户体验',
+                compromiso4: '不断更新我们的安全系统',
+                compromiso5: '倾听并处理您的所有建议',
+                beneficiosTitle: '⭐ 独家福利',
+                beneficio1: 'VIP 1: 每笔订单30%佣金',
+                beneficio2: 'VIP 2: 35%佣金 + 额外奖金',
+                beneficio3: 'VIP 3: 40%佣金 + 优先访问',
+                beneficio4: 'VIP 4: 45%佣金 + 高级支持',
+                beneficio5: 'VIP 5: 50%佣金 + 即时提现',
+                beneficio6: 'VIP 6: 55%佣金 + 独家福利',
+                trabajoTitle: '💼 工作',
+                trabajoSubtitle: '在 Shein 寻找工作机会。',
+                trabajoItem1: '📱 数字营销',
+                trabajoItem1Desc: '通过推广产品赚钱。',
+                trabajoItem2: '💻 客户服务',
+                trabajoItem2Desc: '帮助我们的用户解答问题。',
+                trabajoItem3: '📊 数据分析师',
+                trabajoItem3Desc: '分析用户行为。',
+                trabajoItem4: '🛒 在线销售',
+                trabajoItem4Desc: '销售产品赚取佣金。',
+                trabajoItem5: '📝 内容创作者',
+                trabajoItem5Desc: '为我们的平台创作内容。'
+            }
+        };
+
+        let currentLang = 'es';
+        let currentCurrency = 'PEN';
+
+        // ============================================================
+        //  USER DATA
+        // ============================================================
+        let userData = {
+            username: '',
+            phone: '',
+            password: '',
+            balance: 10.00,
+            totalIncome: 0,
+            isLoggedIn: false,
+            recargaCount: 0,
+            retiroCount: 0,
+            trabajoCount: 0,
+            notificacionCount: 1,
+            bankAccounts: [],
+            withdrawalHistory: [],
+            userId: '',
+            country: 'Perú',
+            vipLevel: 'VIP 1',
+            totalOrders: 0,
+            frozen: false,
+            registrationDate: '',
+            ipAddress: '',
+            history: [],
+            vipOrders: {
+                vip1: { level: 'VIP 1', totalOrders: 12, completedOrders: 0, commissionRate: 0.30, isUnlocked: true,
+                    isCompleted: false, baseInvestment: 10.00 },
+                vip2: { level: 'VIP 2', totalOrders: 20, completedOrders: 0, commissionRate: 0.35, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 25.00, unlockRequirement: { level: 'VIP 1', requiredOrders: 12 } },
+                vip3: { level: 'VIP 3', totalOrders: 30, completedOrders: 0, commissionRate: 0.40, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 50.00, unlockRequirement: { level: 'VIP 2', requiredOrders: 20 } },
+                vip4: { level: 'VIP 4', totalOrders: 40, completedOrders: 0, commissionRate: 0.45, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 100.00, unlockRequirement: { level: 'VIP 3', requiredOrders: 30 } },
+                vip5: { level: 'VIP 5', totalOrders: 50, completedOrders: 0, commissionRate: 0.50, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 200.00, unlockRequirement: { level: 'VIP 4', requiredOrders: 40 } },
+                vip6: { level: 'VIP 6', totalOrders: 60, completedOrders: 0, commissionRate: 0.55, isUnlocked: false,
+                    isCompleted: false, baseInvestment: 500.00, unlockRequirement: { level: 'VIP 5', requiredOrders: 50 } }
+            },
+            vipLevels: {
+                vip1: { name: 'VIP 1', active: true },
+                vip2: { name: 'VIP 2', active: false },
+                vip3: { name: 'VIP 3', active: false },
+                vip4: { name: 'VIP 4', active: false },
+                vip5: { name: 'VIP 5', active: false },
+                vip6: { name: 'VIP 6', active: false }
+            }
+        };
+
+        // ============================================================
+        //  LANGUAGE & CURRENCY FUNCTIONS
+        // ============================================================
+        function changeLanguage(lang) {
+            currentLang = lang;
+            applyTranslations(lang);
+            updateDashboard();
+            renderVIPOrders();
+            renderBankAccounts();
+            updateWithdrawBankSelect();
+            renderWithdrawalHistory();
+        }
+
+        function changeCurrency(currency) {
+            currentCurrency = currency;
+            updateDashboard();
+            renderVIPOrders();
+            renderBankAccounts();
+            updateWithdrawBankSelect();
+            renderWithdrawalHistory();
+        }
+
+        function applyTranslations(lang) {
+            const t = translations[lang] || translations.es;
+
+            document.querySelector('.header-subtitle').textContent = t.appTitle;
+            document.querySelector('.register-title').textContent = t.registerTitle;
+            document.querySelector('.login-title').textContent = t.loginTitle;
+            document.querySelector('.label-phone').textContent = t.phoneLabel;
+            document.querySelector('.label-country').textContent = t.countryLabel;
+            document.querySelector('.label-username').textContent = t.usernameLabel;
+            document.querySelector('.label-password').textContent = t.passwordLabel;
+            document.querySelector('.btn-register').textContent = t.registerBtn;
+            document.querySelector('.btn-login').textContent = t.loginBtn;
+            document.querySelector('.label-login-identifier').textContent = t.loginIdentifierLabel;
+            document.querySelector('.label-login-password').textContent = t.loginPasswordLabel;
+            document.querySelector('.switch-to-login').innerHTML = t.switchToLogin + ' <strong>Iniciar sesión</strong>';
+            document.querySelector('.switch-to-register').innerHTML = t.switchToRegister +
+                ' <strong>Regístrate aquí</strong>';
+            document.querySelector('.greeting-text').textContent = t.greeting;
+            document.querySelector('.label-balance').textContent = t.balanceLabel;
+            document.querySelector('.label-income').textContent = t.incomeLabel;
+            document.querySelector('.btn-comenzar').textContent = t.comenzarBtn;
+            document.querySelector('.btn-recargar').textContent = t.recargarBtn;
+            document.querySelector('.btn-retirar').textContent = t.retirarBtn;
+            document.querySelector('.welcome-title').textContent = t.welcomeTitle;
+            document.querySelector('.welcome-subtitle').textContent = t.welcomeSubtitle;
+            document.querySelector('.stat-users').textContent = t.statUsers;
+            document.querySelector('.stat-transactions').textContent = t.statTransactions;
+            document.querySelector('.stat-countries').textContent = t.statCountries;
+            document.querySelector('.badge-seguro').textContent = t.badgeSeguro;
+            document.querySelector('.badge-verificado').textContent = t.badgeVerificado;
+            document.querySelector('.badge-estrellas').textContent = t.badgeEstrellas;
+            document.querySelector('.badge-protegido').textContent = t.badgeProtegido;
+            document.querySelector('.badge-lider').textContent = t.badgeLider;
+            document.querySelector('.badge-pagos').textContent = t.badgePagos;
+            document.querySelector('.quote1').textContent = t.quote1;
+            document.querySelector('.quote2').textContent = t.quote2;
+            document.querySelector('.garantias-title').textContent = t.garantiasTitle;
+            document.querySelector('.garantia-item1').textContent = t.garantia1;
+            document.querySelector('.garantia-item2').textContent = t.garantia2;
+            document.querySelector('.garantia-item3').textContent = t.garantia3;
+            document.querySelector('.garantia-item4').textContent = t.garantia4;
+            document.querySelector('.garantia-item5').textContent = t.garantia5;
+            document.querySelector('.garantia-item6').textContent = t.garantia6;
+            document.querySelector('.vip-orders-title').textContent = t.vipOrdersTitle;
+            document.querySelector('.vip-orders-subtitle').textContent = t.vipOrdersSubtitle;
+            document.querySelector('.mi-title').textContent = t.miTitle;
+            document.querySelector('.label-member-since').textContent = t.memberSince;
+            document.querySelector('.label-profile-balance').textContent = t.profileBalance;
+            document.querySelector('.label-profile-vip').textContent = t.profileVip;
+            document.querySelector('.mis-bancos-title').textContent = t.misBancos;
+            document.querySelector('.btn-add-bank-mi').textContent = t.addBankMi;
+            document.querySelector('.add-bank-mi-title').textContent = t.addBankTitle || '🏦 Agregar cuenta bancaria';
+            document.querySelector('.label-bank-name-mi').textContent = t.bankNameLabel || '🏛️ Nombre del banco';
+            document.querySelector('.label-account-number-mi').textContent = t.accountNumberLabel || '🔢 Número de cuenta';
+            document.querySelector('.label-account-holder-mi').textContent = t.accountHolderLabel || '👤 Titular de la cuenta';
+            document.querySelector('.label-cci-mi').textContent = t.cciLabel || '🔢 CCI / IBAN';
+            document.querySelector('.btn-confirm-bank-mi').textContent = t.confirmBtn || '✅ Confirmar';
+            document.querySelector('.btn-cancel-bank-mi').textContent = t.cancelBtn || '❌ Cancelar';
+            document.querySelector('.withdrawal-title').textContent = t.withdrawalTitle;
+            document.querySelector('.label-withdraw-bank').textContent = t.withdrawBankLabel;
+            document.querySelector('.label-withdraw-amount').textContent = t.withdrawAmountLabel;
+            document.querySelector('.btn-confirm-withdrawal').textContent = t.confirmWithdrawal;
+            document.querySelector('.history-title').textContent = t.historyTitle;
+            document.querySelector('.nav-inicio').textContent = t.navInicio;
+            document.querySelector('.nav-ordenes').textContent = t.navOrdenes;
+            document.querySelector('.nav-contrato').textContent = t.navContrato;
+            document.querySelector('.nav-trabajo').textContent = t.navTrabajo;
+            document.querySelector('.nav-mi').textContent = t.navMi;
+            document.querySelector('.logout-text').textContent = t.logout;
+            document.getElementById('regError').textContent = t.regError;
+            document.getElementById('loginError').textContent = t.loginError;
+            document.querySelector('.order-history-section h4').textContent = t.orderHistoryLabel ||
+            '📋 Historial de órdenes';
+            document.querySelector('.modal-title').textContent = t.orderCompletedTitle || '¡Orden Completada!';
+            document.querySelector('.modal-subtitle').textContent = t.orderCompletedSub ||
+                'Has completado una orden exitosamente';
+            document.querySelector('.modal-close-btn').textContent = '✅ ' + (t.completed || '¡Excelente!');
+            document.querySelectorAll('.id-label').forEach(el => el.textContent = t.userIdLabel || '🆔 ID de usuario');
+            document.querySelectorAll('.id-copy').forEach(el => el.textContent = t.copyBtn || '📋 Copiar');
+
+            // Contrato translations
+            document.querySelector('.contrato-hero-title').textContent = t.contratoHeroTitle;
+            document.querySelector('.contrato-hero-sub').textContent = t.contratoHeroSub;
+            const gridItems = document.querySelectorAll('.contrato-grid .grid-item');
+            if (gridItems.length >= 4) {
+                gridItems[0].querySelector('.title').textContent = t.contratoGrid1;
+                gridItems[0].querySelector('.desc').textContent = t.contratoGrid1Desc;
+                gridItems[1].querySelector('.title').textContent = t.contratoGrid2;
+                gridItems[1].querySelector('.desc').textContent = t.contratoGrid2Desc;
+                gridItems[2].querySelector('.title').textContent = t.contratoGrid3;
+                gridItems[2].querySelector('.desc').textContent = t.contratoGrid3Desc;
+                gridItems[3].querySelector('.title').textContent = t.contratoGrid4;
+                gridItems[3].querySelector('.desc').textContent = t.contratoGrid4Desc;
+            }
+            const sectionTitles = document.querySelectorAll('.contrato-section h4');
+            if (sectionTitles.length >= 3) {
+                sectionTitles[0].textContent = t.garantiasSection;
+                sectionTitles[1].textContent = t.compromisosTitle;
+                sectionTitles[2].textContent = t.beneficiosTitle;
+            }
+            const garantiaItems = document.querySelectorAll('.contrato-section ul li');
+            if (garantiaItems.length >= 6) {
+                const gList = [t.garantiaList1, t.garantiaList2, t.garantiaList3, t.garantiaList4, t.garantiaList5, t
+                    .garantiaList6
+                ];
+                gList.forEach((text, i) => {
+                    if (text) garantiaItems[i].innerHTML = `<span class="check">✅</span> ${text}`;
+                });
+            }
+            const compItems = document.querySelectorAll('.contrato-section')[1]?.querySelectorAll('ul li');
+            if (compItems && compItems.length >= 5) {
+                const cList = [t.compromiso1, t.compromiso2, t.compromiso3, t.compromiso4, t.compromiso5];
+                cList.forEach((text, i) => {
+                    if (text) compItems[i].innerHTML = `<span class="check">✅</span> ${text}`;
+                });
+            }
+            const benItems = document.querySelectorAll('.contrato-section')[2]?.querySelectorAll('ul li');
+            if (benItems && benItems.length >= 6) {
+                const bList = [t.beneficio1, t.beneficio2, t.beneficio3, t.beneficio4, t.beneficio5, t.beneficio6];
+                bList.forEach((text, i) => {
+                    if (text) benItems[i].innerHTML = `<span class="check">✅</span> ${text}`;
+                });
+            }
+
+            // Trabajo translations
+            document.querySelector('.trabajo-title').textContent = t.trabajoTitle || '💼 Trabajo';
+            document.querySelector('.trabajo-subtitle').textContent = t.trabajoSubtitle ||
+                'Encuentra oportunidades de trabajo en Shein.';
+            const trabajoCards = document.querySelectorAll('.trabajo-card');
+            if (trabajoCards.length >= 5) {
+                const titles = [t.trabajoItem1, t.trabajoItem2, t.trabajoItem3, t.trabajoItem4, t.trabajoItem5];
+                const descs = [t.trabajoItem1Desc, t.trabajoItem2Desc, t.trabajoItem3Desc, t.trabajoItem4Desc,
+                    t.trabajoItem5Desc
+                ];
+                trabajoCards.forEach((card, i) => {
+                    if (titles[i]) {
+                        const titleEl = card.querySelector('.trabajo-title');
+                        if (titleEl) {
+                            const icon = titleEl.querySelector('.trabajo-icon');
+                            titleEl.innerHTML = `${icon.outerHTML} ${titles[i]}`;
+                        }
+                    }
+                    if (descs[i]) {
+                        const descEl = card.querySelector('.trabajo-desc');
+                        if (descEl) descEl.textContent = descs[i];
+                    }
+                });
+            }
+        }
+
+        function formatCurrency(amount) {
+            const symbol = currencySymbols[currentCurrency] || 'S/';
+            return `${symbol} ${(amount || 0).toFixed(2)}`;
+        }
+
+        function updateSyncStatus(online) {
+            const dot = document.getElementById('syncDot');
+            const text = document.getElementById('syncText');
+            if (online) {
+                dot.className = 'dot';
+                text.textContent = 'Sincronizado';
+            } else {
+                dot.className = 'dot offline';
+                text.textContent = 'Desconectado';
+            }
+        }
+
+        // ============================================================
+        //  SUPABASE FUNCTIONS
+        // ============================================================
+        async function saveUserToSupabase(user) {
+            try {
+                const { data: existing, error: checkError } = await supabaseClient
+                    .from('users')
+                    .select('user_id')
+                    .eq('user_id', user.userId)
+                    .single();
+
+                if (checkError && checkError.code !== 'PGRST116') {
+                    console.error('❌ Error checking user:', checkError);
+                    return false;
+                }
+
+                const userData = {
+                    username: user.username,
+                    phone: user.phone,
+                    password: user.password,
+                    user_id: user.userId,
+                    balance: user.balance,
+                    total_income: user.totalIncome,
+                    country: user.country || 'Perú',
+                    vip_level: user.vipLevel || 'VIP 1',
+                    total_orders: user.totalOrders || 0,
+                    frozen: user.frozen || false,
+                    registration_date: user.registrationDate || new Date().toISOString(),
+                    ip_address: user.ipAddress || '192.168.1.100',
+                    bank_accounts: user.bankAccounts || [],
+                    history: user.history || []
+                };
+
+                let result;
+                if (existing) {
+                    result = await supabaseClient
+                        .from('users')
+                        .update(userData)
+                        .eq('user_id', user.userId);
+                } else {
+                    result = await supabaseClient
+                        .from('users')
+                        .insert([userData]);
+                }
+
+                if (result.error) {
+                    console.error('❌ Error saving user:', result.error);
+                    return false;
+                }
+
+                return true;
+
+            } catch (err) {
+                console.error('❌ Error:', err);
+                return false;
+            }
+        }
+
+        // ============================================================
+        //  AUTH FUNCTIONS
+        // ============================================================
+        function showLogin() {
+            document.getElementById('registerForm').classList.remove('active');
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('loginForm').classList.add('active');
+            document.getElementById('regError').style.display = 'none';
+            document.getElementById('loginError').style.display = 'none';
+            applyTranslations(currentLang);
+        }
+
+        function showRegister() {
+            document.getElementById('loginForm').classList.remove('active');
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('active');
+            document.getElementById('regError').style.display = 'none';
+            document.getElementById('loginError').style.display = 'none';
+            applyTranslations(currentLang);
+        }
+
+        function showMessage(text, isSuccess = true) {
+            const msg = document.getElementById('infoMessage');
+            msg.textContent = text;
+            msg.style.color = isSuccess ? '#00b894' : '#d63031';
+            msg.style.background = isSuccess ? '#e0f7f1' : '#ffeaa7';
+            msg.classList.remove('hidden');
+            setTimeout(() => {
+                msg.classList.add('hidden');
+            }, 4000);
+        }
+
+        function generateUserId() {
+            let id = '';
+            for (let i = 0; i < 7; i++) {
+                id += Math.floor(Math.random() * 10);
+            }
+            return id;
+        }
+
+        function getRandomIP() {
+            return `${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
+        }
+
+        function copyUserId() {
+            const userId = document.getElementById('userIdDisplay').textContent;
+            navigator.clipboard.writeText(userId).then(() => {
+                const t = translations[currentLang] || translations.es;
+                showMessage(t.copied || '✅ ID copiado al portapapeles', true);
+            }).catch(() => {
+                const userIdEl = document.getElementById('userIdDisplay');
+                const range = document.createRange();
+                range.selectNode(userIdEl);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                document.execCommand('copy');
+                const t = translations[currentLang] || translations.es;
+                showMessage(t.copied || '✅ ID copiado al portapapeles', true);
+            });
+        }
+
+        // ============================================================
+        //  ✅ REGISTER / LOGIN / LOGOUT
+        // ============================================================
+        async function handleRegister() {
+            const phone = document.getElementById('regPhone').value.trim();
+            const countryCode = document.getElementById('regCountryCode').value;
+            const username = document.getElementById('regUsername').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+            const t = translations[currentLang] || translations.es;
+
+            if (!phone || !username || !password) {
+                document.getElementById('regError').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('regError').style.display = 'none';
+            }
+
+            const userId = generateUserId();
+
+            userData.userId = userId;
+            userData.username = username;
+            userData.phone = phone;
+            userData.password = password;
+            userData.balance = 10.00;
+            userData.totalIncome = 0;
+            userData.isLoggedIn = true;
+            userData.recargaCount = 0;
+            userData.retiroCount = 0;
+            userData.trabajoCount = 0;
+            userData.notificacionCount = 1;
+            userData.bankAccounts = [];
+            userData.withdrawalHistory = [];
+            userData.history = [];
+            userData.country = 'Perú';
+            userData.vipLevel = 'VIP 1';
+            userData.totalOrders = 0;
+            userData.frozen = false;
+            userData.registrationDate = new Date().toISOString();
+            userData.ipAddress = getRandomIP();
+            orderHistory = [];
+            orderCounter = 0;
+
+            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
+            vipKeys.forEach((key, index) => {
+                userData.vipOrders[key].completedOrders = 0;
+                userData.vipOrders[key].isCompleted = false;
+                userData.vipOrders[key].isUnlocked = (index === 0);
+                userData.vipLevels[key].active = (index === 0);
+            });
+
+            try {
+                const saved = await saveUserToSupabase(userData);
+
+                if (!saved) {
+                    showMessage('❌ Error al guardar en la nube. Intenta de nuevo.', false);
+                    return;
+                }
+
+                document.getElementById('registerForm').classList.remove('active');
+                document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('active');
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+
+                document.getElementById('userIdDisplay').textContent = userData.userId;
+                document.getElementById('miUserId').textContent = userData.userId;
+                document.getElementById('contratoUserId').textContent = userData.userId;
+
+                updateDashboard();
+                renderVIPOrders();
+                updateSyncStatus(true);
+
+                const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+                switchPage('inicioPage', navItems[0]);
+
+                showMessage(t.registerSuccess.replace('{username}', username).replace('{amount}', formatCurrency(10.00)),
+                    true);
+
+            } catch (error) {
+                console.error('❌ Register Error:', error);
+                showMessage('❌ Error al registrar: ' + error.message, false);
+            }
+        }
+
+        async function handleLogin() {
+            const identifier = document.getElementById('loginIdentifier').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const t = translations[currentLang] || translations.es;
+
+            if (!identifier || !password) {
+                document.getElementById('loginError').style.display = 'block';
+                return;
+            }
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('users')
+                    .select('*')
+                    .or(`username.eq.${identifier},phone.eq.${identifier}`)
+                    .limit(1);
+
+                if (error) {
+                    showMessage('❌ Error de conexión con la nube', false);
+                    return;
+                }
+
+                if (!data || data.length === 0) {
+                    document.getElementById('loginError').style.display = 'block';
+                    showMessage(t.loginError || '❌ Usuario o contraseña incorrectos.', false);
+                    return;
+                }
+
+                const found = data[0];
+
+                if (found.password !== password) {
+                    document.getElementById('loginError').style.display = 'block';
+                    showMessage(t.loginError || '❌ Usuario o contraseña incorrectos.', false);
+                    return;
+                }
+
+                document.getElementById('loginError').style.display = 'none';
+
+                Object.assign(userData, {
+                    username: found.username,
+                    phone: found.phone,
+                    password: found.password,
+                    userId: found.user_id,
+                    balance: found.balance || 10.00,
+                    totalIncome: found.total_income || 0,
+                    country: found.country || 'Perú',
+                    vipLevel: found.vip_level || 'VIP 1',
+                    totalOrders: found.total_orders || 0,
+                    frozen: found.frozen || false,
+                    registrationDate: found.registration_date || new Date().toISOString(),
+                    ipAddress: found.ip_address || '192.168.1.100',
+                    bankAccounts: found.bank_accounts || [],
+                    history: found.history || [],
+                    isLoggedIn: true
+                });
+
+                if (found.vip_orders) Object.assign(userData.vipOrders, found.vip_orders);
+                if (found.vip_levels) Object.assign(userData.vipLevels, found.vip_levels);
+
+                document.getElementById('registerForm').classList.remove('active');
+                document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('active');
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+
+                document.getElementById('userIdDisplay').textContent = userData.userId;
+                document.getElementById('miUserId').textContent = userData.userId;
+                document.getElementById('contratoUserId').textContent = userData.userId;
+
+                updateDashboard();
+                renderVIPOrders();
+                updateSyncStatus(true);
+
+                const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+                switchPage('inicioPage', navItems[0]);
+
+                showMessage(t.loginSuccess.replace('{username}', userData.username), true);
+
+            } catch (err) {
+                showMessage('❌ Error de conexión con la nube', false);
+            }
+        }
+
+        function handleLogout() {
+            const t = translations[currentLang] || translations.es;
+            userData.isLoggedIn = false;
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('active');
+            document.getElementById('loginForm').classList.remove('active');
+            document.getElementById('loginForm').classList.add('hidden');
+            showMessage(t.logoutSuccess || '👋 Has cerrado sesión correctamente.', true);
+            applyTranslations(currentLang);
+        }
+
+        // ============================================================
+        //  VIP ORDERS SYSTEM
+        // ============================================================
+        function renderVIPOrders() {
+            const container = document.getElementById('vipOrdersContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            const t = translations[currentLang] || translations.es;
+
+            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
+
+            vipKeys.forEach(key => {
+                const order = userData.vipOrders[key];
+                const progress = (order.completedOrders / order.totalOrders) * 100;
+                const isComplete = order.completedOrders >= order.totalOrders;
+
+                let isUnlocked = order.isUnlocked;
+                let lockReason = '';
+
+                if (!isUnlocked && order.unlockRequirement) {
+                    const req = order.unlockRequirement;
+                    const reqKey = req.level.toLowerCase().replace(' ', '');
+                    const reqOrder = userData.vipOrders[reqKey];
+                    if (reqOrder && reqOrder.completedOrders >= req.requiredOrders) {
+                        isUnlocked = true;
+                        order.isUnlocked = true;
+                    } else {
+                        lockReason =
+                            `🔒 ${t.requiresCompleting || 'Requiere completar'} ${req.level} (${req.requiredOrders} ${t.orders || 'órdenes'})`;
+                    }
+                }
+
+                if (isUnlocked && !userData.vipLevels[key].active) {
+                    userData.vipLevels[key].active = true;
+                }
+
+                const div = document.createElement('div');
+                div.className = 'vip-order-item';
+
+                let buttonHtml = '';
+                if (isComplete) {
+                    buttonHtml =
+                        `<button class="btn btn-sm btn-vip completed" disabled>✅ ${t.completed || 'Completado'}</button>`;
+                } else if (!isUnlocked) {
+                    buttonHtml =
+                        `<button class="btn btn-sm btn-vip locked" disabled>${lockReason || '🔒 ' + (t.locked || 'Bloqueado')}</button>`;
+                } else {
+                    buttonHtml = `
+                                <button class="btn btn-sm btn-vip" onclick="completeVIPOrder('${key}')">
+                                    📦 ${t.completeOrder || 'Completar Orden'}
+                                </button>
+                            `;
+                }
+
+                const commission = order.baseInvestment * order.commissionRate;
+
+                div.innerHTML = `
+                            <div class="vip-info">
+                                <div class="vip-title">${order.level}</div>
+                                <div class="vip-details">
+                                    ${t.orders || 'Ordenes'}: ${order.completedOrders}/${order.totalOrders}
+                                    ${isUnlocked ? `| 💰 ${t.investment || 'Inversión'}: ${formatCurrency(order.baseInvestment)}` : ''}
+                                    ${isUnlocked ? `| 📈 ${t.commission || 'Comisión'}: ${(order.commissionRate * 100)}%` : ''}
+                                </div>
+                                <div class="vip-progress">
+                                    <div class="progress-bar" style="width: ${Math.min(progress, 100)}%;"></div>
+                                </div>
+                            </div>
+                            <div class="vip-actions">
+                                <div class="order-count">${order.completedOrders}/${order.totalOrders}</div>
+                                ${isUnlocked ? `<div class="commission-info">💰 ${formatCurrency(commission)} ${t.perOrder || 'por orden'}</div>` : ''}
+                                ${buttonHtml}
+                            </div>
+                        `;
+                container.appendChild(div);
+            });
+
+            renderOrderHistory();
+        }
+
+        function getRandomProduct() {
+            return productos[Math.floor(Math.random() * productos.length)];
+        }
+
+        function showOrderModal(product, commission, completedCount, totalCount) {
+            document.getElementById('modalProductIcon').textContent = product.icon;
+            document.getElementById('modalProductName').textContent = product.name;
+            document.getElementById('modalProductPrice').textContent = formatCurrency(product.price);
+            document.getElementById('modalCommission').textContent = formatCurrency(commission);
+
+            const t = translations[currentLang] || translations.es;
+            document.getElementById('modalOrderCount').textContent =
+                t.orderCount.replace('{count}', completedCount).replace('{total}', totalCount) ||
+                `Orden #${completedCount} de ${totalCount} completada`;
+
+            document.getElementById('orderModal').classList.add('show');
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.remove('show');
+        }
+
+        function renderOrderHistory() {
+            const container = document.getElementById('orderHistoryList');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const t = translations[currentLang] || translations.es;
+
+            if (orderHistory.length === 0) {
+                container.innerHTML = `
+                            <div style="text-align:center; padding:10px; color:#888; font-size:0.85rem;">
+                                ${t.noOrders || 'No hay órdenes completadas aún.'}
+                            </div>
+                        `;
+                return;
+            }
+
+            const history = [...orderHistory].reverse();
+            history.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'order-history-item';
+                div.innerHTML = `
+                            <div>
+                                <span class="product-name">${item.icon} ${item.product}</span>
+                                <div class="order-time">${item.time}</div>
+                            </div>
+                            <div>
+                                <span class="order-earned">+${formatCurrency(item.commission)}</span>
+                            </div>
+                        `;
+                container.appendChild(div);
+            });
+        }
+
+        async function completeVIPOrder(vipKey) {
+            const order = userData.vipOrders[vipKey];
+            const t = translations[currentLang] || translations.es;
+
+            if (!order.isUnlocked) {
+                showMessage(t.notUnlocked || '❌ Este nivel VIP no está desbloqueado aún.', false);
+                return;
+            }
+
+            if (order.completedOrders >= order.totalOrders) {
+                showMessage(t.alreadyCompleted || '✅ ¡Ya has completado todas las órdenes de este nivel!', true);
+                return;
+            }
+
+            const product = getRandomProduct();
+            const commission = order.baseInvestment * order.commissionRate;
+
+            order.completedOrders += 1;
+            orderCounter += 1;
+
+            userData.balance += commission;
+            userData.totalIncome += commission;
+            userData.totalOrders += 1;
+
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('es-ES', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            orderHistory.push({
+                icon: product.icon,
+                product: product.name,
+                commission: commission,
+                time: timeStr,
+                vipLevel: order.level
+            });
+
+            if (!userData.history) userData.history = [];
+            userData.history.push({
+                action: `Orden ${order.level}`,
+                amount: commission,
+                date: now.toISOString()
+            });
+
+            await saveUserToSupabase(userData);
+
+            showOrderModal(product, commission, order.completedOrders, order.totalOrders);
+
+            if (order.completedOrders >= order.totalOrders) {
+                order.isCompleted = true;
+                setTimeout(() => {
+                    showMessage(
+                        `${t.completedAll || '🎉 ¡Felicidades! Has completado'} ${order.level} ${t.andEarned || 'y ganado'} ${formatCurrency(commission)}!`,
+                        true);
+
+                    const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
+                    const currentIndex = vipKeys.indexOf(vipKey);
+                    if (currentIndex < vipKeys.length - 1) {
+                        const nextKey = vipKeys[currentIndex + 1];
+                        const nextOrder = userData.vipOrders[nextKey];
+                        if (nextOrder && !nextOrder.isUnlocked) {
+                            const req = nextOrder.unlockRequirement;
+                            const reqKey = req.level.toLowerCase().replace(' ', '');
+                            const reqOrder = userData.vipOrders[reqKey];
+                            if (reqOrder && reqOrder.completedOrders >= req.requiredOrders) {
+                                nextOrder.isUnlocked = true;
+                                userData.vipLevels[nextKey].active = true;
+                                saveUserToSupabase(userData);
+                                showMessage(t.unlocked.replace('{level}', nextOrder.level), true);
+                            }
+                        }
+                    }
+                    renderVIPOrders();
+                    updateDashboard();
+                }, 500);
+            } else {
+                setTimeout(() => {
+                    showMessage(
+                        `✅ ${t.orderCompleted || 'Orden completada en'} ${order.level}. ${t.earned || 'Ganaste'} ${formatCurrency(commission)}! (${order.completedOrders}/${order.totalOrders})`,
+                        true);
+                    renderVIPOrders();
+                    updateDashboard();
+                }, 500);
+            }
+        }
+
+        // ============================================================
+        //  DASHBOARD FUNCTIONS
+        // ============================================================
+        function updateDashboard() {
+            document.getElementById('displayUsername').textContent = userData.username;
+            document.getElementById('displayBalance').textContent = formatCurrency(userData.balance);
+            document.getElementById('totalIncome').textContent = formatCurrency(userData.totalIncome);
+
+            const profileUsername = document.getElementById('profileUsername');
+            const profilePhone = document.getElementById('profilePhone');
+            const profileBalance = document.getElementById('profileBalance');
+            const profileVip = document.getElementById('profileVip');
+            if (profileUsername) profileUsername.textContent = userData.username;
+            if (profilePhone) profilePhone.textContent = userData.phone || '+51 987654321';
+            if (profileBalance) profileBalance.textContent = formatCurrency(userData.balance);
+            if (profileVip) profileVip.textContent = userData.vipLevel || 'VIP 1';
+
+            document.getElementById('userIdDisplay').textContent = userData.userId || generateUserId();
+            document.getElementById('miUserId').textContent = userData.userId || generateUserId();
+            document.getElementById('contratoUserId').textContent = userData.userId || generateUserId();
+
+            renderBankAccounts();
+            updateWithdrawBankSelect();
+            renderWithdrawalHistory();
+            applyTranslations(currentLang);
+        }
+
+        function renderBankAccounts() {
+            const container = document.getElementById('bankListMi');
+            const countEl = document.getElementById('bankCountMi');
+            if (!container) return;
+
+            container.innerHTML = '';
+            const banks = userData.bankAccounts || [];
+
+            if (banks.length === 0) {
+                container.innerHTML = `
+                            <div style="text-align:center; padding:15px; color:#888; font-size:0.95rem; background:#f8f9fa; border-radius:12px;">
+                                No hay cuentas bancarias registradas.
+                            </div>
+                        `;
+                if (countEl) countEl.textContent = '0';
+                return;
+            }
+
+            banks.forEach((account, index) => {
+                const div = document.createElement('div');
+                div.className = 'bank-account-card';
+                div.innerHTML = `
+                            <div class="bank-info">
+                                <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
+                                <div><strong>Cuenta:</strong> ${account.accountNumber}</div>
+                                <div><strong>Titular:</strong> ${account.accountHolder}</div>
+                                <div><strong>CCI:</strong> ${account.cci}</div>
+                            </div>
+                            <button class="delete-btn" onclick="deleteBankAccount(${index})" title="Eliminar">✕</button>
+                        `;
+                container.appendChild(div);
+            });
+
+            if (countEl) countEl.textContent = banks.length;
+        }
+
+        function updateWithdrawBankSelect() {
+            const select = document.getElementById('withdrawBankSelect');
+            if (!select) return;
+
+            select.innerHTML = '<option value="">-- Selecciona un banco --</option>';
+
+            const banks = userData.bankAccounts || [];
+            banks.forEach((account, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${account.bankName} - ${account.accountNumber}`;
+                select.appendChild(option);
+            });
+
+            select.onchange = function() {
+                const idx = parseInt(this.value);
+                const display = document.getElementById('selectedBankDisplay');
+                if (isNaN(idx) || idx < 0 || idx >= banks.length) {
+                    display.classList.add('hidden');
+                    return;
+                }
+                const bank = banks[idx];
+                document.getElementById('selectedBankName').textContent = bank.bankName;
+                document.getElementById('selectedBankDetails').textContent =
+                    `Cuenta: ${bank.accountNumber} | Titular: ${bank.accountHolder}`;
+                display.classList.remove('hidden');
+            };
+        }
+
+        function renderWithdrawalHistory() {
+            const container = document.getElementById('withdrawalHistoryList');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const history = userData.withdrawalHistory || [];
+
+            if (history.length === 0) {
+                container.innerHTML = `
+                            <div style="text-align:center; padding:15px; color:#888; font-size:0.9rem;">
+                                No hay retiros realizados.
+                            </div>
+                        `;
+                return;
+            }
+
+            const reversed = [...history].reverse();
+            reversed.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'history-item';
+                div.innerHTML = `
+                            <div>
+                                <div class="bank-info">🏛️ ${item.bankName}</div>
+                                <div class="date-info">📅 ${item.date}</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div class="amount-info">${formatCurrency(-item.amount)}</div>
+                                <div class="status-success">✅ ${item.status || 'Completado'}</div>
+                            </div>
+                        `;
+                container.appendChild(div);
+            });
+        }
+
+        // ============================================================
+        //  BANK FUNCTIONS
+        // ============================================================
+        function toggleBankFormMi() {
+            const form = document.getElementById('bankFormContainerMi');
+            if (!form) return;
+            form.classList.toggle('hidden');
+            if (!form.classList.contains('hidden')) {
+                document.getElementById('bankNameMi').value = '';
+                document.getElementById('bankAccountNumberMi').value = '';
+                document.getElementById('bankAccountHolderMi').value = '';
+                document.getElementById('bankCCIMi').value = '';
+            }
+            applyTranslations(currentLang);
+        }
+
+        async function saveBankAccountMi() {
+            const bankName = document.getElementById('bankNameMi').value;
+            const accountNumber = document.getElementById('bankAccountNumberMi').value.trim();
+            const accountHolder = document.getElementById('bankAccountHolderMi').value.trim();
+            const cci = document.getElementById('bankCCIMi').value.trim();
+
+            if (!bankName || !accountNumber || !accountHolder || !cci) {
+                showMessage('⚠️ Por favor, completa todos los campos del banco.', false);
+                return;
+            }
+
+            if (!userData.bankAccounts) userData.bankAccounts = [];
+            userData.bankAccounts.push({
+                bankName: bankName,
+                accountNumber: accountNumber,
+                accountHolder: accountHolder,
+                cci: cci
+            });
+
+            await saveUserToSupabase(userData);
+            renderBankAccounts();
+            updateWithdrawBankSelect();
+            toggleBankFormMi();
+            showMessage(`✅ Cuenta bancaria "${bankName}" agregada con éxito.`, true);
+        }
+
+        async function deleteBankAccount(index) {
+            if (confirm('¿Estás seguro de eliminar esta cuenta bancaria?')) {
+                const deleted = userData.bankAccounts[index];
+                userData.bankAccounts.splice(index, 1);
+                await saveUserToSupabase(userData);
+                renderBankAccounts();
+                updateWithdrawBankSelect();
+                showMessage(`🗑️ Cuenta "${deleted.bankName}" eliminada.`, true);
+            }
+        }
+
+        // ============================================================
+        //  WITHDRAWAL FUNCTION
+        // ============================================================
+        async function processWithdrawal() {
+            const select = document.getElementById('withdrawBankSelect');
+            const amountInput = document.getElementById('withdrawAmount');
+            const amount = parseFloat(amountInput.value);
+            const t = translations[currentLang] || translations.es;
+
+            const bankIndex = parseInt(select.value);
+            if (isNaN(bankIndex) || bankIndex < 0 || bankIndex >= (userData.bankAccounts || []).length) {
+                showMessage(t.selectBank || '⚠️ Por favor, selecciona una cuenta bancaria.', false);
+                return;
+            }
+
+            if (isNaN(amount) || amount <= 0) {
+                showMessage(t.validAmount || '⚠️ Por favor, ingresa un monto válido mayor a 0.', false);
+                return;
+            }
+
+            if (amount > userData.balance) {
+                showMessage(`${t.insufficientBalance || '❌ Saldo insuficiente. Tu saldo es'} ${formatCurrency(userData.balance)}`,
+                    false);
+                return;
+            }
+
+            const selectedBank = userData.bankAccounts[bankIndex];
+            userData.balance -= amount;
+            userData.retiroCount += 1;
+
+            if (!userData.withdrawalHistory) userData.withdrawalHistory = [];
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            userData.withdrawalHistory.push({
+                bankName: selectedBank.bankName,
+                amount: amount,
+                date: dateStr,
+                status: 'Completado'
+            });
+
+            if (!userData.history) userData.history = [];
+            userData.history.push({
+                action: 'Retiro',
+                amount: -amount,
+                date: now.toISOString()
+            });
+
+            await saveUserToSupabase(userData);
+            updateDashboard();
+            updateWithdrawBankSelect();
+            renderWithdrawalHistory();
+            amountInput.value = '';
+            showMessage(t.withdrawalSuccess.replace('{amount}', formatCurrency(amount)).replace('{bank}', selectedBank
+                .bankName), true);
+        }
+
+        // ============================================================
+        //  DASHBOARD BUTTONS
+        // ============================================================
+        async function handleComenzar() {
+            const t = translations[currentLang] || translations.es;
+            userData.balance += 5;
+            userData.totalIncome += 5;
+            userData.trabajoCount += 1;
+            if (!userData.history) userData.history = [];
+            userData.history.push({
+                action: 'Trabajo completado',
+                amount: 5,
+                date: new Date().toISOString()
+            });
+            await saveUserToSupabase(userData);
+            updateDashboard();
+            showMessage(t.comenzarSuccess.replace('{amount}', formatCurrency(5)), true);
+        }
+
+        async function handleRecargar() {
+            const t = translations[currentLang] || translations.es;
+            userData.balance += 10;
+            userData.recargaCount += 1;
+            if (!userData.history) userData.history = [];
+            userData.history.push({
+                action: 'Recarga',
+                amount: 10,
+                date: new Date().toISOString()
+            });
+            await saveUserToSupabase(userData);
+            updateDashboard();
+            showMessage(t.recargarSuccess.replace('{amount}', formatCurrency(10)), true);
+        }
+
+        function handleRetirar() {
+            const t = translations[currentLang] || translations.es;
+            const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+            if (navItems.length > 4) {
+                switchPage('miPage', navItems[4]);
+            }
+            showMessage(t.goToWithdraw || '📤 Ve a la sección "Mi" para realizar tu retiro.', true);
+        }
+
+        // ============================================================
+        //  SWITCH PAGE
+        // ============================================================
+        function switchPage(pageId, element) {
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+
+            const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            if (element) {
+                element.classList.add('active');
+            }
+
+            if (pageId === 'vipOrdersPage') {
+                renderVIPOrders();
+            }
+            if (pageId === 'miPage') {
+                updateDashboard();
+            }
+            if (pageId === 'contratoPage') {
+                document.getElementById('contratoUserId').textContent = userData.userId || generateUserId();
+            }
+            applyTranslations(currentLang);
+        }
+
+        // ============================================================
+        //  INIT
+        // ============================================================
+        window.onload = function() {
+            document.getElementById('languageSwitcher').value = 'es';
+            document.getElementById('currencySwitcher').value = 'PEN';
+            currentLang = 'es';
+            currentCurrency = 'PEN';
+
+            if (userData.isLoggedIn && userData.userId) {
+                document.getElementById('registerForm').classList.remove('active');
+                document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('active');
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+
+                document.getElementById('userIdDisplay').textContent = userData.userId;
+                document.getElementById('miUserId').textContent = userData.userId;
+                document.getElementById('contratoUserId').textContent = userData.userId;
+
+                updateDashboard();
+                renderVIPOrders();
+                const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+                switchPage('inicioPage', navItems[0]);
+                updateSyncStatus(true);
+            } else {
+                document.getElementById('registerForm').classList.remove('hidden');
+                document.getElementById('registerForm').classList.add('active');
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('active');
+                document.getElementById('dashboard').classList.add('hidden');
+                updateSyncStatus(false);
+            }
+
+            document.getElementById('regError').style.display = 'none';
+            document.getElementById('loginError').style.display = 'none';
+            applyTranslations('es');
+
+            document.getElementById('orderModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeOrderModal();
+                }
+            });
+
+            (async function checkConnection() {
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('users')
+                        .select('count')
+                        .limit(1);
+
+                    if (error) {
+                        updateSyncStatus(false);
+                    } else {
+                        updateSyncStatus(true);
+                    }
+                } catch (err) {
+                    updateSyncStatus(false);
+                }
+            })();
+
+            console.log('🛒 Shein Platform v4.0 (Supabase + 5 Pages)');
+            console.log('☁️ Conectado a Supabase');
+            console.log('📋 URL:', SUPABASE_URL);
+        };
+    </script>
+
+</body>
+</html>
