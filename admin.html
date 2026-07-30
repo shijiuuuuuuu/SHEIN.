@@ -885,7 +885,7 @@
             </div>
 
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Ej: 1234567 o 938218405">
+                <input type="text" id="searchInput" placeholder="Ej: 8732294 o 938218405">
                 <button class="btn btn-primary" onclick="searchUser()">🔍 Buscar</button>
                 <button class="btn btn-outline" onclick="clearSearch()">🗑️ Limpiar</button>
             </div>
@@ -903,7 +903,7 @@
                         <div style="font-size:0.8rem; color:#888; margin-top:2px;" id="resultUserPhone">📱 +51 938218405</div>
                     </div>
                     <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                        <span class="user-id-badge" id="resultUserId">🆔 1234567</span>
+                        <span class="user-id-badge" id="resultUserId">🆔 8732294</span>
                         <span class="user-status-badge active" id="resultStatusBadge">✅ Activo</span>
                     </div>
                 </div>
@@ -927,7 +927,7 @@
                     </div>
                     <div class="info-item">
                         <div class="label">📅 Registro</div>
-                        <div class="value" id="resultUserDate">2026-07-23</div>
+                        <div class="value" id="resultUserDate">2026-07-30</div>
                     </div>
                     <div class="info-item">
                         <div class="label">📦 Órdenes</div>
@@ -1046,7 +1046,7 @@
 
     <script>
         // ============================================================
-        //  STORAGE KEY
+        //  STORAGE KEY - MISMA CLAVE PARA FRONTEND Y BACKEND
         // ============================================================
         const STORAGE_KEY = 'shein_admin_data';
 
@@ -1070,14 +1070,13 @@
         let currentSearchUserIndex = -1;
 
         // ============================================================
-        //  ✅ FIXED: LOAD FUNCTIONS
+        //  ✅ LOAD FUNCTIONS - CON LOCAL STORAGE
         // ============================================================
         function loadAdminData() {
             const stored = localStorage.getItem(STORAGE_KEY);
             
-            // 📝 Log para debugging
-            console.log('📁 Local Storage Key:', STORAGE_KEY);
-            console.log('📦 Datos almacenados:', stored);
+            console.log('📁🔑 STORAGE_KEY:', STORAGE_KEY);
+            console.log('📦 Datos almacenados en Local Storage:', stored);
             
             if (stored) {
                 try {
@@ -1096,10 +1095,14 @@
                         vip6: { totalOrders: 60, commissionRate: 0.55 }
                     };
                     
-                    // 📊 Mostrar información
                     console.log('✅ Datos cargados correctamente');
                     console.log('👥 Usuarios encontrados:', adminData.users.length);
-                    console.log('📋 Usuarios:', adminData.users.map(u => u.username || 'Sin nombre'));
+                    console.log('📋 Lista de usuarios:', adminData.users.map(u => ({ 
+                        username: u.username, 
+                        userId: u.userId, 
+                        phone: u.phone,
+                        balance: u.balance 
+                    })));
                     
                 } catch (e) {
                     console.error('❌ Error al cargar datos:', e);
@@ -1107,14 +1110,85 @@
                     adminData.adminPassword = 'admin123';
                 }
             } else {
-                console.log('📁 No hay datos en Local Storage');
+                console.log('📁 No hay datos en Local Storage. Creando datos de ejemplo...');
                 adminData.users = [];
                 adminData.adminPassword = 'admin123';
-                // Guardar datos iniciales
+                // Crear datos de ejemplo
+                createExampleUsers();
                 saveAdminData();
             }
             
             if (!adminData.users) adminData.users = [];
+        }
+
+        function createExampleUsers() {
+            adminData.users = [
+                {
+                    username: 'hghvbcvhg',
+                    phone: '85258252512',
+                    password: 'demo123',
+                    balance: 10.00,
+                    totalIncome: 0,
+                    userId: '8732294',
+                    country: 'Perú',
+                    language: 'Español',
+                    vipLevel: 'VIP 1',
+                    totalOrders: 0,
+                    frozen: false,
+                    registrationDate: '2026-07-30 14:30',
+                    ipAddress: '190.236.26.127',
+                    bankAccounts: [],
+                    history: [
+                        { action: 'Registro', amount: 10, date: '2026-07-30 14:30' }
+                    ]
+                },
+                {
+                    username: 'Jhostynjose',
+                    phone: '938218405',
+                    password: 'demo123',
+                    balance: 1011.72,
+                    totalIncome: 465.72,
+                    userId: '1776174',
+                    country: 'Perú',
+                    language: 'Español',
+                    vipLevel: 'VIP 1',
+                    totalOrders: 20,
+                    frozen: false,
+                    registrationDate: '2026-07-23 11:30',
+                    ipAddress: '190.236.26.127',
+                    bankAccounts: [
+                        { bankName: 'Banco BBVA', accountNumber: '453215', accountHolder: 'Jhostynjose', cci: '5412456' },
+                        { bankName: 'Banco de Crédito (BCP)', accountNumber: '789012', accountHolder: 'Jhostynjose', cci: '9876543' }
+                    ],
+                    history: [
+                        { action: 'Depósito', amount: 50, date: '2026-07-23 10:00' },
+                        { action: 'Retiro', amount: 20, date: '2026-07-22 15:30' },
+                        { action: 'Comisión VIP 1', amount: 15, date: '2026-07-21 09:00' }
+                    ]
+                },
+                {
+                    username: 'test_user',
+                    phone: '912345678',
+                    password: 'test123',
+                    balance: 15.00,
+                    totalIncome: 5.00,
+                    userId: '7654321',
+                    country: 'Colombia',
+                    language: 'Español',
+                    vipLevel: 'VIP 1',
+                    totalOrders: 3,
+                    frozen: false,
+                    registrationDate: '2026-07-22 14:20',
+                    ipAddress: '192.168.1.100',
+                    bankAccounts: [
+                        { bankName: 'Banco Interbank', accountNumber: '123456', accountHolder: 'Test User', cci: '1234567' }
+                    ],
+                    history: [
+                        { action: 'Depósito', amount: 10, date: '2026-07-22 12:00' }
+                    ]
+                }
+            ];
+            console.log('📝 Usuarios de ejemplo creados:', adminData.users.length);
         }
 
         function saveAdminData() {
@@ -1185,7 +1259,6 @@
             renderStats();
         }
 
-        // ✅ FIXED: Render Users
         function renderUsers() {
             const container = document.getElementById('userList');
             const count = document.getElementById('userCount');
@@ -1199,9 +1272,9 @@
                     <div style="text-align:center; padding:30px; color:#888; background:#f8f9fa; border-radius:12px;">
                         <p style="font-size:1.2rem; margin-bottom:10px;">👥 No hay usuarios registrados aún.</p>
                         <p style="font-size:0.85rem; color:#aaa;">
-                            💡 Para crear usuarios, regístrate en la plataforma principal 
+                            💡 Regístrate en la plataforma principal 
                             <br>
-                            <span style="color:#ff6b6b;">(index.html)</span> o crea uno desde aquí.
+                            <span style="color:#ff6b6b;">(index.html)</span> o usa el botón de abajo.
                         </p>
                         <button class="btn btn-primary btn-sm" onclick="addDemoUser()" style="margin-top:10px; width:auto;">
                             ➕ Agregar usuario de prueba
@@ -1242,8 +1315,7 @@
             const vipNames = ['VIP 1', 'VIP 2', 'VIP 3', 'VIP 4', 'VIP 5', 'VIP 6'];
 
             vipKeys.forEach((key, index) => {
-                const config = adminData.defaultOrders[key] || { totalOrders: (index + 1) * 10, commissionRate: 0.30 +
-                        (index * 0.05) };
+                const config = adminData.defaultOrders[key] || { totalOrders: (index + 1) * 10, commissionRate: 0.30 + (index * 0.05) };
                 const isUnlocked = index === 0;
 
                 const div = document.createElement('div');
@@ -1310,7 +1382,9 @@
                 registrationDate: getCurrentDate(),
                 ipAddress: '192.168.' + Math.floor(Math.random() * 255) + '.' + Math.floor(Math.random() * 255),
                 bankAccounts: [],
-                history: []
+                history: [
+                    { action: 'Registro', amount: 10, date: getCurrentDate() }
+                ]
             };
             
             adminData.users.push(newUser);
@@ -1357,7 +1431,7 @@
         }
 
         // ============================================================
-        //  SEARCH FUNCTIONS
+        //  ✅ SEARCH FUNCTIONS - BUSCAR POR ID
         // ============================================================
         function searchUser() {
             const searchTerm = document.getElementById('searchInput').value.trim();
@@ -1372,6 +1446,7 @@
             let foundIndex = -1;
 
             adminData.users.forEach((user, index) => {
+                // ✅ Buscar por ID (exacto) o por teléfono
                 if (user.userId === searchTerm || user.phone === searchTerm || user.username === searchTerm) {
                     foundIndex = index;
                 }
@@ -1380,6 +1455,7 @@
             if (foundIndex === -1) {
                 resultCard.classList.remove('show');
                 notFound.classList.add('show');
+                showMessage(`❌ No se encontró usuario con ID: ${searchTerm}`, 'error');
                 return;
             }
 
@@ -1387,7 +1463,7 @@
             currentSearchUserIndex = foundIndex;
             displayUserResult(foundIndex);
             resultCard.classList.add('show');
-            showMessage('✅ Usuario encontrado', 'success');
+            showMessage(`✅ Usuario encontrado: ${adminData.users[foundIndex].username} (ID: ${adminData.users[foundIndex].userId})`, 'success');
         }
 
         function displayUserResult(index) {
@@ -1762,58 +1838,14 @@
 
         // Si no hay usuarios, crear datos de ejemplo
         if (adminData.users.length === 0) {
-            adminData.users.push({
-                username: 'Jhostynjose',
-                phone: '938218405',
-                password: 'demo123',
-                balance: 1011.72,
-                totalIncome: 465.72,
-                userId: '1776174',
-                country: 'Perú',
-                language: 'Español',
-                vipLevel: 'VIP 1',
-                totalOrders: 20,
-                frozen: false,
-                registrationDate: '2026-07-23 11:30',
-                ipAddress: '190.236.26.127',
-                bankAccounts: [
-                    { bankName: 'Banco BBVA', accountNumber: '453215', accountHolder: 'Jhostynjose', cci: '5412456' },
-                    { bankName: 'Banco de Crédito (BCP)', accountNumber: '789012', accountHolder: 'Jhostynjose',
-                        cci: '9876543' }
-                ],
-                history: [
-                    { action: 'Depósito', amount: 50, date: '2026-07-23 10:00' },
-                    { action: 'Retiro', amount: 20, date: '2026-07-22 15:30' },
-                    { action: 'Comisión VIP 1', amount: 15, date: '2026-07-21 09:00' }
-                ]
-            });
-            adminData.users.push({
-                username: 'test_user',
-                phone: '912345678',
-                password: 'test123',
-                balance: 15.00,
-                totalIncome: 5.00,
-                userId: '7654321',
-                country: 'Colombia',
-                language: 'Español',
-                vipLevel: 'VIP 1',
-                totalOrders: 3,
-                frozen: false,
-                registrationDate: '2026-07-22 14:20',
-                ipAddress: '192.168.1.100',
-                bankAccounts: [
-                    { bankName: 'Banco Interbank', accountNumber: '123456', accountHolder: 'Test User', cci: '1234567' }
-                ],
-                history: [
-                    { action: 'Depósito', amount: 10, date: '2026-07-22 12:00' }
-                ]
-            });
+            createExampleUsers();
             saveAdminData();
         }
 
         console.log('🛠️ Admin Panel cargado correctamente');
-        console.log('👥 Usuarios:', adminData.users.length);
+        console.log('👥 Total de usuarios:', adminData.users.length);
         console.log('🔑 Contraseña admin:', adminData.adminPassword);
+        console.log('📋 IDs disponibles:', adminData.users.map(u => u.userId).join(', '));
     </script>
 
 </body>
