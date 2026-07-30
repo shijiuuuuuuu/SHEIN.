@@ -245,6 +245,11 @@
             cursor: not-allowed;
         }
 
+        .btn-vip.locked:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
         .btn-sm {
             padding: 8px 15px;
             font-size: 0.85rem;
@@ -1832,10 +1837,10 @@
     <script>
         // ============================================================
         //  🔥 SUPABASE CONFIGURATION
-        //  👇 REPLACE WITH YOUR SUPABASE CREDENTIALS
+        //  👇 CONFIGURACIÓN CON TU NUEVA PUBLISHED KEY
         // ============================================================
         const SUPABASE_URL = "https://avoalfrzwftqmoedmfwt.supabase.co";
-        const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY_HERE"; // 🔑 Reemplaza con tu clave
+        const SUPABASE_ANON_KEY = "sb_publishable_IMR3mv3IOgaBnVOvN5RgCA_-Slk771w";
 
         // ============================================================
         //  INIT SUPABASE
@@ -2687,16 +2692,7 @@
         // ============================================================
         async function saveUserToSupabase(user) {
             try {
-                const { data: existing, error: checkError } = await supabaseClient
-                    .from('users')
-                    .select('user_id')
-                    .eq('user_id', user.userId)
-                    .single();
-
-                if (checkError && checkError.code !== 'PGRST116') {
-                    console.error('❌ Error checking user:', checkError);
-                    return false;
-                }
+                console.log('📤 Enviando usuario a Supabase:', user);
 
                 const userData = {
                     username: user.username,
@@ -2715,27 +2711,24 @@
                     history: user.history || []
                 };
 
-                let result;
-                if (existing) {
-                    result = await supabaseClient
-                        .from('users')
-                        .update(userData)
-                        .eq('user_id', user.userId);
-                } else {
-                    result = await supabaseClient
-                        .from('users')
-                        .insert([userData]);
-                }
+                console.log('📦 Datos a guardar:', userData);
 
-                if (result.error) {
-                    console.error('❌ Error saving user:', result.error);
+                const { data, error } = await supabaseClient
+                    .from('users')
+                    .insert([userData]);
+
+                if (error) {
+                    console.error('❌ Supabase Error:', error);
+                    console.error('❌ Error code:', error.code);
+                    console.error('❌ Error message:', error.message);
                     return false;
                 }
 
+                console.log('✅ User saved successfully:', data);
                 return true;
 
             } catch (err) {
-                console.error('❌ Error:', err);
+                console.error('❌ Catch Error:', err);
                 return false;
             }
         }
@@ -3579,6 +3572,7 @@
             console.log('🛒 Shein Platform v4.0 (Supabase + 5 Pages)');
             console.log('☁️ Conectado a Supabase');
             console.log('📋 URL:', SUPABASE_URL);
+            console.log('🔑 ANON Key:', SUPABASE_ANON_KEY);
         };
     </script>
 
