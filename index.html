@@ -33,48 +33,6 @@
             position: relative;
         }
 
-        /* ========== TOP BAR ========== */
-        .top-bar {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #f0f0f0;
-            flex-wrap: wrap;
-        }
-
-        .top-bar .switcher-group {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            background: #f8f9fa;
-            padding: 3px 8px 3px 5px;
-            border-radius: 25px;
-            border: 1px solid #e0e0e0;
-        }
-
-        .top-bar .switcher-group .icon {
-            font-size: 1rem;
-        }
-
-        .top-bar .switcher-group select {
-            padding: 4px 6px;
-            border: none;
-            background: transparent;
-            font-size: 0.7rem;
-            cursor: pointer;
-            outline: none;
-            color: #2d3436;
-            font-weight: 500;
-            max-width: 110px;
-        }
-
-        .top-bar .switcher-group select:hover {
-            color: #ff6b6b;
-        }
-
         .app-header {
             text-align: center;
             margin-bottom: 15px;
@@ -89,37 +47,6 @@
         .app-header p {
             color: #888;
             font-size: 0.9rem;
-        }
-
-        /* ========== AUTH SECTION ========== */
-        .auth-section {
-            position: relative;
-        }
-
-        .auth-form {
-            display: none;
-            animation: fadeSlide 0.4s ease;
-        }
-
-        .auth-form.active {
-            display: block;
-        }
-
-        @keyframes fadeSlide {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .auth-form h2 {
-            color: #2d3436;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
         }
 
         .form-group {
@@ -201,48 +128,20 @@
             background: #f9ca24;
         }
 
-        .btn-primary {
-            background: #0984e3;
-        }
-
-        .btn-primary:hover {
-            background: #0652DD;
-        }
-
-        .btn-vip {
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            color: white;
-        }
-
-        .btn-vip:hover {
-            background: linear-gradient(135deg, #5a4bd1, #8c7fe6);
-        }
-
-        .btn-vip.completed {
-            background: linear-gradient(135deg, #00b894, #55efc4);
-            color: white;
-        }
-
-        .btn-vip.locked {
-            background: linear-gradient(135deg, #636e72, #b2bec3);
-            color: white;
-            cursor: not-allowed;
-        }
-
-        .btn-vip.locked:hover {
-            transform: none;
-            box-shadow: none;
-        }
-
-        .btn-sm {
-            padding: 8px 15px;
-            font-size: 0.85rem;
-            width: auto;
-            margin-top: 0;
-        }
-
         .hidden {
             display: none !important;
+        }
+
+        .switch-link {
+            text-align: center;
+            margin-top: 15px;
+            color: #0984e3;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .switch-link:hover {
+            text-decoration: underline;
         }
 
         .error-msg {
@@ -265,23 +164,31 @@
             margin: 10px 0;
         }
 
-        /* ========== SWITCH LINK ========== */
-        .switch-link {
-            text-align: center;
-            margin-top: 15px;
-            color: #0984e3;
-            cursor: pointer;
-            font-weight: 500;
-            transition: 0.2s;
+        /* ========== AUTH SECTION ========== */
+        .auth-form {
+            display: none;
+            animation: fadeSlide 0.4s ease;
         }
 
-        .switch-link:hover {
-            text-decoration: underline;
-            color: #0652DD;
+        .auth-form.active {
+            display: block;
         }
 
-        .switch-link strong {
-            color: #ff6b6b;
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-form h2 {
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
         }
 
         /* ========== DASHBOARD ========== */
@@ -344,264 +251,6 @@
             margin-top: 0;
         }
 
-        /* ========== VIP ORDERS ========== */
-        .vip-order-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #e0e0e0;
-            transition: 0.3s;
-        }
-
-        .vip-order-item:hover {
-            background: #fafafa;
-            margin: 0 -5px;
-            padding-left: 5px;
-            padding-right: 5px;
-            border-radius: 10px;
-        }
-
-        .vip-order-item .vip-info {
-            flex: 1;
-        }
-
-        .vip-order-item .vip-info .vip-title {
-            font-weight: 700;
-            color: #2d3436;
-            font-size: 1.05rem;
-        }
-
-        .vip-order-item .vip-info .vip-details {
-            font-size: 0.8rem;
-            color: #888;
-        }
-
-        .vip-order-item .vip-info .vip-progress {
-            margin-top: 4px;
-            background: #dfe6e9;
-            border-radius: 10px;
-            height: 6px;
-            width: 100%;
-            max-width: 150px;
-            overflow: hidden;
-        }
-
-        .vip-order-item .vip-info .vip-progress .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
-            border-radius: 10px;
-            transition: width 0.5s ease;
-        }
-
-        .vip-order-item .vip-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 5px;
-        }
-
-        .vip-order-item .vip-actions .order-count {
-            font-size: 0.8rem;
-            color: #888;
-        }
-
-        .vip-order-item .vip-actions .commission-info {
-            font-size: 0.75rem;
-            color: #00b894;
-            font-weight: 600;
-        }
-
-        /* ========== ORDER COMPLETED MODAL ========== */
-        .order-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            animation: fadeInOverlay 0.3s ease;
-        }
-
-        .order-modal-overlay.show {
-            display: flex;
-        }
-
-        @keyframes fadeInOverlay {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .order-modal {
-            background: white;
-            border-radius: 25px;
-            padding: 30px;
-            max-width: 420px;
-            width: 90%;
-            text-align: center;
-            animation: modalPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        @keyframes modalPop {
-            from {
-                opacity: 0;
-                transform: scale(0.8) translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        .order-modal .modal-icon {
-            font-size: 4rem;
-            margin-bottom: 5px;
-            animation: bounce 1s ease infinite;
-        }
-
-        @keyframes bounce {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-8px);
-            }
-        }
-
-        .order-modal .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2d3436;
-            margin-bottom: 5px;
-        }
-
-        .order-modal .modal-subtitle {
-            color: #888;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-
-        .order-modal .modal-product {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 15px;
-            margin: 10px 0;
-        }
-
-        .order-modal .modal-product .product-icon {
-            font-size: 3rem;
-        }
-
-        .order-modal .modal-product .product-name {
-            font-weight: 600;
-            color: #2d3436;
-            font-size: 1.1rem;
-        }
-
-        .order-modal .modal-product .product-price {
-            color: #00b894;
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .order-modal .modal-commission {
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            color: white;
-            border-radius: 15px;
-            padding: 12px;
-            margin: 10px 0;
-        }
-
-        .order-modal .modal-commission .commission-label {
-            font-size: 0.8rem;
-            opacity: 0.9;
-        }
-
-        .order-modal .modal-commission .commission-amount {
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-        .order-modal .modal-close-btn {
-            margin-top: 15px;
-            padding: 10px 30px;
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .order-modal .modal-close-btn:hover {
-            background: #e55a5a;
-            transform: scale(1.02);
-        }
-
-        /* ========== ORDER HISTORY ========== */
-        .order-history-section {
-            margin-top: 15px;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
-        }
-
-        .order-history-section h4 {
-            color: #2d3436;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-
-        .order-history-item {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 8px 12px;
-            margin: 4px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .order-history-item .product-name {
-            color: #2d3436;
-            font-weight: 500;
-        }
-
-        .order-history-item .order-earned {
-            color: #00b894;
-            font-weight: 600;
-        }
-
-        .order-history-item .order-time {
-            color: #888;
-            font-size: 0.7rem;
-        }
-
         /* ========== ID DISPLAY ========== */
         .user-id-display {
             background: linear-gradient(135deg, #2d3436, #636e72);
@@ -642,7 +291,7 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
-        /* ========== BANK ACCOUNT CARD ========== */
+        /* ========== BANK ACCOUNT ========== */
         .bank-account-card {
             background: #f8f9fa;
             border-radius: 12px;
@@ -656,10 +305,6 @@
 
         .bank-account-card .bank-info {
             font-size: 0.9rem;
-        }
-
-        .bank-account-card .bank-info strong {
-            color: #2d3436;
         }
 
         .bank-account-card .bank-info .bank-name {
@@ -734,309 +379,6 @@
             color: #d63031;
         }
 
-        /* ========== INICIO PAGE ========== */
-        .inicio-page {
-            text-align: center;
-            padding: 10px 0;
-        }
-
-        .inicio-page .hero-icon {
-            font-size: 4rem;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .inicio-page .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin: 15px 0;
-        }
-
-        .inicio-page .stat-box {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            color: white;
-            border-radius: 15px;
-            padding: 15px 10px;
-            animation: slideUp 0.8s ease-out;
-        }
-
-        .inicio-page .stat-box:nth-child(2) {
-            animation-delay: 0.3s;
-            background: linear-gradient(135deg, #00b894, #00a381);
-        }
-
-        .inicio-page .stat-box:nth-child(3) {
-            animation-delay: 0.6s;
-            background: linear-gradient(135deg, #fdcb6e, #f9ca24);
-            color: #2d3436;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .inicio-page .stat-box .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-        .inicio-page .stat-box .stat-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            opacity: 0.9;
-        }
-
-        .inicio-page .trust-badges {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin: 15px 0;
-        }
-
-        .inicio-page .trust-badge {
-            background: #f0f2f5;
-            border-radius: 30px;
-            padding: 8px 16px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #2d3436;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .inicio-page .trust-badge:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-        .inicio-page .trust-badge:nth-child(2) {
-            animation-delay: 0.3s;
-        }
-        .inicio-page .trust-badge:nth-child(3) {
-            animation-delay: 0.5s;
-        }
-        .inicio-page .trust-badge:nth-child(4) {
-            animation-delay: 0.7s;
-        }
-        .inicio-page .trust-badge:nth-child(5) {
-            animation-delay: 0.9s;
-        }
-        .inicio-page .trust-badge:nth-child(6) {
-            animation-delay: 1.1s;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .inicio-page .testimonial {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 15px;
-            margin: 15px 0;
-            border-left: 4px solid #ff6b6b;
-            text-align: left;
-            animation: slideIn 0.8s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .inicio-page .testimonial .quote {
-            font-style: italic;
-            color: #555;
-        }
-
-        .inicio-page .testimonial .author {
-            font-weight: 600;
-            color: #2d3436;
-            margin-top: 5px;
-        }
-
-        .inicio-page .testimonial .stars {
-            color: #fdcb6e;
-            font-size: 1.1rem;
-        }
-
-        /* ========== CONTRATO PAGE ========== */
-        .contrato-page {
-            padding: 5px 0;
-        }
-
-        .contrato-page .contrato-hero {
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            color: white;
-            margin-bottom: 15px;
-        }
-
-        .contrato-page .contrato-hero .hero-icon {
-            font-size: 3rem;
-            margin-bottom: 5px;
-        }
-
-        .contrato-page .contrato-hero h3 {
-            font-size: 1.3rem;
-            margin-bottom: 5px;
-        }
-
-        .contrato-page .contrato-hero p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .contrato-page .contrato-section {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 4px solid #6c5ce7;
-        }
-
-        .contrato-page .contrato-section h4 {
-            color: #2d3436;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-
-        .contrato-page .contrato-section ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .contrato-page .contrato-section ul li {
-            padding: 5px 0;
-            font-size: 0.85rem;
-            color: #555;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .contrato-page .contrato-section ul li .check {
-            color: #00b894;
-            font-weight: 700;
-        }
-
-        .contrato-page .contrato-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin: 10px 0;
-        }
-
-        .contrato-page .contrato-grid .grid-item {
-            background: white;
-            border-radius: 12px;
-            padding: 12px;
-            text-align: center;
-            border: 1px solid #eee;
-            transition: 0.3s;
-        }
-
-        .contrato-page .contrato-grid .grid-item:hover {
-            border-color: #6c5ce7;
-            transform: translateY(-2px);
-        }
-
-        .contrato-page .contrato-grid .grid-item .icon {
-            font-size: 1.8rem;
-        }
-
-        .contrato-page .contrato-grid .grid-item .title {
-            font-weight: 600;
-            color: #2d3436;
-            font-size: 0.85rem;
-        }
-
-        .contrato-page .contrato-grid .grid-item .desc {
-            font-size: 0.7rem;
-            color: #888;
-        }
-
-        .contrato-page .contrato-badge {
-            display: inline-block;
-            background: #00b894;
-            color: white;
-            padding: 2px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        /* ========== BOTTOM NAV ========== */
-        .bottom-nav {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-
-        .bottom-nav .nav-item {
-            text-align: center;
-            cursor: pointer;
-            color: #888;
-            transition: 0.3s;
-            font-size: 0.8rem;
-        }
-
-        .bottom-nav .nav-item:hover {
-            color: #ff6b6b;
-        }
-
-        .bottom-nav .nav-item .icon {
-            font-size: 1.5rem;
-            display: block;
-        }
-
-        .bottom-nav .nav-item.active {
-            color: #ff6b6b;
-            font-weight: 600;
-        }
-
-        .page-section {
-            display: none;
-        }
-
-        .page-section.active {
-            display: block;
-        }
-
         /* ========== PROFILE ========== */
         .profile-card {
             background: #f8f9fa;
@@ -1085,26 +427,43 @@
             color: #2d3436;
         }
 
-        /* ========== SECTION HEADERS ========== */
-        .section-header {
+        /* ========== BOTTOM NAV ========== */
+        .bottom-nav {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-            margin-bottom: 5px;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
         }
 
-        .section-header h3 {
-            color: #2d3436;
-        }
-
-        .section-header .badge-count {
-            background: #6c5ce7;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 10px;
+        .bottom-nav .nav-item {
+            text-align: center;
+            cursor: pointer;
+            color: #888;
+            transition: 0.3s;
             font-size: 0.8rem;
-            font-weight: 700;
+        }
+
+        .bottom-nav .nav-item:hover {
+            color: #ff6b6b;
+        }
+
+        .bottom-nav .nav-item .icon {
+            font-size: 1.5rem;
+            display: block;
+        }
+
+        .bottom-nav .nav-item.active {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
         }
 
         /* ========== RESPONSIVE ========== */
@@ -1112,51 +471,27 @@
             .container {
                 padding: 18px;
             }
+
             .balance-cards {
                 flex-direction: column;
             }
+
             .action-buttons {
                 flex-direction: column;
             }
+
+            .profile-card .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
             .app-header h1 {
                 font-size: 2rem;
             }
-            .vip-order-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-            .vip-order-item .vip-actions {
-                align-items: flex-start;
-                width: 100%;
-            }
-            .vip-order-item .vip-actions .btn {
-                width: 100%;
-            }
-            .top-bar {
-                justify-content: center;
-                gap: 5px;
-            }
-            .top-bar .switcher-group select {
-                max-width: 80px;
-                font-size: 0.65rem;
-            }
-            .contrato-page .contrato-grid {
-                grid-template-columns: 1fr;
-            }
+
             .user-id-display {
                 flex-wrap: wrap;
                 gap: 8px;
                 justify-content: center;
-            }
-            .order-modal {
-                padding: 20px;
-            }
-            .order-modal .modal-title {
-                font-size: 1.2rem;
-            }
-            .order-modal .modal-commission .commission-amount {
-                font-size: 1.5rem;
             }
         }
     </style>
@@ -1164,40 +499,6 @@
 <body>
 
     <div class="container" id="appContainer">
-
-        <!-- ===== TOP BAR ===== -->
-        <div class="top-bar">
-            <div class="switcher-group">
-                <span class="icon">🌐</span>
-                <select id="languageSwitcher" onchange="changeLanguage(this.value)">
-                    <option value="es">🇪🇸 Español</option>
-                    <option value="en">🇬🇧 English</option>
-                    <option value="my">🇲🇲 မြန်မာ</option>
-                    <option value="zh">🇨🇳 中文</option>
-                    <option value="ja">🇯🇵 日本語</option>
-                    <option value="ko">🇰🇷 한국어</option>
-                    <option value="fr">🇫🇷 Français</option>
-                    <option value="de">🇩🇪 Deutsch</option>
-                    <option value="pt">🇵🇹 Português</option>
-                    <option value="ru">🇷🇺 Русский</option>
-                </select>
-            </div>
-            <div class="switcher-group">
-                <span class="icon">💰</span>
-                <select id="currencySwitcher" onchange="changeCurrency(this.value)">
-                    <option value="PEN">S/ (PEN)</option>
-                    <option value="USD">$ (USD)</option>
-                    <option value="EUR">€ (EUR)</option>
-                    <option value="MMK">K (MMK)</option>
-                    <option value="JPY">¥ (JPY)</option>
-                    <option value="KRW">₩ (KRW)</option>
-                    <option value="GBP">£ (GBP)</option>
-                    <option value="CNY">¥ (CNY)</option>
-                    <option value="BRL">R$ (BRL)</option>
-                    <option value="RUB">₽ (RUB)</option>
-                </select>
-            </div>
-        </div>
 
         <!-- ===== HEADER ===== -->
         <div class="app-header">
@@ -1223,12 +524,6 @@
                     <option value="+44">+44 (UK)</option>
                     <option value="+86">+86 (China)</option>
                     <option value="+34">+34 (España)</option>
-                    <option value="+81">+81 (Japón)</option>
-                    <option value="+82">+82 (Corea)</option>
-                    <option value="+33">+33 (Francia)</option>
-                    <option value="+49">+49 (Alemania)</option>
-                    <option value="+55">+55 (Brasil)</option>
-                    <option value="+7">+7 (Rusia)</option>
                 </select>
             </div>
 
@@ -1258,7 +553,6 @@
             <div class="form-group">
                 <label class="label-login-identifier">👤 Usuario o teléfono</label>
                 <input type="text" id="loginIdentifier" placeholder="Usuario o número de teléfono">
-                <small style="color:#888; font-size:0.7rem;">Ingresa tu nombre de usuario o número de teléfono</small>
             </div>
 
             <div class="form-group">
@@ -1309,272 +603,8 @@
                 <button class="btn btn-outline btn-retirar" onclick="handleRetirar()">📤 RETIRAR</button>
             </div>
 
-            <!-- ===== INICIO PAGE ===== -->
-            <div id="inicioPage" class="page-section active">
-                <div class="inicio-page">
-                    <div class="hero-icon">🌍</div>
-                    <h3 class="welcome-title" style="color:#2d3436; margin:10px 0;">¡Bienvenido a Shein!</h3>
-                    <p class="welcome-subtitle" style="color:#888; font-size:0.9rem;">Miles de personas confían en nosotros en todo el mundo.</p>
-
-                    <div class="stat-grid">
-                        <div class="stat-box">
-                            <div class="stat-number" id="globalUsers">2.5M</div>
-                            <div class="stat-label stat-users">Usuarios activos</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-number" id="globalTransactions">1.2M</div>
-                            <div class="stat-label stat-transactions">Transacciones</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-number" id="globalCountries">150+</div>
-                            <div class="stat-label stat-countries">Países</div>
-                        </div>
-                    </div>
-
-                    <div class="trust-badges">
-                        <span class="trust-badge">🔒 <span class="badge-seguro">100% Seguro</span></span>
-                        <span class="trust-badge">✅ <span class="badge-verificado">Verificado</span></span>
-                        <span class="trust-badge">⭐ <span class="badge-estrellas">4.9/5 Estrellas</span></span>
-                        <span class="trust-badge">🛡️ <span class="badge-protegido">Protegido</span></span>
-                        <span class="trust-badge">🏆 <span class="badge-lider">Líder del mercado</span></span>
-                        <span class="trust-badge">💳 <span class="badge-pagos">Pagos rápidos</span></span>
-                    </div>
-
-                    <div class="testimonial">
-                        <div class="stars">⭐⭐⭐⭐⭐</div>
-                        <div class="quote quote1">"Shein es la mejor plataforma para comprar y vender. ¡100% confiable!"</div>
-                        <div class="author">— María G. (Lima, Perú)</div>
-                    </div>
-
-                    <div class="testimonial">
-                        <div class="stars">⭐⭐⭐⭐⭐</div>
-                        <div class="quote quote2">"He recibido mis pagos a tiempo. Excelente servicio."</div>
-                        <div class="author">— Carlos R. (Bogotá, Colombia)</div>
-                    </div>
-
-                    <div style="background:#f0f2f5; border-radius:12px; padding:15px; margin:10px 0;">
-                        <h4 class="garantias-title" style="color:#2d3436;">🛡️ Nuestras Garantías</h4>
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px; font-size:0.85rem; text-align:left;">
-                            <div class="garantia-item1">✅ 100% de transparencia</div>
-                            <div class="garantia-item2">✅ Soporte 24/7</div>
-                            <div class="garantia-item3">✅ Retiros en 24 horas</div>
-                            <div class="garantia-item4">✅ Datos protegidos</div>
-                            <div class="garantia-item5">✅ Sin comisiones ocultas</div>
-                            <div class="garantia-item6">✅ Seguridad bancaria</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== VIP ORDERS PAGE ===== -->
-            <div id="vipOrdersPage" class="page-section">
-                <div class="section-header">
-                    <h3 class="vip-orders-title">📦 Órdenes VIP</h3>
-                    <span class="badge-count">6 Niveles</span>
-                </div>
-                <p class="vip-orders-subtitle" style="color:#888; font-size:0.85rem; margin-bottom:10px;">
-                    Completa órdenes para ganar comisiones. ¡Cada orden te acerca a tu próximo nivel VIP!
-                </p>
-
-                <div id="vipOrdersContainer">
-                    <!-- Generado por JavaScript -->
-                </div>
-
-                <!-- ===== ORDER HISTORY ===== -->
-                <div class="order-history-section">
-                    <h4>📋 Historial de órdenes</h4>
-                    <div id="orderHistoryList">
-                        <div style="text-align:center; padding:10px; color:#888; font-size:0.85rem;">
-                            No hay órdenes completadas aún.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== CONTRATO PAGE ===== -->
-            <div id="contratoPage" class="page-section">
-                <div class="contrato-page">
-                    <div class="contrato-hero">
-                        <div class="hero-icon">📜</div>
-                        <h3 class="contrato-hero-title">Contrato de Confianza</h3>
-                        <p class="contrato-hero-sub">Tu seguridad es nuestra prioridad número uno</p>
-                    </div>
-
-                    <div class="user-id-display">
-                        <span class="id-label">🆔 ID de usuario</span>
-                        <span class="id-value" id="contratoUserId">1234567</span>
-                        <button class="id-copy" onclick="copyUserId()">📋 Copiar</button>
-                    </div>
-
-                    <div class="contrato-grid">
-                        <div class="grid-item">
-                            <div class="icon">🔒</div>
-                            <div class="title">Seguridad 100%</div>
-                            <div class="desc">Datos encriptados</div>
-                        </div>
-                        <div class="grid-item">
-                            <div class="icon">⚡</div>
-                            <div class="title">Retiros Rápidos</div>
-                            <div class="desc">24 horas máximo</div>
-                        </div>
-                        <div class="grid-item">
-                            <div class="icon">🛡️</div>
-                            <div class="title">Protección</div>
-                            <div class="desc">Contra fraudes</div>
-                        </div>
-                        <div class="grid-item">
-                            <div class="icon">💎</div>
-                            <div class="title">Transparencia</div>
-                            <div class="desc">Sin comisiones ocultas</div>
-                        </div>
-                    </div>
-
-                    <div class="contrato-section">
-                        <h4>🛡️ Nuestras Garantías</h4>
-                        <ul>
-                            <li><span class="check">✅</span> 100% de transparencia en todas las transacciones</li>
-                            <li><span class="check">✅</span> Soporte al cliente 24/7 en múltiples idiomas</li>
-                            <li><span class="check">✅</span> Retiros procesados en un plazo máximo de 24 horas</li>
-                            <li><span class="check">✅</span> Datos personales protegidos bajo estrictas políticas</li>
-                            <li><span class="check">✅</span> Sin comisiones ocultas ni cargos adicionales</li>
-                            <li><span class="check">✅</span> Seguridad bancaria con encriptación avanzada</li>
-                        </ul>
-                    </div>
-
-                    <div class="contrato-section" style="border-left-color: #00b894;">
-                        <h4>🤝 Nuestros Compromisos</h4>
-                        <ul>
-                            <li><span class="check">✅</span> Cumplir con todas las normativas legales vigentes</li>
-                            <li><span class="check">✅</span> Garantizar la integridad de tus fondos</li>
-                            <li><span class="check">✅</span> Brindar una experiencia de usuario excepcional</li>
-                            <li><span class="check">✅</span> Actualizar constantemente nuestros sistemas de seguridad</li>
-                            <li><span class="check">✅</span> Escuchar y atender todas tus sugerencias</li>
-                        </ul>
-                    </div>
-
-                    <div class="contrato-section" style="border-left-color: #fdcb6e;">
-                        <h4>⭐ Beneficios Exclusivos</h4>
-                        <ul>
-                            <li><span class="check">✅</span> <strong>VIP 1:</strong> Comisiones del 30% en cada orden</li>
-                            <li><span class="check">✅</span> <strong>VIP 2:</strong> Comisiones del 35% + bonos adicionales</li>
-                            <li><span class="check">✅</span> <strong>VIP 3:</strong> Comisiones del 40% + acceso prioritario</li>
-                            <li><span class="check">✅</span> <strong>VIP 4:</strong> Comisiones del 45% + soporte premium</li>
-                            <li><span class="check">✅</span> <strong>VIP 5:</strong> Comisiones del 50% + retiros instantáneos</li>
-                            <li><span class="check">✅</span> <strong>VIP 6:</strong> Comisiones del 55% + beneficios exclusivos</li>
-                        </ul>
-                    </div>
-
-                    <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:10px 0;">
-                        <span class="contrato-badge">🔒 SSL Secure</span>
-                        <span class="contrato-badge gold">⭐ 4.9/5 Rating</span>
-                        <span class="contrato-badge blue">🏆 Líder 2026</span>
-                        <span class="contrato-badge purple">🛡️ Protegido</span>
-                        <span class="contrato-badge red">⚡ Rápido</span>
-                    </div>
-
-                    <div style="text-align:center; padding:10px; color:#888; font-size:0.8rem; border-top:1px solid #eee; margin-top:10px;">
-                        <p>© 2026 Shein - Todos los derechos reservados</p>
-                        <p style="font-size:0.7rem;">Versión 2.0 - Actualizado el 29 de mayo de 2026</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== CONFIGURACIÓN (Bancos) ===== -->
-            <div id="configPage" class="page-section">
-                <div class="section-header">
-                    <h3 class="config-title">⚙️ Configuración</h3>
-                    <span class="badge-count" id="bankCount">0</span>
-                </div>
-
-                <div id="bankListContainer">
-                    <div id="bankList"></div>
-                </div>
-
-                <button class="btn btn-primary btn-add-bank" onclick="toggleBankForm()" style="margin-top:5px; font-size:0.9rem; padding:10px;">
-                    ➕ Agregar cuenta bancaria
-                </button>
-
-                <div id="bankFormContainer" class="bank-form hidden">
-                    <h4 class="add-bank-title" style="color:#2d3436; margin-bottom:10px;">🏦 Agregar cuenta bancaria</h4>
-
-                    <div class="form-group">
-                        <label>🌍 País / Moneda</label>
-                        <select id="bankCountrySelect" onchange="updateBankOptions()">
-                            <option value="PE">🇵🇪 Perú (S/ - PEN)</option>
-                            <option value="US">🇺🇸 Estados Unidos ($ - USD)</option>
-                            <option value="EU">🇪🇺 Europa (€ - EUR)</option>
-                            <option value="MM">🇲🇲 Myanmar (K - MMK)</option>
-                            <option value="JP">🇯🇵 Japón (¥ - JPY)</option>
-                            <option value="KR">🇰🇷 Corea (₩ - KRW)</option>
-                            <option value="GB">🇬🇧 Reino Unido (£ - GBP)</option>
-                            <option value="CN">🇨🇳 China (¥ - CNY)</option>
-                            <option value="BR">🇧🇷 Brasil (R$ - BRL)</option>
-                            <option value="RU">🇷🇺 Rusia (₽ - RUB)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="label-bank-name">🏛️ Nombre del banco</label>
-                        <select id="bankName">
-                            <!-- Llenado por JavaScript -->
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="label-account-number">🔢 Número de cuenta</label>
-                        <input type="text" id="bankAccountNumber" placeholder="Ej: 123-456-7890">
-                        <small style="color:#888; font-size:0.7rem;" id="accountFormatHint">Formato: 000-000-000</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="label-account-holder">👤 Titular de la cuenta</label>
-                        <input type="text" id="bankAccountHolder" placeholder="Nombre completo del titular">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="label-cci">🔢 CCI / IBAN</label>
-                        <input type="text" id="bankCCI" placeholder="Ej: 12345678901234567890">
-                        <small style="color:#888; font-size:0.7rem;" id="cciFormatHint">Formato: 20 dígitos para Perú</small>
-                    </div>
-
-                    <div style="display:flex; gap:10px; margin-top:5px;">
-                        <button class="btn btn-success btn-confirm-bank" onclick="saveBankAccount()" style="flex:1;">✅ Confirmar</button>
-                        <button class="btn btn-outline btn-cancel-bank" onclick="toggleBankForm()" style="flex:1;">❌ Cancelar</button>
-                    </div>
-                </div>
-
-                <div class="config-item">
-                    <span class="config-lang-label">🌐 Idioma</span>
-                    <span class="value" id="currentLangDisplay">es</span>
-                </div>
-                <div class="config-item">
-                    <span class="config-currency-label">💰 Moneda</span>
-                    <span class="value" id="currentCurrencyDisplay">PEN</span>
-                </div>
-            </div>
-
-            <!-- ===== TRABAJO PAGE ===== -->
-            <div id="trabajoPage" class="page-section">
-                <h3 class="trabajo-title" style="color:#2d3436; margin-top:15px;">💼 Trabajo</h3>
-                <p class="trabajo-subtitle" style="color:#888; padding:20px; text-align:center;">Encuentra oportunidades de trabajo en Shein.</p>
-                <div style="display:grid; grid-template-columns:1fr; gap:10px;">
-                    <div style="background:#f8f9fa; border-radius:12px; padding:15px; border-left:4px solid #00b894;">
-                        <h4 class="trabajo-item1-title" style="color:#2d3436;">📱 Marketing Digital</h4>
-                        <p class="trabajo-item1-desc" style="color:#888; font-size:0.85rem;">Gana dinero promocionando productos.</p>
-                    </div>
-                    <div style="background:#f8f9fa; border-radius:12px; padding:15px; border-left:4px solid #fdcb6e;">
-                        <h4 class="trabajo-item2-title" style="color:#2d3436;">💻 Atención al Cliente</h4>
-                        <p class="trabajo-item2-desc" style="color:#888; font-size:0.85rem;">Ayuda a nuestros usuarios con sus consultas.</p>
-                    </div>
-                    <div style="background:#f8f9fa; border-radius:12px; padding:15px; border-left:4px solid #ff6b6b;">
-                        <h4 class="trabajo-item3-title" style="color:#2d3436;">📊 Analista de Datos</h4>
-                        <p class="trabajo-item3-desc" style="color:#888; font-size:0.85rem;">Analiza el comportamiento de los usuarios.</p>
-                    </div>
-                </div>
-            </div>
-
             <!-- ===== MI PAGE ===== -->
-            <div id="miPage" class="page-section">
+            <div id="miPage" class="page-section active">
                 <h3 class="mi-title" style="color:#2d3436; margin-top:10px;">👤 Mi Perfil</h3>
 
                 <div class="user-id-display">
@@ -1604,7 +634,7 @@
                     </div>
                 </div>
 
-                <!-- ===== BANCOS EN MI PAGE ===== -->
+                <!-- ===== BANCOS ===== -->
                 <div style="margin-top:15px;">
                     <div class="section-header">
                         <h4 class="mis-bancos-title" style="color:#2d3436;">🏦 Mis Cuentas Bancarias</h4>
@@ -1619,32 +649,27 @@
                         <h4 class="add-bank-mi-title" style="color:#2d3436; margin-bottom:10px;">🏦 Agregar cuenta bancaria</h4>
 
                         <div class="form-group">
-                            <label>🌍 País / Moneda</label>
-                            <select id="bankCountrySelectMi" onchange="updateBankOptionsMi()">
-                                <option value="PE">🇵🇪 Perú (S/ - PEN)</option>
-                                <option value="US">🇺🇸 Estados Unidos ($ - USD)</option>
-                                <option value="EU">🇪🇺 Europa (€ - EUR)</option>
-                                <option value="MM">🇲🇲 Myanmar (K - MMK)</option>
-                                <option value="JP">🇯🇵 Japón (¥ - JPY)</option>
-                                <option value="KR">🇰🇷 Corea (₩ - KRW)</option>
-                                <option value="GB">🇬🇧 Reino Unido (£ - GBP)</option>
-                                <option value="CN">🇨🇳 China (¥ - CNY)</option>
-                                <option value="BR">🇧🇷 Brasil (R$ - BRL)</option>
-                                <option value="RU">🇷🇺 Rusia (₽ - RUB)</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
                             <label class="label-bank-name-mi">🏛️ Nombre del banco</label>
                             <select id="bankNameMi">
-                                <!-- Llenado por JavaScript -->
+                                <option value="">Selecciona un banco...</option>
+                                <option value="Banco de Crédito (BCP)">Banco de Crédito (BCP)</option>
+                                <option value="Banco BBVA">Banco BBVA</option>
+                                <option value="Banco Interbank">Banco Interbank</option>
+                                <option value="Banco Scotiabank">Banco Scotiabank</option>
+                                <option value="Banco Pichincha">Banco Pichincha</option>
+                                <option value="Banco Falabella">Banco Falabella</option>
+                                <option value="Banco Ripley">Banco Ripley</option>
+                                <option value="Banco GNB">Banco GNB</option>
+                                <option value="Banco Azteca">Banco Azteca</option>
+                                <option value="Banco Cencosud">Banco Cencosud</option>
+                                <option value="Banco Comercio">Banco Comercio</option>
+                                <option value="Banco Santander">Banco Santander</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label class="label-account-number-mi">🔢 Número de cuenta</label>
                             <input type="text" id="bankAccountNumberMi" placeholder="Ej: 123-456-7890">
-                            <small style="color:#888; font-size:0.7rem;" id="accountFormatHintMi">Formato: 000-000-000</small>
                         </div>
 
                         <div class="form-group">
@@ -1653,9 +678,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="label-cci-mi">🔢 CCI / IBAN</label>
+                            <label class="label-cci-mi">🔢 CCI (Código de Cuenta Interbancaria)</label>
                             <input type="text" id="bankCCIMi" placeholder="Ej: 12345678901234567890">
-                            <small style="color:#888; font-size:0.7rem;" id="cciFormatHintMi">Formato: 20 dígitos para Perú</small>
                         </div>
 
                         <div style="display:flex; gap:10px; margin-top:5px;">
@@ -1705,19 +729,7 @@
 
             <!-- ===== BOTTOM NAV ===== -->
             <div class="bottom-nav">
-                <div class="nav-item active" onclick="switchPage('inicioPage', this)">
-                    <span class="icon">🏠</span> <span class="nav-inicio">Inicio</span>
-                </div>
-                <div class="nav-item" onclick="switchPage('vipOrdersPage', this)">
-                    <span class="icon">📦</span> <span class="nav-ordenes">Órdenes</span>
-                </div>
-                <div class="nav-item" onclick="switchPage('contratoPage', this)">
-                    <span class="icon">📄</span> <span class="nav-contrato">Contrato</span>
-                </div>
-                <div class="nav-item" onclick="switchPage('trabajoPage', this)">
-                    <span class="icon">💼</span> <span class="nav-trabajo">Trabajo</span>
-                </div>
-                <div class="nav-item" onclick="switchPage('miPage', this)">
+                <div class="nav-item active" onclick="switchPage('miPage', this)">
                     <span class="icon">👤</span> <span class="nav-mi">Mi</span>
                 </div>
             </div>
@@ -1730,935 +742,85 @@
         <div id="infoMessage" class="success-msg hidden"></div>
     </div>
 
-    <!-- ===== ORDER COMPLETED MODAL ===== -->
-    <div class="order-modal-overlay" id="orderModal">
-        <div class="order-modal">
-            <div class="modal-icon">🎉</div>
-            <div class="modal-title">¡Orden Completada!</div>
-            <div class="modal-subtitle">Has completado una orden exitosamente</div>
-
-            <div class="modal-product" id="modalProduct">
-                <div class="product-icon" id="modalProductIcon">📱</div>
-                <div class="product-name" id="modalProductName">Smartphone X</div>
-                <div class="product-price" id="modalProductPrice">S/ 299.00</div>
-            </div>
-
-            <div class="modal-commission">
-                <div class="commission-label">💰 Comisión ganada</div>
-                <div class="commission-amount" id="modalCommission">S/ 3.00</div>
-            </div>
-
-            <div style="font-size:0.85rem; color:#888; margin-top:5px;" id="modalOrderCount">
-                Orden #1 de 12 completada
-            </div>
-
-            <button class="modal-close-btn" onclick="closeOrderModal()">✅ ¡Excelente!</button>
-        </div>
-    </div>
-
     <script>
         // ============================================================
-        //  PRODUCTOS ALEATORIOS
+        //  STORAGE KEY - MISMA CLAVE QUE ADMIN PANEL
         // ============================================================
-        const productos = [
-            { icon: '📱', name: 'Smartphone X Pro', price: 299.00 },
-            { icon: '💻', name: 'Laptop Ultra 15"', price: 499.00 },
-            { icon: '🎧', name: 'Audífonos Bluetooth', price: 29.99 },
-            { icon: '⌚', name: 'Smartwatch Series 5', price: 89.00 },
-            { icon: '📷', name: 'Cámara Digital 4K', price: 199.00 },
-            { icon: '🎮', name: 'Consola de Videojuegos', price: 149.00 },
-            { icon: '📺', name: 'TV Smart 50"', price: 399.00 },
-            { icon: '🔊', name: 'Altavoz Bluetooth', price: 39.99 },
-            { icon: '💍', name: 'Anillo de Oro 18k', price: 159.00 },
-            { icon: '👟', name: 'Zapatillas Deportivas', price: 69.00 },
-            { icon: '👗', name: 'Vestido de Moda', price: 45.00 },
-            { icon: '🧥', name: 'Chaqueta de Cuero', price: 89.00 },
-            { icon: '💄', name: 'Set de Maquillaje', price: 25.00 },
-            { icon: '🏠', name: 'Decoración para Hogar', price: 15.00 },
-            { icon: '📚', name: 'Libro Best Seller', price: 12.00 }
-        ];
-
-        let orderHistory = [];
-        let orderCounter = 0;
+        const STORAGE_KEY = 'shein_admin_data';
 
         // ============================================================
-        //  BANK DATA BY COUNTRY
+        //  USER DATA
         // ============================================================
-        const bankData = {
-            PE: {
-                currency: 'PEN',
-                symbol: 'S/',
-                country: 'Perú',
-                flag: '🇵🇪',
-                banks: [
-                    'Banco de Crédito (BCP)',
-                    'Banco BBVA',
-                    'Banco Interbank',
-                    'Banco Scotiabank',
-                    'Banco Pichincha',
-                    'Banco Falabella',
-                    'Banco Ripley',
-                    'Banco GNB',
-                    'Banco Azteca',
-                    'Banco Cencosud',
-                    'Banco Comercio',
-                    'Banco Santander'
-                ],
-                accountFormat: '000-000-000',
-                cciFormat: '20 dígitos',
-                cciLength: 20
-            },
-            US: {
-                currency: 'USD',
-                symbol: '$',
-                country: 'Estados Unidos',
-                flag: '🇺🇸',
-                banks: [
-                    'Bank of America',
-                    'Chase Bank',
-                    'Wells Fargo',
-                    'Citibank',
-                    'Goldman Sachs',
-                    'Morgan Stanley',
-                    'PNC Bank',
-                    'Truist Bank',
-                    'Capital One',
-                    'Discover Bank'
-                ],
-                accountFormat: '000-000-000-000',
-                cciFormat: '9 dígitos (Routing) + 12 dígitos (Cuenta)',
-                cciLength: 21
-            },
-            EU: {
-                currency: 'EUR',
-                symbol: '€',
-                country: 'Europa',
-                flag: '🇪🇺',
-                banks: [
-                    'Deutsche Bank',
-                    'BNP Paribas',
-                    'HSBC',
-                    'Santander',
-                    'UniCredit',
-                    'Société Générale',
-                    'ING Group',
-                    'Commerzbank',
-                    'Credit Suisse',
-                    'UBS'
-                ],
-                accountFormat: '0000-0000-0000-0000',
-                cciFormat: 'IBAN: 14-34 dígitos',
-                cciLength: 20
-            },
-            MM: {
-                currency: 'MMK',
-                symbol: 'K',
-                country: 'Myanmar',
-                flag: '🇲🇲',
-                banks: [
-                    'CB Bank',
-                    'KBZ Bank',
-                    'AYA Bank',
-                    'UAB Bank',
-                    'Yoma Bank',
-                    'MAB Bank',
-                    'Myanmar Citizen Bank',
-                    'Global Treasure Bank',
-                    'Myanma Apex Bank',
-                    'Myanmar Microfinance Bank'
-                ],
-                accountFormat: '000-000-000-000',
-                cciFormat: '16 dígitos',
-                cciLength: 16
-            },
-            JP: {
-                currency: 'JPY',
-                symbol: '¥',
-                country: 'Japón',
-                flag: '🇯🇵',
-                banks: [
-                    'MUFG Bank',
-                    'SMBC',
-                    'Mizuho Bank',
-                    'Nomura Bank',
-                    'SBI Bank',
-                    'Resona Bank',
-                    'Sumitomo Trust',
-                    'Shinsei Bank',
-                    'Aozora Bank',
-                    'Japan Post Bank'
-                ],
-                accountFormat: '000-000-000-000',
-                cciFormat: '7 dígitos',
-                cciLength: 7
-            },
-            KR: {
-                currency: 'KRW',
-                symbol: '₩',
-                country: 'Corea',
-                flag: '🇰🇷',
-                banks: [
-                    'KB Kookmin Bank',
-                    'Shinhan Bank',
-                    'Hana Bank',
-                    'Woori Bank',
-                    'NH Bank',
-                    'IBK Bank',
-                    'Industrial Bank',
-                    'Korea Development Bank',
-                    'Citibank Korea',
-                    'SC Bank Korea'
-                ],
-                accountFormat: '000-000-000-000',
-                cciFormat: '11 dígitos',
-                cciLength: 11
-            },
-            GB: {
-                currency: 'GBP',
-                symbol: '£',
-                country: 'Reino Unido',
-                flag: '🇬🇧',
-                banks: [
-                    'Barclays Bank',
-                    'HSBC UK',
-                    'Lloyds Bank',
-                    'NatWest',
-                    'Santander UK',
-                    'Standard Chartered',
-                    'Nationwide',
-                    'Bank of Scotland',
-                    'Coutts & Co',
-                    'Metro Bank'
-                ],
-                accountFormat: '00-00-00-00000000',
-                cciFormat: 'IBAN: 22 dígitos',
-                cciLength: 22
-            },
-            CN: {
-                currency: 'CNY',
-                symbol: '¥',
-                country: 'China',
-                flag: '🇨🇳',
-                banks: [
-                    'Industrial and Commercial Bank',
-                    'China Construction Bank',
-                    'Bank of China',
-                    'Agricultural Bank of China',
-                    'Bank of Communications',
-                    'China Merchants Bank',
-                    'Industrial Bank',
-                    'Shanghai Pudong Development Bank',
-                    'China Citic Bank',
-                    'China Everbright Bank'
-                ],
-                accountFormat: '0000-0000-0000-0000',
-                cciFormat: '16 dígitos',
-                cciLength: 16
-            },
-            BR: {
-                currency: 'BRL',
-                symbol: 'R$',
-                country: 'Brasil',
-                flag: '🇧🇷',
-                banks: [
-                    'Itaú Unibanco',
-                    'Banco do Brasil',
-                    'Bradesco',
-                    'Santander Brasil',
-                    'Caixa Econômica Federal',
-                    'Nubank',
-                    'Banco Inter',
-                    'Banco Original',
-                    'Sicoob',
-                    'Sicredi'
-                ],
-                accountFormat: '00000-0',
-                cciFormat: 'IBAN: 29 dígitos',
-                cciLength: 29
-            },
-            RU: {
-                currency: 'RUB',
-                symbol: '₽',
-                country: 'Rusia',
-                flag: '🇷🇺',
-                banks: [
-                    'Sberbank',
-                    'VTB Bank',
-                    'Gazprombank',
-                    'Alfa-Bank',
-                    'Rosbank',
-                    'Moscow Credit Bank',
-                    'Sovcombank',
-                    'Tinkoff Bank',
-                    'Renaissance Credit',
-                    'Home Credit Bank'
-                ],
-                accountFormat: '0000-0000-0000-0000',
-                cciFormat: '20 dígitos',
-                cciLength: 20
-            }
+        let userData = {
+            username: '',
+            phone: '',
+            password: '',
+            balance: 10.00,
+            totalIncome: 0,
+            isLoggedIn: false,
+            recargaCount: 0,
+            retiroCount: 0,
+            trabajoCount: 0,
+            notificacionCount: 1,
+            bankAccounts: [],
+            withdrawalHistory: [],
+            userId: '',
+            country: 'Perú',
+            vipLevel: 'VIP 1',
+            totalOrders: 0,
+            frozen: false,
+            registrationDate: '',
+            ipAddress: '',
+            history: []
         };
 
         // ============================================================
-        //  LANGUAGE DATA (Simplified)
+        //  LOAD / SAVE FUNCTIONS - CON LOCAL STORAGE
         // ============================================================
-        const translations = {
-            es: {
-                appTitle: '✨ Tu centro comercial online ✨',
-                registerTitle: '📝 Crear cuenta',
-                loginTitle: '🔐 Iniciar sesión',
-                phoneLabel: '📱 Número de teléfono',
-                countryLabel: '🌍 Código de país',
-                usernameLabel: '👤 Nombre de usuario',
-                passwordLabel: '🔒 Contraseña',
-                registerBtn: '✅ Registrarse',
-                loginBtn: '🚪 Iniciar sesión',
-                switchToLogin: '¿Ya tienes cuenta?',
-                switchToRegister: '¿No tienes cuenta?',
-                loginIdentifierLabel: '👤 Usuario o teléfono',
-                loginPasswordLabel: '🔒 Contraseña',
-                loginIdentifierHelp: 'Ingresa tu nombre de usuario o número de teléfono',
-                greeting: 'Hola',
-                balanceLabel: '💰 Saldo',
-                incomeLabel: '📈 Ingresos totales',
-                comenzarBtn: '🚀 COMENZAR',
-                recargarBtn: '📥 RECARGAR',
-                retirarBtn: '📤 RETIRAR',
-                welcomeTitle: '¡Bienvenido a Shein!',
-                welcomeSubtitle: 'Miles de personas confían en nosotros en todo el mundo.',
-                statUsers: 'Usuarios activos',
-                statTransactions: 'Transacciones',
-                statCountries: 'Países',
-                badgeSeguro: '100% Seguro',
-                badgeVerificado: 'Verificado',
-                badgeEstrellas: '4.9/5 Estrellas',
-                badgeProtegido: 'Protegido',
-                badgeLider: 'Líder del mercado',
-                badgePagos: 'Pagos rápidos',
-                quote1: '"Shein es la mejor plataforma para comprar y vender. ¡100% confiable!"',
-                quote2: '"He recibido mis pagos a tiempo. Excelente servicio."',
-                garantiasTitle: '🛡️ Nuestras Garantías',
-                garantia1: '✅ 100% de transparencia',
-                garantia2: '✅ Soporte 24/7',
-                garantia3: '✅ Retiros en 24 horas',
-                garantia4: '✅ Datos protegidos',
-                garantia5: '✅ Sin comisiones ocultas',
-                garantia6: '✅ Seguridad bancaria',
-                vipOrdersTitle: '📦 Órdenes VIP',
-                vipOrdersSubtitle: 'Completa órdenes para ganar comisiones. ¡Cada orden te acerca a tu próximo nivel VIP!',
-                configTitle: '⚙️ Configuración',
-                addBankBtn: '➕ Agregar cuenta bancaria',
-                addBankTitle: '🏦 Agregar cuenta bancaria',
-                bankNameLabel: '🏛️ Nombre del banco',
-                accountNumberLabel: '🔢 Número de cuenta',
-                accountHolderLabel: '👤 Titular de la cuenta',
-                cciLabel: '🔢 CCI / IBAN',
-                confirmBtn: '✅ Confirmar',
-                cancelBtn: '❌ Cancelar',
-                langLabel: '🌐 Idioma',
-                currencyLabel: '💰 Moneda',
-                noBanks: 'No hay cuentas bancarias registradas.',
-                contratoTitle: '📄 Contrato',
-                trabajoTitle: '💼 Trabajo',
-                trabajoSubtitle: 'Encuentra oportunidades de trabajo en Shein.',
-                trabajoItem1: '📱 Marketing Digital',
-                trabajoItem1Desc: 'Gana dinero promocionando productos.',
-                trabajoItem2: '💻 Atención al Cliente',
-                trabajoItem2Desc: 'Ayuda a nuestros usuarios con sus consultas.',
-                trabajoItem3: '📊 Analista de Datos',
-                trabajoItem3Desc: 'Analiza el comportamiento de los usuarios.',
-                miTitle: '👤 Mi Perfil',
-                memberSince: '📅 Miembro desde',
-                profileBalance: '💰 Saldo',
-                profileVip: '⭐ Nivel VIP',
-                misBancos: '🏦 Mis Cuentas Bancarias',
-                addBankMi: '➕ Agregar cuenta bancaria',
-                withdrawalTitle: '📤 Realizar Retiro',
-                withdrawBankLabel: '🏛️ Selecciona tu cuenta bancaria',
-                withdrawAmountLabel: '💰 Monto a retirar',
-                confirmWithdrawal: '✅ Confirmar Retiro',
-                historyTitle: '📋 Historial de Retiros',
-                noHistory: 'No hay retiros realizados.',
-                navInicio: 'Inicio',
-                navOrdenes: 'Órdenes',
-                navContrato: 'Contrato',
-                navTrabajo: 'Trabajo',
-                navMi: 'Mi',
-                logout: 'Cerrar sesión',
-                regError: '⚠️ Por favor, completa todos los campos.',
-                loginError: '❌ Usuario o contraseña incorrectos.',
-                orderCompleted: 'Orden completada en',
-                earned: 'Ganaste',
-                completedAll: '🎉 ¡Felicidades! Has completado',
-                andEarned: 'y ganado',
-                unlocked: '🔓 ¡{level} ha sido desbloqueado!',
-                notUnlocked: '❌ Este nivel VIP no está desbloqueado aún.',
-                alreadyCompleted: '✅ ¡Ya has completado todas las órdenes de este nivel!',
-                selectBank: '⚠️ Por favor, selecciona una cuenta bancaria.',
-                validAmount: '⚠️ Por favor, ingresa un monto válido mayor a 0.',
-                insufficientBalance: '❌ Saldo insuficiente. Tu saldo es',
-                withdrawalSuccess: '✅ Retiro de {amount} a {bank} completado con éxito.',
-                registerSuccess: '✅ ¡Cuenta "{username}" creada con éxito! {amount} de bienvenida.',
-                loginSuccess: '🔓 ¡Bienvenido de nuevo, {username}!',
-                logoutSuccess: '👋 Has cerrado sesión correctamente.',
-                comenzarSuccess: '🚀 ¡Has comenzado un nuevo trabajo! +{amount}',
-                recargarSuccess: '📥 ¡Recarga exitosa! +{amount}',
-                goToWithdraw: '📤 Ve a la sección "Mi" para realizar tu retiro.',
-                contratoHeroTitle: 'Contrato de Confianza',
-                contratoHeroSub: 'Tu seguridad es nuestra prioridad número uno',
-                contratoGrid1: 'Seguridad 100%',
-                contratoGrid1Desc: 'Datos encriptados',
-                contratoGrid2: 'Retiros Rápidos',
-                contratoGrid2Desc: '24 horas máximo',
-                contratoGrid3: 'Protección',
-                contratoGrid3Desc: 'Contra fraudes',
-                contratoGrid4: 'Transparencia',
-                contratoGrid4Desc: 'Sin comisiones ocultas',
-                garantiasSection: '🛡️ Nuestras Garantías',
-                garantiaList1: '100% de transparencia en todas las transacciones',
-                garantiaList2: 'Soporte al cliente 24/7 en múltiples idiomas',
-                garantiaList3: 'Retiros procesados en un plazo máximo de 24 horas',
-                garantiaList4: 'Datos personales protegidos bajo estrictas políticas',
-                garantiaList5: 'Sin comisiones ocultas ni cargos adicionales',
-                garantiaList6: 'Seguridad bancaria con encriptación avanzada',
-                compromisosTitle: '🤝 Nuestros Compromisos',
-                compromiso1: 'Cumplir con todas las normativas legales vigentes',
-                compromiso2: 'Garantizar la integridad de tus fondos',
-                compromiso3: 'Brindar una experiencia de usuario excepcional',
-                compromiso4: 'Actualizar constantemente nuestros sistemas de seguridad',
-                compromiso5: 'Escuchar y atender todas tus sugerencias',
-                beneficiosTitle: '⭐ Beneficios Exclusivos',
-                beneficio1: 'VIP 1: Comisiones del 30% en cada orden',
-                beneficio2: 'VIP 2: Comisiones del 35% + bonos adicionales',
-                beneficio3: 'VIP 3: Comisiones del 40% + acceso prioritario',
-                beneficio4: 'VIP 4: Comisiones del 45% + soporte premium',
-                beneficio5: 'VIP 5: Comisiones del 50% + retiros instantáneos',
-                beneficio6: 'VIP 6: Comisiones del 55% + beneficios exclusivos',
-                userIdLabel: '🆔 ID de usuario',
-                copyBtn: '📋 Copiar',
-                copied: '✅ ID copiado al portapapeles',
-                fillAllFields: 'Por favor, completa todos los campos.',
-                bankAccount: 'Cuenta bancaria',
-                addedSuccess: 'agregada con éxito.',
-                confirmDelete: '¿Estás seguro de eliminar esta cuenta bancaria?',
-                account: 'Cuenta',
-                deleted: 'eliminada.',
-                status: 'Completado',
-                requiresCompleting: 'Requiere completar',
-                orders: 'órdenes',
-                completed: 'Completado',
-                locked: 'Bloqueado',
-                completeOrder: 'Completar Orden',
-                investment: 'Inversión',
-                commission: 'Comisión',
-                perOrder: 'por orden',
-                countryCurrency: 'País / Moneda',
-                orderCompletedTitle: '¡Orden Completada!',
-                orderCompletedSub: 'Has completado una orden exitosamente',
-                orderCount: 'Orden #{count} de {total} completada',
-                noOrders: 'No hay órdenes completadas aún.',
-                orderHistory: '📋 Historial de órdenes'
-            },
-            en: {
-                appTitle: '✨ Your online shopping center ✨',
-                registerTitle: '📝 Create account',
-                loginTitle: '🔐 Login',
-                phoneLabel: '📱 Phone number',
-                countryLabel: '🌍 Country code',
-                usernameLabel: '👤 Username',
-                passwordLabel: '🔒 Password',
-                registerBtn: '✅ Register',
-                loginBtn: '🚪 Login',
-                switchToLogin: 'Already have an account?',
-                switchToRegister: "Don't have an account?",
-                loginIdentifierLabel: '👤 Username or phone',
-                loginPasswordLabel: '🔒 Password',
-                loginIdentifierHelp: 'Enter your username or phone number',
-                greeting: 'Hello',
-                balanceLabel: '💰 Balance',
-                incomeLabel: '📈 Total income',
-                comenzarBtn: '🚀 START',
-                recargarBtn: '📥 RECHARGE',
-                retirarBtn: '📤 WITHDRAW',
-                welcomeTitle: 'Welcome to Shein!',
-                welcomeSubtitle: 'Thousands of people trust us worldwide.',
-                statUsers: 'Active Users',
-                statTransactions: 'Transactions',
-                statCountries: 'Countries',
-                badgeSeguro: '100% Secure',
-                badgeVerificado: 'Verified',
-                badgeEstrellas: '4.9/5 Stars',
-                badgeProtegido: 'Protected',
-                badgeLider: 'Market Leader',
-                badgePagos: 'Fast Payments',
-                quote1: '"Shein is the best platform to buy and sell. 100% reliable!"',
-                quote2: '"I have received my payments on time. Excellent service."',
-                garantiasTitle: '🛡️ Our Guarantees',
-                garantia1: '✅ 100% transparency',
-                garantia2: '✅ 24/7 Support',
-                garantia3: '✅ Withdrawals in 24 hours',
-                garantia4: '✅ Protected data',
-                garantia5: '✅ No hidden fees',
-                garantia6: '✅ Banking security',
-                vipOrdersTitle: '📦 VIP Orders',
-                vipOrdersSubtitle: 'Complete orders to earn commissions. Each order brings you closer to your next VIP level!',
-                configTitle: '⚙️ Settings',
-                addBankBtn: '➕ Add bank account',
-                addBankTitle: '🏦 Add bank account',
-                bankNameLabel: '🏛️ Bank name',
-                accountNumberLabel: '🔢 Account number',
-                accountHolderLabel: '👤 Account holder',
-                cciLabel: '🔢 CCI / IBAN',
-                confirmBtn: '✅ Confirm',
-                cancelBtn: '❌ Cancel',
-                langLabel: '🌐 Language',
-                currencyLabel: '💰 Currency',
-                noBanks: 'No bank accounts registered.',
-                contratoTitle: '📄 Contract',
-                trabajoTitle: '💼 Work',
-                trabajoSubtitle: 'Find job opportunities at Shein.',
-                trabajoItem1: '📱 Digital Marketing',
-                trabajoItem1Desc: 'Earn money promoting products.',
-                trabajoItem2: '💻 Customer Service',
-                trabajoItem2Desc: 'Help our users with their inquiries.',
-                trabajoItem3: '📊 Data Analyst',
-                trabajoItem3Desc: 'Analyze user behavior.',
-                miTitle: '👤 My Profile',
-                memberSince: '📅 Member since',
-                profileBalance: '💰 Balance',
-                profileVip: '⭐ VIP Level',
-                misBancos: '🏦 My Bank Accounts',
-                addBankMi: '➕ Add bank account',
-                withdrawalTitle: '📤 Make Withdrawal',
-                withdrawBankLabel: '🏛️ Select your bank account',
-                withdrawAmountLabel: '💰 Amount to withdraw',
-                confirmWithdrawal: '✅ Confirm Withdrawal',
-                historyTitle: '📋 Withdrawal History',
-                noHistory: 'No withdrawals made.',
-                navInicio: 'Home',
-                navOrdenes: 'Orders',
-                navContrato: 'Contract',
-                navTrabajo: 'Work',
-                navMi: 'My',
-                logout: 'Logout',
-                regError: '⚠️ Please fill in all fields.',
-                loginError: '❌ Incorrect username/phone or password.',
-                orderCompleted: 'Order completed in',
-                earned: 'Earned',
-                completedAll: '🎉 Congratulations! You have completed',
-                andEarned: 'and earned',
-                unlocked: '🔓 {level} has been unlocked!',
-                notUnlocked: '❌ This VIP level is not unlocked yet.',
-                alreadyCompleted: '✅ You have already completed all orders for this level!',
-                selectBank: '⚠️ Please select a bank account.',
-                validAmount: '⚠️ Please enter a valid amount greater than 0.',
-                insufficientBalance: '❌ Insufficient balance. Your balance is',
-                withdrawalSuccess: '✅ Withdrawal of {amount} to {bank} completed successfully.',
-                registerSuccess: '✅ Account "{username}" created successfully! {amount} welcome bonus.',
-                loginSuccess: '🔓 Welcome back, {username}!',
-                logoutSuccess: '👋 You have logged out successfully.',
-                comenzarSuccess: '🚀 You have started a new job! +{amount}',
-                recargarSuccess: '📥 Recharge successful! +{amount}',
-                goToWithdraw: '📤 Go to the "My" section to make your withdrawal.',
-                contratoHeroTitle: 'Trust Contract',
-                contratoHeroSub: 'Your security is our number one priority',
-                contratoGrid1: '100% Security',
-                contratoGrid1Desc: 'Encrypted data',
-                contratoGrid2: 'Fast Withdrawals',
-                contratoGrid2Desc: '24 hours max',
-                contratoGrid3: 'Protection',
-                contratoGrid3Desc: 'Against fraud',
-                contratoGrid4: 'Transparency',
-                contratoGrid4Desc: 'No hidden fees',
-                garantiasSection: '🛡️ Our Guarantees',
-                garantiaList1: '100% transparency in all transactions',
-                garantiaList2: '24/7 customer support in multiple languages',
-                garantiaList3: 'Withdrawals processed within 24 hours maximum',
-                garantiaList4: 'Personal data protected under strict policies',
-                garantiaList5: 'No hidden fees or additional charges',
-                garantiaList6: 'Banking security with advanced encryption',
-                compromisosTitle: '🤝 Our Commitments',
-                compromiso1: 'Comply with all current legal regulations',
-                compromiso2: 'Guarantee the integrity of your funds',
-                compromiso3: 'Provide an exceptional user experience',
-                compromiso4: 'Constantly update our security systems',
-                compromiso5: 'Listen and attend to all your suggestions',
-                beneficiosTitle: '⭐ Exclusive Benefits',
-                beneficio1: 'VIP 1: 30% commission on each order',
-                beneficio2: 'VIP 2: 35% commission + additional bonuses',
-                beneficio3: 'VIP 3: 40% commission + priority access',
-                beneficio4: 'VIP 4: 45% commission + premium support',
-                beneficio5: 'VIP 5: 50% commission + instant withdrawals',
-                beneficio6: 'VIP 6: 55% commission + exclusive benefits',
-                userIdLabel: '🆔 User ID',
-                copyBtn: '📋 Copy',
-                copied: '✅ ID copied to clipboard',
-                fillAllFields: 'Please fill in all fields.',
-                bankAccount: 'Bank account',
-                addedSuccess: 'added successfully.',
-                confirmDelete: 'Are you sure you want to delete this bank account?',
-                account: 'Account',
-                deleted: 'deleted.',
-                status: 'Completed',
-                requiresCompleting: 'Requires completing',
-                orders: 'orders',
-                completed: 'Completed',
-                locked: 'Locked',
-                completeOrder: 'Complete Order',
-                investment: 'Investment',
-                commission: 'Commission',
-                perOrder: 'per order',
-                countryCurrency: 'Country / Currency',
-                orderCompletedTitle: 'Order Completed!',
-                orderCompletedSub: 'You have successfully completed an order',
-                orderCount: 'Order #{count} of {total} completed',
-                noOrders: 'No orders completed yet.',
-                orderHistory: '📋 Order History'
-            },
-            my: {
-                appTitle: '✨ သင့်အွန်လိုင်းစျေးဝယ်စင်တာ ✨',
-                registerTitle: '📝 အကောင့်ဖွင့်ရန်',
-                loginTitle: '🔐 ဝင်ရောက်ရန်',
-                phoneLabel: '📱 ဖုန်းနံပါတ်',
-                countryLabel: '🌍 နိုင်ငံကုဒ်',
-                usernameLabel: '👤 အသုံးပြုသူအမည်',
-                passwordLabel: '🔒 စကားဝှက်',
-                registerBtn: '✅ မှတ်ပုံတင်ရန်',
-                loginBtn: '🚪 ဝင်ရောက်ရန်',
-                switchToLogin: 'အကောင့်ရှိပြီးသားလား?',
-                switchToRegister: 'အကောင့်မရှိသေးဘူးလား?',
-                loginIdentifierLabel: '👤 အသုံးပြုသူအမည် သို့မဟုတ် ဖုန်းနံပါတ်',
-                loginPasswordLabel: '🔒 စကားဝှက်',
-                loginIdentifierHelp: 'သင့်အသုံးပြုသူအမည် သို့မဟုတ် ဖုန်းနံပါတ်ကို ရိုက်ထည့်ပါ',
-                greeting: 'မင်္ဂလာပါ',
-                balanceLabel: '💰 လက်ကျန်ငွေ',
-                incomeLabel: '📈 စုစုပေါင်းဝင်ငွေ',
-                comenzarBtn: '🚀 စတင်ရန်',
-                recargarBtn: '📥 ငွေဖြည့်ရန်',
-                retirarBtn: '📤 ငွေထုတ်ရန်',
-                welcomeTitle: 'Shein မှ ကြိုဆိုပါတယ်!',
-                welcomeSubtitle: 'ကမ္ဘာတစ်ဝန်းမှ လူထောင်ပေါင်းများစွာ ကျွန်ုပ်တို့ကို ယုံကြည်ကြသည်။',
-                statUsers: 'တက်ကြွသောအသုံးပြုသူများ',
-                statTransactions: 'ငွေပေးချေမှုများ',
-                statCountries: 'နိုင်ငံများ',
-                badgeSeguro: '၁၀၀% လုံခြုံသည်',
-                badgeVerificado: 'အတည်ပြုပြီး',
-                badgeEstrellas: '၄.၉/၅ ကြယ်ပွင့်',
-                badgeProtegido: 'ကာကွယ်ထားသည်',
-                badgeLider: 'စျေးကွက်ခေါင်းဆောင်',
-                badgePagos: 'အမြန်ငွေပေးချေမှု',
-                quote1: '"Shein သည် ဝယ်ရောင်းရန် အကောင်းဆုံးပလက်ဖောင်းဖြစ်သည်။ ၁၀၀% ယုံကြည်ရသည်!"',
-                quote2: '"ကျွန်ုပ်၏ငွေများကို အချိန်မှန်ရရှိပါသည်။ အကောင်းဆုံးဝန်ဆောင်မှုပါ။"',
-                garantiasTitle: '🛡️ ကျွန်ုပ်တို့၏ အာမခံချက်များ',
-                garantia1: '✅ ၁၀၀% ပွင့်လင်းမြင်သာမှု',
-                garantia2: '✅ ၂၄/၇ ပံ့ပိုးမှု',
-                garantia3: '✅ ၂၄ နာရီအတွင်း ငွေထုတ်ခြင်း',
-                garantia4: '✅ ကာကွယ်ထားသောဒေတာ',
-                garantia5: '✅ လျှို့ဝှက်ကောက်ခံမှုမရှိ',
-                garantia6: '✅ ဘဏ်လုံခြုံရေး',
-                vipOrdersTitle: '📦 VIP အမှာစာများ',
-                vipOrdersSubtitle: 'ကော်မရှင်ရရန် အမှာစာများကို ပြီးအောင်လုပ်ပါ။ အမှာစာတိုင်းသည် သင့်အား နောက် VIP အဆင့်သို့ ပို့ဆောင်ပေးသည်။',
-                configTitle: '⚙️ ပြင်ဆင်ချက်များ',
-                addBankBtn: '➕ ဘဏ်အကောင့်ထည့်ရန်',
-                addBankTitle: '🏦 ဘဏ်အကောင့်ထည့်ရန်',
-                bankNameLabel: '🏛️ ဘဏ်အမည်',
-                accountNumberLabel: '🔢 အကောင့်နံပါတ်',
-                accountHolderLabel: '👤 အကောင့်ပိုင်ရှင်',
-                cciLabel: '🔢 CCI / IBAN',
-                confirmBtn: '✅ အတည်ပြုရန်',
-                cancelBtn: '❌ ဖျက်သိမ်းရန်',
-                langLabel: '🌐 ဘာသာစကား',
-                currencyLabel: '💰 ငွေကြေး',
-                noBanks: 'မှတ်ပုံတင်ထားသော ဘဏ်အကောင့်မရှိပါ။',
-                contratoTitle: '📄 စာချုပ်',
-                trabajoTitle: '💼 အလုပ်',
-                trabajoSubtitle: 'Shein တွင် အလုပ်အကိုင်အခွင့်အလမ်းများကို ရှာဖွေပါ။',
-                trabajoItem1: '📱 ဒစ်ဂျစ်တယ်မားကတ်တင်း',
-                trabajoItem1Desc: 'ထုတ်ကုန်များကို ကြော်ငြာခြင်းဖြင့် ငွေရှာပါ။',
-                trabajoItem2: '💻 ဖောက်သည်ဝန်ဆောင်မှု',
-                trabajoItem2Desc: 'ကျွန်ုပ်တို့၏အသုံးပြုသူများကို အကူအညီပေးပါ။',
-                trabajoItem3: '📊 ဒေတာခွဲခြမ်းစိတ်ဖြာသူ',
-                trabajoItem3Desc: 'အသုံးပြုသူများ၏ အပြုအမူကို ခွဲခြမ်းစိတ်ဖြာပါ။',
-                miTitle: '👤 ကျွန်ုပ်၏ ပရိုဖိုင်',
-                memberSince: '📅 အဖွဲ့ဝင်ဖြစ်ကတည်းက',
-                profileBalance: '💰 လက်ကျန်ငွေ',
-                profileVip: '⭐ VIP အဆင့်',
-                misBancos: '🏦 ကျွန်ုပ်၏ ဘဏ်အကောင့်များ',
-                addBankMi: '➕ ဘဏ်အကောင့်ထည့်ရန်',
-                withdrawalTitle: '📤 ငွေထုတ်ရန်',
-                withdrawBankLabel: '🏛️ သင့်ဘဏ်အကောင့်ကိုရွေးပါ',
-                withdrawAmountLabel: '💰 ထုတ်ချင်သောပမာဏ',
-                confirmWithdrawal: '✅ ငွေထုတ်ရန်အတည်ပြုပါ',
-                historyTitle: '📋 ငွေထုတ်မှတ်တမ်း',
-                noHistory: 'ငွေထုတ်ခြင်းမရှိသေးပါ။',
-                navInicio: 'မူလစာမျက်နှာ',
-                navOrdenes: 'အမှာစာများ',
-                navContrato: 'စာချုပ်',
-                navTrabajo: 'အလုပ်',
-                navMi: 'ကျွန်ုပ်',
-                logout: 'ထွက်ရန်',
-                regError: '⚠️ ကျေးဇူးပြု၍ အားလုံးဖြည့်ပါ။',
-                loginError: '❌ အသုံးပြုသူအမည်/ဖုန်းနံပါတ် သို့မဟုတ် စကားဝှက် မှားနေပါသည်။',
-                orderCompleted: 'တွင် အမှာစာပြီးဆုံးပါပြီ',
-                earned: 'ရရှိငွေ',
-                completedAll: '🎉 ဂုဏ်ယူပါတယ်! သင်',
-                andEarned: 'ပြီးဆုံးပြီး',
-                unlocked: '🔓 {level} ကို ဖွင့်လှစ်လိုက်ပါပြီ!',
-                notUnlocked: '❌ ဤ VIP အဆင့်ကို မဖွင့်ရသေးပါ။',
-                alreadyCompleted: '✅ ဤအဆင့်အတွက် အမှာစာများအားလုံးကို ပြီးဆုံးပြီးဖြစ်ပါသည်။',
-                selectBank: '⚠️ ကျေးဇူးပြု၍ ဘဏ်အကောင့်တစ်ခုကို ရွေးပါ။',
-                validAmount: '⚠️ ကျေးဇူးပြု၍ ၀ ထက်ကြီးသော ပမာဏကို ရိုက်ထည့်ပါ။',
-                insufficientBalance: '❌ လက်ကျန်မလုံလောက်ပါ။ သင့်လက်ကျန်မှာ',
-                withdrawalSuccess: '✅ {bank} သို့ {amount} ငွေထုတ်ခြင်း အောင်မြင်ပါပြီ။',
-                registerSuccess: '✅ "{username}" အကောင့်ကို အောင်မြင်စွာဖွင့်လှစ်ပြီး {amount} ကြိုဆိုငွေ ရရှိပါပြီ။',
-                loginSuccess: '🔓 ပြန်လည်ကြိုဆိုပါတယ် {username}!',
-                logoutSuccess: '👋 အကောင့်မှ အောင်မြင်စွာ ထွက်ပြီးပါပြီ။',
-                comenzarSuccess: '🚀 အလုပ်အသစ်စတင်ပြီပါပြီ! +{amount}',
-                recargarSuccess: '📥 ငွေဖြည့်ခြင်း အောင်မြင်ပါပြီ! +{amount}',
-                goToWithdraw: '📤 ငွေထုတ်ရန် "ကျွန်ုပ်" ကဏ္ဍသို့ သွားပါ။',
-                contratoHeroTitle: 'ယုံကြည်မှုစာချုပ်',
-                contratoHeroSub: 'သင့်လုံခြုံရေးသည် ကျွန်ုပ်တို့၏ နံပါတ်တစ်ဦးစားပေးဖြစ်သည်',
-                contratoGrid1: '၁၀၀% လုံခြုံရေး',
-                contratoGrid1Desc: 'ကုဒ်ဝှက်ထားသောဒေတာ',
-                contratoGrid2: 'အမြန်ငွေထုတ်ခြင်း',
-                contratoGrid2Desc: '၂၄ နာရီ အများဆုံး',
-                contratoGrid3: 'ကာကွယ်ရေး',
-                contratoGrid3Desc: 'လိမ်လည်မှုမှ',
-                contratoGrid4: 'ပွင့်လင်းမြင်သာမှု',
-                contratoGrid4Desc: 'လျှို့ဝှက်ကောက်ခံမှုမရှိ',
-                garantiasSection: '🛡️ ကျွန်ုပ်တို့၏ အာမခံချက်များ',
-                garantiaList1: 'ငွေပေးချေမှုအားလုံးတွင် ၁၀၀% ပွင့်လင်းမြင်သာမှု',
-                garantiaList2: 'ဘာသာစကားမျိုးစုံဖြင့် ၂၄/၇ ဖောက်သည်ပံ့ပိုးမှု',
-                garantiaList3: 'ငွေထုတ်ခြင်းကို ၂၄ နာရီအတွင်း ဆောင်ရွက်ပေးခြင်း',
-                garantiaList4: 'တင်းကျပ်သောမူဝါဒများဖြင့် ကိုယ်ရေးဒေတာကာကွယ်ခြင်း',
-                garantiaList5: 'လျှို့ဝှက်ကောက်ခံမှုများနှင့် အပိုကောက်ခံမှုများမရှိ',
-                garantiaList6: 'အဆင့်မြင့် ကုဒ်ဝှက်ခြင်းဖြင့် ဘဏ်လုံခြုံရေး',
-                compromisosTitle: '🤝 ကျွန်ုပ်တို့၏ ကတိများ',
-                compromiso1: 'လက်ရှိဥပဒေစည်းမျဉ်းအားလုံးကို လိုက်နာခြင်း',
-                compromiso2: 'သင့်ငွေများ၏ ခိုင်မာမှုကို အာမခံခြင်း',
-                compromiso3: 'ထူးခြားသော အသုံးပြုသူအတွေ့အကြုံကို ပေးအပ်ခြင်း',
-                compromiso4: 'လုံခြုံရေးစနစ်များကို အဆက်မပြတ် အပ်ဒိတ်လုပ်ခြင်း',
-                compromiso5: 'သင့်အကြံပြုချက်အားလုံးကို နားထောင်ပြီး ဆောင်ရွက်ခြင်း',
-                beneficiosTitle: '⭐ သီးသန့်အကျိုးခံစားခွင့်များ',
-                beneficio1: 'VIP 1: အမှာစာတိုင်းတွင် ၃၀% ကော်မရှင်',
-                beneficio2: 'VIP 2: ၃၅% ကော်မရှင် + အပိုဆုများ',
-                beneficio3: 'VIP 3: ၄၀% ကော်မရှင် + ဦးစားပေးဝင်ရောက်ခွင့်',
-                beneficio4: 'VIP 4: ၄၅% ကော်မရှင် + အဆင့်မြင့်ပံ့ပိုးမှု',
-                beneficio5: 'VIP 5: ၅၀% ကော်မရှင် + ချက်ချင်းငွေထုတ်ခြင်း',
-                beneficio6: 'VIP 6: ၅၅% ကော်မရှင် + သီးသန့်အကျိုးခံစားခွင့်များ',
-                userIdLabel: '🆔 အသုံးပြုသူ ID',
-                copyBtn: '📋 ကူးယူရန်',
-                copied: '✅ ID ကို ကလစ်ဘုတ်သို့ ကူးယူပြီးပါပြီ',
-                fillAllFields: 'ကျေးဇူးပြု၍ အကွက်အားလုံးကို ဖြည့်ပါ။',
-                bankAccount: 'ဘဏ်အကောင့်',
-                addedSuccess: 'အောင်မြင်စွာ ထည့်သွင်းပြီးပါပြီ။',
-                confirmDelete: 'ဤဘဏ်အကောင့်ကို ဖျက်ရန် သေချာပါသလား။',
-                account: 'အကောင့်',
-                deleted: 'ဖျက်ပြီးပါပြီ။',
-                status: 'ပြီးဆုံးပြီ',
-                requiresCompleting: 'ပြီးဆုံးရန် လိုအပ်သည်',
-                orders: 'အမှာစာ',
-                completed: 'ပြီးဆုံးပြီ',
-                locked: 'ပိတ်ထားသည်',
-                completeOrder: 'အမှာစာပြီးအောင်လုပ်ရန်',
-                investment: 'ရင်းနှီးငွေ',
-                commission: 'ကော်မရှင်',
-                perOrder: 'တစ်ခုလျှင်',
-                countryCurrency: 'နိုင်ငံ / ငွေကြေး',
-                orderCompletedTitle: 'အမှာစာ ပြီးဆုံးပါပြီ!',
-                orderCompletedSub: 'အမှာစာကို အောင်မြင်စွာ ပြီးဆုံးပါပြီ',
-                orderCount: 'အမှာစာ #{count} မှ {total} ပြီးဆုံးပါပြီ',
-                noOrders: 'အမှာစာများ မပြီးသေးပါ။',
-                orderHistory: '📋 အမှာစာမှတ်တမ်း'
+        function loadUserData() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                try {
+                    const data = JSON.parse(stored);
+                    // Buscar usuario actual por ID
+                    if (data.currentUserId) {
+                        const found = data.users.find(u => u.userId === data.currentUserId);
+                        if (found) {
+                            Object.assign(userData, found);
+                            userData.isLoggedIn = true;
+                        }
+                    }
+                    console.log('✅ Datos de usuario cargados:', userData.username);
+                } catch (e) {
+                    console.error('Error loading user data:', e);
+                }
             }
-        };
-
-        // Add other languages (zh, ja, ko, fr, de, pt, ru) with similar pattern
-        // For space, we'll use Spanish as fallback
-
-        const currencySymbols = {
-            'PEN': 'S/',
-            'USD': '$',
-            'EUR': '€',
-            'MMK': 'K',
-            'JPY': '¥',
-            'KRW': '₩',
-            'GBP': '£',
-            'CNY': '¥',
-            'BRL': 'R$',
-            'RUB': '₽'
-        };
-
-        let currentLang = 'es';
-        let currentCurrency = 'PEN';
-
-        // ============================================================
-        //  LANGUAGE FUNCTIONS
-        // ============================================================
-        function changeLanguage(lang) {
-            currentLang = lang;
-            const t = translations[lang] || translations.es;
-            // Apply translations (simplified - only essential elements)
-            document.querySelector('.header-subtitle').textContent = t.appTitle;
-            document.querySelector('.register-title').textContent = t.registerTitle;
-            document.querySelector('.login-title').textContent = t.loginTitle;
-            document.querySelector('.label-phone').textContent = t.phoneLabel;
-            document.querySelector('.label-country').textContent = t.countryLabel;
-            document.querySelector('.label-username').textContent = t.usernameLabel;
-            document.querySelector('.label-password').textContent = t.passwordLabel;
-            document.querySelector('.btn-register').textContent = t.registerBtn;
-            document.querySelector('.btn-login').textContent = t.loginBtn;
-            document.querySelector('.label-login-identifier').textContent = t.loginIdentifierLabel;
-            document.querySelector('.label-login-password').textContent = t.loginPasswordLabel;
-            const helpEl = document.querySelector('.label-login-identifier + small');
-            if (helpEl) helpEl.textContent = t.loginIdentifierHelp || '';
-            document.querySelector('.switch-to-login').innerHTML = t.switchToLogin + ' <strong>Iniciar sesión</strong>';
-            document.querySelector('.switch-to-register').innerHTML = t.switchToRegister + ' <strong>Regístrate aquí</strong>';
-            document.querySelector('.greeting-text').textContent = t.greeting;
-            document.querySelector('.label-balance').textContent = t.balanceLabel;
-            document.querySelector('.label-income').textContent = t.incomeLabel;
-            document.querySelector('.btn-comenzar').textContent = t.comenzarBtn;
-            document.querySelector('.btn-recargar').textContent = t.recargarBtn;
-            document.querySelector('.btn-retirar').textContent = t.retirarBtn;
-            document.querySelector('.welcome-title').textContent = t.welcomeTitle;
-            document.querySelector('.welcome-subtitle').textContent = t.welcomeSubtitle;
-            document.querySelector('.stat-users').textContent = t.statUsers;
-            document.querySelector('.stat-transactions').textContent = t.statTransactions;
-            document.querySelector('.stat-countries').textContent = t.statCountries;
-            document.querySelector('.badge-seguro').textContent = t.badgeSeguro;
-            document.querySelector('.badge-verificado').textContent = t.badgeVerificado;
-            document.querySelector('.badge-estrellas').textContent = t.badgeEstrellas;
-            document.querySelector('.badge-protegido').textContent = t.badgeProtegido;
-            document.querySelector('.badge-lider').textContent = t.badgeLider;
-            document.querySelector('.badge-pagos').textContent = t.badgePagos;
-            document.querySelector('.quote1').textContent = t.quote1;
-            document.querySelector('.quote2').textContent = t.quote2;
-            document.querySelector('.garantias-title').textContent = t.garantiasTitle;
-            document.querySelector('.garantia-item1').textContent = t.garantia1;
-            document.querySelector('.garantia-item2').textContent = t.garantia2;
-            document.querySelector('.garantia-item3').textContent = t.garantia3;
-            document.querySelector('.garantia-item4').textContent = t.garantia4;
-            document.querySelector('.garantia-item5').textContent = t.garantia5;
-            document.querySelector('.garantia-item6').textContent = t.garantia6;
-            document.querySelector('.vip-orders-title').textContent = t.vipOrdersTitle;
-            document.querySelector('.vip-orders-subtitle').textContent = t.vipOrdersSubtitle;
-            document.querySelector('.config-title').textContent = t.configTitle;
-            document.querySelector('.btn-add-bank').textContent = t.addBankBtn;
-            document.querySelector('.add-bank-title').textContent = t.addBankTitle;
-            document.querySelector('.label-bank-name').textContent = t.bankNameLabel;
-            document.querySelector('.label-account-number').textContent = t.accountNumberLabel;
-            document.querySelector('.label-account-holder').textContent = t.accountHolderLabel;
-            document.querySelector('.label-cci').textContent = t.cciLabel;
-            document.querySelector('.btn-confirm-bank').textContent = t.confirmBtn;
-            document.querySelector('.btn-cancel-bank').textContent = t.cancelBtn;
-            document.querySelector('.config-lang-label').textContent = t.langLabel;
-            document.querySelector('.config-currency-label').textContent = t.currencyLabel;
-            document.querySelector('.trabajo-title').textContent = t.trabajoTitle;
-            document.querySelector('.trabajo-subtitle').textContent = t.trabajoSubtitle;
-            document.querySelector('.trabajo-item1-title').textContent = t.trabajoItem1;
-            document.querySelector('.trabajo-item1-desc').textContent = t.trabajoItem1Desc;
-            document.querySelector('.trabajo-item2-title').textContent = t.trabajoItem2;
-            document.querySelector('.trabajo-item2-desc').textContent = t.trabajoItem2Desc;
-            document.querySelector('.trabajo-item3-title').textContent = t.trabajoItem3;
-            document.querySelector('.trabajo-item3-desc').textContent = t.trabajoItem3Desc;
-            document.querySelector('.mi-title').textContent = t.miTitle;
-            document.querySelector('.label-member-since').textContent = t.memberSince;
-            document.querySelector('.label-profile-balance').textContent = t.profileBalance;
-            document.querySelector('.label-profile-vip').textContent = t.profileVip;
-            document.querySelector('.mis-bancos-title').textContent = t.misBancos;
-            document.querySelector('.btn-add-bank-mi').textContent = t.addBankMi;
-            document.querySelector('.add-bank-mi-title').textContent = t.addBankTitle;
-            document.querySelector('.label-bank-name-mi').textContent = t.bankNameLabel;
-            document.querySelector('.label-account-number-mi').textContent = t.accountNumberLabel;
-            document.querySelector('.label-account-holder-mi').textContent = t.accountHolderLabel;
-            document.querySelector('.label-cci-mi').textContent = t.cciLabel;
-            document.querySelector('.btn-confirm-bank-mi').textContent = t.confirmBtn;
-            document.querySelector('.btn-cancel-bank-mi').textContent = t.cancelBtn;
-            document.querySelector('.withdrawal-title').textContent = t.withdrawalTitle;
-            document.querySelector('.label-withdraw-bank').textContent = t.withdrawBankLabel;
-            document.querySelector('.label-withdraw-amount').textContent = t.withdrawAmountLabel;
-            document.querySelector('.btn-confirm-withdrawal').textContent = t.confirmWithdrawal;
-            document.querySelector('.history-title').textContent = t.historyTitle;
-            document.querySelector('.nav-inicio').textContent = t.navInicio;
-            document.querySelector('.nav-ordenes').textContent = t.navOrdenes;
-            document.querySelector('.nav-contrato').textContent = t.navContrato;
-            document.querySelector('.nav-trabajo').textContent = t.navTrabajo;
-            document.querySelector('.nav-mi').textContent = t.navMi;
-            document.querySelector('.logout-text').textContent = t.logout;
-            document.getElementById('regError').textContent = t.regError;
-            document.getElementById('loginError').textContent = t.loginError;
-            document.getElementById('currentLangDisplay').textContent = lang.toUpperCase();
-
-            // Order modal translations
-            document.querySelector('.modal-title').textContent = t.orderCompletedTitle || '¡Orden Completada!';
-            document.querySelector('.modal-subtitle').textContent = t.orderCompletedSub || 'Has completado una orden exitosamente';
-            document.querySelector('.modal-close-btn').textContent = '✅ ' + (t.completed || '¡Excelente!');
-
-            // Order history
-            document.querySelector('.order-history-section h4').textContent = t.orderHistory || '📋 Historial de órdenes';
-
-            // Contrato translations
-            document.querySelector('.contrato-hero-title').textContent = t.contratoHeroTitle;
-            document.querySelector('.contrato-hero-sub').textContent = t.contratoHeroSub;
-            const gridItems = document.querySelectorAll('.contrato-grid .grid-item');
-            if (gridItems.length >= 4) {
-                gridItems[0].querySelector('.title').textContent = t.contratoGrid1;
-                gridItems[0].querySelector('.desc').textContent = t.contratoGrid1Desc;
-                gridItems[1].querySelector('.title').textContent = t.contratoGrid2;
-                gridItems[1].querySelector('.desc').textContent = t.contratoGrid2Desc;
-                gridItems[2].querySelector('.title').textContent = t.contratoGrid3;
-                gridItems[2].querySelector('.desc').textContent = t.contratoGrid3Desc;
-                gridItems[3].querySelector('.title').textContent = t.contratoGrid4;
-                gridItems[3].querySelector('.desc').textContent = t.contratoGrid4Desc;
-            }
-            const sectionTitles = document.querySelectorAll('.contrato-section h4');
-            if (sectionTitles.length >= 3) {
-                sectionTitles[0].textContent = t.garantiasSection;
-                sectionTitles[1].textContent = t.compromisosTitle;
-                sectionTitles[2].textContent = t.beneficiosTitle;
-            }
-            const garantiaItems = document.querySelectorAll('.contrato-section ul li');
-            if (garantiaItems.length >= 6) {
-                const gList = [t.garantiaList1, t.garantiaList2, t.garantiaList3, t.garantiaList4, t.garantiaList5, t.garantiaList6];
-                gList.forEach((text, i) => {
-                    if (text) garantiaItems[i].innerHTML = `<span class="check">✅</span> ${text}`;
-                });
-            }
-            const compItems = document.querySelectorAll('.contrato-section')[1]?.querySelectorAll('ul li');
-            if (compItems && compItems.length >= 5) {
-                const cList = [t.compromiso1, t.compromiso2, t.compromiso3, t.compromiso4, t.compromiso5];
-                cList.forEach((text, i) => {
-                    if (text) compItems[i].innerHTML = `<span class="check">✅</span> ${text}`;
-                });
-            }
-            const benItems = document.querySelectorAll('.contrato-section')[2]?.querySelectorAll('ul li');
-            if (benItems && benItems.length >= 6) {
-                const bList = [t.beneficio1, t.beneficio2, t.beneficio3, t.beneficio4, t.beneficio5, t.beneficio6];
-                bList.forEach((text, i) => {
-                    if (text) benItems[i].innerHTML = `<span class="check">✅</span> ${text}`;
-                });
-            }
-            document.querySelectorAll('.id-label').forEach(el => el.textContent = t.userIdLabel);
-            document.querySelectorAll('.id-copy').forEach(el => el.textContent = t.copyBtn);
         }
 
-        function changeCurrency(currency) {
-            currentCurrency = currency;
-            document.getElementById('currentCurrencyDisplay').textContent = currency;
-            updateDashboard();
-            renderVIPOrders();
-            renderBankAccounts();
-            updateWithdrawBankSelect();
-            renderWithdrawalHistory();
-        }
+        function saveUserData() {
+            let allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+            if (!allData.users) allData.users = [];
 
-        function formatCurrency(amount) {
-            const symbol = currencySymbols[currentCurrency] || 'S/';
-            return `${symbol} ${amount.toFixed(2)}`;
+            // Actualizar o agregar usuario actual
+            const userIndex = allData.users.findIndex(u => u.userId === userData.userId);
+            const userCopy = JSON.parse(JSON.stringify(userData));
+            delete userCopy.isLoggedIn;
+
+            if (userIndex >= 0) {
+                allData.users[userIndex] = userCopy;
+            } else if (userData.userId) {
+                allData.users.push(userCopy);
+            }
+
+            allData.currentUser = userCopy;
+            allData.currentUserId = userData.userId;
+
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
+            console.log('💾 Datos guardados:', userData.username);
         }
 
         // ============================================================
-        //  AUTH SWITCH FUNCTIONS
+        //  AUTH FUNCTIONS
         // ============================================================
         function showLogin() {
             document.getElementById('registerForm').classList.remove('active');
@@ -2678,91 +840,6 @@
             document.getElementById('loginError').style.display = 'none';
         }
 
-        // ============================================================
-        //  BANK FORM FUNCTIONS
-        // ============================================================
-        function updateBankOptions() {
-            const countrySelect = document.getElementById('bankCountrySelect');
-            const bankSelect = document.getElementById('bankName');
-            const countryCode = countrySelect.value;
-            const data = bankData[countryCode];
-
-            if (data) {
-                bankSelect.innerHTML = '';
-                data.banks.forEach(bank => {
-                    const option = document.createElement('option');
-                    option.value = bank;
-                    option.textContent = bank;
-                    bankSelect.appendChild(option);
-                });
-                document.getElementById('accountFormatHint').textContent = `Formato: ${data.accountFormat}`;
-                document.getElementById('cciFormatHint').textContent = `Formato: ${data.cciFormat}`;
-            }
-        }
-
-        function updateBankOptionsMi() {
-            const countrySelect = document.getElementById('bankCountrySelectMi');
-            const bankSelect = document.getElementById('bankNameMi');
-            const countryCode = countrySelect.value;
-            const data = bankData[countryCode];
-
-            if (data) {
-                bankSelect.innerHTML = '';
-                data.banks.forEach(bank => {
-                    const option = document.createElement('option');
-                    option.value = bank;
-                    option.textContent = bank;
-                    bankSelect.appendChild(option);
-                });
-                document.getElementById('accountFormatHintMi').textContent = `Formato: ${data.accountFormat}`;
-                document.getElementById('cciFormatHintMi').textContent = `Formato: ${data.cciFormat}`;
-            }
-        }
-
-        // ============================================================
-        //  USER DATA
-        // ============================================================
-        let userData = {
-            username: '',
-            phone: '',
-            password: '',
-            balance: 10.00,
-            totalIncome: 0,
-            isLoggedIn: false,
-            recargaCount: 0,
-            retiroCount: 0,
-            trabajoCount: 0,
-            notificacionCount: 1,
-            bankAccounts: [],
-            withdrawalHistory: [],
-            userId: '',
-            vipOrders: {
-                vip1: { level: 'VIP 1', totalOrders: 12, completedOrders: 0, commissionRate: 0.30, isUnlocked: true,
-                    isCompleted: false, baseInvestment: 10.00 },
-                vip2: { level: 'VIP 2', totalOrders: 20, completedOrders: 0, commissionRate: 0.35, isUnlocked: false,
-                    isCompleted: false, baseInvestment: 25.00, unlockRequirement: { level: 'VIP 1', requiredOrders: 12 } },
-                vip3: { level: 'VIP 3', totalOrders: 30, completedOrders: 0, commissionRate: 0.40, isUnlocked: false,
-                    isCompleted: false, baseInvestment: 50.00, unlockRequirement: { level: 'VIP 2', requiredOrders: 20 } },
-                vip4: { level: 'VIP 4', totalOrders: 40, completedOrders: 0, commissionRate: 0.45, isUnlocked: false,
-                    isCompleted: false, baseInvestment: 100.00, unlockRequirement: { level: 'VIP 3', requiredOrders: 30 } },
-                vip5: { level: 'VIP 5', totalOrders: 50, completedOrders: 0, commissionRate: 0.50, isUnlocked: false,
-                    isCompleted: false, baseInvestment: 200.00, unlockRequirement: { level: 'VIP 4', requiredOrders: 40 } },
-                vip6: { level: 'VIP 6', totalOrders: 60, completedOrders: 0, commissionRate: 0.55, isUnlocked: false,
-                    isCompleted: false, baseInvestment: 500.00, unlockRequirement: { level: 'VIP 5', requiredOrders: 50 } }
-            },
-            vipLevels: {
-                vip1: { name: 'VIP 1', active: true },
-                vip2: { name: 'VIP 2', active: false },
-                vip3: { name: 'VIP 3', active: false },
-                vip4: { name: 'VIP 4', active: false },
-                vip5: { name: 'VIP 5', active: false },
-                vip6: { name: 'VIP 6', active: false }
-            }
-        };
-
-        // ============================================================
-        //  AUXILIARY FUNCTIONS
-        // ============================================================
         function showMessage(text, isSuccess = true) {
             const msg = document.getElementById('infoMessage');
             msg.textContent = text;
@@ -2782,11 +859,14 @@
             return id;
         }
 
+        function getRandomIP() {
+            return `${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
+        }
+
         function copyUserId() {
             const userId = document.getElementById('userIdDisplay').textContent;
             navigator.clipboard.writeText(userId).then(() => {
-                const t = translations[currentLang] || translations.es;
-                showMessage(t.copied || '✅ ID copiado al portapapeles', true);
+                showMessage('✅ ID copiado al portapapeles', true);
             }).catch(() => {
                 const userIdEl = document.getElementById('userIdDisplay');
                 const range = document.createRange();
@@ -2794,534 +874,12 @@
                 window.getSelection().removeAllRanges();
                 window.getSelection().addRange(range);
                 document.execCommand('copy');
-                const t = translations[currentLang] || translations.es;
-                showMessage(t.copied || '✅ ID copiado al portapapeles', true);
+                showMessage('✅ ID copiado al portapapeles', true);
             });
         }
 
-        // ============================================================
-        //  ORDER FUNCTIONS
-        // ============================================================
-        function getRandomProduct() {
-            return productos[Math.floor(Math.random() * productos.length)];
-        }
-
-        function showOrderModal(product, commission, completedCount, totalCount) {
-            document.getElementById('modalProductIcon').textContent = product.icon;
-            document.getElementById('modalProductName').textContent = product.name;
-            document.getElementById('modalProductPrice').textContent = formatCurrency(product.price);
-            document.getElementById('modalCommission').textContent = formatCurrency(commission);
-
-            const t = translations[currentLang] || translations.es;
-            document.getElementById('modalOrderCount').textContent =
-                t.orderCount.replace('{count}', completedCount).replace('{total}', totalCount) ||
-                `Orden #${completedCount} de ${totalCount} completada`;
-
-            document.getElementById('orderModal').classList.add('show');
-        }
-
-        function closeOrderModal() {
-            document.getElementById('orderModal').classList.remove('show');
-        }
-
-        function renderOrderHistory() {
-            const container = document.getElementById('orderHistoryList');
-            if (!container) return;
-            container.innerHTML = '';
-
-            const t = translations[currentLang] || translations.es;
-
-            if (orderHistory.length === 0) {
-                container.innerHTML = `
-                            <div style="text-align:center; padding:10px; color:#888; font-size:0.85rem;">
-                                ${t.noOrders || 'No hay órdenes completadas aún.'}
-                            </div>
-                        `;
-                return;
-            }
-
-            const history = [...orderHistory].reverse();
-            history.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'order-history-item';
-                div.innerHTML = `
-                            <div>
-                                <span class="product-name">${item.icon} ${item.product}</span>
-                                <div class="order-time">${item.time}</div>
-                            </div>
-                            <div>
-                                <span class="order-earned">+${formatCurrency(item.commission)}</span>
-                            </div>
-                        `;
-                container.appendChild(div);
-            });
-        }
-
-        // ============================================================
-        //  VIP ORDER SYSTEM
-        // ============================================================
-        function renderVIPOrders() {
-            const container = document.getElementById('vipOrdersContainer');
-            if (!container) return;
-            container.innerHTML = '';
-            const t = translations[currentLang] || translations.es;
-
-            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
-
-            vipKeys.forEach(key => {
-                const order = userData.vipOrders[key];
-                const progress = (order.completedOrders / order.totalOrders) * 100;
-                const isComplete = order.completedOrders >= order.totalOrders;
-
-                let isUnlocked = order.isUnlocked;
-                let lockReason = '';
-
-                if (!isUnlocked && order.unlockRequirement) {
-                    const req = order.unlockRequirement;
-                    const reqKey = req.level.toLowerCase().replace(' ', '');
-                    const reqOrder = userData.vipOrders[reqKey];
-                    if (reqOrder && reqOrder.completedOrders >= req.requiredOrders) {
-                        isUnlocked = true;
-                        order.isUnlocked = true;
-                    } else {
-                        lockReason =
-                            `🔒 ${t.requiresCompleting || 'Requiere completar'} ${req.level} (${req.requiredOrders} ${t.orders || 'órdenes'})`;
-                    }
-                }
-
-                if (isUnlocked && !userData.vipLevels[key].active) {
-                    userData.vipLevels[key].active = true;
-                }
-
-                const div = document.createElement('div');
-                div.className = 'vip-order-item';
-
-                let buttonHtml = '';
-                if (isComplete) {
-                    buttonHtml =
-                        `<button class="btn btn-sm btn-vip completed" disabled>✅ ${t.completed || 'Completado'}</button>`;
-                } else if (!isUnlocked) {
-                    buttonHtml =
-                        `<button class="btn btn-sm btn-vip locked" disabled>${lockReason || '🔒 ' + (t.locked || 'Bloqueado')}</button>`;
-                } else {
-                    buttonHtml = `
-                                <button class="btn btn-sm btn-vip" onclick="completeVIPOrder('${key}')">
-                                    📦 ${t.completeOrder || 'Completar Orden'}
-                                </button>
-                            `;
-                }
-
-                const commission = order.baseInvestment * order.commissionRate;
-
-                div.innerHTML = `
-                            <div class="vip-info">
-                                <div class="vip-title">${order.level}</div>
-                                <div class="vip-details">
-                                    ${t.orders || 'Ordenes'}: ${order.completedOrders}/${order.totalOrders}
-                                    ${isUnlocked ? `| 💰 ${t.investment || 'Inversión'}: ${formatCurrency(order.baseInvestment)}` : ''}
-                                    ${isUnlocked ? `| 📈 ${t.commission || 'Comisión'}: ${(order.commissionRate * 100)}%` : ''}
-                                </div>
-                                <div class="vip-progress">
-                                    <div class="progress-bar" style="width: ${Math.min(progress, 100)}%;"></div>
-                                </div>
-                            </div>
-                            <div class="vip-actions">
-                                <div class="order-count">${order.completedOrders}/${order.totalOrders}</div>
-                                ${isUnlocked ? `<div class="commission-info">💰 ${formatCurrency(commission)} ${t.perOrder || 'por orden'}</div>` : ''}
-                                ${buttonHtml}
-                            </div>
-                        `;
-                container.appendChild(div);
-            });
-
-            renderOrderHistory();
-        }
-
-        function completeVIPOrder(vipKey) {
-            const order = userData.vipOrders[vipKey];
-            const t = translations[currentLang] || translations.es;
-
-            if (!order.isUnlocked) {
-                showMessage(t.notUnlocked || '❌ Este nivel VIP no está desbloqueado aún.', false);
-                return;
-            }
-
-            if (order.completedOrders >= order.totalOrders) {
-                showMessage(t.alreadyCompleted || '✅ ¡Ya has completado todas las órdenes de este nivel!', true);
-                return;
-            }
-
-            // Get random product
-            const product = getRandomProduct();
-            const commission = order.baseInvestment * order.commissionRate;
-
-            // Update order count
-            order.completedOrders += 1;
-            orderCounter += 1;
-
-            // Update balance
-            userData.balance += commission;
-            userData.totalIncome += commission;
-
-            // Add to history
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('es-ES', {
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-
-            orderHistory.push({
-                icon: product.icon,
-                product: product.name,
-                commission: commission,
-                time: timeStr,
-                vipLevel: order.level
-            });
-
-            // Show modal with product info
-            showOrderModal(product, commission, order.completedOrders, order.totalOrders);
-
-            // Check if VIP level is completed
-            if (order.completedOrders >= order.totalOrders) {
-                order.isCompleted = true;
-                // Show completion message after modal
-                setTimeout(() => {
-                    showMessage(
-                        `${t.completedAll || '🎉 ¡Felicidades! Has completado'} ${order.level} ${t.andEarned || 'y ganado'} ${formatCurrency(commission)}!`,
-                        true);
-
-                    // Unlock next VIP level
-                    const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
-                    const currentIndex = vipKeys.indexOf(vipKey);
-                    if (currentIndex < vipKeys.length - 1) {
-                        const nextKey = vipKeys[currentIndex + 1];
-                        const nextOrder = userData.vipOrders[nextKey];
-                        if (nextOrder && !nextOrder.isUnlocked) {
-                            const req = nextOrder.unlockRequirement;
-                            const reqKey = req.level.toLowerCase().replace(' ', '');
-                            const reqOrder = userData.vipOrders[reqKey];
-                            if (reqOrder && reqOrder.completedOrders >= req.requiredOrders) {
-                                nextOrder.isUnlocked = true;
-                                userData.vipLevels[nextKey].active = true;
-                                showMessage(t.unlocked.replace('{level}', nextOrder.level), true);
-                            }
-                        }
-                    }
-                }, 500);
-            } else {
-                setTimeout(() => {
-                    showMessage(
-                        `✅ ${t.orderCompleted || 'Orden completada en'} ${order.level}. ${t.earned || 'Ganaste'} ${formatCurrency(commission)}! (${order.completedOrders}/${order.totalOrders})`,
-                        true);
-                }, 500);
-            }
-
-            updateDashboard();
-            renderVIPOrders();
-        }
-
-        // ============================================================
-        //  NAVIGATION FUNCTIONS
-        // ============================================================
-        function switchPage(pageId, element) {
-            const pages = document.querySelectorAll('.page-section');
-            pages.forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-
-            const navItems = document.querySelectorAll('.bottom-nav .nav-item');
-            navItems.forEach(item => item.classList.remove('active'));
-            if (element) {
-                element.classList.add('active');
-            }
-
-            if (pageId === 'vipOrdersPage') {
-                renderVIPOrders();
-            }
-            if (pageId === 'miPage' || pageId === 'configPage') {
-                renderBankAccounts();
-                updateWithdrawBankSelect();
-                renderWithdrawalHistory();
-                document.getElementById('miUserId').textContent = userData.userId || generateUserId();
-            }
-            if (pageId === 'contratoPage') {
-                document.getElementById('contratoUserId').textContent = userData.userId || generateUserId();
-            }
-        }
-
-        // ============================================================
-        //  BANK FUNCTIONS
-        // ============================================================
-        function toggleBankForm() {
-            const form = document.getElementById('bankFormContainer');
-            if (!form) return;
-            form.classList.toggle('hidden');
-            if (!form.classList.contains('hidden')) {
-                document.getElementById('bankCountrySelect').value = 'PE';
-                updateBankOptions();
-                document.getElementById('bankAccountNumber').value = '';
-                document.getElementById('bankAccountHolder').value = '';
-                document.getElementById('bankCCI').value = '';
-            }
-        }
-
-        function saveBankAccount() {
-            const countryCode = document.getElementById('bankCountrySelect').value;
-            const bankName = document.getElementById('bankName').value;
-            const accountNumber = document.getElementById('bankAccountNumber').value.trim();
-            const accountHolder = document.getElementById('bankAccountHolder').value.trim();
-            const cci = document.getElementById('bankCCI').value.trim();
-            const t = translations[currentLang] || translations.es;
-
-            if (!bankName || !accountNumber || !accountHolder || !cci) {
-                showMessage('⚠️ ' + (t.fillAllFields || 'Por favor, completa todos los campos.'), false);
-                return;
-            }
-
-            userData.bankAccounts.push({
-                countryCode: countryCode,
-                bankName: bankName,
-                accountNumber: accountNumber,
-                accountHolder: accountHolder,
-                cci: cci
-            });
-
-            renderBankAccounts();
-            toggleBankForm();
-            showMessage(`✅ ${t.bankAccount || 'Cuenta bancaria'} "${bankName}" ${t.addedSuccess || 'agregada con éxito.'}`,
-            true);
-        }
-
-        function toggleBankFormMi() {
-            const form = document.getElementById('bankFormContainerMi');
-            if (!form) return;
-            form.classList.toggle('hidden');
-            if (!form.classList.contains('hidden')) {
-                document.getElementById('bankCountrySelectMi').value = 'PE';
-                updateBankOptionsMi();
-                document.getElementById('bankAccountNumberMi').value = '';
-                document.getElementById('bankAccountHolderMi').value = '';
-                document.getElementById('bankCCIMi').value = '';
-            }
-        }
-
-        function saveBankAccountMi() {
-            const countryCode = document.getElementById('bankCountrySelectMi').value;
-            const bankName = document.getElementById('bankNameMi').value;
-            const accountNumber = document.getElementById('bankAccountNumberMi').value.trim();
-            const accountHolder = document.getElementById('bankAccountHolderMi').value.trim();
-            const cci = document.getElementById('bankCCIMi').value.trim();
-            const t = translations[currentLang] || translations.es;
-
-            if (!bankName || !accountNumber || !accountHolder || !cci) {
-                showMessage('⚠️ ' + (t.fillAllFields || 'Por favor, completa todos los campos.'), false);
-                return;
-            }
-
-            userData.bankAccounts.push({
-                countryCode: countryCode,
-                bankName: bankName,
-                accountNumber: accountNumber,
-                accountHolder: accountHolder,
-                cci: cci
-            });
-
-            renderBankAccounts();
-            toggleBankFormMi();
-            showMessage(`✅ ${t.bankAccount || 'Cuenta bancaria'} "${bankName}" ${t.addedSuccess || 'agregada con éxito.'}`,
-            true);
-        }
-
-        function deleteBankAccount(index) {
-            const t = translations[currentLang] || translations.es;
-            if (confirm(t.confirmDelete || '¿Estás seguro de eliminar esta cuenta bancaria?')) {
-                const deleted = userData.bankAccounts[index];
-                userData.bankAccounts.splice(index, 1);
-                renderBankAccounts();
-                updateWithdrawBankSelect();
-                showMessage(`🗑️ ${t.account || 'Cuenta'} "${deleted.bankName}" ${t.deleted || 'eliminada.'}`, true);
-            }
-        }
-
-        function renderBankAccounts() {
-            const container = document.getElementById('bankList');
-            const containerMi = document.getElementById('bankListMi');
-            const countEl = document.getElementById('bankCount');
-            const countMi = document.getElementById('bankCountMi');
-            const t = translations[currentLang] || translations.es;
-
-            if (container) {
-                container.innerHTML = '';
-                if (userData.bankAccounts.length === 0) {
-                    container.innerHTML = `
-                                <div style="text-align:center; padding:15px; color:#888; font-size:0.95rem; background:#f8f9fa; border-radius:12px;">
-                                    ${t.noBanks || 'No hay cuentas bancarias registradas.'}
-                                </div>
-                            `;
-                } else {
-                    userData.bankAccounts.forEach((account, index) => {
-                        const countryData = bankData[account.countryCode] || bankData.PE;
-                        const div = document.createElement('div');
-                        div.className = 'bank-account-card';
-                        div.innerHTML = `
-                                    <div class="bank-info">
-                                        <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
-                                        <div class="bank-country">${countryData.flag || '🌍'} ${countryData.country || ''} (${account.countryCode || 'PE'})</div>
-                                        <div><strong>${t.accountNumberLabel || 'Cuenta'}:</strong> ${account.accountNumber}</div>
-                                        <div><strong>${t.accountHolderLabel || 'Titular'}:</strong> ${account.accountHolder}</div>
-                                        <div><strong>${t.cciLabel || 'CCI'}:</strong> ${account.cci}</div>
-                                    </div>
-                                    <button class="delete-btn" onclick="deleteBankAccount(${index})" title="Eliminar">✕</button>
-                                `;
-                        container.appendChild(div);
-                    });
-                }
-                if (countEl) countEl.textContent = userData.bankAccounts.length;
-            }
-
-            if (containerMi) {
-                containerMi.innerHTML = '';
-                if (userData.bankAccounts.length === 0) {
-                    containerMi.innerHTML = `
-                                <div style="text-align:center; padding:10px; color:#888; font-size:0.9rem; background:#f8f9fa; border-radius:10px;">
-                                    ${t.noBanks || 'No hay cuentas bancarias registradas.'}
-                                </div>
-                            `;
-                } else {
-                    userData.bankAccounts.forEach((account, index) => {
-                        const countryData = bankData[account.countryCode] || bankData.PE;
-                        const div = document.createElement('div');
-                        div.className = 'bank-account-card';
-                        div.innerHTML = `
-                                    <div class="bank-info">
-                                        <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
-                                        <div class="bank-country">${countryData.flag || '🌍'} ${countryData.country || ''} (${account.countryCode || 'PE'})</div>
-                                        <div><strong>${t.accountNumberLabel || 'Cuenta'}:</strong> ${account.accountNumber}</div>
-                                        <div><strong>${t.accountHolderLabel || 'Titular'}:</strong> ${account.accountHolder}</div>
-                                        <div><strong>${t.cciLabel || 'CCI'}:</strong> ${account.cci}</div>
-                                    </div>
-                                    <button class="delete-btn" onclick="deleteBankAccount(${index})" title="Eliminar">✕</button>
-                                `;
-                        containerMi.appendChild(div);
-                    });
-                }
-                if (countMi) countMi.textContent = userData.bankAccounts.length;
-            }
-            updateWithdrawBankSelect();
-        }
-
-        function updateWithdrawBankSelect() {
-            const select = document.getElementById('withdrawBankSelect');
-            if (!select) return;
-            const t = translations[currentLang] || translations.es;
-
-            select.innerHTML = `<option value="">-- ${t.selectBank || 'Selecciona un banco'} --</option>`;
-
-            userData.bankAccounts.forEach((account, index) => {
-                const option = document.createElement('option');
-                option.value = index;
-                const countryData = bankData[account.countryCode] || bankData.PE;
-                option.textContent = `${account.bankName} - ${account.accountNumber} (${countryData.flag || '🏛️'})`;
-                select.appendChild(option);
-            });
-
-            select.onchange = function() {
-                const idx = parseInt(this.value);
-                const display = document.getElementById('selectedBankDisplay');
-                if (isNaN(idx) || idx < 0 || idx >= userData.bankAccounts.length) {
-                    display.classList.add('hidden');
-                    return;
-                }
-                const bank = userData.bankAccounts[idx];
-                const countryData = bankData[bank.countryCode] || bankData.PE;
-                document.getElementById('selectedBankName').textContent = `${countryData.flag || '🏛️'} ${bank.bankName}`;
-                document.getElementById('selectedBankDetails').textContent =
-                    `${t.accountNumberLabel || 'Cuenta'}: ${bank.accountNumber} | ${t.accountHolderLabel || 'Titular'}: ${bank.accountHolder} | ${countryData.country || ''}`;
-                display.classList.remove('hidden');
-            };
-        }
-
-        function renderWithdrawalHistory() {
-            const container = document.getElementById('withdrawalHistoryList');
-            if (!container) return;
-            container.innerHTML = '';
-            const t = translations[currentLang] || translations.es;
-
-            if (userData.withdrawalHistory.length === 0) {
-                container.innerHTML = `
-                            <div style="text-align:center; padding:15px; color:#888; font-size:0.9rem;">
-                                ${t.noHistory || 'No hay retiros realizados.'}
-                            </div>
-                        `;
-                return;
-            }
-
-            const history = [...userData.withdrawalHistory].reverse();
-            history.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'history-item';
-                div.innerHTML = `
-                            <div>
-                                <div class="bank-info">🏛️ ${item.bankName}</div>
-                                <div class="date-info">📅 ${item.date}</div>
-                            </div>
-                            <div style="text-align:right;">
-                                <div class="amount-info">${formatCurrency(-item.amount)}</div>
-                                <div class="status-success">✅ ${t.status || 'Completado'}</div>
-                            </div>
-                        `;
-                container.appendChild(div);
-            });
-        }
-
-        function processWithdrawal() {
-            const select = document.getElementById('withdrawBankSelect');
-            const amountInput = document.getElementById('withdrawAmount');
-            const amount = parseFloat(amountInput.value);
-            const t = translations[currentLang] || translations.es;
-
-            const bankIndex = parseInt(select.value);
-            if (isNaN(bankIndex) || bankIndex < 0 || bankIndex >= userData.bankAccounts.length) {
-                showMessage(t.selectBank || '⚠️ Por favor, selecciona una cuenta bancaria.', false);
-                return;
-            }
-
-            if (isNaN(amount) || amount <= 0) {
-                showMessage(t.validAmount || '⚠️ Por favor, ingresa un monto válido mayor a 0.', false);
-                return;
-            }
-
-            if (amount > userData.balance) {
-                showMessage(
-                    `${t.insufficientBalance || '❌ Saldo insuficiente. Tu saldo es'} ${formatCurrency(userData.balance)}`,
-                    false);
-                return;
-            }
-
-            const selectedBank = userData.bankAccounts[bankIndex];
-            userData.balance -= amount;
-            userData.retiroCount += 1;
-
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('es-ES', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-
-            userData.withdrawalHistory.push({
-                bankName: selectedBank.bankName,
-                amount: amount,
-                date: dateStr,
-                status: t.status || 'Completado'
-            });
-
-            updateDashboard();
-            renderWithdrawalHistory();
-            amountInput.value = '';
-            showMessage(t.withdrawalSuccess.replace('{amount}', formatCurrency(amount)).replace('{bank}', selectedBank
-                .bankName), true);
+        function formatCurrency(amount) {
+            return `S/ ${(amount || 0).toFixed(2)}`;
         }
 
         // ============================================================
@@ -3329,9 +887,9 @@
         // ============================================================
         function handleRegister() {
             const phone = document.getElementById('regPhone').value.trim();
+            const countryCode = document.getElementById('regCountryCode').value;
             const username = document.getElementById('regUsername').value.trim();
             const password = document.getElementById('regPassword').value.trim();
-            const t = translations[currentLang] || translations.es;
 
             if (!phone || !username || !password) {
                 document.getElementById('regError').style.display = 'block';
@@ -3340,6 +898,7 @@
                 document.getElementById('regError').style.display = 'none';
             }
 
+            // ✅ Generar ID único
             userData.userId = generateUserId();
             userData.username = username;
             userData.phone = phone;
@@ -3353,16 +912,16 @@
             userData.notificacionCount = 1;
             userData.bankAccounts = [];
             userData.withdrawalHistory = [];
-            orderHistory = [];
-            orderCounter = 0;
+            userData.history = [];
+            userData.country = 'Perú';
+            userData.vipLevel = 'VIP 1';
+            userData.totalOrders = 0;
+            userData.frozen = false;
+            userData.registrationDate = new Date().toLocaleString('es-ES');
+            userData.ipAddress = getRandomIP();
 
-            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
-            vipKeys.forEach((key, index) => {
-                userData.vipOrders[key].completedOrders = 0;
-                userData.vipOrders[key].isCompleted = false;
-                userData.vipOrders[key].isUnlocked = (index === 0);
-                userData.vipLevels[key].active = (index === 0);
-            });
+            // ✅ Guardar en Local Storage
+            saveUserData();
 
             document.getElementById('registerForm').classList.remove('active');
             document.getElementById('registerForm').classList.add('hidden');
@@ -3371,22 +930,28 @@
             document.getElementById('dashboard').classList.remove('hidden');
 
             document.getElementById('userIdDisplay').textContent = userData.userId;
-            document.getElementById('contratoUserId').textContent = userData.userId;
             document.getElementById('miUserId').textContent = userData.userId;
 
             updateDashboard();
-            renderVIPOrders();
-            showMessage(t.registerSuccess.replace('{username}', username).replace('{amount}', formatCurrency(10.00)),
-            true);
+            showMessage(`✅ ¡Cuenta "${username}" creada con éxito! ${formatCurrency(10.00)} de bienvenida.`, true);
         }
 
         function handleLogin() {
             const identifier = document.getElementById('loginIdentifier').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
-            const t = translations[currentLang] || translations.es;
 
-            if ((identifier === userData.username || identifier === userData.phone) && password === userData.password) {
+            // ✅ Cargar todos los usuarios del Local Storage
+            const allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+            const users = allData.users || [];
+
+            const found = users.find(u =>
+                (u.username === identifier || u.phone === identifier) &&
+                u.password === password
+            );
+
+            if (found) {
                 document.getElementById('loginError').style.display = 'none';
+                Object.assign(userData, found);
                 userData.isLoggedIn = true;
 
                 document.getElementById('registerForm').classList.remove('active');
@@ -3395,43 +960,34 @@
                 document.getElementById('loginForm').classList.add('hidden');
                 document.getElementById('dashboard').classList.remove('hidden');
 
-                document.getElementById('userIdDisplay').textContent = userData.userId || generateUserId();
-                document.getElementById('contratoUserId').textContent = userData.userId || generateUserId();
-                document.getElementById('miUserId').textContent = userData.userId || generateUserId();
+                document.getElementById('userIdDisplay').textContent = userData.userId;
+                document.getElementById('miUserId').textContent = userData.userId;
 
                 updateDashboard();
-                renderVIPOrders();
-                showMessage(t.loginSuccess.replace('{username}', userData.username), true);
+                showMessage(`🔓 ¡Bienvenido de nuevo, ${userData.username}!`, true);
             } else {
                 document.getElementById('loginError').style.display = 'block';
-                showMessage(t.loginError || '❌ Usuario o contraseña incorrectos.', false);
+                showMessage('❌ Usuario o contraseña incorrectos.', false);
             }
         }
 
         function handleLogout() {
-            const t = translations[currentLang] || translations.es;
             userData.isLoggedIn = false;
             document.getElementById('dashboard').classList.add('hidden');
             document.getElementById('registerForm').classList.remove('hidden');
             document.getElementById('registerForm').classList.add('active');
             document.getElementById('loginForm').classList.remove('active');
             document.getElementById('loginForm').classList.add('hidden');
-            showMessage(t.logoutSuccess || '👋 Has cerrado sesión correctamente.', true);
+            showMessage('👋 Has cerrado sesión correctamente.', true);
         }
 
+        // ============================================================
+        //  DASHBOARD FUNCTIONS
+        // ============================================================
         function updateDashboard() {
             document.getElementById('displayUsername').textContent = userData.username;
             document.getElementById('displayBalance').textContent = formatCurrency(userData.balance);
             document.getElementById('totalIncome').textContent = formatCurrency(userData.totalIncome);
-
-            const recargaEl = document.getElementById('recargaCount');
-            const retiroEl = document.getElementById('retiroCount');
-            const trabajoEl = document.getElementById('trabajoCount');
-            const notifEl = document.getElementById('notificacionCount');
-            if (recargaEl) recargaEl.textContent = userData.recargaCount;
-            if (retiroEl) retiroEl.textContent = userData.retiroCount;
-            if (trabajoEl) trabajoEl.textContent = userData.trabajoCount;
-            if (notifEl) notifEl.textContent = userData.notificacionCount;
 
             const profileUsername = document.getElementById('profileUsername');
             const profilePhone = document.getElementById('profilePhone');
@@ -3440,97 +996,312 @@
             if (profileUsername) profileUsername.textContent = userData.username;
             if (profilePhone) profilePhone.textContent = userData.phone || '+51 987654321';
             if (profileBalance) profileBalance.textContent = formatCurrency(userData.balance);
-            if (profileVip) profileVip.textContent = 'VIP 1';
+            if (profileVip) profileVip.textContent = userData.vipLevel || 'VIP 1';
 
             document.getElementById('userIdDisplay').textContent = userData.userId || generateUserId();
-            document.getElementById('contratoUserId').textContent = userData.userId || generateUserId();
             document.getElementById('miUserId').textContent = userData.userId || generateUserId();
 
-            renderVIPs();
             renderBankAccounts();
+            updateWithdrawBankSelect();
             renderWithdrawalHistory();
-            document.getElementById('currentCurrencyDisplay').textContent = currentCurrency;
         }
 
-        function renderVIPs() {
-            const container = document.getElementById('vipList');
+        function renderBankAccounts() {
+            const container = document.getElementById('bankListMi');
+            const countEl = document.getElementById('bankCountMi');
+            if (!container) return;
+
+            container.innerHTML = '';
+            const banks = userData.bankAccounts || [];
+
+            if (banks.length === 0) {
+                container.innerHTML = `
+                            <div style="text-align:center; padding:15px; color:#888; font-size:0.95rem; background:#f8f9fa; border-radius:12px;">
+                                No hay cuentas bancarias registradas.
+                            </div>
+                        `;
+                if (countEl) countEl.textContent = '0';
+                return;
+            }
+
+            banks.forEach((account, index) => {
+                const div = document.createElement('div');
+                div.className = 'bank-account-card';
+                div.innerHTML = `
+                            <div class="bank-info">
+                                <div><span class="bank-name">🏛️ ${account.bankName}</span></div>
+                                <div><strong>Cuenta:</strong> ${account.accountNumber}</div>
+                                <div><strong>Titular:</strong> ${account.accountHolder}</div>
+                                <div><strong>CCI:</strong> ${account.cci}</div>
+                            </div>
+                            <button class="delete-btn" onclick="deleteBankAccount(${index})" title="Eliminar">✕</button>
+                        `;
+                container.appendChild(div);
+            });
+
+            if (countEl) countEl.textContent = banks.length;
+        }
+
+        function updateWithdrawBankSelect() {
+            const select = document.getElementById('withdrawBankSelect');
+            if (!select) return;
+
+            select.innerHTML = '<option value="">-- Selecciona un banco --</option>';
+
+            const banks = userData.bankAccounts || [];
+            banks.forEach((account, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${account.bankName} - ${account.accountNumber}`;
+                select.appendChild(option);
+            });
+
+            select.onchange = function() {
+                const idx = parseInt(this.value);
+                const display = document.getElementById('selectedBankDisplay');
+                if (isNaN(idx) || idx < 0 || idx >= banks.length) {
+                    display.classList.add('hidden');
+                    return;
+                }
+                const bank = banks[idx];
+                document.getElementById('selectedBankName').textContent = bank.bankName;
+                document.getElementById('selectedBankDetails').textContent =
+                    `Cuenta: ${bank.accountNumber} | Titular: ${bank.accountHolder}`;
+                display.classList.remove('hidden');
+            };
+        }
+
+        function renderWithdrawalHistory() {
+            const container = document.getElementById('withdrawalHistoryList');
             if (!container) return;
             container.innerHTML = '';
-            const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
-            vipKeys.forEach(key => {
-                const vip = userData.vipLevels[key];
+
+            const history = userData.withdrawalHistory || [];
+
+            if (history.length === 0) {
+                container.innerHTML = `
+                            <div style="text-align:center; padding:15px; color:#888; font-size:0.9rem;">
+                                No hay retiros realizados.
+                            </div>
+                        `;
+                return;
+            }
+
+            const reversed = [...history].reverse();
+            reversed.forEach(item => {
                 const div = document.createElement('div');
-                div.className = 'vip-item';
-                const statusClass = vip.active ? 'activo' : 'inactivo';
-                const statusText = vip.active ? '✅ Activo' : '⏳ No disponible';
+                div.className = 'history-item';
                 div.innerHTML = `
-                            <span class="vip-name">${vip.name}</span>
-                            <span class="vip-status ${statusClass}">${statusText}</span>
+                            <div>
+                                <div class="bank-info">🏛️ ${item.bankName}</div>
+                                <div class="date-info">📅 ${item.date}</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div class="amount-info">${formatCurrency(-item.amount)}</div>
+                                <div class="status-success">✅ ${item.status || 'Completado'}</div>
+                            </div>
                         `;
                 container.appendChild(div);
             });
         }
 
         // ============================================================
+        //  BANK FUNCTIONS
+        // ============================================================
+        function toggleBankFormMi() {
+            const form = document.getElementById('bankFormContainerMi');
+            if (!form) return;
+            form.classList.toggle('hidden');
+            if (!form.classList.contains('hidden')) {
+                document.getElementById('bankNameMi').value = '';
+                document.getElementById('bankAccountNumberMi').value = '';
+                document.getElementById('bankAccountHolderMi').value = '';
+                document.getElementById('bankCCIMi').value = '';
+            }
+        }
+
+        function saveBankAccountMi() {
+            const bankName = document.getElementById('bankNameMi').value;
+            const accountNumber = document.getElementById('bankAccountNumberMi').value.trim();
+            const accountHolder = document.getElementById('bankAccountHolderMi').value.trim();
+            const cci = document.getElementById('bankCCIMi').value.trim();
+
+            if (!bankName || !accountNumber || !accountHolder || !cci) {
+                showMessage('⚠️ Por favor, completa todos los campos del banco.', false);
+                return;
+            }
+
+            if (!userData.bankAccounts) userData.bankAccounts = [];
+            userData.bankAccounts.push({
+                bankName: bankName,
+                accountNumber: accountNumber,
+                accountHolder: accountHolder,
+                cci: cci
+            });
+
+            saveUserData();
+            renderBankAccounts();
+            updateWithdrawBankSelect();
+            toggleBankFormMi();
+            showMessage(`✅ Cuenta bancaria "${bankName}" agregada con éxito.`, true);
+        }
+
+        function deleteBankAccount(index) {
+            if (confirm('¿Estás seguro de eliminar esta cuenta bancaria?')) {
+                const deleted = userData.bankAccounts[index];
+                userData.bankAccounts.splice(index, 1);
+                saveUserData();
+                renderBankAccounts();
+                updateWithdrawBankSelect();
+                showMessage(`🗑️ Cuenta "${deleted.bankName}" eliminada.`, true);
+            }
+        }
+
+        // ============================================================
+        //  WITHDRAWAL FUNCTION
+        // ============================================================
+        function processWithdrawal() {
+            const select = document.getElementById('withdrawBankSelect');
+            const amountInput = document.getElementById('withdrawAmount');
+            const amount = parseFloat(amountInput.value);
+
+            const bankIndex = parseInt(select.value);
+            if (isNaN(bankIndex) || bankIndex < 0 || bankIndex >= (userData.bankAccounts || []).length) {
+                showMessage('⚠️ Por favor, selecciona una cuenta bancaria.', false);
+                return;
+            }
+
+            if (isNaN(amount) || amount <= 0) {
+                showMessage('⚠️ Por favor, ingresa un monto válido mayor a 0.', false);
+                return;
+            }
+
+            if (amount > userData.balance) {
+                showMessage(`❌ Saldo insuficiente. Tu saldo es ${formatCurrency(userData.balance)}`, false);
+                return;
+            }
+
+            const selectedBank = userData.bankAccounts[bankIndex];
+            userData.balance -= amount;
+            userData.retiroCount += 1;
+
+            if (!userData.withdrawalHistory) userData.withdrawalHistory = [];
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            userData.withdrawalHistory.push({
+                bankName: selectedBank.bankName,
+                amount: amount,
+                date: dateStr,
+                status: 'Completado'
+            });
+
+            if (!userData.history) userData.history = [];
+            userData.history.push({
+                action: 'Retiro',
+                amount: -amount,
+                date: dateStr
+            });
+
+            saveUserData();
+            updateDashboard();
+            updateWithdrawBankSelect();
+            renderWithdrawalHistory();
+            amountInput.value = '';
+            showMessage(`✅ Retiro de ${formatCurrency(amount)} a ${selectedBank.bankName} completado con éxito.`, true);
+        }
+
+        // ============================================================
         //  DASHBOARD BUTTONS
         // ============================================================
         function handleComenzar() {
-            const t = translations[currentLang] || translations.es;
             userData.balance += 5;
             userData.totalIncome += 5;
             userData.trabajoCount += 1;
+            if (!userData.history) userData.history = [];
+            userData.history.push({
+                action: 'Trabajo completado',
+                amount: 5,
+                date: new Date().toLocaleString('es-ES')
+            });
+            saveUserData();
             updateDashboard();
-            showMessage(t.comenzarSuccess.replace('{amount}', formatCurrency(5)), true);
+            showMessage(`🚀 ¡Has comenzado un nuevo trabajo! +${formatCurrency(5)}`, true);
         }
 
         function handleRecargar() {
-            const t = translations[currentLang] || translations.es;
             userData.balance += 10;
             userData.recargaCount += 1;
+            if (!userData.history) userData.history = [];
+            userData.history.push({
+                action: 'Recarga',
+                amount: 10,
+                date: new Date().toLocaleString('es-ES')
+            });
+            saveUserData();
             updateDashboard();
-            showMessage(t.recargarSuccess.replace('{amount}', formatCurrency(10)), true);
+            showMessage(`📥 ¡Recarga exitosa! +${formatCurrency(10)}`, true);
         }
 
         function handleRetirar() {
-            const t = translations[currentLang] || translations.es;
+            showMessage('📤 Ve a la sección "Mi" para realizar tu retiro.', true);
+        }
+
+        function switchPage(pageId, element) {
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+
             const navItems = document.querySelectorAll('.bottom-nav .nav-item');
-            if (navItems.length > 4) {
-                switchPage('miPage', navItems[4]);
+            navItems.forEach(item => item.classList.remove('active'));
+            if (element) {
+                element.classList.add('active');
             }
-            showMessage(t.goToWithdraw || '📤 Ve a la sección "Mi" para realizar tu retiro.', true);
+
+            if (pageId === 'miPage') {
+                updateDashboard();
+            }
         }
 
         // ============================================================
         //  INIT
         // ============================================================
         window.onload = function() {
-            document.getElementById('registerForm').classList.remove('hidden');
-            document.getElementById('registerForm').classList.add('active');
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('loginForm').classList.remove('active');
-            document.getElementById('dashboard').classList.add('hidden');
+            loadUserData();
+
+            // Check if user is already logged in
+            if (userData.isLoggedIn && userData.userId) {
+                document.getElementById('registerForm').classList.remove('active');
+                document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('active');
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+
+                document.getElementById('userIdDisplay').textContent = userData.userId;
+                document.getElementById('miUserId').textContent = userData.userId;
+
+                updateDashboard();
+            } else {
+                document.getElementById('registerForm').classList.remove('hidden');
+                document.getElementById('registerForm').classList.add('active');
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('active');
+                document.getElementById('dashboard').classList.add('hidden');
+            }
+
             document.getElementById('regError').style.display = 'none';
             document.getElementById('loginError').style.display = 'none';
 
-            document.getElementById('languageSwitcher').value = 'es';
-            document.getElementById('currencySwitcher').value = 'PEN';
-            currentLang = 'es';
-            currentCurrency = 'PEN';
-
-            updateBankOptions();
-            updateBankOptionsMi();
-
-            renderBankAccounts();
-            renderVIPOrders();
-            updateWithdrawBankSelect();
-            changeLanguage('es');
-
-            // Close modal on overlay click
-            document.getElementById('orderModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeOrderModal();
-                }
-            });
+            console.log('🛒 Shein Platform cargado correctamente');
+            console.log('🔑 Storage Key:', STORAGE_KEY);
+            console.log('👤 Usuario:', userData.username || 'No logueado');
+            console.log('🆔 User ID:', userData.userId || 'N/A');
         };
     </script>
 
