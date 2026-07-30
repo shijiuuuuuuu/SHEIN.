@@ -245,6 +245,11 @@
             cursor: not-allowed;
         }
 
+        .btn-vip.locked:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
         .btn-sm {
             padding: 8px 15px;
             font-size: 0.85rem;
@@ -685,7 +690,7 @@
         }
 
         /* ============================================================
-           BOTTOM NAV (5 Items)
+           BOTTOM NAV
            ============================================================ */
         .bottom-nav {
             display: flex;
@@ -1877,7 +1882,7 @@
         };
 
         // ============================================================
-        //  TRANSLATIONS
+        //  TRANSLATIONS (Simplified for space - only Spanish and English)
         // ============================================================
         const translations = {
             es: {
@@ -2159,286 +2164,6 @@
                 trabajoItem4Desc: 'Sell products and earn commissions.',
                 trabajoItem5: '📝 Content Writer',
                 trabajoItem5Desc: 'Create content for our platform.'
-            },
-            my: {
-                appTitle: '✨ သင့်အွန်လိုင်းစျေးဝယ်စင်တာ ✨',
-                registerTitle: '📝 အကောင့်ဖွင့်ရန်',
-                loginTitle: '🔐 ဝင်ရောက်ရန်',
-                phoneLabel: '📱 ဖုန်းနံပါတ်',
-                countryLabel: '🌍 နိုင်ငံကုဒ်',
-                usernameLabel: '👤 အသုံးပြုသူအမည်',
-                passwordLabel: '🔒 စကားဝှက်',
-                registerBtn: '✅ မှတ်ပုံတင်ရန်',
-                loginBtn: '🚪 ဝင်ရောက်ရန်',
-                switchToLogin: 'အကောင့်ရှိပြီးသားလား?',
-                switchToRegister: 'အကောင့်မရှိသေးဘူးလား?',
-                loginIdentifierLabel: '👤 အသုံးပြုသူအမည် သို့မဟုတ် ဖုန်းနံပါတ်',
-                loginPasswordLabel: '🔒 စကားဝှက်',
-                greeting: 'မင်္ဂလာပါ',
-                balanceLabel: '💰 လက်ကျန်ငွေ',
-                incomeLabel: '📈 စုစုပေါင်းဝင်ငွေ',
-                comenzarBtn: '🚀 စတင်ရန်',
-                recargarBtn: '📥 ငွေဖြည့်ရန်',
-                retirarBtn: '📤 ငွေထုတ်ရန်',
-                welcomeTitle: 'Shein မှ ကြိုဆိုပါတယ်!',
-                welcomeSubtitle: 'ကမ္ဘာတစ်ဝန်းမှ လူထောင်ပေါင်းများစွာ ကျွန်ုပ်တို့ကို ယုံကြည်ကြသည်။',
-                statUsers: 'တက်ကြွသောအသုံးပြုသူများ',
-                statTransactions: 'ငွေပေးချေမှုများ',
-                statCountries: 'နိုင်ငံများ',
-                badgeSeguro: '၁၀၀% လုံခြုံသည်',
-                badgeVerificado: 'အတည်ပြုပြီး',
-                badgeEstrellas: '၄.၉/၅ ကြယ်ပွင့်',
-                badgeProtegido: 'ကာကွယ်ထားသည်',
-                badgeLider: 'စျေးကွက်ခေါင်းဆောင်',
-                badgePagos: 'အမြန်ငွေပေးချေမှု',
-                quote1: '"Shein သည် ဝယ်ရောင်းရန် အကောင်းဆုံးပလက်ဖောင်းဖြစ်သည်။ ၁၀၀% ယုံကြည်ရသည်!"',
-                quote2: '"ကျွန်ုပ်၏ငွေများကို အချိန်မှန်ရရှိပါသည်။ အကောင်းဆုံးဝန်ဆောင်မှုပါ။"',
-                garantiasTitle: '🛡️ ကျွန်ုပ်တို့၏ အာမခံချက်များ',
-                garantia1: '✅ ၁၀၀% ပွင့်လင်းမြင်သာမှု',
-                garantia2: '✅ ၂၄/၇ ပံ့ပိုးမှု',
-                garantia3: '✅ ၂၄ နာရီအတွင်း ငွေထုတ်ခြင်း',
-                garantia4: '✅ ကာကွယ်ထားသောဒေတာ',
-                garantia5: '✅ လျှို့ဝှက်ကောက်ခံမှုမရှိ',
-                garantia6: '✅ ဘဏ်လုံခြုံရေး',
-                vipOrdersTitle: '📦 VIP အမှာစာများ',
-                vipOrdersSubtitle: 'ကော်မရှင်ရရန် အမှာစာများကို ပြီးအောင်လုပ်ပါ။ အမှာစာတိုင်းသည် သင့်အား နောက် VIP အဆင့်သို့ ပို့ဆောင်ပေးသည်။',
-                miTitle: '👤 ကျွန်ုပ်၏ ပရိုဖိုင်',
-                memberSince: '📅 အဖွဲ့ဝင်ဖြစ်ကတည်းက',
-                profileBalance: '💰 လက်ကျန်ငွေ',
-                profileVip: '⭐ VIP အဆင့်',
-                misBancos: '🏦 ကျွန်ုပ်၏ ဘဏ်အကောင့်များ',
-                addBankMi: '➕ ဘဏ်အကောင့်ထည့်ရန်',
-                withdrawalTitle: '📤 ငွေထုတ်ရန်',
-                withdrawBankLabel: '🏛️ သင့်ဘဏ်အကောင့်ကိုရွေးပါ',
-                withdrawAmountLabel: '💰 ထုတ်ချင်သောပမာဏ',
-                confirmWithdrawal: '✅ ငွေထုတ်ရန်အတည်ပြုပါ',
-                historyTitle: '📋 ငွေထုတ်မှတ်တမ်း',
-                noHistory: 'ငွေထုတ်ခြင်းမရှိသေးပါ။',
-                navInicio: 'မူလစာမျက်နှာ',
-                navOrdenes: 'အမှာစာများ',
-                navContrato: 'စာချုပ်',
-                navTrabajo: 'အလုပ်',
-                navMi: 'ကျွန်ုပ်',
-                logout: 'ထွက်ရန်',
-                regError: '⚠️ ကျေးဇူးပြု၍ အားလုံးဖြည့်ပါ။',
-                loginError: '❌ အသုံးပြုသူအမည်/ဖုန်းနံပါတ် သို့မဟုတ် စကားဝှက် မှားနေပါသည်။',
-                noOrders: 'အမှာစာများ မပြီးသေးပါ။',
-                orderHistory: '📋 အမှာစာမှတ်တမ်း',
-                orderCompleted: 'တွင် အမှာစာပြီးဆုံးပါပြီ',
-                earned: 'ရရှိငွေ',
-                completedAll: '🎉 ဂုဏ်ယူပါတယ်! သင်',
-                andEarned: 'ပြီးဆုံးပြီး',
-                unlocked: '🔓 {level} ကို ဖွင့်လှစ်လိုက်ပါပြီ!',
-                notUnlocked: '❌ ဤ VIP အဆင့်ကို မဖွင့်ရသေးပါ။',
-                alreadyCompleted: '✅ ဤအဆင့်အတွက် အမှာစာများအားလုံးကို ပြီးဆုံးပြီးဖြစ်ပါသည်။',
-                selectBank: '⚠️ ကျေးဇူးပြု၍ ဘဏ်အကောင့်တစ်ခုကို ရွေးပါ။',
-                validAmount: '⚠️ ကျေးဇူးပြု၍ ၀ ထက်ကြီးသော ပမာဏကို ရိုက်ထည့်ပါ။',
-                insufficientBalance: '❌ လက်ကျန်မလုံလောက်ပါ။ သင့်လက်ကျန်မှာ',
-                withdrawalSuccess: '✅ {bank} သို့ {amount} ငွေထုတ်ခြင်း အောင်မြင်ပါပြီ။',
-                registerSuccess: '✅ "{username}" အကောင့်ကို အောင်မြင်စွာဖွင့်လှစ်ပြီး {amount} ကြိုဆိုငွေ ရရှိပါပြီ။',
-                loginSuccess: '🔓 ပြန်လည်ကြိုဆိုပါတယ် {username}!',
-                logoutSuccess: '👋 အကောင့်မှ အောင်မြင်စွာ ထွက်ပြီးပါပြီ။',
-                comenzarSuccess: '🚀 အလုပ်အသစ်စတင်ပြီပါပြီ! +{amount}',
-                recargarSuccess: '📥 ငွေဖြည့်ခြင်း အောင်မြင်ပါပြီ! +{amount}',
-                goToWithdraw: '📤 ငွေထုတ်ရန် "ကျွန်ုပ်" ကဏ္ဍသို့ သွားပါ။',
-                userIdLabel: '🆔 အသုံးပြုသူ ID',
-                copyBtn: '📋 ကူးယူရန်',
-                copied: '✅ ID ကို ကလစ်ဘုတ်သို့ ကူးယူပြီးပါပြီ',
-                orderCompletedTitle: 'အမှာစာ ပြီးဆုံးပါပြီ!',
-                orderCompletedSub: 'အမှာစာကို အောင်မြင်စွာ ပြီးဆုံးပါပြီ',
-                orderCount: 'အမှာစာ #{count} မှ {total} ပြီးဆုံးပါပြီ',
-                noOrdersHistory: 'အမှာစာများ မပြီးသေးပါ။',
-                orderHistoryLabel: '📋 အမှာစာမှတ်တမ်း',
-                requiresCompleting: 'ပြီးဆုံးရန် လိုအပ်သည်',
-                orders: 'အမှာစာ',
-                completed: 'ပြီးဆုံးပြီ',
-                locked: 'ပိတ်ထားသည်',
-                completeOrder: 'အမှာစာပြီးအောင်လုပ်ရန်',
-                investment: 'ရင်းနှီးငွေ',
-                commission: 'ကော်မရှင်',
-                perOrder: 'တစ်ခုလျှင်',
-                contratoHeroTitle: 'ယုံကြည်မှုစာချုပ်',
-                contratoHeroSub: 'သင့်လုံခြုံရေးသည် ကျွန်ုပ်တို့၏ နံပါတ်တစ်ဦးစားပေးဖြစ်သည်',
-                contratoGrid1: '၁၀၀% လုံခြုံရေး',
-                contratoGrid1Desc: 'ကုဒ်ဝှက်ထားသောဒေတာ',
-                contratoGrid2: 'အမြန်ငွေထုတ်ခြင်း',
-                contratoGrid2Desc: '၂၄ နာရီ အများဆုံး',
-                contratoGrid3: 'ကာကွယ်ရေး',
-                contratoGrid3Desc: 'လိမ်လည်မှုမှ',
-                contratoGrid4: 'ပွင့်လင်းမြင်သာမှု',
-                contratoGrid4Desc: 'လျှို့ဝှက်ကောက်ခံမှုမရှိ',
-                garantiasSection: '🛡️ ကျွန်ုပ်တို့၏ အာမခံချက်များ',
-                garantiaList1: 'ငွေပေးချေမှုအားလုံးတွင် ၁၀၀% ပွင့်လင်းမြင်သာမှု',
-                garantiaList2: 'ဘာသာစကားမျိုးစုံဖြင့် ၂၄/၇ ဖောက်သည်ပံ့ပိုးမှု',
-                garantiaList3: 'ငွေထုတ်ခြင်းကို ၂၄ နာရီအတွင်း ဆောင်ရွက်ပေးခြင်း',
-                garantiaList4: 'တင်းကျပ်သောမူဝါဒများဖြင့် ကိုယ်ရေးဒေတာကာကွယ်ခြင်း',
-                garantiaList5: 'လျှို့ဝှက်ကောက်ခံမှုများနှင့် အပိုကောက်ခံမှုများမရှိ',
-                garantiaList6: 'အဆင့်မြင့် ကုဒ်ဝှက်ခြင်းဖြင့် ဘဏ်လုံခြုံရေး',
-                compromisosTitle: '🤝 ကျွန်ုပ်တို့၏ ကတိများ',
-                compromiso1: 'လက်ရှိဥပဒေစည်းမျဉ်းအားလုံးကို လိုက်နာခြင်း',
-                compromiso2: 'သင့်ငွေများ၏ ခိုင်မာမှုကို အာမခံခြင်း',
-                compromiso3: 'ထူးခြားသော အသုံးပြုသူအတွေ့အကြုံကို ပေးအပ်ခြင်း',
-                compromiso4: 'လုံခြုံရေးစနစ်များကို အဆက်မပြတ် အပ်ဒိတ်လုပ်ခြင်း',
-                compromiso5: 'သင့်အကြံပြုချက်အားလုံးကို နားထောင်ပြီး ဆောင်ရွက်ခြင်း',
-                beneficiosTitle: '⭐ သီးသန့်အကျိုးခံစားခွင့်များ',
-                beneficio1: 'VIP 1: အမှာစာတိုင်းတွင် ၃၀% ကော်မရှင်',
-                beneficio2: 'VIP 2: ၃၅% ကော်မရှင် + အပိုဆုများ',
-                beneficio3: 'VIP 3: ၄၀% ကော်မရှင် + ဦးစားပေးဝင်ရောက်ခွင့်',
-                beneficio4: 'VIP 4: ၄၅% ကော်မရှင် + အဆင့်မြင့်ပံ့ပိုးမှု',
-                beneficio5: 'VIP 5: ၅၀% ကော်မရှင် + ချက်ချင်းငွေထုတ်ခြင်း',
-                beneficio6: 'VIP 6: ၅၅% ကော်မရှင် + သီးသန့်အကျိုးခံစားခွင့်များ',
-                trabajoTitle: '💼 အလုပ်',
-                trabajoSubtitle: 'Shein တွင် အလုပ်အကိုင်အခွင့်အလမ်းများကို ရှာဖွေပါ။',
-                trabajoItem1: '📱 ဒစ်ဂျစ်တယ်မားကတ်တင်း',
-                trabajoItem1Desc: 'ထုတ်ကုန်များကို ကြော်ငြာခြင်းဖြင့် ငွေရှာပါ။',
-                trabajoItem2: '💻 ဖောက်သည်ဝန်ဆောင်မှု',
-                trabajoItem2Desc: 'ကျွန်ုပ်တို့၏အသုံးပြုသူများကို အကူအညီပေးပါ။',
-                trabajoItem3: '📊 ဒေတာခွဲခြမ်းစိတ်ဖြာသူ',
-                trabajoItem3Desc: 'အသုံးပြုသူများ၏ အပြုအမူကို ခွဲခြမ်းစိတ်ဖြာပါ။',
-                trabajoItem4: '🛒 အွန်လိုင်းရောင်းချသူ',
-                trabajoItem4Desc: 'ထုတ်ကုန်များရောင်းချပြီး ကော်မရှင်ရယူပါ။',
-                trabajoItem5: '📝 အကြောင်းအရာရေးသားသူ',
-                trabajoItem5Desc: 'ကျွန်ုပ်တို့၏ပလက်ဖောင်းအတွက် အကြောင်းအရာများဖန်တီးပါ။'
-            },
-            zh: {
-                appTitle: '✨ 您的在线购物中心 ✨',
-                registerTitle: '📝 创建账户',
-                loginTitle: '🔐 登录',
-                phoneLabel: '📱 电话号码',
-                countryLabel: '🌍 国家代码',
-                usernameLabel: '👤 用户名',
-                passwordLabel: '🔒 密码',
-                registerBtn: '✅ 注册',
-                loginBtn: '🚪 登录',
-                switchToLogin: '已有账户？',
-                switchToRegister: '没有账户？',
-                loginIdentifierLabel: '👤 用户名或电话',
-                loginPasswordLabel: '🔒 密码',
-                greeting: '你好',
-                balanceLabel: '💰 余额',
-                incomeLabel: '📈 总收入',
-                comenzarBtn: '🚀 开始',
-                recargarBtn: '📥 充值',
-                retirarBtn: '📤 提现',
-                welcomeTitle: '欢迎来到 Shein！',
-                welcomeSubtitle: '全球有成千上万的人信任我们。',
-                statUsers: '活跃用户',
-                statTransactions: '交易',
-                statCountries: '国家',
-                badgeSeguro: '100% 安全',
-                badgeVerificado: '已验证',
-                badgeEstrellas: '4.9/5 星',
-                badgeProtegido: '受保护',
-                badgeLider: '市场领导者',
-                badgePagos: '快速支付',
-                quote1: '"Shein 是买卖的最佳平台。100% 可靠！"',
-                quote2: '"我按时收到了付款。服务很棒。"',
-                garantiasTitle: '🛡️ 我们的保障',
-                garantia1: '✅ 100% 透明',
-                garantia2: '✅ 24/7 支持',
-                garantia3: '✅ 24小时内提现',
-                garantia4: '✅ 数据保护',
-                garantia5: '✅ 无隐藏费用',
-                garantia6: '✅ 银行安全',
-                vipOrdersTitle: '📦 VIP 订单',
-                vipOrdersSubtitle: '完成订单赚取佣金。每个订单都让您更接近下一个VIP级别！',
-                miTitle: '👤 我的资料',
-                memberSince: '📅 加入日期',
-                profileBalance: '💰 余额',
-                profileVip: '⭐ VIP 级别',
-                misBancos: '🏦 我的银行账户',
-                addBankMi: '➕ 添加银行账户',
-                withdrawalTitle: '📤 提现',
-                withdrawBankLabel: '🏛️ 选择您的银行账户',
-                withdrawAmountLabel: '💰 提现金额',
-                confirmWithdrawal: '✅ 确认提现',
-                historyTitle: '📋 提现记录',
-                noHistory: '没有提现记录。',
-                navInicio: '首页',
-                navOrdenes: '订单',
-                navContrato: '合同',
-                navTrabajo: '工作',
-                navMi: '我的',
-                logout: '退出',
-                regError: '⚠️ 请填写所有字段。',
-                loginError: '❌ 用户名/电话或密码错误。',
-                noOrders: '没有完成的订单。',
-                orderHistory: '📋 订单历史',
-                orderCompleted: '订单完成于',
-                earned: '赚取',
-                completedAll: '🎉 恭喜！您已完成',
-                andEarned: '并赚取',
-                unlocked: '🔓 {level} 已解锁！',
-                notUnlocked: '❌ 此VIP级别尚未解锁。',
-                alreadyCompleted: '✅ 您已完成此级别的所有订单！',
-                selectBank: '⚠️ 请选择银行账户。',
-                validAmount: '⚠️ 请输入大于0的有效金额。',
-                insufficientBalance: '❌ 余额不足。您的余额是',
-                withdrawalSuccess: '✅ 向 {bank} 提现 {amount} 成功。',
-                registerSuccess: '✅ 账户 "{username}" 创建成功！获得 {amount} 欢迎奖励。',
-                loginSuccess: '🔓 欢迎回来，{username}！',
-                logoutSuccess: '👋 您已成功退出。',
-                comenzarSuccess: '🚀 您已开始新工作！+{amount}',
-                recargarSuccess: '📥 充值成功！+{amount}',
-                goToWithdraw: '📤 请前往"我的"部分进行提现。',
-                userIdLabel: '🆔 用户ID',
-                copyBtn: '📋 复制',
-                copied: '✅ ID已复制到剪贴板',
-                orderCompletedTitle: '订单完成！',
-                orderCompletedSub: '您已成功完成订单',
-                orderCount: '订单 #{count} / {total} 已完成',
-                noOrdersHistory: '还没有完成的订单。',
-                orderHistoryLabel: '📋 订单历史',
-                requiresCompleting: '需要完成',
-                orders: '订单',
-                completed: '已完成',
-                locked: '已锁定',
-                completeOrder: '完成订单',
-                investment: '投资',
-                commission: '佣金',
-                perOrder: '每订单',
-                contratoHeroTitle: '信任合同',
-                contratoHeroSub: '您的安全是我们的第一要务',
-                contratoGrid1: '100% 安全',
-                contratoGrid1Desc: '加密数据',
-                contratoGrid2: '快速提现',
-                contratoGrid2Desc: '最多24小时',
-                contratoGrid3: '保护',
-                contratoGrid3Desc: '防止欺诈',
-                contratoGrid4: '透明',
-                contratoGrid4Desc: '无隐藏费用',
-                garantiasSection: '🛡️ 我们的保障',
-                garantiaList1: '所有交易100%透明',
-                garantiaList2: '多语言24/7客户支持',
-                garantiaList3: '提现在24小时内处理',
-                garantiaList4: '严格政策下的个人数据保护',
-                garantiaList5: '无隐藏费用或额外收费',
-                garantiaList6: '高级加密的银行安全',
-                compromisosTitle: '🤝 我们的承诺',
-                compromiso1: '遵守所有现行法律法规',
-                compromiso2: '保证您资金的完整性',
-                compromiso3: '提供卓越的用户体验',
-                compromiso4: '不断更新我们的安全系统',
-                compromiso5: '倾听并处理您的所有建议',
-                beneficiosTitle: '⭐ 独家福利',
-                beneficio1: 'VIP 1: 每笔订单30%佣金',
-                beneficio2: 'VIP 2: 35%佣金 + 额外奖金',
-                beneficio3: 'VIP 3: 40%佣金 + 优先访问',
-                beneficio4: 'VIP 4: 45%佣金 + 高级支持',
-                beneficio5: 'VIP 5: 50%佣金 + 即时提现',
-                beneficio6: 'VIP 6: 55%佣金 + 独家福利',
-                trabajoTitle: '💼 工作',
-                trabajoSubtitle: '在 Shein 寻找工作机会。',
-                trabajoItem1: '📱 数字营销',
-                trabajoItem1Desc: '通过推广产品赚钱。',
-                trabajoItem2: '💻 客户服务',
-                trabajoItem2Desc: '帮助我们的用户解答问题。',
-                trabajoItem3: '📊 数据分析师',
-                trabajoItem3Desc: '分析用户行为。',
-                trabajoItem4: '🛒 在线销售',
-                trabajoItem4Desc: '销售产品赚取佣金。',
-                trabajoItem5: '📝 内容创作者',
-                trabajoItem5Desc: '为我们的平台创作内容。'
             }
         };
 
@@ -2595,7 +2320,7 @@
             document.querySelectorAll('.id-label').forEach(el => el.textContent = t.userIdLabel || '🆔 ID de usuario');
             document.querySelectorAll('.id-copy').forEach(el => el.textContent = t.copyBtn || '📋 Copiar');
 
-            // Contrato
+            // Contrato translations
             document.querySelector('.contrato-hero-title').textContent = t.contratoHeroTitle;
             document.querySelector('.contrato-hero-sub').textContent = t.contratoHeroSub;
             const gridItems = document.querySelectorAll('.contrato-grid .grid-item');
@@ -2639,7 +2364,7 @@
                 });
             }
 
-            // Trabajo
+            // Trabajo translations
             document.querySelector('.trabajo-title').textContent = t.trabajoTitle || '💼 Trabajo';
             document.querySelector('.trabajo-subtitle').textContent = t.trabajoSubtitle ||
                 'Encuentra oportunidades de trabajo en Shein.';
@@ -2804,7 +2529,7 @@
         }
 
         // ============================================================
-        //  REGISTER / LOGIN / LOGOUT
+        //  ✅ REGISTER / LOGIN / LOGOUT (FIXED)
         // ============================================================
         async function handleRegister() {
             const phone = document.getElementById('regPhone').value.trim();
@@ -2820,8 +2545,10 @@
                 document.getElementById('regError').style.display = 'none';
             }
 
+            // ✅ Generar ID único de 7 dígitos
             const userId = generateUserId();
 
+            // ✅ Preparar datos del usuario
             userData.userId = userId;
             userData.username = username;
             userData.phone = phone;
@@ -2842,9 +2569,8 @@
             userData.frozen = false;
             userData.registrationDate = new Date().toISOString();
             userData.ipAddress = getRandomIP();
-            orderHistory = [];
-            orderCounter = 0;
 
+            // ✅ Reset VIP Orders
             const vipKeys = ['vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6'];
             vipKeys.forEach((key, index) => {
                 userData.vipOrders[key].completedOrders = 0;
@@ -2853,27 +2579,44 @@
                 userData.vipLevels[key].active = (index === 0);
             });
 
-            const saved = await saveUserToSupabase(userData);
-            if (!saved) {
-                showMessage('❌ Error al guardar en la nube. Intenta de nuevo.', false);
-                return;
+            try {
+                // ✅ Guardar en Supabase
+                const saved = await saveUserToSupabase(userData);
+
+                if (!saved) {
+                    showMessage('❌ Error al guardar en la nube. Intenta de nuevo.', false);
+                    return;
+                }
+
+                // ✅ Mostrar Dashboard (REDIRECCIÓN DIRECTA)
+                document.getElementById('registerForm').classList.remove('active');
+                document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('active');
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+
+                // ✅ Actualizar IDs en pantalla
+                document.getElementById('userIdDisplay').textContent = userData.userId;
+                document.getElementById('miUserId').textContent = userData.userId;
+                document.getElementById('contratoUserId').textContent = userData.userId;
+
+                // ✅ Actualizar datos del dashboard
+                updateDashboard();
+                renderVIPOrders();
+                updateSyncStatus(true);
+
+                // ✅ Mostrar mensaje de éxito
+                showMessage(t.registerSuccess.replace('{username}', username).replace('{amount}', formatCurrency(10.00)),
+                    true);
+
+                // ✅ Switchear a la página de Inicio
+                const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+                switchPage('inicioPage', navItems[0]);
+
+            } catch (error) {
+                console.error('❌ Register Error:', error);
+                showMessage('❌ Error al registrar: ' + error.message, false);
             }
-
-            document.getElementById('registerForm').classList.remove('active');
-            document.getElementById('registerForm').classList.add('hidden');
-            document.getElementById('loginForm').classList.remove('active');
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
-
-            document.getElementById('userIdDisplay').textContent = userData.userId;
-            document.getElementById('miUserId').textContent = userData.userId;
-            document.getElementById('contratoUserId').textContent = userData.userId;
-
-            updateDashboard();
-            renderVIPOrders();
-            updateSyncStatus(true);
-            showMessage(t.registerSuccess.replace('{username}', username).replace('{amount}', formatCurrency(10.00)),
-                true);
         }
 
         async function handleLogin() {
@@ -2914,6 +2657,7 @@
 
                 document.getElementById('loginError').style.display = 'none';
 
+                // ✅ Cargar datos del usuario
                 Object.assign(userData, {
                     username: found.username,
                     phone: found.phone,
@@ -2932,15 +2676,18 @@
                     isLoggedIn: true
                 });
 
+                // ✅ Restaurar VIP Orders
                 if (found.vip_orders) Object.assign(userData.vipOrders, found.vip_orders);
                 if (found.vip_levels) Object.assign(userData.vipLevels, found.vip_levels);
 
+                // ✅ Mostrar Dashboard
                 document.getElementById('registerForm').classList.remove('active');
                 document.getElementById('registerForm').classList.add('hidden');
                 document.getElementById('loginForm').classList.remove('active');
                 document.getElementById('loginForm').classList.add('hidden');
                 document.getElementById('dashboard').classList.remove('hidden');
 
+                // ✅ Actualizar IDs
                 document.getElementById('userIdDisplay').textContent = userData.userId;
                 document.getElementById('miUserId').textContent = userData.userId;
                 document.getElementById('contratoUserId').textContent = userData.userId;
@@ -2948,7 +2695,8 @@
                 updateDashboard();
                 renderVIPOrders();
                 updateSyncStatus(true);
-                // Switch to inicio page
+
+                // ✅ Switchear a Inicio
                 const navItems = document.querySelectorAll('.bottom-nav .nav-item');
                 switchPage('inicioPage', navItems[0]);
                 showMessage(t.loginSuccess.replace('{username}', userData.username), true);
