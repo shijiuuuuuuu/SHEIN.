@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shein - Admin Panel (Supabase)</title>
+    <title>Shein - Admin Panel</title>
     
     <!-- ===== SUPABASE SDK ===== -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
     </script>
 
     <style>
-        /* ============================================================
-           ESTILOS COMPLETOS
-           ============================================================ */
+        /* ========== RESET Y ESTILOS BASE ========== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -76,7 +74,6 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            flex-wrap: wrap;
         }
 
         .admin-header .user-info .badge {
@@ -88,27 +85,22 @@
             color: #fff;
         }
 
-        .admin-header .user-info .sync-status {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.75rem;
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #ddd;
             color: #888;
-            padding: 4px 12px;
+            padding: 6px 16px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-outline:hover {
             background: #f8f9fa;
-            border-radius: 20px;
-        }
-
-        .admin-header .user-info .sync-status .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
-            background: #00b894;
-        }
-
-        .admin-header .user-info .sync-status .dot.offline {
-            background: #d63031;
+            border-color: #ff6b6b;
+            color: #2d3436;
         }
 
         .btn {
@@ -165,24 +157,13 @@
             background: #f9ca24;
         }
 
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #ddd;
-            color: #888;
-        }
-
-        .btn-outline:hover {
-            background: #f8f9fa;
-            border-color: #ff6b6b;
-            color: #2d3436;
-        }
-
         .btn-sm {
             padding: 4px 12px;
             font-size: 0.7rem;
+            width: auto;
         }
 
-        /* ===== TABS ===== */
+        /* ========== TABS ========== */
         .admin-tabs {
             display: flex;
             gap: 5px;
@@ -205,7 +186,7 @@
             font-size: 0.8rem;
             cursor: pointer;
             transition: 0.3s;
-            min-width: 70px;
+            min-width: 80px;
         }
 
         .admin-tabs .tab-btn.active {
@@ -223,7 +204,7 @@
             margin-right: 5px;
         }
 
-        /* ===== PANELS ===== */
+        /* ========== PANELS ========== */
         .panel {
             display: none;
             animation: fadeSlide 0.4s ease;
@@ -261,7 +242,7 @@
             color: #888;
         }
 
-        /* ===== SEARCH ===== */
+        /* ========== SEARCH BOX ========== */
         .search-box {
             display: flex;
             gap: 10px;
@@ -285,9 +266,14 @@
         .search-box input:focus {
             border-color: #ff6b6b;
             box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
+            background: #fff;
         }
 
-        /* ===== USER RESULT ===== */
+        .search-box input::placeholder {
+            color: #aaa;
+        }
+
+        /* ========== USER RESULT CARD ========== */
         .user-result-card {
             background: #f8f9fa;
             border-radius: 16px;
@@ -346,6 +332,7 @@
             color: white;
         }
 
+        /* ========== USER INFO GRID ========== */
         .user-info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -365,6 +352,7 @@
             color: #888;
             text-transform: uppercase;
             font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .user-info-grid .info-item .value {
@@ -372,25 +360,30 @@
             font-weight: 700;
             color: #2d3436;
             margin-top: 3px;
+            word-break: break-all;
         }
 
         .user-info-grid .info-item .value.green {
             color: #00b894;
         }
+
         .user-info-grid .info-item .value.purple {
             color: #6c5ce7;
         }
+
         .user-info-grid .info-item .value.orange {
             color: #fdcb6e;
         }
+
         .user-info-grid .info-item .value.red {
             color: #d63031;
         }
+
         .user-info-grid .info-item .value.blue {
             color: #0984e3;
         }
 
-        /* ===== USER ACTIONS ===== */
+        /* ========== USER ACTIONS ========== */
         .user-actions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -454,7 +447,7 @@
             white-space: nowrap;
         }
 
-        /* ===== BANK ===== */
+        /* ========== BANK ACCOUNTS ========== */
         .bank-section {
             margin-top: 15px;
             padding-top: 15px;
@@ -513,7 +506,57 @@
             border-radius: 10px;
         }
 
-        /* ===== USER LIST ===== */
+        /* ========== NOT FOUND ========== */
+        .not-found {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 2px dashed #ddd;
+            display: none;
+        }
+
+        .not-found.show {
+            display: block;
+        }
+
+        .not-found .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        /* ========== MESSAGE ========== */
+        .message {
+            padding: 10px 15px;
+            border-radius: 12px;
+            margin: 10px 0;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .message.success {
+            display: block;
+            background: #e0f7f1;
+            border: 1px solid #00b894;
+            color: #00a381;
+        }
+
+        .message.error {
+            display: block;
+            background: #ffeaa7;
+            border: 1px solid #d63031;
+            color: #c0392b;
+        }
+
+        .message.info {
+            display: block;
+            background: #dfe6e9;
+            border: 1px solid #0984e3;
+            color: #0652DD;
+        }
+
+        /* ========== USER LIST ========== */
         .user-list-container {
             max-height: 500px;
             overflow-y: auto;
@@ -586,57 +629,7 @@
             width: auto;
         }
 
-        /* ===== MESSAGE ===== */
-        .message {
-            padding: 10px 15px;
-            border-radius: 12px;
-            margin: 10px 0;
-            display: none;
-            font-size: 0.9rem;
-        }
-
-        .message.success {
-            display: block;
-            background: #e0f7f1;
-            border: 1px solid #00b894;
-            color: #00a381;
-        }
-
-        .message.error {
-            display: block;
-            background: #ffeaa7;
-            border: 1px solid #d63031;
-            color: #c0392b;
-        }
-
-        .message.info {
-            display: block;
-            background: #dfe6e9;
-            border: 1px solid #0984e3;
-            color: #0652DD;
-        }
-
-        /* ===== NOT FOUND ===== */
-        .not-found {
-            text-align: center;
-            padding: 30px;
-            color: #888;
-            background: #f8f9fa;
-            border-radius: 12px;
-            border: 2px dashed #ddd;
-            display: none;
-        }
-
-        .not-found.show {
-            display: block;
-        }
-
-        .not-found .icon {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        /* ===== LOGIN ===== */
+        /* ========== LOGIN OVERLAY ========== */
         .login-overlay {
             position: fixed;
             top: 0;
@@ -718,17 +711,20 @@
             margin-top: 10px;
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* ========== RESPONSIVE ========== */
         @media (max-width: 768px) {
             .container {
                 padding: 18px;
             }
+
             .user-info-grid {
                 grid-template-columns: 1fr 1fr;
             }
+
             .user-actions-grid {
                 grid-template-columns: 1fr 1fr;
             }
+
             .admin-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -739,43 +735,55 @@
             .container {
                 padding: 15px;
             }
+
             .admin-tabs .tab-btn {
                 font-size: 0.65rem;
                 padding: 6px 4px;
                 min-width: 45px;
             }
+
             .admin-tabs .tab-btn .tab-label {
                 display: none;
             }
+
             .search-box {
                 flex-direction: column;
             }
+
             .search-box .btn {
                 width: 100%;
             }
+
             .user-info-grid {
                 grid-template-columns: 1fr;
             }
+
             .user-actions-grid {
                 grid-template-columns: 1fr;
             }
+
             .user-actions-grid .action-group .input-group {
                 flex-direction: column;
             }
+
             .user-actions-grid .action-group .input-group .btn {
                 width: 100%;
             }
+
             .user-result-card .user-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
+
             .user-card {
                 flex-direction: column;
                 align-items: stretch;
             }
+
             .user-card .user-actions {
                 justify-content: center;
             }
+
             .login-box {
                 padding: 25px;
                 margin: 20px;
@@ -821,10 +829,6 @@
                 <span class="badge-cloud">☁️ Connected</span>
             </div>
             <div class="user-info">
-                <div class="sync-status">
-                    <span class="dot" id="syncDot"></span>
-                    <span id="syncText">Sincronizado</span>
-                </div>
                 <span class="badge">🔒 Sesión activa</span>
                 <button class="btn btn-outline btn-sm" onclick="adminLogout()">🚪 Cerrar sesión</button>
             </div>
@@ -1108,7 +1112,6 @@
                 document.getElementById('adminPanel').style.display = 'block';
                 loadUsers();
                 showMessage('✅ Sesión iniciada - Conectado a Supabase', 'success');
-                updateSyncStatus(true);
             } else {
                 errorEl.style.display = 'block';
                 errorEl.textContent = '❌ Usuario o contraseña incorrectos';
@@ -1118,25 +1121,6 @@
         function adminLogout() {
             document.getElementById('loginOverlay').classList.remove('hidden');
             document.getElementById('adminPanel').style.display = 'none';
-        }
-
-        // ============================================================
-        //  SYNC STATUS
-        // ============================================================
-        function updateSyncStatus(online) {
-            const dot = document.getElementById('syncDot');
-            const text = document.getElementById('syncText');
-            if (online) {
-                dot.className = 'dot';
-                text.textContent = 'Sincronizado';
-                document.getElementById('connDot').style.background = '#00b894';
-                document.getElementById('connText').textContent = 'Conectado a Supabase';
-            } else {
-                dot.className = 'dot offline';
-                text.textContent = 'Desconectado';
-                document.getElementById('connDot').style.background = '#d63031';
-                document.getElementById('connText').textContent = 'Desconectado';
-            }
         }
 
         // ============================================================
@@ -1152,20 +1136,17 @@
                 if (error) {
                     console.error('❌ Error loading users:', error);
                     showMessage('❌ Error al cargar usuarios: ' + error.message, 'error');
-                    updateSyncStatus(false);
                     return;
                 }
 
                 adminData.users = data || [];
                 renderUsers(adminData.users);
                 renderStats(adminData.users);
-                updateSyncStatus(true);
                 console.log('✅ Users loaded:', adminData.users.length);
 
             } catch (err) {
                 console.error('❌ Error:', err);
                 showMessage('❌ Error de conexión con Supabase', 'error');
-                updateSyncStatus(false);
             }
         }
 
@@ -1217,7 +1198,6 @@
         // ============================================================
         async function updateBalance(userId, amount) {
             try {
-                // Primero obtener el usuario actual
                 const { data: userData, error: fetchError } = await supabaseClient
                     .from('users')
                     .select('balance')
@@ -1452,7 +1432,6 @@
 
             await updateBalance(userId, amount);
             amountInput.value = '';
-            // Recargar el resultado
             await searchUser();
         }
 
@@ -1561,7 +1540,6 @@
             const userId = getCurrentUserId();
             if (!userId) return;
 
-            // Buscar el usuario en la lista actual
             const user = adminData.users.find(u => u.user_id === userId);
             if (!user) {
                 showMessage('❌ Usuario no encontrado', 'error');
@@ -1630,7 +1608,6 @@
                 return;
             }
 
-            // Generar ID único de 7 dígitos
             const userId = String(Math.floor(Math.random() * 9000000 + 1000000));
 
             const newUser = {
@@ -1663,7 +1640,6 @@
                 showMessage(`✅ Usuario "${username}" creado con éxito! ID: ${userId}`, 'success');
                 loadUsers();
 
-                // Limpiar formulario
                 document.getElementById('newUsername').value = '';
                 document.getElementById('newPhone').value = '';
                 document.getElementById('newPassword').value = '';
@@ -1764,14 +1740,11 @@
 
                 if (error) {
                     console.log('⚠️ Error de conexión:', error.message);
-                    updateSyncStatus(false);
                 } else {
                     console.log('✅ Conectado a Supabase');
-                    updateSyncStatus(true);
                 }
             } catch (err) {
                 console.log('⚠️ Error de conexión:', err.message);
-                updateSyncStatus(false);
             }
         })();
     </script>
