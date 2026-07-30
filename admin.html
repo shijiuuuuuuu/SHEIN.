@@ -885,7 +885,7 @@
             </div>
 
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Ej: 8732294 o 938218405">
+                <input type="text" id="searchInput" placeholder="Ej: 8019398 o 938218405">
                 <button class="btn btn-primary" onclick="searchUser()">🔍 Buscar</button>
                 <button class="btn btn-outline" onclick="clearSearch()">🗑️ Limpiar</button>
             </div>
@@ -903,7 +903,7 @@
                         <div style="font-size:0.8rem; color:#888; margin-top:2px;" id="resultUserPhone">📱 +51 938218405</div>
                     </div>
                     <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                        <span class="user-id-badge" id="resultUserId">🆔 8732294</span>
+                        <span class="user-id-badge" id="resultUserId">🆔 8019398</span>
                         <span class="user-status-badge active" id="resultStatusBadge">✅ Activo</span>
                     </div>
                 </div>
@@ -1446,7 +1446,7 @@
             let foundIndex = -1;
 
             adminData.users.forEach((user, index) => {
-                // ✅ Buscar por ID (exacto) o por teléfono
+                // ✅ Buscar por ID (exacto) o por teléfono o username
                 if (user.userId === searchTerm || user.phone === searchTerm || user.username === searchTerm) {
                     foundIndex = index;
                 }
